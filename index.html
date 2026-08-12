@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>孝女制造·导考助手 · 英文导游证·广西考区</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Top Header -->
+    <header class="main-header">
+      <div class="brand-section">
+        <h1 class="brand-title">孝女制造·导考助手</h1>
+        <span class="brand-subtitle">英文导游证 · 广西考区</span>
+      </div>
+      <nav class="nav-tabs" id="main-nav-tabs">
+        <button class="tab-btn active" data-tab="interview">背诵导游词</button>
+        <button class="tab-btn" data-tab="practice">刷题</button>
+        <button class="tab-btn" data-tab="cards">专题讲解</button>
+        <button class="tab-btn" data-tab="skills">考试技巧</button>
+        <button class="tab-btn" data-tab="resources">资料下载</button>
+      </nav>
+    </header>
+
+    <!-- Sub Navigation Container for 背诵导游词 (Category & Spot Chips) -->
+    <div class="sub-nav-container" id="sub-nav-wrapper" style="display: none;">
+      <!-- Category Filter Folding Tabs (For 英文导游词) -->
+      <div class="cat-filter-tabs" id="cat-filter-container">
+        <!-- Injected via JavaScript -->
+      </div>
+
+      <!-- Spot Selection Chips (For 英文导游词) -->
+      <div class="spot-nav-tabs" id="spot-chips-container">
+        <!-- Injected via JavaScript -->
+      </div>
+    </div>
+
+    <!-- MAIN CONTENT VIEW -->
+    <main id="main-content-area">
+      <!-- 0. 刷题 VIEW -->
+      <section id="view-practice" class="view-section" style="display: none;">
+        <div class="card practice-header-card">
+          <div class="practice-header-row">
+            <h2 class="section-heading">真题特训刷题库</h2>
+            <div class="practice-mode-toggle" id="practice-mode-toggle">
+              <button class="action-btn active" id="btn-mode-card">卡片翻页</button>
+              <button class="action-btn" id="btn-mode-list">全量列表</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="cat-filter-tabs" id="practice-category-tabs" style="margin-bottom: 16px;"></div>
+
+        <!-- 刷题模式 A: 逐题卡片翻页 -->
+        <div class="card" id="practice-main-card">
+          <div style="margin-bottom: 10px;">
+            <span class="qa-tag-badge" id="practice-tag-badge" style="background: #eef2ff; color: #3b82f6; border: 1px solid #bfdbfe; font-weight: 600;"></span>
+          </div>
+
+          <h3 class="qa-question-title" style="font-size: 17px; margin-bottom: 6px; color: #1a1a1a;" id="practice-en-question">Loading...</h3>
+          <div style="font-size: 14.5px; color: #666; font-weight: 500; margin-bottom: 14px;" id="practice-cn-question"></div>
+
+          <div style="display: flex; gap: 12px; margin-bottom: 14px; flex-wrap: wrap; align-items: center;">
+            <button class="action-btn" id="btn-practice-listen">🔊 听题</button>
+            <button class="play-main-btn" id="btn-practice-toggle-ans" style="padding: 6px 16px; font-size: 13px;">参考答案</button>
+          </div>
+
+          <div class="ref-answer-box" id="practice-ref-box" style="display: none; margin-bottom: 16px;">
+            <div class="ref-answer-title">参考答案：</div>
+            <div class="ref-answer-text" id="practice-ref-text"></div>
+          </div>
+
+          <div class="ai-dialog-box">
+            <div class="ai-dialog-title">✍️ 考场作答训练</div>
+            <textarea class="user-input-textarea" id="practice-user-input" placeholder="在此输入你的英文回答或作答要点..."></textarea>
+          </div>
+
+          <div class="page-nav-bar" style="margin-top: 20px;">
+            <button class="btn-nav-prev" id="btn-practice-prev">← 上一题</button>
+            <button class="btn-nav-next" id="btn-practice-next">下一题 →</button>
+          </div>
+        </div>
+
+        <!-- 刷题模式 B: 迁移过来的全量问答题库列表容器 -->
+        <div id="practice-list-container" style="display: none;"></div>
+      </section>
+
+      <!-- 1. 知识卡 VIEW -->
+      <section id="view-cards" class="view-section" style="display: none;">
+        <div class="card section-header-card section-header-warm">
+          <h2 class="section-heading section-heading-red">《24广西英导词》专题讲解</h2>
+        </div>
+
+        <div class="cat-filter-tabs" id="cards-category-tabs" style="margin-bottom: 16px;"></div>
+        <div id="cards-content-container"></div>
+      </section>
+
+
+      <!-- 3. 背诵导游词 (英文导游词 PAGE VIEW) -->
+      <section id="view-speech" class="view-section" style="display: none;">
+        <div id="speech-cards-container"></div>
+      </section>
+
+      <!-- 7. 考试技巧 VIEW -->
+      <section id="view-skills" class="view-section" style="display: none;">
+        <div class="card section-header-card section-header-warm">
+          <h2 class="section-heading section-heading-red">《导游服务能力（导游词技巧）讲义》官方主题技巧库</h2>
+        </div>
+
+        <div class="cat-filter-tabs" id="skills-subject-tabs" style="margin-bottom: 16px;"></div>
+        <div id="skills-cards-container"></div>
+      </section>
+
+      <!-- 8. 复习资料概览 VIEW -->
+      <section id="view-resources" class="view-section" style="display: none;">
+        <div class="cat-filter-tabs" id="resource-category-tabs" style="margin-bottom: 12px;"></div>
+        <div class="spot-nav-tabs" id="resource-sub-tabs" style="margin-bottom: 16px;"></div>
+        <div class="card" style="padding: 0;">
+          <div id="resource-list-container"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="data.js" charset="UTF-8"></script>
+  <script src="app.js" charset="UTF-8"></script>
+</body>
+</html>
