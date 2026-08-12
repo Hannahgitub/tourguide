@@ -124,7 +124,8 @@ document.addEventListener('DOMContentLoaded', () => {
   function renderCardsView() {
     const tabsContainer = document.getElementById('cards-category-tabs');
     const container = document.getElementById('cards-content-container');
-    if (!tabsContainer || !container || !data.knowledgeCards) return;
+    const cardsData = data.knowledgeCards || data.topicLectures || [];
+    if (!tabsContainer || !container || cardsData.length === 0) return;
 
     const categories = ["历史文化", "民族风情", "特色物产", "自然山水", "康养长寿", "岭南海滨"];
 
@@ -146,8 +147,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function renderSelectedCardCategory() {
       container.innerHTML = '';
-      const matchingCards = data.knowledgeCards.filter(c => c.category === currentCardCategory);
-      const cardItem = matchingCards.length > 0 ? matchingCards[0] : data.knowledgeCards[0];
+      const matchingCards = cardsData.filter(c => c.category === currentCardCategory);
+      const cardItem = matchingCards.length > 0 ? matchingCards[0] : cardsData[0];
 
       if (!cardItem) return;
 
@@ -263,24 +264,26 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // --- PRACTICE HELPERS (module-scope so button listeners can call them) ---
   function getFilteredPracticeList() {
     let list = [];
     if (currentPracticeCategory === "英汉双向口译") {
-      list = data.translations.map(t => ({
+      list = (data.translations || []).map(t => ({
         type: t.type || 'E2C',
         tag: t.tag || (t.type === 'C2E' ? '汉译英' : '英译中'),
         cnQuestion: '',
-        question: t.src,
-        answer: t.ref,
-        spot: '英汉双向口译真题179题'
+        question: t.src || t.question || t.en || '',
+        answer: t.ref || t.answer || t.cn || '',
+        spot: '英汉双向口译真题178题'
       }));
     } else if (currentPracticeCategory.includes("应变")) {
-      list = data.questions.filter(q => q.officialCategory && q.officialCategory.includes("应变"));
+      list = (data.questions || []).filter(q => (q.officialCategory || q.category || "").includes("应变"));
     } else if (currentPracticeCategory.includes("综合")) {
-      list = data.questions.filter(q => q.officialCategory && q.officialCategory.includes("综合"));
+      list = (data.questions || []).filter(q => (q.officialCategory || q.category || "").includes("综合"));
     } else {
-      list = data.questions.filter(q => q.officialCategory && q.officialCategory.includes("业务"));
+      list = (data.questions || []).filter(q => {
+        const cat = q.officialCategory || q.category || "";
+        return cat.includes("业务") || (!cat.includes("应变") && !cat.includes("综合"));
+      });
     }
     return list;
   }
@@ -319,15 +322,28 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
-    document.getElementById('practice-en-question').textContent = qItem.question;
+    document.getElementById('practice-en-question').textContent = qItem.enQuestion || qItem.question;
     document.getElementById('practice-cn-question').textContent = qItem.cnQuestion || '';
-    let ansHTML = `<div style="white-space: pre-line; font-weight: 600; color: #2b6cb0;">${qItem.answer}</div>`;
+    
+    let ansHTML = `<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                     <span style="font-weight:700; color:#8c2522;">💡 参考答案：</span>
+                     <button class="action-btn" id="btn-practice-listen-ans" style="padding:4px 12px; font-size:12.5px;">🔊 听英文答案</button>
+                   </div>
+                   <div style="white-space: pre-line; font-weight: 600; color: #2b6cb0; line-height:1.6;">${qItem.answer}</div>`;
     if (qItem.cnAnswer) {
-      ansHTML += `<div style="white-space: pre-line; font-size: 13.5px; color: #555; margin-top: 8px; border-top: 1px dashed #cbd5e0; padding-top: 6px;">${qItem.cnAnswer}</div>`;
+      ansHTML += `<div style="white-space: pre-line; font-size: 13.5px; color: #555; margin-top: 8px; border-top: 1px dashed #cbd5e0; padding-top: 6px; line-height:1.6;">${qItem.cnAnswer}</div>`;
     }
     document.getElementById('practice-ref-text').innerHTML = ansHTML;
     document.getElementById('practice-ref-box').style.display = 'none';
     document.getElementById('practice-user-input').value = '';
+
+    const btnListenAns = document.getElementById('btn-practice-listen-ans');
+    if (btnListenAns) {
+      btnListenAns.addEventListener('click', () => {
+        const cleanAnsText = qItem.answer.replace(/<[^>]*>/g, '');
+        speakText(cleanAnsText);
+      });
+    }
   }
 
   // --- RENDER PRACTICE VIEW ---
@@ -349,7 +365,7 @@ document.addEventListener('DOMContentLoaded', () => {
         currentPracticeCategory = cat;
         currentPracticeIndex = 0;
         practiceHistory = [];
-        shuffledPracticeQueue = []; // 换分类时清空 shuffle 队列
+        shuffledPracticeQueue = [];
         document.querySelectorAll('#practice-category-tabs .cat-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         if (practiceViewMode === 'card') {
@@ -380,9 +396,9 @@ document.addEventListener('DOMContentLoaded', () => {
         card.className = 'card';
         card.style.marginBottom = '14px';
         
-        let ansContentHTML = `<div style="white-space: pre-line; font-weight: 600; color: #2b6cb0;">${qa.answer}</div>`;
+        let ansContentHTML = `<div style="white-space: pre-line; font-weight: 600; color: #2b6cb0; line-height:1.6;">${qa.answer}</div>`;
         if (qa.cnAnswer) {
-          ansContentHTML += `<div style="white-space: pre-line; font-size: 13.5px; color: #555; margin-top: 8px; border-top: 1px dashed #cbd5e0; padding-top: 6px;">${qa.cnAnswer}</div>`;
+          ansContentHTML += `<div style="white-space: pre-line; font-size: 13.5px; color: #555; margin-top: 8px; border-top: 1px dashed #cbd5e0; padding-top: 6px; line-height:1.6;">${qa.cnAnswer}</div>`;
         }
 
         const isC2E = qa.type === 'C2E' || qa.tag === '汉译英';
@@ -393,12 +409,13 @@ document.addEventListener('DOMContentLoaded', () => {
             <span style="font-size: 12px; color: #999; font-weight: 700; letter-spacing: 0.5px;">#${idx + 1}</span>
             <span class="qa-tag-badge" style="font-size: 12px; ${isC2E ? 'background:#fff7ed;color:#c2410c;border:1px solid #ffedd5;' : 'background:#eff6ff;color:#1d4ed8;border:1px solid #dbeafe;'}">${tagText}</span>
           </div>
-          <h3 class="qa-question-title" style="font-size: 16.5px; margin-bottom: 4px; color: #1a1a1a;">${qa.question}</h3>
+          <h3 class="qa-question-title" style="font-size: 16.5px; margin-bottom: 4px; color: #1a1a1a; font-weight: 700;">${qa.enQuestion || qa.question}</h3>
           ${qa.cnQuestion ? `<div style="font-size: 14px; color: #666; font-weight: 500; margin-bottom: 12px;">${qa.cnQuestion}</div>` : ''}
           
           <div style="display: flex; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; margin-top: 10px;">
             <button class="action-btn btn-qa-read" data-idx="${idx}">${isC2E ? '🔊 示范英文发音' : '🔊 听题'}</button>
             <button class="play-main-btn btn-qa-ans-toggle" data-idx="${idx}" style="padding: 5px 14px; font-size: 13px;">参考答案</button>
+            <button class="action-btn btn-qa-read-ans" data-idx="${idx}">🔊 听答案</button>
           </div>
 
           <div class="ref-answer-box" id="ref-box-${idx}" style="display: none; margin-top: 10px;">
@@ -416,28 +433,40 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       });
 
+      listContainer.querySelectorAll('.btn-qa-read-ans').forEach(btn => {
+        btn.addEventListener('click', e => {
+          const i = e.currentTarget.getAttribute('data-idx');
+          speakText(list[i].answer);
+        });
+      });
+
       listContainer.querySelectorAll('.btn-qa-ans-toggle').forEach(btn => {
         btn.addEventListener('click', e => {
           const i = e.currentTarget.getAttribute('data-idx');
           const box = document.getElementById(`ref-box-${i}`);
-          box.style.display = box.style.display === 'none' ? 'block' : 'none';
+          if (box) {
+            box.style.display = box.style.display === 'none' ? 'block' : 'none';
+          }
         });
       });
     }
   }
 
+  // --- RENDER SKILLS VIEW (考试技巧) ---
   function renderSkillsView() {
     const tabsContainer = document.getElementById('skills-subject-tabs');
     const cardsContainer = document.getElementById('skills-cards-container');
-    if (!tabsContainer || !cardsContainer || !data.skillsBySubject) return;
+    const skillsList = data.skillsBySubject || data.skillsSections || [];
+    if (!tabsContainer || !cardsContainer || skillsList.length === 0) return;
 
     tabsContainer.innerHTML = '';
-    data.skillsBySubject.forEach(subObj => {
+    skillsList.forEach(subObj => {
+      const subjectName = subObj.subject || subObj.category || subObj.title || "备考技巧";
       const btn = document.createElement('button');
-      btn.className = `cat-btn ${subObj.subject === currentSkillSubject ? 'active' : ''}`;
-      btn.textContent = subObj.subject;
+      btn.className = `cat-btn ${subjectName === currentSkillSubject ? 'active' : ''}`;
+      btn.textContent = subjectName;
       btn.addEventListener('click', () => {
-        currentSkillSubject = subObj.subject;
+        currentSkillSubject = subjectName;
         document.querySelectorAll('#skills-subject-tabs .cat-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         renderSelectedSkillSubject();
@@ -449,8 +478,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function renderSelectedSkillSubject() {
       cardsContainer.innerHTML = '';
-      if (!data.skillsBySubject || data.skillsBySubject.length === 0) return;
-      const selectedSub = data.skillsBySubject.find(s => s.subject === currentSkillSubject) || data.skillsBySubject[0];
+      if (skillsList.length === 0) return;
+      const selectedSub = skillsList.find(s => (s.subject || s.category || s.title) === currentSkillSubject) || skillsList[0];
+      const subjectName = selectedSub.subject || selectedSub.category || selectedSub.title || "备考技巧";
 
       const headerCard = document.createElement('div');
       headerCard.className = 'card';
@@ -551,6 +581,11 @@ document.addEventListener('DOMContentLoaded', () => {
           📖 共 ${speech.sections.length} 个讲解段落
         </span>
       </div>
+      ${speech.image ? `
+        <div style="margin-top: 14px; width: 100%; overflow: hidden; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+          <img src="${speech.image}" alt="${speech.name}" style="width: 100%; max-height: 360px; object-fit: cover; display: block; border-radius: 8px;" onerror="this.style.display='none'" />
+        </div>
+      ` : ''}
     `;
     container.appendChild(headerCard);
 
@@ -781,12 +816,10 @@ document.addEventListener('DOMContentLoaded', () => {
       
       let filteredFiles = data.fileList.filter(f => f.category === currentResourceCategory);
       if (currentResourceCategory === "英文景点与路线导游词") {
-        filteredFiles = filteredFiles.filter(f => (f.subCategory || "特色物产") === currentResourceSubCategory);
+        filteredFiles = filteredFiles.filter(f => f.subCategory === currentResourceSubCategory);
       }
 
-      const listToRender = filteredFiles.length > 0 ? filteredFiles : data.fileList.filter(f => f.category === currentResourceCategory);
-
-      listToRender.forEach(file => {
+      filteredFiles.forEach(file => {
         const item = document.createElement('div');
         item.className = 'resource-list-item';
         item.style.display = 'flex';

@@ -53,7 +53,12 @@ window.data = {
           "cn": "中文：各位游客朋友们，快乐的时光总是短暂，今天的花山岩画之旅即将结束。相信通过今天的游览，大家不仅领略了世界遗产的震撼之美，也对骆越文明和壮乡文化有了更深入的了解。花山岩画是祖先留给我们的宝贵财富，需要我们共同守护和传承。\n\n非常感谢大家一路上的配合与支持，若我在讲解中有任何不足之处，敬请谅解。希望花山岩画的神秘与壮美能成为大家心中难忘的记忆，也欢迎大家再次来到广西、来到崇左，探索更多的民族风情和自然奇观。最后，祝愿大家旅途愉快，一路平安！再见！"
         }
       ],
-      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/%E4%B8%89%E6%9C%88%E4%B8%89_4152.jpg/960px-%E4%B8%89%E6%9C%88%E4%B8%89_4152.jpg"
+      "images": [
+        "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1200&q=80",
+        "https://images.unsplash.com/photo-1578637387939-43c525550085?auto=format&fit=crop&w=1200&q=80",
+        "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=80"
+      ],
+      "image": "huashan.jpg"
     },
     {
       "id": "柳州 程阳八寨",
@@ -70,6 +75,11 @@ window.data = {
           "en": "English：Dear tourists, happy time always passes quickly, and today's trip to Chengyang Eight Villages is coming to an end. I believe that through today's tour, everyone has a deeper understanding and feeling of the history, culture, architectural art and folk customs of the Dong ethnic group. The simple charm of Chengyang Eight Villages and the enthusiasm and hospitality of the Dong people must have left a deep impression on everyone.\n\nDuring today's trip, thank you for your understanding, support and cooperation with my work. If there are any shortcomings in my explanation, please forgive me. I hope the beautiful scenery and culture of Chengyang Eight Villages can become a good memory in everyone's heart. You are also welcome to come to Guangxi, Liuzhou and Chengyang Eight Villages again. I am very happy to be your guide again. Finally, I wish you a safe journey, good health and all the best! Goodbye!",
           "cn": "中文：各位游客朋友们，快乐的时光总是过得很快，今天的程阳八寨之行即将结束了。相信通过今天的游览，大家对侗族的历史文化、建筑艺术和民俗风情都有了更深入的了解和感受。程阳八寨的古朴韵味、侗族人民的热情好客，一定给大家留下了深刻的印象。\n\n在今天的行程中，感谢大家对我工作的理解、支持和配合。如果我在讲解过程中有什么不足之处，还请大家多多包涵。希望程阳八寨的美景和文化能成为大家心中一段美好的回忆。也欢迎大家再次来到广西，来到柳州，来到程阳八寨，我很乐意再次成为大家的导游。最后，祝大家一路平安，身体健康，万事如意！再见！"
         }
+      ],
+      "images": [
+        "https://upload.wikimedia.org/wikipedia/commons/a/a2/Chengyangqiao%2C_Guangxi%2C_China.jpg",
+        "https://images.unsplash.com/photo-1508804185872-d7badad00f7d?auto=format&fit=crop&w=1200&q=80",
+        "https://images.unsplash.com/photo-1528164344705-47542687990d?auto=format&fit=crop&w=1200&q=80"
       ],
       "image": "https://upload.wikimedia.org/wikipedia/commons/a/a2/Chengyangqiao%2C_Guangxi%2C_China.jpg"
     },
@@ -99,6 +109,11 @@ window.data = {
           "cn": "中文：各位游客，今天的两江四湖·象山之旅即将结束。相信桂林的山之秀、水之清，以及象山的千年底蕴，已经深深印在大家心中。临别之际，希望大家带上桂林米粉的鲜香、罗汉果的清甜，以及这份山水情缘。感谢大家的配合与信任，祝愿大家归途顺利，身体健康，期待在这片山水间与大家再次相逢！"
         }
       ],
+      "images": [
+        "https://upload.wikimedia.org/wikipedia/commons/a/a7/Elephant_Trunk_Hill.jpg",
+        "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1200&q=80",
+        "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80"
+      ],
       "image": "https://upload.wikimedia.org/wikipedia/commons/a/a7/Elephant_Trunk_Hill.jpg"
     },
     {
@@ -116,6 +131,11 @@ window.data = {
           "en": "English：Dear tourists, happy time always passes quickly, and our Lijiang River tour today is coming to an end. I believe that the green mountains and clear waters, exotic peaks and stones of the Lijiang River, as well as the folk customs of Guilin, Guangxi, have all left a deep impression on everyone. During this journey, thank you for your understanding, support and cooperation with my work. If there is any inadequacy in my service, please forgive me.\n\nParting is for a better reunion. Guilin and Lijiang River will always open their arms to everyone. I hope that after you go back, you can share the beautiful scenery and stories here with your relatives and friends around you. I also look forward to meeting you again on this picturesque land one day in the future. Finally, I wish you a safe journey, good health and all the best! Goodbye!",
           "cn": "中文：各位游客朋友们，快乐的时光总是过得飞快，我们今天的漓江之旅即将结束了。相信漓江的青山碧水、奇峰异石，还有广西桂林的民俗风情，都给大家留下了深刻的印象。在这段旅程中，感谢大家对我工作的理解、支持和配合，如果我有任何服务不周的地方，还请大家多多包涵。\n\n离别是为了更好的重逢，桂林和漓江永远向大家敞开怀抱。希望大家回去后，能把这里的美景和故事分享给身边的亲朋好友，也期待在未来的某一天，我们能再次相聚在这片如诗如画的土地上。最后，祝愿大家一路平安，身体健康，万事如意！再见！"
         }
+      ],
+      "images": [
+        "https://upload.wikimedia.org/wikipedia/commons/9/92/1_li_jiang_guilin_yangshuo_2011.jpg",
+        "https://images.unsplash.com/photo-1543097692-fa13c5cd2575?auto=format&fit=crop&w=1200&q=80",
+        "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80"
       ],
       "image": "https://upload.wikimedia.org/wikipedia/commons/9/92/1_li_jiang_guilin_yangshuo_2011.jpg"
     },
@@ -140,6 +160,11 @@ window.data = {
           "cn": "中文：各位游客，今天的青秀山之旅即将结束。相信这座集绿意与文脉于一体的宝山，给大家留下了深刻印象——无论是苏铁园的生机、龙象塔的壮阔，还是王阳明石刻的厚重，都承载着南宁的自然与人文密码。感谢大家一路上的配合与聆听，若有机会，欢迎再次来到“中国绿城”，探寻更多广西的山水风情。最后，祝愿大家旅途顺利，平安喜乐，再见！"
         }
       ],
+      "images": [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/%E4%B8%9C%E7%9B%9F%E5%8F%8B%E8%B0%8A%E9%95%BF%E5%BB%8A_1.jpg/960px-%E4%B8%9C%E7%9B%9F%E5%8F%8B%E8%B0%8A%E9%95%BF%E5%BB%8A_1.jpg",
+        "https://images.unsplash.com/photo-1519331379826-f10be5486c6f?auto=format&fit=crop&w=1200&q=80",
+        "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=80"
+      ],
       "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/%E4%B8%9C%E7%9B%9F%E5%8F%8B%E8%B0%8A%E9%95%BF%E5%BB%8A_1.jpg/960px-%E4%B8%9C%E7%9B%9F%E5%8F%8B%E8%B0%8A%E9%95%BF%E5%BB%8A_1.jpg"
     },
     {
@@ -162,8 +187,7 @@ window.data = {
           "en": "Dear tourists, our \"Journey of Fantastic Peaks and Beautiful Waters\" is coming to an end. I believe the tranquility of Yangshuo Yulong River, the mystery of Tianshu Gorge and the grandeur of Dayao Mountain have been deeply imprinted in everyone's mind. This journey not only allowed us to appreciate the magic of Guangxi's mountains and waters, but also felt the charm of multi-ethnic culture. Thank you very much for your cooperation and support along the way. Please forgive me if there is any inadequacy in my service. Guangxi's mountains and waters are always open to everyone. We look forward to your visit again. Wish you a safe and pleasant journey!",
           "cn": "各位游客朋友们，我们的“奇峰秀水之旅”到这里就要告一段落了。相信阳朔遇龙河的静谧、天书侠谷的神秘、大瑶山的壮美已经深深印在大家的脑海里。这段旅程不仅让我们领略了广西山水的神奇，更感受到了多民族文化的魅力。非常感谢大家一路上的配合与支持，如有照顾不周的地方还请多多包涵。广西的山水永远向大家敞开怀抱，期待大家再次光临，祝大家一路平安，旅途愉快！"
         }
-      ],
-      "image": "https://upload.wikimedia.org/wikipedia/commons/9/92/1_li_jiang_guilin_yangshuo_2011.jpg"
+      ]
     },
     {
       "id": "广西 喀斯特探秘之旅",
@@ -185,8 +209,7 @@ window.data = {
           "en": "Dear tourists, our \"Karst Exploration Journey\" is coming to an end. From the classic karst landscapes in Guilin to the original ecological secrets in Hechi, I believe everyone has fallen in love with the mountains and waters of Guangxi. During this trip, thank you for your cooperation and support. I also hope that the mountains, waters and culture of Guangxi can leave you good memories. There is no feast that never ends. I wish you a safe journey and look forward to meeting you again!",
           "cn": "各位游客朋友们，我们的“喀斯特探秘之旅”即将结束。从桂林的经典喀斯特景观到河池的原始生态秘境，相信大家已经深深爱上了广西的山水。这段旅程中，感谢大家的配合与支持，也希望广西的山水与文化能给大家留下美好的回忆。天下没有不散的筵席，祝愿大家一路平安，期待与大家再次相逢！"
         }
-      ],
-      "image": "https://upload.wikimedia.org/wikipedia/commons/9/92/1_li_jiang_guilin_yangshuo_2011.jpg"
+      ]
     },
     {
       "id": "广西北部湾滨海之旅",
@@ -208,8 +231,7 @@ window.data = {
           "en": "Dear friends, our \"Beibu Gulf Coastal Tour\" is coming to an end. We've experienced the softness of Silver Beach, the magic of Weizhou Island, the cuteness of dolphins in Sanniang Bay and the passion of Bailang Beach. I hope this journey has left you beautiful memories. Thank you for your cooperation and support. Wish you a safe trip and welcome to Guangxi again!",
           "cn": "各位朋友们，我们的“北部湾滨海之旅”即将结束。我们一同感受了银滩的柔软、涠洲岛的神奇、三娘湾海豚的可爱和白浪滩的激情。希望这段旅程给大家留下了美好的回忆。感谢大家的配合与支持，祝大家一路平安，欢迎再次来到广西！"
         }
-      ],
-      "image": "https://upload.wikimedia.org/wikipedia/commons/9/92/1_li_jiang_guilin_yangshuo_2011.jpg"
+      ]
     },
     {
       "id": "广西 三月三风情之旅",
@@ -231,8 +253,7 @@ window.data = {
           "en": "English：Dear tourists, our \"March 3rd Folk Custom Tour\" is coming to an end. From the flying folk songs in Nanning to the pastoral poetry in Chongzuo, and then to the deep affection of hydrangeas in Baise, I believe everyone has deeply felt the beauty of Guangxi's mountains and rivers and the charm of ethnic groups. During this journey, thank you for your cooperation and support. The door of Guangxi is always open for you. You are welcome to come back to this vibrant land again. Wish you a safe journey and all the best!",
           "cn": "中文：各位游客朋友们，我们的“三月三风情之旅”即将结束。从南宁的民歌飞扬到崇左的田园诗意，再到百色的绣球情深，相信大家已经深深感受到了广西的山水之美与民族之韵。这段旅程中，感谢大家的配合与支持。广西的大门永远为大家敞开，欢迎大家再次回到这片充满活力的土地，祝愿大家一路平安，万事如意！"
         }
-      ],
-      "image": "https://upload.wikimedia.org/wikipedia/commons/9/92/1_li_jiang_guilin_yangshuo_2011.jpg"
+      ]
     },
     {
       "id": "广西 桂北民族风情之旅",
@@ -254,8 +275,7 @@ window.data = {
           "en": "English：Dear tourists, the wonderful \"Northern Guangxi Ethnic Style Tour\" is coming to an end. I believe the grandeur of Longji Terraces, the exquisiteness of Dong architecture and the vitality of Miao culture have all become unforgettable memories in your hearts. During this journey, we not only enjoyed the beautiful scenery, but also felt the cultural charm of the harmonious coexistence of multiple ethnic groups in Guangxi. Thank you for your cooperation and support. I look forward to meeting you again in the beautiful Guangxi. Wish you a safe journey and all the best!",
           "cn": "中文：各位游客朋友们，美好的“桂北民族风情之旅”即将结束。相信龙脊梯田的壮阔、侗族建筑的精巧、苗族文化的鲜活，都已成为大家心中难忘的记忆。这段旅程，我们不仅欣赏了美景，更感受了广西多民族和谐共生的文化魅力。感谢大家的配合与支持，期待在美丽的广西与大家再次相逢，祝大家一路平安，万事如意！"
         }
-      ],
-      "image": "https://upload.wikimedia.org/wikipedia/commons/9/92/1_li_jiang_guilin_yangshuo_2011.jpg"
+      ]
     },
     {
       "id": "广西 桂西北民族风情之旅",
@@ -277,8 +297,7 @@ window.data = {
           "en": "English：Dear tourists, this Northwest Guangxi Ethnic Customs Tour is coming to an end. I believe you have not only appreciated the geological wonders of the Cotton Tiankeng but also felt the simple customs and profound culture of the Mulao, Maonan and Bai Ku Yao. This journey is more beautiful because of your company. Thank you for your cooperation and support. The landscapes and ethnic cultures of Guangxi will always welcome you. Looking forward to meeting you again. Wish you a smooth return journey and all the best!",
           "cn": "Chinese：各位游客，本次桂西北民族风情之旅即将结束。相信大家不仅领略了棉花天坑的地质奇观，更感受到了仫佬族、毛南族、白裤瑶的淳朴风情与深厚文化。这段旅程因大家的陪伴而更加美好，感谢大家的配合与支持。广西的山水与民族文化永远欢迎你们，期待与大家再次相逢，祝大家返程顺利，万事如意！"
         }
-      ],
-      "image": "https://upload.wikimedia.org/wikipedia/commons/9/92/1_li_jiang_guilin_yangshuo_2011.jpg"
+      ]
     },
     {
       "id": "广西 历史文化名城之旅",
@@ -305,8 +324,7 @@ window.data = {
           "en": "",
           "cn": "Chinese 中文： 各位游客朋友们，我们的“历史文化名城之旅”即将结束。在这段旅程中，我们从桂林的王城与灵渠感受秦汉雄风，在柳州的柳侯公园缅怀唐代贤吏，于北海的合浦汉代文化博物馆探寻丝路辉煌。相信广西的历史底蕴、山水风光和民俗风情已经给大家留下了深刻印象。非常感谢大家一路上的配合与支持，如有照顾不周之处，还请多多包涵。离别不是结束，广西的大门永远为大家敞开，期待大家再次光临，祝大家返程顺利，万事如意！\n\nEnglish 英文： Dear tourists, our \"Historical and Cultural City Tour\" is coming to an end. During this journey, we felt the grandeur of the Qin and Han Dynasties from the Royal City and Lingqu Canal in Guilin, cherished the memory of the virtuous officials of the Tang Dynasty in Liuhou Park in Liuzhou, and explored the glory of the Silk Road in Hepu Han Dynasty Cultural Museum in Beihai. I believe that Guangxi's historical heritage, landscape scenery and folk customs have left a deep impression on everyone. Thank you very much for your cooperation and support along the way. Please forgive me if there is any inadequacy in my service. Farewell is not the end. Guangxi's door is always open for you. We look forward to your visit again. Wish you a smooth return journey and all the best!"
         }
-      ],
-      "image": "https://upload.wikimedia.org/wikipedia/commons/9/92/1_li_jiang_guilin_yangshuo_2011.jpg"
+      ]
     },
     {
       "id": "广西 岭南文化之旅",
@@ -328,8 +346,7 @@ window.data = {
           "en": "Dear friends, our \"Lingnan Culture Tour\" is coming to an end. We've appreciated qilou architecture, listened to Cantonese Opera and Caijia Opera, and felt the profound Lingnan culture in Wuzhou, Yulin and Guigang. Thank you for your cooperation. May the charm of Guangxi stay with you forever! Wish you a safe journey and welcome back again!",
           "cn": "各位朋友，我们的“岭南文化之旅”即将结束。我们欣赏了骑楼建筑，聆听了粤剧与采茶戏，在梧州、玉林、贵港感受了岭南文化的深厚底蕴。感谢大家的配合，愿广西的魅力永远伴随您！祝您一路平安，欢迎再次光临！"
         }
-      ],
-      "image": "https://upload.wikimedia.org/wikipedia/commons/9/92/1_li_jiang_guilin_yangshuo_2011.jpg"
+      ]
     },
     {
       "id": "广西 骆越文化之旅",
@@ -351,8 +368,7 @@ window.data = {
           "en": "Dear guests, our \"Luoyue Culture Tour\" is coming to an end. We've visited museums and Huashan Rock Art, feeling the charm of Luoyue culture. Thank you for your support and cooperation. May the memories of Guangxi stay with you. Wish you a safe journey and welcome back again!",
           "cn": "各位来宾，我们的“骆越文化之旅”即将落幕。一路走来，我们透过博物馆的文物与花山岩画的印记，深切感受了骆越文化的魅力。感谢大家的支持与配合，愿广西的记忆伴您同行。祝您旅途平安，期待再次相逢！"
         }
-      ],
-      "image": "https://upload.wikimedia.org/wikipedia/commons/9/92/1_li_jiang_guilin_yangshuo_2011.jpg"
+      ]
     },
     {
       "id": "广西 长寿休闲之旅",
@@ -374,8 +390,7 @@ window.data = {
           "en": "Dear tourists, our \"Longevity Leisure Tour\" is coming to an end. I believe that the freshness of Gupo Mountain, the warmth of Xixi Hot Spring and the tranquility of Huangyao Ancient Town have made everyone feel the unique charm of Hezhou's longevity culture. The landscapes of Guangxi nourish life, and the humanities of Hezhou warm people's hearts. I hope this trip will leave you good memories, and I wish all friends good health and long life. Looking forward to meeting you again in the beautiful Guangxi, goodbye!",
           "cn": "各位游客朋友们，我们的“长寿休闲之旅”即将结束。相信姑婆山的清新、西溪温泉的暖意和黄姚古镇的静谧，已经让大家感受到了贺州长寿文化的独特魅力。广西的山水滋养生命，贺州的人文温暖人心，希望这段旅程能给大家留下美好的回忆，也祝愿各位朋友身体健康、福寿绵长。期待与大家再次相聚在美丽的广西，再见！"
         }
-      ],
-      "image": "https://upload.wikimedia.org/wikipedia/commons/9/92/1_li_jiang_guilin_yangshuo_2011.jpg"
+      ]
     },
     {
       "id": "广西 长寿康养之旅",
@@ -397,8 +412,7 @@ window.data = {
           "en": "English：Dear tourists, our \"Longevity and Health Preservation Tour\" is coming to an end. In the past few days, we have appreciated the clarity of Bama Panyang River, the magic of Crystal Palace, felt the grandeur of the First Bay of Donglan Hongshui River, and experienced the tranquility of Fengshan Sanmenhai. I believe that everyone has not only enjoyed the beauty of Guangxi's mountains and rivers, but also felt the charm of longevity culture, and gained physical and mental relaxation and pleasure.\n\nEnglish：There is no feast that never ends. Although the journey is coming to an end, Guangxi's mountains, rivers and enthusiasm will always welcome everyone. I hope this journey will become a good memory in your hearts, and I also hope you can share the longevity secrets and beautiful scenery of Guangxi with your relatives and friends. Finally, I wish you a safe journey, good health and all the best! Looking forward to seeing you next time!",
           "cn": "中文：各位游客朋友们，我们的“长寿康养之旅”即将结束了。在过去的几天里，我们一同领略了巴马盘阳河的清澈、水晶宫的奇幻，感受了东兰红水河第一湾的壮阔，体验了凤山三门海的静谧。相信大家不仅欣赏到了广西的山水之美，更感受到了长寿文化的魅力，收获了身心的放松与愉悦。\n\n中文：天下没有不散的筵席，虽然旅程即将结束，但广西的山水和热情永远欢迎大家。希望这次旅程能成为大家心中一段美好的回忆，也希望大家能把广西的长寿秘诀和美景分享给身边的亲朋好友。最后，祝愿大家一路平安，身体健康，万事如意！期待我们下次再会！"
         }
-      ],
-      "image": "https://upload.wikimedia.org/wikipedia/commons/9/92/1_li_jiang_guilin_yangshuo_2011.jpg"
+      ]
     },
     {
       "id": "广西 长寿悦动之旅",
@@ -420,8 +434,7 @@ window.data = {
           "en": "Dear tourists, our \"Longevity Dynamic Tour\" is coming to an end. From Haokun Lake and Tea Mountain Pyramid in Lingyun to Dashiwei Sinkhole Group in Leye, I believe you have not only appreciated the magnificent mountains and rivers of Guangxi, but also felt the unique charm of longevity culture. During this trip, thank you for your cooperation and support. I hope the mountains, rivers and humanities of Guangxi can leave a deep impression on you. You are also welcome to come to this longevity blessed land again to explore more wonderful things. Wish you a safe journey and all the best!",
           "cn": "各位游客朋友们，我们的“长寿悦动之旅”到这里就要告一段落了。从凌云的浩坤湖、茶山金字塔，到乐业的大石围天坑群，相信大家不仅领略了广西山水的壮美，更感受到了长寿文化的独特魅力。这段旅程中，感谢大家的配合与支持。希望广西的山水和人文能给大家留下深刻的印象，也欢迎大家再次来到这片长寿福地，探寻更多的精彩。祝大家一路平安，万事如意！"
         }
-      ],
-      "image": "https://upload.wikimedia.org/wikipedia/commons/9/92/1_li_jiang_guilin_yangshuo_2011.jpg"
+      ]
     },
     {
       "id": "广西 米粉之旅",
@@ -438,8 +451,7 @@ window.data = {
           "en": "Dear friends, our \"Guangxi Rice Noodle Tour\" has come to an end. We've tasted the unique flavors of Nanning Old Friend Rice Noodles, Liuzhou Snail Rice Noodles and Guilin Rice Noodles, and appreciated the beautiful scenery of the three cities. I hope this journey has left you with sweet memories. Guangxi's charm is not only in the food but also in the mountains and waters and the enthusiasm of the people. Welcome to visit Guangxi again! Bon voyage!",
           "cn": "各位朋友，我们的“广西米粉之旅”即将结束。我们品尝了南宁老友粉、柳州螺蛳粉、桂林米粉的独特风味，也领略了三座城市的秀丽风光。希望这段旅程给大家留下美好的回忆。广西的魅力，不仅在美食，更在山水和人文。欢迎大家再次来到广西！一路顺风！"
         }
-      ],
-      "image": "https://upload.wikimedia.org/wikipedia/commons/9/92/1_li_jiang_guilin_yangshuo_2011.jpg"
+      ]
     },
     {
       "id": "广西 工艺品之旅",
@@ -466,8 +478,7 @@ window.data = {
           "en": "Dear friends, our \"Guangxi Craft Tour\" is coming to an end. We've witnessed the luster of Hepu pearls, the texture of Nixing pottery, the vibrancy of Zhuang brocade and the warmth of silk balls. These crafts are not just artworks, but carriers of Guangxi's history and ethnic wisdom. I hope this journey leaves you with beautiful memories. Wish you a safe trip and welcome back to Guangxi anytime! Thank you!",
           "cn": "亲爱的朋友们，我们的“广西工艺品之旅”即将结束。我们见证了合浦珍珠的光泽、坭兴陶的质感、壮锦的艳丽和绣球的温情。这些工艺品不仅是艺术品，更是广西历史与民族智慧的载体。希望这段旅程给你们留下美好回忆，祝一路平安，随时欢迎再来广西！谢谢大家！"
         }
-      ],
-      "image": "https://upload.wikimedia.org/wikipedia/commons/9/92/1_li_jiang_guilin_yangshuo_2011.jpg"
+      ]
     },
     {
       "id": "广西 茶文化之旅",
@@ -484,8 +495,7 @@ window.data = {
           "en": "Dear tourists, our \"Guangxi Tea Culture Tour\" is coming to an end. From the mellow and aged fragrance of Wuzhou Liubao Tea, to the fresh and sweet aftertaste of Guiping Xishan Tea, from the fragrant and elegant Hengzhou Jasmine Tea, to the rare and unique Fangchenggang Golden Camellia, I believe you have not only tasted the charm of Guangxi's famous teas, but also felt the beauty of Guangxi's mountains and waters and ethnic customs. This journey is more wonderful because of your company. Thank you for your cooperation and support. The tea fragrance of Guangxi will always float for you. Welcome to the beautiful Guangxi again. Wish you a safe and pleasant journey!",
           "cn": "各位游客朋友们，我们的“广西茶文化之旅”即将结束。从梧州六堡茶的醇厚陈香，到桂平西山茶的鲜爽回甘，从横州茉莉花茶的芬芳清雅，到防城港金花茶的珍稀独特，相信大家不仅品尝到了广西名茶的魅力，更感受到了广西的山水之美和民族风情。这段旅程因为有大家的陪伴而更加精彩，感谢大家的配合与支持。广西的茶香永远为大家飘溢，欢迎大家再次来到美丽的广西，祝大家一路平安，旅途愉快！"
         }
-      ],
-      "image": "https://upload.wikimedia.org/wikipedia/commons/9/92/1_li_jiang_guilin_yangshuo_2011.jpg"
+      ]
     }
   ],
   "questions": [
@@ -3970,13 +3980,13 @@ window.data = {
     {
       "name": "24广西英导词",
       "fullName": "24广西英导词.doc",
-      "category": "现场问答题库",
+      "category": "备考技巧与词汇讲义",
       "subCategory": "城市名胜"
     },
     {
       "name": "4-英语导游英汉互译179题",
       "fullName": "4-英语导游英汉互译179题.pdf",
-      "category": "现场问答题库",
+      "category": "英汉双向口译题库",
       "subCategory": "城市名胜"
     },
     {
@@ -3994,7 +4004,7 @@ window.data = {
     {
       "name": "《导游服务能力》英文现场面试600问+英汉互译",
       "fullName": "《导游服务能力》英文现场面试600问+英汉互译.pdf",
-      "category": "现场问答题库",
+      "category": "英汉双向口译题库",
       "subCategory": "城市名胜"
     },
     {
@@ -4006,7 +4016,7 @@ window.data = {
     {
       "name": "【赵一文导游课】英文问答题",
       "fullName": "【赵一文导游课】英文问答题.pdf",
-      "category": "现场问答题库",
+      "category": "备考技巧与词汇讲义",
       "subCategory": "城市名胜"
     },
     {
@@ -4126,7 +4136,7 @@ window.data = {
     {
       "name": "英语导游带团素材集锦",
       "fullName": "英语导游带团素材集锦.pdf",
-      "category": "现场问答题库",
+      "category": "备考技巧与词汇讲义",
       "subCategory": "城市名胜"
     },
     {
