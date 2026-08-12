@@ -60,12 +60,21 @@ document.addEventListener('DOMContentLoaded', () => {
   renderSkillsView();
   renderResourcesView();
 
+  const viewPhrases = document.getElementById('view-phrases');
+
   // Initial tab display: 背诵导游词
   subNavWrapper.style.display = 'block';
   viewSpeech.style.display = 'block';
   catFilterContainer.style.display = 'flex';
   spotChipsContainer.style.display = 'flex';
   
+  function renderPhrasesView() {
+    const container = document.getElementById('phrase-list-container');
+    if (!container) return;
+    container.innerHTML = '<div class="card" style="padding:20px; text-align:center; color:#666;">⚡ 导游高频短语速记库加载完成</div>';
+  }
+
+  renderPhrasesView();
   bindEvents();
 
   // --- CATEGORY FILTERS ---
@@ -322,16 +331,20 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
+    // 英文在上，中文在下
     document.getElementById('practice-en-question').textContent = qItem.enQuestion || qItem.question;
     document.getElementById('practice-cn-question').textContent = qItem.cnQuestion || '';
     
-    let ansHTML = `<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-                     <span style="font-weight:700; color:#8c2522;">💡 参考答案：</span>
-                     <button class="action-btn" id="btn-practice-listen-ans" style="padding:4px 12px; font-size:12.5px;">🔊 听英文答案</button>
-                   </div>
-                   <div style="white-space: pre-line; font-weight: 600; color: #2b6cb0; line-height:1.6;">${qItem.answer}</div>`;
+    // 答案中英文对照
+    let ansHTML = `
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+        <span style="font-weight:700; color:#8c2522; font-size:14px;">💡 参考答案 (Answer Reference)：</span>
+        <button class="action-btn" id="btn-practice-listen-ans" style="padding:4px 12px; font-size:12.5px;">🔊 听英文答案</button>
+      </div>
+      <div style="white-space: pre-line; font-size: 15px; font-weight: 700; color: #1e3a8a; line-height: 1.6;">${qItem.answer}</div>
+    `;
     if (qItem.cnAnswer) {
-      ansHTML += `<div style="white-space: pre-line; font-size: 13.5px; color: #555; margin-top: 8px; border-top: 1px dashed #cbd5e0; padding-top: 6px; line-height:1.6;">${qItem.cnAnswer}</div>`;
+      ansHTML += `<div style="white-space: pre-line; font-size: 14px; color: #475569; margin-top: 10px; border-top: 1px dashed #cbd5e1; padding-top: 10px; line-height: 1.6; font-weight: 500;">${qItem.cnAnswer}</div>`;
     }
     document.getElementById('practice-ref-text').innerHTML = ansHTML;
     document.getElementById('practice-ref-box').style.display = 'none';
@@ -396,30 +409,30 @@ document.addEventListener('DOMContentLoaded', () => {
         card.className = 'card';
         card.style.marginBottom = '14px';
         
-        let ansContentHTML = `<div style="white-space: pre-line; font-weight: 600; color: #2b6cb0; line-height:1.6;">${qa.answer}</div>`;
+        let ansContentHTML = `<div style="white-space: pre-line; font-size: 15px; font-weight: 700; color: #1e3a8a; line-height: 1.6;">${qa.answer}</div>`;
         if (qa.cnAnswer) {
-          ansContentHTML += `<div style="white-space: pre-line; font-size: 13.5px; color: #555; margin-top: 8px; border-top: 1px dashed #cbd5e0; padding-top: 6px; line-height:1.6;">${qa.cnAnswer}</div>`;
+          ansContentHTML += `<div style="white-space: pre-line; font-size: 14px; color: #475569; margin-top: 10px; border-top: 1px dashed #cbd5e1; padding-top: 10px; line-height: 1.6; font-weight: 500;">${qa.cnAnswer}</div>`;
         }
 
         const isC2E = qa.type === 'C2E' || qa.tag === '汉译英';
         const tagText = currentPracticeCategory === "英汉双向口译" ? (isC2E ? '🇨🇳➔🇺🇸 汉译英' : '🇺🇸➔🇨🇳 英译中') : (qa.spot || currentPracticeCategory);
 
+        // 彻底删除题号前缀 node，严格遵循用户截图样式
         card.innerHTML = `
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-            <span style="font-size: 12px; color: #999; font-weight: 700; letter-spacing: 0.5px;">#${idx + 1}</span>
+          <div style="display: flex; justify-content: flex-end; align-items: center; margin-bottom: 8px;">
             <span class="qa-tag-badge" style="font-size: 12px; ${isC2E ? 'background:#fff7ed;color:#c2410c;border:1px solid #ffedd5;' : 'background:#eff6ff;color:#1d4ed8;border:1px solid #dbeafe;'}">${tagText}</span>
           </div>
-          <h3 class="qa-question-title" style="font-size: 16.5px; margin-bottom: 4px; color: #1a1a1a; font-weight: 700;">${qa.enQuestion || qa.question}</h3>
-          ${qa.cnQuestion ? `<div style="font-size: 14px; color: #666; font-weight: 500; margin-bottom: 12px;">${qa.cnQuestion}</div>` : ''}
+          <h3 class="qa-question-title" style="font-size: 17px; margin-bottom: 6px; color: #1a1a1a; font-weight: 700; line-height: 1.4;">${qa.enQuestion || qa.question}</h3>
+          ${qa.cnQuestion ? `<div style="font-size: 14.5px; color: #666; font-weight: 500; margin-bottom: 12px;">${qa.cnQuestion}</div>` : ''}
           
-          <div style="display: flex; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; margin-top: 10px;">
+          <div style="display: flex; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; margin-top: 12px;">
             <button class="action-btn btn-qa-read" data-idx="${idx}">${isC2E ? '🔊 示范英文发音' : '🔊 听题'}</button>
-            <button class="play-main-btn btn-qa-ans-toggle" data-idx="${idx}" style="padding: 5px 14px; font-size: 13px;">参考答案</button>
+            <button class="play-main-btn btn-qa-ans-toggle" data-idx="${idx}" style="padding: 5px 16px; font-size: 13px;">参考答案</button>
             <button class="action-btn btn-qa-read-ans" data-idx="${idx}">🔊 听答案</button>
           </div>
 
-          <div class="ref-answer-box" id="ref-box-${idx}" style="display: none; margin-top: 10px;">
-            <div class="ref-answer-title">参考答案：</div>
+          <div class="ref-answer-box" id="ref-box-${idx}" style="display: none; margin-top: 12px;">
+            <div class="ref-answer-title" style="font-weight: 700; color: #8c2522; font-size: 14px; margin-bottom: 6px;">💡 参考答案 (Answer Reference)：</div>
             <div class="ref-answer-text">${ansContentHTML}</div>
           </div>
         `;
@@ -877,6 +890,10 @@ document.addEventListener('DOMContentLoaded', () => {
           spotChipsContainer.style.display = 'flex';
           renderSpotChips();
           renderSpeechView();
+        } else if (tab === 'phrases') {
+          subNavWrapper.style.display = 'none';
+          if (viewPhrases) viewPhrases.style.display = 'block';
+          renderPhrasesView();
         } else if (tab === 'resources') {
           subNavWrapper.style.display = 'none';
           viewResources.style.display = 'block';
@@ -959,6 +976,269 @@ document.addEventListener('DOMContentLoaded', () => {
       renderCurrentPracticeCard();
     });
 
-    // btn-play-all 已在 renderSpeechView 里就地绑定，此处无需重复绑定
+
+  // ==========================================
+  // --- PHRASES MODULE (短语速记，严格隔离) ---
+  // ==========================================
+  let currentPhraseCategory = '全部专题';
+  let currentPhraseIndex = 0;
+  let phraseViewMode = 'card';
+  let isPhraseRevealed = false;
+  let phraseProgress = {};
+  try {
+    phraseProgress = JSON.parse(localStorage.getItem('guangxi_phrase_progress') || '{}');
+  } catch (e) {
+    phraseProgress = {};
+  }
+
+  function getFilteredPhrases() {
+    const list = data.phrasesData || [];
+    if (currentPhraseCategory === '全部专题' || !currentPhraseCategory) {
+      return list;
+    }
+    return list.filter(p => p.category === currentPhraseCategory);
+  }
+
+  function updatePhraseStats() {
+    const all = data.phrasesData || [];
+    let mastered = 0;
+    let review = 0;
+    all.forEach(p => {
+      const st = phraseProgress[p.id];
+      if (st === 'mastered') mastered++;
+      else if (st === 'again' || st === 'vague') review++;
+    });
+    const elM = document.getElementById('phrase-stat-mastered');
+    const elR = document.getElementById('phrase-stat-review');
+    const elT = document.getElementById('phrase-stat-total');
+    if (elM) elM.textContent = mastered;
+    if (elR) elR.textContent = review;
+    if (elT) elT.textContent = all.length;
+  }
+
+  function renderPhrasesView() {
+    updatePhraseStats();
+    renderPhrasesCategoryTabs();
+    
+    const cardView = document.getElementById('phrase-main-card');
+    const listView = document.getElementById('phrase-list-container');
+    const btnCard = document.getElementById('btn-phrase-mode-card');
+    const btnList = document.getElementById('btn-phrase-mode-list');
+
+    if (phraseViewMode === 'card') {
+      if (cardView) cardView.style.display = 'flex';
+      if (listView) listView.style.display = 'none';
+      if (btnCard) btnCard.classList.add('active');
+      if (btnList) btnList.classList.remove('active');
+      renderCurrentPhraseCard();
+    } else {
+      if (cardView) cardView.style.display = 'none';
+      if (listView) listView.style.display = 'block';
+      if (btnList) btnList.classList.add('active');
+      if (btnCard) btnCard.classList.remove('active');
+      renderPhraseList();
+    }
+  }
+
+  function renderPhrasesCategoryTabs() {
+    const container = document.getElementById('phrases-category-tabs');
+    if (!container) return;
+    container.innerHTML = '';
+    const cats = data.phrasesCategories || ["全部专题"];
+
+    cats.forEach(cat => {
+      const btn = document.createElement('button');
+      btn.className = `cat-btn ${cat === currentPhraseCategory ? 'active' : ''}`;
+      btn.textContent = cat;
+      btn.addEventListener('click', () => {
+        currentPhraseCategory = cat;
+        currentPhraseIndex = 0;
+        isPhraseRevealed = false;
+        renderPhrasesView();
+      });
+      container.appendChild(btn);
+    });
+  }
+
+  function renderCurrentPhraseCard() {
+    const list = getFilteredPhrases();
+    const tagBadge = document.getElementById('phrase-tag-badge');
+    const counter = document.getElementById('phrase-card-counter');
+    const enTitle = document.getElementById('phrase-en-title');
+    const cnText = document.getElementById('phrase-cn-text');
+    const exText = document.getElementById('phrase-example-text');
+    const ansBox = document.getElementById('phrase-answer-box');
+    const unrevealedActions = document.getElementById('phrase-unrevealed-actions');
+    const revealedActions = document.getElementById('phrase-revealed-actions');
+
+    if (!list || list.length === 0) {
+      if (enTitle) enTitle.textContent = '暂无符合条件的短语';
+      if (counter) counter.textContent = '0 / 0';
+      if (ansBox) ansBox.style.display = 'none';
+      return;
+    }
+
+    if (currentPhraseIndex >= list.length) currentPhraseIndex = 0;
+    if (currentPhraseIndex < 0) currentPhraseIndex = list.length - 1;
+
+    const item = list[currentPhraseIndex];
+    const status = phraseProgress[item.id];
+    let statusBadge = '';
+    if (status === 'mastered') statusBadge = ' <span style="color:#16a34a;font-size:12px;">(已熟知)</span>';
+    else if (status === 'again') statusBadge = ' <span style="color:#dc2626;font-size:12px;">(需复习)</span>';
+    else if (status === 'vague') statusBadge = ' <span style="color:#d97706;font-size:12px;">(模糊)</span>';
+
+    if (tagBadge) tagBadge.innerHTML = `${item.category}${statusBadge}`;
+    if (counter) counter.textContent = `${currentPhraseIndex + 1} / ${list.length}`;
+    if (enTitle) enTitle.textContent = item.en;
+    if (cnText) cnText.textContent = item.cn;
+    if (exText) exText.textContent = item.example ? `💡 导游例句：${item.example}` : '';
+
+    if (isPhraseRevealed) {
+      if (ansBox) ansBox.style.display = 'block';
+      if (unrevealedActions) unrevealedActions.style.display = 'none';
+      if (revealedActions) revealedActions.style.display = 'flex';
+    } else {
+      if (ansBox) ansBox.style.display = 'none';
+      if (unrevealedActions) unrevealedActions.style.display = 'flex';
+      if (revealedActions) revealedActions.style.display = 'none';
+    }
+  }
+
+  function renderPhraseList() {
+    const container = document.getElementById('phrase-list-container');
+    if (!container) return;
+    container.innerHTML = '';
+    const list = getFilteredPhrases();
+
+    if (list.length === 0) {
+      container.innerHTML = '<div class="card" style="text-align:center;color:#888;">暂无短语</div>';
+      return;
+    }
+
+    list.forEach((item, idx) => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.style.marginBottom = '12px';
+      card.style.padding = '16px';
+
+      const status = phraseProgress[item.id];
+      let badgeHTML = '<span style="background:#f3f4f6;color:#6b7280;padding:2px 8px;border-radius:4px;font-size:12px;">未学习</span>';
+      if (status === 'mastered') badgeHTML = '<span style="background:#dcfce7;color:#16a34a;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600;">✅ 已熟知</span>';
+      else if (status === 'again') badgeHTML = '<span style="background:#fee2e2;color:#dc2626;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600;">❌ 待复习</span>';
+      else if (status === 'vague') badgeHTML = '<span style="background:#fef3c7;color:#d97706;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600;">🤔 模糊</span>';
+
+      card.innerHTML = `
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:8px;">
+          <div>
+            <span style="font-size:12px;color:#8c2522;background:#fff5f5;padding:2px 6px;border-radius:4px;margin-right:8px;">${item.category}</span>
+            ${badgeHTML}
+          </div>
+          <button class="action-btn btn-phrase-list-speak" data-en="${encodeURIComponent(item.en)}" style="padding:4px 10px;font-size:12px;">🔊 朗读</button>
+        </div>
+        <div style="font-size:17px;font-weight:700;color:#1a1a1a;margin-bottom:4px;">${idx + 1}. ${item.en}</div>
+        <div style="font-size:14.5px;color:#8c2522;font-weight:600;margin-bottom:8px;">${item.cn}</div>
+        ${item.example ? `<div style="font-size:13px;color:#666;background:#faf8f5;padding:8px 12px;border-left:3px solid #d4c5b2;border-radius:4px;">💡 例句：${item.example}</div>` : ''}
+      `;
+      container.appendChild(card);
+    });
+
+    container.querySelectorAll('.btn-phrase-list-speak').forEach(btn => {
+      btn.addEventListener('click', e => {
+        const text = decodeURIComponent(e.currentTarget.getAttribute('data-en'));
+        speakText(text);
+      });
+    });
+  }
+
+  function bindPhraseEvents() {
+    const btnPhraseCard = document.getElementById('btn-phrase-mode-card');
+    const btnPhraseList = document.getElementById('btn-phrase-mode-list');
+    if (btnPhraseCard && btnPhraseList) {
+      btnPhraseCard.addEventListener('click', () => {
+        phraseViewMode = 'card';
+        renderPhrasesView();
+      });
+      btnPhraseList.addEventListener('click', () => {
+        phraseViewMode = 'list';
+        renderPhrasesView();
+      });
+    }
+
+    const btnPhraseSpeak = document.getElementById('btn-phrase-speak');
+    if (btnPhraseSpeak) {
+      btnPhraseSpeak.addEventListener('click', () => {
+        const list = getFilteredPhrases();
+        if (list.length > 0 && list[currentPhraseIndex]) {
+          speakText(list[currentPhraseIndex].en);
+        }
+      });
+    }
+
+    const btnPhraseReveal = document.getElementById('btn-phrase-reveal');
+    if (btnPhraseReveal) {
+      btnPhraseReveal.addEventListener('click', () => {
+        isPhraseRevealed = true;
+        renderCurrentPhraseCard();
+      });
+    }
+
+    function recordPhraseProgress(status) {
+      const list = getFilteredPhrases();
+      if (list.length > 0 && list[currentPhraseIndex]) {
+        phraseProgress[list[currentPhraseIndex].id] = status;
+        try {
+          localStorage.setItem('guangxi_phrase_progress', JSON.stringify(phraseProgress));
+        } catch (e) {}
+      }
+      isPhraseRevealed = false;
+      currentPhraseIndex++;
+      renderPhrasesView();
+    }
+
+    const btnPhraseAgain = document.getElementById('btn-phrase-again');
+    if (btnPhraseAgain) btnPhraseAgain.addEventListener('click', () => recordPhraseProgress('again'));
+
+    const btnPhraseVague = document.getElementById('btn-phrase-vague');
+    if (btnPhraseVague) btnPhraseVague.addEventListener('click', () => recordPhraseProgress('vague'));
+
+    const btnPhraseMastered = document.getElementById('btn-phrase-mastered');
+    if (btnPhraseMastered) btnPhraseMastered.addEventListener('click', () => recordPhraseProgress('mastered'));
+
+    const btnPhrasePrev = document.getElementById('btn-phrase-prev');
+    if (btnPhrasePrev) {
+      btnPhrasePrev.addEventListener('click', () => {
+        isPhraseRevealed = false;
+        currentPhraseIndex--;
+        renderCurrentPhraseCard();
+      });
+    }
+
+    const btnPhraseNext = document.getElementById('btn-phrase-next');
+    if (btnPhraseNext) {
+      btnPhraseNext.addEventListener('click', () => {
+        isPhraseRevealed = false;
+        currentPhraseIndex++;
+        renderCurrentPhraseCard();
+      });
+    }
+
+    const btnPhraseReset = document.getElementById('btn-phrase-reset');
+    if (btnPhraseReset) {
+      btnPhraseReset.addEventListener('click', () => {
+        if (confirm('确定要重置所有短语的记忆进度吗？')) {
+          phraseProgress = {};
+          try {
+            localStorage.removeItem('guangxi_phrase_progress');
+          } catch (e) {}
+          isPhraseRevealed = false;
+          currentPhraseIndex = 0;
+          renderPhrasesView();
+        }
+      });
+    }
+  }
+
+    bindPhraseEvents();
   }
 });
