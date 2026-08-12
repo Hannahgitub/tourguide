@@ -18,19 +18,21 @@ window.data = {
     "自然山水",
     "民族风情",
     "历史文化",
-    "康养长寿",
-    "特色物产"
-  ],
-  "speeches": [
-    {
-      "id": "广西米粉之旅",
-      "name": "广西米粉之旅",
-      "category": "特色物产",
-      "sections": [
-        {
+    "        {
           "title": "一、Welcome Speech 欢迎词",
-          "en": "Dear friends, welcome to Guangxi Zhuang Autonomous Region! I'm your tour guide [Your Name]. Over the next few days, we'll embark on a delicious \"Guangxi Rice Noodle Tour\" covering Nanning, Liuzhou and Guilin. Rice noodles are the soul of Guangxi's cuisine, and each city has its unique flavor. Let's taste the stories behind every bowl of rice noodles together!\n\nFirst, let's get to know Guangxi. Located in southern China, bordering Vietnam to the south, Guangxi covers an area of 237,600 square kilometers. It has 14 prefecture-level cities, with a total population of about 57.33 million, among which the Zhuang nationality is the largest ethnic group, accounting for about 31% of the total population.\n\nGuangxi is rich in specialties. For handcrafts, there are Nanning's ivory carvings, Liuzhou's lacquerware and Guilin's rice paper paintings. Local products include Lingyun white tea, Guiping Xishan tea, and rice noodles of course. Famous wines like Donglan rice wine and Hezhou osmanthus wine are also worth trying. Chinese medicinal materials such as Guizhi (cassia twig) and Yizhi (Alpinia oxyphylla) are well-known nationwide. For fruits, sugarcane, longan, lychee and mango are abundant, especially Nanning's mango which is sweet and juicy.\n\nNow let's learn about our itinerary cities. Nanning, the capital, is called the \"Green City\" with lush vegetation. It has 7 districts and 4 counties, a population of about 8.89 million. Besides old friend rice noodles, it's famous for osmanthus cakes and star anise.\n\nLiuzhou, an important industrial city in southern China, has 5 districts and 5 counties, a population of about 4.17 million. It's not only the home of snail rice noodles but also known for Sanjiang Dong bamboo weaving and Liuzhou snails.\n\nGuilin, a world-famous tourist city, has 6 districts and 10 counties, a population of about 4.94 million. \"Guilin's mountains and waters are the best under heaven\" is its true portrayal. In addition to Guilin rice noodles, it's famous for osmanthus tea and Guilin fermented tofu.\n\nOur first stop is Nanning. We'll visit People's Park, a landmark with a history of over 100 years, where you can enjoy the green scenery of the \"Green City\". Then we'll taste Nanning Old Friend Rice Noodles. It's made with rice noodles, pork, shrimp, sour bamboo shoots and other ingredients, cooked quickly in a wok. The soup is sour, spicy, fresh and fragrant, which is said to have originated from a chef who cooked it for a sick friend, hence the name \"Old Friend\".\n\nNext is Liuzhou. We'll go to Liuzhou Water Wheel Island, where we can see the largest water wheel group in Asia and enjoy the beautiful scenery of the Liujiang River. Then it's the highlight - Liuzhou Snail Rice Noodles. It's famous for its \"smelly but delicious\" flavor, with ingredients like snail soup, sour bamboo shoots, peanuts and fried tofu skin. The snail soup is simmered for hours, making the taste rich and unique. Don't worry about the \"smell\"; it's the charm of fermented sour bamboo shoots!\n\nOur last stop is Guilin. We'll take a bamboo raft tour on the Li River, enjoying the picturesque mountains and waters - the green mountains stand like bamboo shoots, and the clear water reflects the scenery. After that, we'll taste Guilin Rice Noodles. It's usually served with a dry sauce made of pork, mushrooms and soy sauce, and you can add soup and side dishes as you like. The rice noodles are smooth and chewy, with a strong sauce flavor.",
-          "cn": "各位朋友，欢迎来到广西壮族自治区！我是你们的导游[你的名字]。接下来几天，我们将开启一场美味的“广西米粉之旅”，途经南宁、柳州和桂林三座城市。米粉是广西美食的灵魂，每座城市的米粉都有着独一无二的风味。让我们一起品味每一碗米粉背后的故事吧！\n\n二、 Overview of Guangxi and Cities 广西及各市概况\n\n首先，我们来了解一下广西。广西位于中国南部，南临越南，总面积23.76万平方公里，下辖14个地级市，总人口约5733万，其中壮族是人口最多的少数民族，约占总人口的31%。\n\n广西特产丰富。工艺品方面，有南宁牙雕、柳州漆器和桂林宣纸画；土特产以凌云白茶、桂平西山茶以及我们此次重点体验的米粉为代表；名酒如东兰米酒、贺州桂花酒颇具特色；中药材桂枝、益智等享誉全国。水果方面，甘蔗、龙眼、荔枝、芒果应有尽有，尤其是南宁芒果，香甜多汁，堪称一绝。\n\n接下来了解我们的行程城市。首府南宁，被誉为“绿城”，植被繁茂，下辖7区4县，人口约889万。除了老友粉，南宁的桂花糕、八角也十分出名。\n\n柳州是中国南方重要的工业城市，下辖5区5县，人口约417万。这里不仅是螺蛳粉的发源地，三江侗族竹编、柳州螺蛳也声名远扬。\n\n桂林是世界著名的旅游城市，下辖6区10县，人口约494万。“桂林山水甲天下”是对它的真实写照。除了桂林米粉，桂花茶、桂林腐乳也是当地名产。\n\n三、Attraction and Rice Noodle Introduction 景点及米粉介绍\n\n我们的第一站是南宁。我们将游览有着百年历史的地标——人民公园，在这里可以尽情感受“绿城”的绿意盎然。之后我们将品尝南宁老友粉，它以米粉、猪肉、虾仁、酸笋等为原料，铁锅快炒而成，汤头酸、辣、鲜、香，据说源于一位厨师为生病的好友烹制的暖心美食，故而得名“老友”。\n\n下一站是柳州。我们将前往柳州水上大舞台，观赏亚洲最大的水上摩天轮，感受柳江的碧波荡漾。随后就是重头戏——柳州螺蛳粉，它以“闻着臭、吃着香”闻名，配料有螺蛳汤、酸笋、花生、炸腐竹等，螺蛳汤经数小时慢炖，味道醇厚独特。别被“臭味”吓到，这正是发酵酸笋的独特魅力！\n\n最后一站是桂林。我们将乘坐竹筏游览漓江，欣赏如诗如画的山水风光——青山如笋，碧水映景。之后品尝桂林米粉，它通常搭配由猪肉、香菇、酱油等调制的干拌酱，可根据喜好加汤和配菜，米粉爽滑有嚼劲，酱香味十足。"
+          "en": "Dear friends, welcome to Guangxi Zhuang Autonomous Region! I'm your tour guide [Your Name]. Over the next few days, we'll embark on a delicious \"Guangxi Rice Noodle Tour\" covering Nanning, Liuzhou and Guilin. Rice noodles are the soul of Guangxi's cuisine, and each city has its unique flavor. Let's taste the stories behind every bowl of rice noodles together!",
+          "cn": "各位朋友，欢迎来到广西壮族自治区！我是你们的导游[你的名字]。接下来几天，我们将开启一场美味的“广西米粉之旅”，途经南宁、柳州和桂林三座城市。米粉是广西美食的灵魂，每座城市的米粉都有着独一无二的风味。让我们一起品味每一碗米粉背后的故事吧！"
+        },
+        {
+          "title": "二、 Overview of Guangxi and Cities 广西及各市概况",
+          "en": "First, let's get to know Guangxi. Located in southern China, bordering Vietnam to the south, Guangxi covers an area of 237,600 square kilometers. It has 14 prefecture-level cities, with a total population of about 57.33 million, among which the Zhuang nationality is the largest ethnic group, accounting for about 31% of the total population.\n\nGuangxi is rich in specialties. For handcrafts, there are Nanning's ivory carvings, Liuzhou's lacquerware and Guilin's rice paper paintings. Local products include Lingyun white tea, Guiping Xishan tea, and rice noodles of course. Famous wines like Donglan rice wine and Hezhou osmanthus wine are also worth trying. Chinese medicinal materials such as Guizhi (cassia twig) and Yizhi (Alpinia oxyphylla) are well-known nationwide. For fruits, sugarcane, longan, lychee and mango are abundant, especially Nanning's mango which is sweet and juicy.\n\nNow let's learn about our itinerary cities. Nanning, the capital, is called the \"Green City\" with lush vegetation. It has 7 districts and 4 counties, a population of about 8.89 million. Besides old friend rice noodles, it's famous for osmanthus cakes and star anise.\n\nLiuzhou, an important industrial city in southern China, has 5 districts and 5 counties, a population of about 4.17 million. It's not only the home of snail rice noodles but also known for Sanjiang Dong bamboo weaving and Liuzhou snails.\n\nGuilin, a world-famous tourist city, has 6 districts and 10 counties, a population of about 4.94 million. \"Guilin's mountains and waters are the best under heaven\" is its true portrayal. In addition to Guilin rice noodles, it's famous for osmanthus tea and Guilin fermented tofu.",
+          "cn": "首先，我们来了解一下广西。广西位于中国南部，南临越南，总面积23.76万平方公里，下辖14个地级市，总人口约5733万，其中壮族是人口最多的少数民族，约占总人口的31%。\n\n广西特产丰富。工艺品方面，有南宁牙雕、柳州漆器和桂林宣纸画；土特产以凌云白茶、桂平西山茶以及我们此次重点体验的米粉为代表；名酒如东兰米酒、贺州桂花酒颇具特色；中药材桂枝、益智等享誉全国。水果方面，甘蔗、龙眼、荔枝、芒果应有尽有，尤其是南宁芒果，香甜多汁，堪称一绝。\n\n接下来了解我们的行程城市。首府南宁，被誉为“绿城”，植被繁茂，下辖7区4县，人口约889万。除了老友粉，南宁的桂花糕、八角也十分出名。\n\n柳州是中国南方重要的工业城市，下辖5区5县，人口约417万。这里不仅是螺蛳粉的发源地，三江侗族竹编、柳州螺蛳也声名远扬。\n\n桂林是世界著名的旅游城市，下辖6区10县，人口约494万。“桂林山水甲天下”是对它的真实写照。除了桂林米粉，桂花茶、桂林腐乳也是当地名产。"
+        },
+        {
+          "title": "三、Attraction and Rice Noodle Introduction 景点及米粉介绍",
+          "en": "Our first stop is Nanning. We'll visit People's Park, a landmark with a history of over 100 years, where you can enjoy the green scenery of the \"Green City\". Then we'll taste Nanning Old Friend Rice Noodles. It's made with rice noodles, pork, shrimp, sour bamboo shoots and other ingredients, cooked quickly in a wok. The soup is sour, spicy, fresh and fragrant, which is said to have originated from a chef who cooked it for a sick friend, hence the name \"Old Friend\".\n\nNext is Liuzhou. We'll go to Liuzhou Water Wheel Island, where we can see the largest water wheel group in Asia and enjoy the beautiful scenery of the Liujiang River. Then it's the highlight - Liuzhou Snail Rice Noodles. It's famous for its \"smelly but delicious\" flavor, with ingredients like snail soup, sour bamboo shoots, peanuts and fried tofu skin. The snail soup is simmered for hours, making the taste rich and unique. Don't worry about the \"smell\"; it's the charm of fermented sour bamboo shoots!\n\nOur last stop is Guilin. We'll take a bamboo raft tour on the Li River, enjoying the picturesque mountains and waters - the green mountains stand like bamboo shoots, and the clear water reflects the scenery. After that, we'll taste Guilin Rice Noodles. It's usually served with a dry sauce made of pork, mushrooms and soy sauce, and you can add soup and side dishes as you like. The rice noodles are smooth and chewy, with a strong sauce flavor.",
+          "cn": "我们的第一站是南宁。我们将游览有着百年历史的地标——人民公园，在这里可以尽情感受“绿城”的绿意盎然。之后我们将品尝南宁老友粉，它以米粉、猪肉、虾仁、酸笋等为原料，铁锅快炒而成，汤头酸、辣、鲜、香，据说源于一位厨师为生病的好友烹制的暖心美食，故而得名“老友”。\n\n下一站是柳州。我们将前往柳州水上大舞台，观赏亚洲最大的水上摩天轮，感受柳江的碧波荡漾。随后就是重头戏——柳州螺蛳粉，它以“闻着臭、吃着香”闻名，配料有螺蛳汤、酸笋、花生、炸腐竹等，螺蛳汤经数小时慢炖，味道醇厚独特。别被“臭味”吓到，这正是发酵酸笋的独特魅力！\n\n最后一站是桂林。我们将乘坐竹筏游览漓江，欣赏如诗如画的山水风光——青山如笋，碧水映景。之后品尝桂林米粉，它通常搭配由猪肉、香菇、酱油等调制的干拌酱，可根据喜好加汤和配菜，米粉爽滑有嚼劲，酱香味十足。"
+        }�表；名酒如东兰米酒、贺州桂花酒颇具特色；中药材桂枝、益智等享誉全国。水果方面，甘蔗、龙眼、荔枝、芒果应有尽有，尤其是南宁芒果，香甜多汁，堪称一绝。\n\n接下来了解我们的行程城市。首府南宁，被誉为“绿城”，植被繁茂，下辖7区4县，人口约889万。除了老友粉，南宁的桂花糕、八角也十分出名。\n\n柳州是中国南方重要的工业城市，下辖5区5县，人口约417万。这里不仅是螺蛳粉的发源地，三江侗族竹编、柳州螺蛳也声名远扬。\n\n桂林是世界著名的旅游城市，下辖6区10县，人口约494万。“桂林山水甲天下”是对它的真实写照。除了桂林米粉，桂花茶、桂林腐乳也是当地名产。\n\n三、Attraction and Rice Noodle Introduction 景点及米粉介绍\n\n我们的第一站是南宁。我们将游览有着百年历史的地标——人民公园，在这里可以尽情感受“绿城”的绿意盎然。之后我们将品尝南宁老友粉，它以米粉、猪肉、虾仁、酸笋等为原料，铁锅快炒而成，汤头酸、辣、鲜、香，据说源于一位厨师为生病的好友烹制的暖心美食，故而得名“老友”。\n\n下一站是柳州。我们将前往柳州水上大舞台，观赏亚洲最大的水上摩天轮，感受柳江的碧波荡漾。随后就是重头戏——柳州螺蛳粉，它以“闻着臭、吃着香”闻名，配料有螺蛳汤、酸笋、花生、炸腐竹等，螺蛳汤经数小时慢炖，味道醇厚独特。别被“臭味”吓到，这正是发酵酸笋的独特魅力！\n\n最后一站是桂林。我们将乘坐竹筏游览漓江，欣赏如诗如画的山水风光——青山如笋，碧水映景。之后品尝桂林米粉，它通常搭配由猪肉、香菇、酱油等调制的干拌酱，可根据喜好加汤和配菜，米粉爽滑有嚼劲，酱香味十足。"
         },
         {
           "title": "四、Farewell Speech 欢送词",
@@ -40,7 +42,7 @@ window.data = {
       ]
     },
     {
-      "id": "崇左花山岩画景区",
+      "id": "崇左花山岩画",
       "name": "崇左花山岩画景区",
       "category": "历史文化",
       "sections": [
@@ -72,7 +74,7 @@ window.data = {
       ]
     },
     {
-      "id": "广西三月三风情之旅",
+      "id": "三月三风情之旅",
       "name": "广西三月三风情之旅",
       "category": "民族风情",
       "sections": [
@@ -94,7 +96,7 @@ window.data = {
       ]
     },
     {
-      "id": "广西历史文化名城之旅",
+      "id": "历史文化名城之旅",
       "name": "广西历史文化名城之旅",
       "category": "历史文化",
       "sections": [
@@ -121,7 +123,7 @@ window.data = {
       ]
     },
     {
-      "id": "广西奇峰秀水之旅",
+      "id": "奇峰秀水之旅",
       "name": "广西奇峰秀水之旅",
       "category": "自然山水",
       "sections": [
@@ -143,7 +145,7 @@ window.data = {
       ]
     },
     {
-      "id": "广西岭南文化之旅",
+      "id": "岭南文化之旅",
       "name": "广西岭南文化之旅",
       "category": "历史文化",
       "sections": [
@@ -165,7 +167,7 @@ window.data = {
       ]
     },
     {
-      "id": "广西桂北民族风情之旅",
+      "id": "桂北民族风情之旅",
       "name": "广西桂北民族风情之旅",
       "category": "民族风情",
       "sections": [
@@ -187,7 +189,7 @@ window.data = {
       ]
     },
     {
-      "id": "广西桂西北民族风情之旅",
+      "id": "桂西北民族风情之旅",
       "name": "广西桂西北民族风情之旅",
       "category": "民族风情",
       "sections": [
@@ -209,7 +211,7 @@ window.data = {
       ]
     },
     {
-      "id": "广西长寿休闲之旅",
+      "id": "长寿休闲之旅",
       "name": "广西长寿休闲之旅",
       "category": "康养长寿",
       "sections": [
@@ -231,7 +233,7 @@ window.data = {
       ]
     },
     {
-      "id": "广西长寿康养之旅",
+      "id": "长寿康养之旅",
       "name": "广西长寿康养之旅",
       "category": "康养长寿",
       "sections": [
@@ -253,7 +255,7 @@ window.data = {
       ]
     },
     {
-      "id": "广西长寿悦动之旅",
+      "id": "长寿悦动之旅",
       "name": "广西长寿悦动之旅",
       "category": "康养长寿",
       "sections": [
@@ -275,7 +277,7 @@ window.data = {
       ]
     },
     {
-      "id": "广西骆越文化之旅",
+      "id": "骆越文化之旅",
       "name": "广西骆越文化之旅",
       "category": "历史文化",
       "sections": [
@@ -385,7 +387,7 @@ window.data = {
       ]
     },
     {
-      "id": "柳州程阳八寨景区",
+      "id": "程阳八寨景区",
       "name": "柳州程阳八寨景区",
       "category": "民族风情",
       "sections": [
@@ -402,7 +404,7 @@ window.data = {
       ]
     },
     {
-      "id": "桂林两江四湖象山景区",
+      "id": "两江四湖象山景区",
       "name": "桂林两江四湖象山景区",
       "category": "自然山水",
       "sections": [
@@ -446,7 +448,7 @@ window.data = {
       ]
     },
     {
-      "id": "南宁青秀山旅游区",
+      "id": "青秀山旅游区",
       "name": "南宁青秀山旅游区",
       "category": "城市名胜",
       "sections": [
@@ -3950,13 +3952,13 @@ window.data = {
     {
       "name": "24广西英导词",
       "fullName": "24广西英导词.doc",
-      "category": "现场问答题库",
+      "category": "备考技巧与词汇讲义",
       "subCategory": "城市名胜"
     },
     {
       "name": "4-英语导游英汉互译179题",
       "fullName": "4-英语导游英汉互译179题.pdf",
-      "category": "现场问答题库",
+      "category": "英汉双向口译题库",
       "subCategory": "城市名胜"
     },
     {
@@ -3969,7 +3971,7 @@ window.data = {
       "name": "“广西米粉之旅”中英对照讲解词",
       "fullName": "“广西米粉之旅”中英对照讲解词.docx",
       "category": "英文景点与路线导游词",
-      "subCategory": "城市名胜"
+      "subCategory": "特色物产"
     },
     {
       "name": "《导游服务能力》英文现场面试600问+英汉互译",
@@ -3999,67 +4001,67 @@ window.data = {
       "name": "崇左市花山岩画景区中英对照导游讲解词",
       "fullName": "崇左市花山岩画景区中英对照导游讲解词.docx",
       "category": "英文景点与路线导游词",
-      "subCategory": "城市名胜"
+      "subCategory": "历史文化"
     },
     {
       "name": "广西“三月三风情之旅”中英对照讲解词",
       "fullName": "广西“三月三风情之旅”中英对照讲解词.docx",
       "category": "英文景点与路线导游词",
-      "subCategory": "城市名胜"
+      "subCategory": "民族风情"
     },
     {
       "name": "广西“历史文化名城之旅”中英对照讲解词",
       "fullName": "广西“历史文化名城之旅”中英对照讲解词.docx",
       "category": "英文景点与路线导游词",
-      "subCategory": "城市名胜"
+      "subCategory": "历史文化"
     },
     {
       "name": "广西“奇峰秀水之旅”导游讲解词",
       "fullName": "广西“奇峰秀水之旅”导游讲解词.docx",
       "category": "英文景点与路线导游词",
-      "subCategory": "城市名胜"
+      "subCategory": "自然山水"
     },
     {
       "name": "广西“岭南文化之旅”中英对照讲解词",
       "fullName": "广西“岭南文化之旅”中英对照讲解词.docx",
       "category": "英文景点与路线导游词",
-      "subCategory": "城市名胜"
+      "subCategory": "历史文化"
     },
     {
       "name": "广西“桂北民族风情之旅”中英对照讲解词",
       "fullName": "广西“桂北民族风情之旅”中英对照讲解词.docx",
       "category": "英文景点与路线导游词",
-      "subCategory": "城市名胜"
+      "subCategory": "民族风情"
     },
     {
       "name": "广西“桂西北民族风情之旅“中英对照讲解词",
       "fullName": "广西“桂西北民族风情之旅“中英对照讲解词.docx",
       "category": "英文景点与路线导游词",
-      "subCategory": "城市名胜"
+      "subCategory": "民族风情"
     },
     {
       "name": "广西“长寿休闲之旅”中英对照讲解词",
       "fullName": "广西“长寿休闲之旅”中英对照讲解词.docx",
       "category": "英文景点与路线导游词",
-      "subCategory": "城市名胜"
+      "subCategory": "康养长寿"
     },
     {
       "name": "广西“长寿康养之旅”中英对照讲解词",
       "fullName": "广西“长寿康养之旅”中英对照讲解词.docx",
       "category": "英文景点与路线导游词",
-      "subCategory": "城市名胜"
+      "subCategory": "康养长寿"
     },
     {
       "name": "广西“长寿悦动之旅”（凌云县—乐业县）中英对照讲解词",
       "fullName": "广西“长寿悦动之旅”（凌云县—乐业县）中英对照讲解词.docx",
       "category": "英文景点与路线导游词",
-      "subCategory": "城市名胜"
+      "subCategory": "康养长寿"
     },
     {
       "name": "广西“骆越文化之旅”中英对照讲解词",
       "fullName": "广西“骆越文化之旅”中英对照讲解词.docx",
       "category": "英文景点与路线导游词",
-      "subCategory": "城市名胜"
+      "subCategory": "历史文化"
     },
     {
       "name": "广西北部湾滨海之旅中英对照讲解词",
@@ -4071,42 +4073,42 @@ window.data = {
       "name": "广西喀斯特探秘之旅中英对照讲解词",
       "fullName": "广西喀斯特探秘之旅中英对照讲解词.docx",
       "category": "英文景点与路线导游词",
-      "subCategory": "城市名胜"
+      "subCategory": "自然山水"
     },
     {
       "name": "广西工艺品之旅中英对照讲解词",
       "fullName": "广西工艺品之旅中英对照讲解词.docx",
       "category": "英文景点与路线导游词",
-      "subCategory": "城市名胜"
+      "subCategory": "特色物产"
     },
     {
       "name": "广西茶文化之旅中英对照讲解词",
       "fullName": "广西茶文化之旅中英对照讲解词.docx",
       "category": "英文景点与路线导游词",
-      "subCategory": "城市名胜"
+      "subCategory": "特色物产"
     },
     {
       "name": "柳州市程阳八寨景区中英对照导游讲解词",
       "fullName": "柳州市程阳八寨景区中英对照导游讲解词.docx",
       "category": "英文景点与路线导游词",
-      "subCategory": "城市名胜"
+      "subCategory": "民族风情"
     },
     {
       "name": "桂林市两江四湖象山景区中英对照导游讲解词",
       "fullName": "桂林市两江四湖象山景区中英对照导游讲解词.docx",
       "category": "英文景点与路线导游词",
-      "subCategory": "城市名胜"
+      "subCategory": "自然山水"
     },
     {
       "name": "桂林漓江景区中英对照导游讲解词",
       "fullName": "桂林漓江景区中英对照导游讲解词.docx",
       "category": "英文景点与路线导游词",
-      "subCategory": "城市名胜"
+      "subCategory": "自然山水"
     },
     {
       "name": "英语导游带团素材集锦",
       "fullName": "英语导游带团素材集锦.pdf",
-      "category": "现场问答题库",
+      "category": "备考技巧与词汇讲义",
       "subCategory": "城市名胜"
     },
     {
@@ -4123,5 +4125,4 @@ window.data = {
     }
   ]
 };
-
 window.GUANGXI_DATA = window.data;

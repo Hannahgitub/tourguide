@@ -89,9 +89,20 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- SPOT CHIPS ---
   function renderSpotChips() {
     spotChipsContainer.innerHTML = '';
+    if (!data.speeches || data.speeches.length === 0) return;
+
     const matchingSpots = data.speeches.filter(sp => (sp.category || "特色物产") === currentCategory);
     const spotList = matchingSpots.length > 0 ? matchingSpots : data.speeches;
     
+    // 自动将 currentSpotIndex 对齐到当前分类的第一篇导游词
+    const currentInList = spotList.some(sp => data.speeches.findIndex(s => s.id === sp.id) === currentSpotIndex);
+    if (!currentInList && spotList.length > 0) {
+      currentSpotIndex = data.speeches.findIndex(s => s.id === spotList[0].id);
+    }
+    if (currentSpotIndex < 0 || currentSpotIndex >= data.speeches.length) {
+      currentSpotIndex = 0;
+    }
+
     spotList.forEach(sp => {
       const globalIdx = data.speeches.findIndex(s => s.id === sp.id);
       const chip = document.createElement('div');
@@ -105,6 +116,8 @@ document.addEventListener('DOMContentLoaded', () => {
       });
       spotChipsContainer.appendChild(chip);
     });
+
+    renderSpeechView();
   }
 
   // --- RENDER TOPIC LECTURES VIEW (原知识卡) ---
@@ -436,6 +449,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function renderSelectedSkillSubject() {
       cardsContainer.innerHTML = '';
+      if (!data.skillsBySubject || data.skillsBySubject.length === 0) return;
       const selectedSub = data.skillsBySubject.find(s => s.subject === currentSkillSubject) || data.skillsBySubject[0];
 
       const headerCard = document.createElement('div');
@@ -444,47 +458,60 @@ document.addEventListener('DOMContentLoaded', () => {
       headerCard.style.background = '#faf8f5';
       headerCard.style.borderColor = '#e2d9cd';
       headerCard.innerHTML = `
-        <h3 style="font-size: 18px; font-weight: 800; color: #8c2522; margin-bottom: 6px;">讲义官方专篇：${selectedSub.subject}</h3>
-        <p style="font-size: 13.5px; color: #555; line-height: 1.6;">${selectedSub.desc}</p>
+        <h3 style="font-size: 18px; font-weight: 800; color: #8c2522; margin-bottom: 6px;">讲义官方专篇：${selectedSub.subject || ''}</h3>
+        <p style="font-size: 13.5px; color: #555; line-height: 1.6;">${selectedSub.desc || selectedSub.title || ''}</p>
       `;
       cardsContainer.appendChild(headerCard);
 
+      const itemList = selectedSub.items || selectedSub.tips || [];
+      if (itemList.length === 0) return;
+
       if (selectedSub.subject === "万能句式") {
-        selectedSub.items.forEach(item => {
+        itemList.forEach(item => {
           const itemCard = document.createElement('div');
           itemCard.className = 'card';
           itemCard.style.marginBottom = '14px';
-          itemCard.innerHTML = `
-            <div style="font-weight: 700; font-size: 15.5px; color: #1a1a1a; margin-bottom: 10px;">• ${item.subtitle}</div>
-            <div style="font-size: 14.5px; color: #8c2522; background: #fff5f5; border-left: 4px solid #8c2522; padding: 12px 16px; border-radius: 6px; font-weight: 500; font-family: monospace; margin-bottom: 10px; line-height: 1.6;">"${item.en}"</div>
-            <div style="font-size: 13.5px; color: #444; line-height: 1.6;">${item.cn}</div>
-          `;
+          if (typeof item === 'string') {
+            itemCard.innerHTML = `<div style="font-size: 14px; color: #333;">${item}</div>`;
+          } else {
+            itemCard.innerHTML = `
+              <div style="font-weight: 700; font-size: 15.5px; color: #1a1a1a; margin-bottom: 10px;">• ${item.subtitle || ''}</div>
+              <div style="font-size: 14.5px; color: #8c2522; background: #fff5f5; border-left: 4px solid #8c2522; padding: 12px 16px; border-radius: 6px; font-weight: 500; font-family: monospace; margin-bottom: 10px; line-height: 1.6;">"${item.en || ''}"</div>
+              <div style="font-size: 13.5px; color: #444; line-height: 1.6;">${item.cn || ''}</div>
+            `;
+          }
           cardsContainer.appendChild(itemCard);
         });
         return;
       }
 
-      selectedSub.items.forEach(item => {
+      itemList.forEach(item => {
         const itemCard = document.createElement('div');
         itemCard.className = 'card';
         itemCard.style.marginBottom = '14px';
 
-        let formattedText = item.content || '';
-        formattedText = formattedText.replace(/^(01|02|03|04|05|06)\s*[\u4e00-\u9fa5]+/gm, '');
-        formattedText = formattedText.replace(/章节指南与核心要点/g, '');
+        if (typeof item === 'string') {
+          itemCard.innerHTML = `
+            <div style="font-size: 14.5px; color: #333; line-height: 1.8;">💡 ${item}</div>
+          `;
+        } else {
+          let formattedText = item.content || '';
+          formattedText = formattedText.replace(/^(01|02|03|04|05|06)\s*[\u4e00-\u9fa5]+/gm, '');
+          formattedText = formattedText.replace(/章节指南与核心要点/g, '');
 
-        formattedText = formattedText.replace(/"([^"]+)"/g, `
-          <div style="font-size: 14.5px; color: #8c2522; background: #fff5f5; border-left: 4px solid #8c2522; padding: 12px 16px; border-radius: 6px; font-weight: 500; font-family: monospace; margin: 10px 0; line-height: 1.6;">
-            "$1"
-          </div>
-        `);
-        
-        formattedText = formattedText.replace(/\n/g, '<br>');
+          formattedText = formattedText.replace(/"([^"]+)"/g, `
+            <div style="font-size: 14.5px; color: #8c2522; background: #fff5f5; border-left: 4px solid #8c2522; padding: 12px 16px; border-radius: 6px; font-weight: 500; font-family: monospace; margin: 10px 0; line-height: 1.6;">
+              "$1"
+            </div>
+          `);
+          
+          formattedText = formattedText.replace(/\n/g, '<br>');
 
-        itemCard.innerHTML = `
-          <h4 style="font-size: 16px; font-weight: 700; color: #1a1a1a; margin-bottom: 10px; border-bottom: 2px solid #f0eae1; padding-bottom: 6px;">${item.subtitle}</h4>
-          <div style="font-size: 14.5px; color: #333; line-height: 1.8;">${formattedText}</div>
-        `;
+          itemCard.innerHTML = `
+            <h4 style="font-size: 16px; font-weight: 700; color: #1a1a1a; margin-bottom: 10px; border-bottom: 2px solid #f0eae1; padding-bottom: 6px;">${item.subtitle || '核心要点'}</h4>
+            <div style="font-size: 14.5px; color: #333; line-height: 1.8;">${formattedText}</div>
+          `;
+        }
         cardsContainer.appendChild(itemCard);
       });
     }
@@ -492,10 +519,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function renderSpeechView() {
     const container = document.getElementById('speech-cards-container');
+    if (!container) return;
     container.innerHTML = '';
     
-    const speech = data.speeches[currentSpotIndex];
-    if (!speech) return;
+    if (!data.speeches || data.speeches.length === 0) {
+      container.innerHTML = '<div class="card"><p style="color:#666;text-align:center;">暂无导游词数据。</p></div>';
+      return;
+    }
+
+    let speech = data.speeches[currentSpotIndex];
+    if (!speech) {
+      currentSpotIndex = 0;
+      speech = data.speeches[0];
+    }
 
     // 1. 每篇导游词单独开一栏显示导游词总标题
     const headerCard = document.createElement('div');
