@@ -4158,13 +4158,13 @@ window.GUANGXI_DATA = window.data;
 window.data.phrasesCategories = [
   "全部专题",
   "① 游览服务",
-  "② 交通服务（来自截图）",
-  "③ 离店与送站服务（来自截图）",
+  "② 交通服务",
+  "③ 离店与送站服务",
   "④ 购物与文化娱乐服务",
   "⑤ 特殊群体服务",
-  "⑥ 突发事件和常见问题的处理（来自截图）",
+  "⑥ 突发事件和常见问题的处理",
   "⑦ 导游带团艺术",
-  "⑧ 导游服务基本原则（来自截图）",
+  "⑧ 导游服务基本原则",
   "⑨ 准备与接站服务",
   "⑩ 去酒店途中及协助办理入住服务"
 ];
@@ -4325,434 +4325,434 @@ window.data.phrasesData = [
   },
   {
     "id": "p_23",
-    "category": "② 交通服务（来自截图）",
+    "category": "② 交通服务",
     "en": "stay calm",
     "cn": "保持冷静",
     "example": "In tour service: stay calm (保持冷静)"
   },
   {
     "id": "p_24",
-    "category": "② 交通服务（来自截图）",
+    "category": "② 交通服务",
     "en": "keep safe",
     "cn": "注意安全",
     "example": "In tour service: keep safe (注意安全)"
   },
   {
     "id": "p_25",
-    "category": "② 交通服务（来自截图）",
+    "category": "② 交通服务",
     "en": "call the police",
     "cn": "报警",
     "example": "In tour service: call the police (报警)"
   },
   {
     "id": "p_26",
-    "category": "② 交通服务（来自截图）",
+    "category": "② 交通服务",
     "en": "call the ambulance",
     "cn": "叫救护车",
     "example": "In tour service: call the ambulance (叫救护车)"
   },
   {
     "id": "p_27",
-    "category": "② 交通服务（来自截图）",
+    "category": "② 交通服务",
     "en": "right away",
     "cn": "立刻、马上",
     "example": "In tour service: right away (立刻、马上)"
   },
   {
     "id": "p_28",
-    "category": "② 交通服务（来自截图）",
+    "category": "② 交通服务",
     "en": "do not move the injured people",
     "cn": "不要随意移动伤者",
     "example": "In tour service: do not move the injured people (不要随意移动伤者)"
   },
   {
     "id": "p_29",
-    "category": "② 交通服务（来自截图）",
+    "category": "② 交通服务",
     "en": "lightly",
     "cn": "轻易地、随意地",
     "example": "In tour service: lightly (轻易地、随意地)"
   },
   {
     "id": "p_30",
-    "category": "② 交通服务（来自截图）",
+    "category": "② 交通服务",
     "en": "wait for professional help",
     "cn": "等待专业救援",
     "example": "In tour service: wait for professional help (等待专业救援)"
   },
   {
     "id": "p_31",
-    "category": "② 交通服务（来自截图）",
+    "category": "② 交通服务",
     "en": "protect the accident scene",
     "cn": "保护事故现场",
     "example": "In tour service: protect the accident scene (保护事故现场)"
   },
   {
     "id": "p_32",
-    "category": "② 交通服务（来自截图）",
+    "category": "② 交通服务",
     "en": "don't leave casually",
     "cn": "不要擅自离开",
     "example": "In tour service: don't leave casually (不要擅自离开)"
   },
   {
     "id": "p_33",
-    "category": "② 交通服务（来自截图）",
+    "category": "② 交通服务",
     "en": "remind tourists",
     "cn": "提醒游客",
     "example": "In tour service: remind tourists (提醒游客)"
   },
   {
     "id": "p_34",
-    "category": "② 交通服务（来自截图）",
+    "category": "② 交通服务",
     "en": "wear seat belts",
     "cn": "系安全带",
     "example": "In tour service: wear seat belts (系安全带)"
   },
   {
     "id": "p_35",
-    "category": "② 交通服务（来自截图）",
+    "category": "② 交通服务",
     "en": "all the time",
     "cn": "全程",
     "example": "In tour service: all the time (全程)"
   },
   {
     "id": "p_36",
-    "category": "② 交通服务（来自截图）",
+    "category": "② 交通服务",
     "en": "check the bus safety condition",
     "cn": "检查车辆安全状况",
     "example": "In tour service: check the bus safety condition (检查车辆安全状况)"
   },
   {
     "id": "p_37",
-    "category": "② 交通服务（来自截图）",
+    "category": "② 交通服务",
     "en": "before the trip start",
     "cn": "出发前",
     "example": "In tour service: before the trip start (出发前)"
   },
   {
     "id": "p_38",
-    "category": "② 交通服务（来自截图）",
+    "category": "② 交通服务",
     "en": "bus safety rules",
     "cn": "乘车安全规定",
     "example": "In tour service: bus safety rules (乘车安全规定)"
   },
   {
     "id": "p_39",
-    "category": "② 交通服务（来自截图）",
+    "category": "② 交通服务",
     "en": "arrange front seat",
     "cn": "安排前排座位",
     "example": "In tour service: arrange front seat (安排前排座位)"
   },
   {
     "id": "p_40",
-    "category": "② 交通服务（来自截图）",
+    "category": "② 交通服务",
     "en": "carsick tourists",
     "cn": "晕车游客",
     "example": "In tour service: carsick tourists (晕车游客)"
   },
   {
     "id": "p_41",
-    "category": "② 交通服务（来自截图）",
+    "category": "② 交通服务",
     "en": "keep good ventilation",
     "cn": "保持车内通风",
     "example": "In tour service: keep good ventilation (保持车内通风)"
   },
   {
     "id": "p_42",
-    "category": "② 交通服务（来自截图）",
+    "category": "② 交通服务",
     "en": "avoid eating greasy food",
     "cn": "不吃油腻食物",
     "example": "In tour service: avoid eating greasy food (不吃油腻食物)"
   },
   {
     "id": "p_43",
-    "category": "② 交通服务（来自截图）",
+    "category": "② 交通服务",
     "en": "before riding",
     "cn": "乘车之前",
     "example": "In tour service: before riding (乘车之前)"
   },
   {
     "id": "p_44",
-    "category": "② 交通服务（来自截图）",
+    "category": "② 交通服务",
     "en": "play mobile phone",
     "cn": "玩手机",
     "example": "In tour service: play mobile phone (玩手机)"
   },
   {
     "id": "p_45",
-    "category": "② 交通服务（来自截图）",
+    "category": "② 交通服务",
     "en": "provide plastic bags",
     "cn": "提供塑料袋",
     "example": "In tour service: provide plastic bags (提供塑料袋)"
   },
   {
     "id": "p_46",
-    "category": "② 交通服务（来自截图）",
+    "category": "② 交通服务",
     "en": "in case of need",
     "cn": "以备不时之需",
     "example": "In tour service: in case of need (以备不时之需)"
   },
   {
     "id": "p_47",
-    "category": "② 交通服务（来自截图）",
+    "category": "② 交通服务",
     "en": "hand a plastic bag",
     "cn": "递塑料袋",
     "example": "In tour service: hand a plastic bag (递塑料袋)"
   },
   {
     "id": "p_48",
-    "category": "② 交通服务（来自截图）",
+    "category": "② 交通服务",
     "en": "clean paper",
     "cn": "干净纸巾",
     "example": "In tour service: clean paper (干净纸巾)"
   },
   {
     "id": "p_49",
-    "category": "② 交通服务（来自截图）",
+    "category": "② 交通服务",
     "en": "at once",
     "cn": "立刻",
     "example": "In tour service: at once (立刻)"
   },
   {
     "id": "p_50",
-    "category": "② 交通服务（来自截图）",
+    "category": "② 交通服务",
     "en": "ask the driver",
     "cn": "跟司机说",
     "example": "In tour service: ask the driver (跟司机说)"
   },
   {
     "id": "p_51",
-    "category": "② 交通服务（来自截图）",
+    "category": "② 交通服务",
     "en": "spot the bus",
     "cn": "停放大巴",
     "example": "In tour service: spot the bus (停放大巴)"
   },
   {
     "id": "p_52",
-    "category": "② 交通服务（来自截图）",
+    "category": "② 交通服务",
     "en": "at a safe place",
     "cn": "在安全区域",
     "example": "In tour service: at a safe place (在安全区域)"
   },
   {
     "id": "p_53",
-    "category": "③ 离店与送站服务（来自截图）",
+    "category": "③ 离店与送站服务",
     "en": "Confirm departure time",
     "cn": "确认出发时间",
     "example": "In tour service: Confirm departure time (确认出发时间)"
   },
   {
     "id": "p_54",
-    "category": "③ 离店与送站服务（来自截图）",
+    "category": "③ 离店与送站服务",
     "en": "ahead of time",
     "cn": "提前",
     "example": "In tour service: ahead of time (提前)"
   },
   {
     "id": "p_55",
-    "category": "③ 离店与送站服务（来自截图）",
+    "category": "③ 离店与送站服务",
     "en": "gather on time",
     "cn": "准时集合",
     "example": "In tour service: gather on time (准时集合)"
   },
   {
     "id": "p_56",
-    "category": "③ 离店与送站服务（来自截图）",
+    "category": "③ 离店与送站服务",
     "en": "take all luggage",
     "cn": "带好全部行李",
     "example": "In tour service: take all luggage (带好全部行李)"
   },
   {
     "id": "p_57",
-    "category": "③ 离店与送站服务（来自截图）",
+    "category": "③ 离店与送站服务",
     "en": "luggage delivery",
     "cn": "行李递送/行李托运",
     "example": "In tour service: luggage delivery (行李递送/行李托运)"
   },
   {
     "id": "p_58",
-    "category": "③ 离店与送站服务（来自截图）",
+    "category": "③ 离店与送站服务",
     "en": "checking out",
     "cn": "退房；办理离店手续",
     "example": "In tour service: checking out (退房；办理离店手续)"
   },
   {
     "id": "p_59",
-    "category": "③ 离店与送站服务（来自截图）",
+    "category": "③ 离店与送站服务",
     "en": "checking out procedure",
     "cn": "退房流程",
     "example": "In tour service: checking out procedure (退房流程)"
   },
   {
     "id": "p_60",
-    "category": "③ 离店与送站服务（来自截图）",
+    "category": "③ 离店与送站服务",
     "en": "depart on time",
     "cn": "准时出发",
     "example": "In tour service: depart on time (准时出发)"
   },
   {
     "id": "p_61",
-    "category": "③ 离店与送站服务（来自截图）",
+    "category": "③ 离店与送站服务",
     "en": "Remind tourists",
     "cn": "提醒游客",
     "example": "In tour service: Remind tourists (提醒游客)"
   },
   {
     "id": "p_62",
-    "category": "③ 离店与送站服务（来自截图）",
+    "category": "③ 离店与送站服务",
     "en": "valuable things",
     "cn": "贵重物品",
     "example": "In tour service: valuable things (贵重物品)"
   },
   {
     "id": "p_63",
-    "category": "③ 离店与送站服务（来自截图）",
+    "category": "③ 离店与送站服务",
     "en": "pack ... in luggage",
     "cn": "放进行李里",
     "example": "In tour service: pack ... in luggage (放进行李里)"
   },
   {
     "id": "p_64",
-    "category": "③ 离店与送站服务（来自截图）",
+    "category": "③ 离店与送站服务",
     "en": "tell tourists early",
     "cn": "提前告知游客",
     "example": "In tour service: tell tourists early (提前告知游客)"
   },
   {
     "id": "p_65",
-    "category": "③ 离店与送站服务（来自截图）",
+    "category": "③ 离店与送站服务",
     "en": "check out time",
     "cn": "退房时间",
     "example": "In tour service: check out time (退房时间)"
   },
   {
     "id": "p_66",
-    "category": "③ 离店与送站服务（来自截图）",
+    "category": "③ 离店与送站服务",
     "en": "enough packing time",
     "cn": "充足收拾行李时间",
     "example": "In tour service: enough packing time (充足收拾行李时间)"
   },
   {
     "id": "p_67",
-    "category": "③ 离店与送站服务（来自截图）",
+    "category": "③ 离店与送站服务",
     "en": "Hand over all luggage",
     "cn": "移交所有行李",
     "example": "In tour service: Hand over all luggage (移交所有行李)"
   },
   {
     "id": "p_68",
-    "category": "③ 离店与送站服务（来自截图）",
+    "category": "③ 离店与送站服务",
     "en": "to the bellman",
     "cn": "交给行李员",
     "example": "In tour service: to the bellman (交给行李员)"
   },
   {
     "id": "p_69",
-    "category": "③ 离店与送站服务（来自截图）",
+    "category": "③ 离店与送站服务",
     "en": "in person",
     "cn": "亲自",
     "example": "In tour service: in person (亲自)"
   },
   {
     "id": "p_70",
-    "category": "③ 离店与送站服务（来自截图）",
+    "category": "③ 离店与送站服务",
     "en": "Settle all hotel bills",
     "cn": "结清所有酒店账单",
     "example": "In tour service: Settle all hotel bills (结清所有酒店账单)"
   },
   {
     "id": "p_71",
-    "category": "③ 离店与送站服务（来自截图）",
+    "category": "③ 离店与送站服务",
     "en": "with the hotel",
     "cn": "和酒店（结算）",
     "example": "In tour service: with the hotel (和酒店（结算）)"
   },
   {
     "id": "p_72",
-    "category": "③ 离店与送站服务（来自截图）",
+    "category": "③ 离店与送站服务",
     "en": "Take back",
     "cn": "收回",
     "example": "In tour service: Take back (收回)"
   },
   {
     "id": "p_73",
-    "category": "③ 离店与送站服务（来自截图）",
+    "category": "③ 离店与送站服务",
     "en": "hotel room keys",
     "cn": "酒店房间钥匙",
     "example": "In tour service: hotel room keys (酒店房间钥匙)"
   },
   {
     "id": "p_74",
-    "category": "③ 离店与送站服务（来自截图）",
+    "category": "③ 离店与送站服务",
     "en": "Confirm no tourists",
     "cn": "确认游客无遗留",
     "example": "In tour service: Confirm no tourists (确认游客无遗留)"
   },
   {
     "id": "p_75",
-    "category": "③ 离店与送站服务（来自截图）",
+    "category": "③ 离店与送站服务",
     "en": "leave items",
     "cn": "遗留物品",
     "example": "In tour service: leave items (遗留物品)"
   },
   {
     "id": "p_76",
-    "category": "③ 离店与送站服务（来自截图）",
+    "category": "③ 离店与送站服务",
     "en": "Label luggage",
     "cn": "给行李贴标签",
     "example": "In tour service: Label luggage (给行李贴标签)"
   },
   {
     "id": "p_77",
-    "category": "③ 离店与送站服务（来自截图）",
+    "category": "③ 离店与送站服务",
     "en": "person information",
     "cn": "个人信息",
     "example": "In tour service: person information (个人信息)"
   },
   {
     "id": "p_78",
-    "category": "③ 离店与送站服务（来自截图）",
+    "category": "③ 离店与送站服务",
     "en": "Count and check luggage",
     "cn": "清点检查行李",
     "example": "In tour service: Count and check luggage (清点检查行李)"
   },
   {
     "id": "p_79",
-    "category": "③ 离店与送站服务（来自截图）",
+    "category": "③ 离店与送站服务",
     "en": "before departure",
     "cn": "出发前",
     "example": "In tour service: before departure (出发前)"
   },
   {
     "id": "p_80",
-    "category": "③ 离店与送站服务（来自截图）",
+    "category": "③ 离店与送站服务",
     "en": "Keep an eye on",
     "cn": "照看、留意",
     "example": "In tour service: Keep an eye on (照看、留意)"
   },
   {
     "id": "p_81",
-    "category": "③ 离店与送站服务（来自截图）",
+    "category": "③ 离店与送站服务",
     "en": "all the time",
     "cn": "一直、始终",
     "example": "In tour service: all the time (一直、始终)"
   },
   {
     "id": "p_82",
-    "category": "③ 离店与送站服务（来自截图）",
+    "category": "③ 离店与送站服务",
     "en": "Wait for 10 to 15 minutes",
     "cn": "等候10至15分钟",
     "example": "In tour service: Wait for 10 to 15 minutes (等候10至15分钟)"
   },
   {
     "id": "p_83",
-    "category": "③ 离店与送站服务（来自截图）",
+    "category": "③ 离店与送站服务",
     "en": "search places",
     "cn": "搜寻各处",
     "example": "In tour service: search places (搜寻各处)"
   },
   {
     "id": "p_84",
-    "category": "③ 离店与送站服务（来自截图）",
+    "category": "③ 离店与送站服务",
     "en": "the tourist may go",
     "cn": "游客可能去到的地方",
     "example": "In tour service: the tourist may go (游客可能去到的地方)"
@@ -4983,231 +4983,231 @@ window.data.phrasesData = [
   },
   {
     "id": "p_117",
-    "category": "⑥ 突发事件和常见问题的处理（来自截图）",
+    "category": "⑥ 突发事件和常见问题的处理",
     "en": "Put personal safety in the first place",
     "cn": "把人身安全放在首位",
     "example": "In tour service: Put personal safety in the first place (把人身安全放在首位)"
   },
   {
     "id": "p_118",
-    "category": "⑥ 突发事件和常见问题的处理（来自截图）",
+    "category": "⑥ 突发事件和常见问题的处理",
     "en": "in the first place",
     "cn": "放在第一位、首要",
     "example": "In tour service: in the first place (放在第一位、首要)"
   },
   {
     "id": "p_119",
-    "category": "⑥ 突发事件和常见问题的处理（来自截图）",
+    "category": "⑥ 突发事件和常见问题的处理",
     "en": "Keep calm",
     "cn": "保持冷静",
     "example": "In tour service: Keep calm (保持冷静)"
   },
   {
     "id": "p_120",
-    "category": "⑥ 突发事件和常见问题的处理（来自截图）",
+    "category": "⑥ 突发事件和常见问题的处理",
     "en": "deal with situation properly",
     "cn": "妥善处理情况",
     "example": "In tour service: deal with situation properly (妥善处理情况)"
   },
   {
     "id": "p_121",
-    "category": "⑥ 突发事件和常见问题的处理（来自截图）",
+    "category": "⑥ 突发事件和常见问题的处理",
     "en": "Follow regulation",
     "cn": "遵守规定",
     "example": "In tour service: Follow regulation (遵守规定)"
   },
   {
     "id": "p_122",
-    "category": "⑥ 突发事件和常见问题的处理（来自截图）",
+    "category": "⑥ 突发事件和常见问题的处理",
     "en": "report timely",
     "cn": "及时上报",
     "example": "In tour service: report timely (及时上报)"
   },
   {
     "id": "p_123",
-    "category": "⑥ 突发事件和常见问题的处理（来自截图）",
+    "category": "⑥ 突发事件和常见问题的处理",
     "en": "tour group",
     "cn": "旅行团",
     "example": "In tour service: tour group (旅行团)"
   },
   {
     "id": "p_124",
-    "category": "⑥ 突发事件和常见问题的处理（来自截图）",
+    "category": "⑥ 突发事件和常见问题的处理",
     "en": "adjust travel schedules",
     "cn": "调整行程安排",
     "example": "In tour service: adjust travel schedules (调整行程安排)"
   },
   {
     "id": "p_125",
-    "category": "⑥ 突发事件和常见问题的处理（来自截图）",
+    "category": "⑥ 突发事件和常见问题的处理",
     "en": "force measure",
     "cn": "应对措施 / 不可抗力",
     "example": "In tour service: force measure (应对措施 / 不可抗力)"
   },
   {
     "id": "p_126",
-    "category": "⑥ 突发事件和常见问题的处理（来自截图）",
+    "category": "⑥ 突发事件和常见问题的处理",
     "en": "bad weather",
     "cn": "恶劣天气",
     "example": "In tour service: bad weather (恶劣天气)"
   },
   {
     "id": "p_127",
-    "category": "⑥ 突发事件和常见问题的处理（来自截图）",
+    "category": "⑥ 突发事件和常见问题的处理",
     "en": "traffic direction",
     "cn": "交通管制",
     "example": "In tour service: traffic direction (交通管制)"
   },
   {
     "id": "p_128",
-    "category": "⑥ 突发事件和常见问题的处理（来自截图）",
+    "category": "⑥ 突发事件和常见问题的处理",
     "en": "mistake made by staff",
     "cn": "工作人员造成的失误",
     "example": "In tour service: mistake made by staff (工作人员造成的失误)"
   },
   {
     "id": "p_129",
-    "category": "⑥ 突发事件和常见问题的处理（来自截图）",
+    "category": "⑥ 突发事件和常见问题的处理",
     "en": "travel agency staff",
     "cn": "旅行社工作人员",
     "example": "In tour service: travel agency staff (旅行社工作人员)"
   },
   {
     "id": "p_130",
-    "category": "⑥ 突发事件和常见问题的处理（来自截图）",
+    "category": "⑥ 突发事件和常见问题的处理",
     "en": "Try best to serve well",
     "cn": "尽力做好服务",
     "example": "In tour service: Try best to serve well (尽力做好服务)"
   },
   {
     "id": "p_131",
-    "category": "⑥ 突发事件和常见问题的处理（来自截图）",
+    "category": "⑥ 突发事件和常见问题的处理",
     "en": "the rest trip",
     "cn": "剩余行程",
     "example": "In tour service: the rest trip (剩余行程)"
   },
   {
     "id": "p_132",
-    "category": "⑥ 突发事件和常见问题的处理（来自截图）",
+    "category": "⑥ 突发事件和常见问题的处理",
     "en": "Explain the real reason honestly",
     "cn": "如实说明真实原因",
     "example": "In tour service: Explain the real reason honestly (如实说明真实原因)"
   },
   {
     "id": "p_133",
-    "category": "⑥ 突发事件和常见问题的处理（来自截图）",
+    "category": "⑥ 突发事件和常见问题的处理",
     "en": "real reason",
     "cn": "真实原因",
     "example": "In tour service: real reason (真实原因)"
   },
   {
     "id": "p_134",
-    "category": "⑥ 突发事件和常见问题的处理（来自截图）",
+    "category": "⑥ 突发事件和常见问题的处理",
     "en": "Offer sincere apology",
     "cn": "诚恳道歉",
     "example": "In tour service: Offer sincere apology (诚恳道歉)"
   },
   {
     "id": "p_135",
-    "category": "⑥ 突发事件和常见问题的处理（来自截图）",
+    "category": "⑥ 突发事件和常见问题的处理",
     "en": "at once",
     "cn": "立刻",
     "example": "In tour service: at once (立刻)"
   },
   {
     "id": "p_136",
-    "category": "⑥ 突发事件和常见问题的处理（来自截图）",
+    "category": "⑥ 突发事件和常见问题的处理",
     "en": "Keep contact",
     "cn": "保持联系",
     "example": "In tour service: Keep contact (保持联系)"
   },
   {
     "id": "p_137",
-    "category": "⑥ 突发事件和常见问题的处理（来自截图）",
+    "category": "⑥ 突发事件和常见问题的处理",
     "en": "follow up on retrieval progress",
     "cn": "跟进寻回进展",
     "example": "In tour service: follow up on retrieval progress (跟进寻回进展)"
   },
   {
     "id": "p_138",
-    "category": "⑥ 突发事件和常见问题的处理（来自截图）",
+    "category": "⑥ 突发事件和常见问题的处理",
     "en": "Fill in relevant form",
     "cn": "填写相关表格",
     "example": "In tour service: Fill in relevant form (填写相关表格)"
   },
   {
     "id": "p_139",
-    "category": "⑥ 突发事件和常见问题的处理（来自截图）",
+    "category": "⑥ 突发事件和常见问题的处理",
     "en": "loss registration form",
     "cn": "遗失登记表",
     "example": "In tour service: loss registration form (遗失登记表)"
   },
   {
     "id": "p_140",
-    "category": "⑥ 突发事件和常见问题的处理（来自截图）",
+    "category": "⑥ 突发事件和常见问题的处理",
     "en": "Report the loss",
     "cn": "报失",
     "example": "In tour service: Report the loss (报失)"
   },
   {
     "id": "p_141",
-    "category": "⑥ 突发事件和常见问题的处理（来自截图）",
+    "category": "⑥ 突发事件和常见问题的处理",
     "en": "airport staff",
     "cn": "机场工作人员",
     "example": "In tour service: airport staff (机场工作人员)"
   },
   {
     "id": "p_142",
-    "category": "⑥ 突发事件和常见问题的处理（来自截图）",
+    "category": "⑥ 突发事件和常见问题的处理",
     "en": "Comfort visitors",
     "cn": "安抚游客",
     "example": "In tour service: Comfort visitors (安抚游客)"
   },
   {
     "id": "p_143",
-    "category": "⑥ 突发事件和常见问题的处理（来自截图）",
+    "category": "⑥ 突发事件和常见问题的处理",
     "en": "ask for detailed information",
     "cn": "询问详细信息",
     "example": "In tour service: ask for detailed information (询问详细信息)"
   },
   {
     "id": "p_144",
-    "category": "⑥ 突发事件和常见问题的处理（来自截图）",
+    "category": "⑥ 突发事件和常见问题的处理",
     "en": "Help search together",
     "cn": "一同协助搜寻",
     "example": "In tour service: Help search together (一同协助搜寻)"
   },
   {
     "id": "p_145",
-    "category": "⑥ 突发事件和常见问题的处理（来自截图）",
+    "category": "⑥ 突发事件和常见问题的处理",
     "en": "visited place",
     "cn": "到访过的地点",
     "example": "In tour service: visited place (到访过的地点)"
   },
   {
     "id": "p_146",
-    "category": "⑥ 突发事件和常见问题的处理（来自截图）",
+    "category": "⑥ 突发事件和常见问题的处理",
     "en": "Report to relevant staff",
     "cn": "向相关工作人员报备",
     "example": "In tour service: Report to relevant staff (向相关工作人员报备)"
   },
   {
     "id": "p_147",
-    "category": "⑥ 突发事件和常见问题的处理（来自截图）",
+    "category": "⑥ 突发事件和常见问题的处理",
     "en": "go through registration formalities",
     "cn": "办理登记手续",
     "example": "In tour service: go through registration formalities (办理登记手续)"
   },
   {
     "id": "p_148",
-    "category": "⑥ 突发事件和常见问题的处理（来自截图）",
+    "category": "⑥ 突发事件和常见问题的处理",
     "en": "Assist tourist to report the loss",
     "cn": "协助游客报失",
     "example": "In tour service: Assist tourist to report the loss (协助游客报失)"
   },
   {
     "id": "p_149",
-    "category": "⑥ 突发事件和常见问题的处理（来自截图）",
+    "category": "⑥ 突发事件和常见问题的处理",
     "en": "report the loss promptly",
     "cn": "及时报失",
     "example": "In tour service: report the loss promptly (及时报失)"
@@ -5312,210 +5312,210 @@ window.data.phrasesData = [
   },
   {
     "id": "p_164",
-    "category": "⑧ 导游服务基本原则（来自截图）",
+    "category": "⑧ 导游服务基本原则",
     "en": "wear clean and tidy clothes",
     "cn": "穿着干净整洁的服装",
     "example": "In tour service: wear clean and tidy clothes (穿着干净整洁的服装)"
   },
   {
     "id": "p_165",
-    "category": "⑧ 导游服务基本原则（来自截图）",
+    "category": "⑧ 导游服务基本原则",
     "en": "wear formal clothes",
     "cn": "穿着正式服装",
     "example": "In tour service: wear formal clothes (穿着正式服装)"
   },
   {
     "id": "p_166",
-    "category": "⑧ 导游服务基本原则（来自截图）",
+    "category": "⑧ 导游服务基本原则",
     "en": "professional clothes",
     "cn": "职业装",
     "example": "In tour service: professional clothes (职业装)"
   },
   {
     "id": "p_167",
-    "category": "⑧ 导游服务基本原则（来自截图）",
+    "category": "⑧ 导游服务基本原则",
     "en": "wear too casual clothes",
     "cn": "穿着过于随意",
     "example": "In tour service: wear too casual clothes (穿着过于随意)"
   },
   {
     "id": "p_168",
-    "category": "⑧ 导游服务基本原则（来自截图）",
+    "category": "⑧ 导游服务基本原则",
     "en": "strange clothes",
     "cn": "奇装异服",
     "example": "In tour service: strange clothes (奇装异服)"
   },
   {
     "id": "p_169",
-    "category": "⑧ 导游服务基本原则（来自截图）",
+    "category": "⑧ 导游服务基本原则",
     "en": "dress appropriately",
     "cn": "着装得体",
     "example": "In tour service: dress appropriately (着装得体)"
   },
   {
     "id": "p_170",
-    "category": "⑧ 导游服务基本原则（来自截图）",
+    "category": "⑧ 导游服务基本原则",
     "en": "for the weather",
     "cn": "适应天气",
     "example": "In tour service: for the weather (适应天气)"
   },
   {
     "id": "p_171",
-    "category": "⑧ 导游服务基本原则（来自截图）",
+    "category": "⑧ 导游服务基本原则",
     "en": "be polite and friendly",
     "cn": "礼貌友善",
     "example": "In tour service: be polite and friendly (礼貌友善)"
   },
   {
     "id": "p_172",
-    "category": "⑧ 导游服务基本原则（来自截图）",
+    "category": "⑧ 导游服务基本原则",
     "en": "dress neatly",
     "cn": "着装整洁",
     "example": "In tour service: dress neatly (着装整洁)"
   },
   {
     "id": "p_173",
-    "category": "⑧ 导游服务基本原则（来自截图）",
+    "category": "⑧ 导游服务基本原则",
     "en": "look tidy",
     "cn": "仪容整齐",
     "example": "In tour service: look tidy (仪容整齐)"
   },
   {
     "id": "p_174",
-    "category": "⑧ 导游服务基本原则（来自截图）",
+    "category": "⑧ 导游服务基本原则",
     "en": "speak clearly",
     "cn": "表达清晰 / 表述清晰",
     "example": "In tour service: speak clearly (表达清晰 / 表述清晰)"
   },
   {
     "id": "p_175",
-    "category": "⑧ 导游服务基本原则（来自截图）",
+    "category": "⑧ 导游服务基本原则",
     "en": "smile often",
     "cn": "时常保持微笑",
     "example": "In tour service: smile often (时常保持微笑)"
   },
   {
     "id": "p_176",
-    "category": "⑧ 导游服务基本原则（来自截图）",
+    "category": "⑧ 导游服务基本原则",
     "en": "be ready to help tourists",
     "cn": "乐于帮助游客",
     "example": "In tour service: be ready to help tourists (乐于帮助游客)"
   },
   {
     "id": "p_177",
-    "category": "⑧ 导游服务基本原则（来自截图）",
+    "category": "⑧ 导游服务基本原则",
     "en": "introduce yourself warmly",
     "cn": "热情自我介绍",
     "example": "In tour service: introduce yourself warmly (热情自我介绍)"
   },
   {
     "id": "p_178",
-    "category": "⑧ 导游服务基本原则（来自截图）",
+    "category": "⑧ 导游服务基本原则",
     "en": "safety first",
     "cn": "安全第一",
     "example": "In tour service: safety first (安全第一)"
   },
   {
     "id": "p_179",
-    "category": "⑧ 导游服务基本原则（来自截图）",
+    "category": "⑧ 导游服务基本原则",
     "en": "sincere and honest service",
     "cn": "真诚诚信服务",
     "example": "In tour service: sincere and honest service (真诚诚信服务)"
   },
   {
     "id": "p_180",
-    "category": "⑧ 导游服务基本原则（来自截图）",
+    "category": "⑧ 导游服务基本原则",
     "en": "follow the tour plan strictly",
     "cn": "严格按照行程执行",
     "example": "In tour service: follow the tour plan strictly (严格按照行程执行)"
   },
   {
     "id": "p_181",
-    "category": "⑧ 导游服务基本原则（来自截图）",
+    "category": "⑧ 导游服务基本原则",
     "en": "treat all tourists equally",
     "cn": "平等对待所有游客",
     "example": "In tour service: treat all tourists equally (平等对待所有游客)"
   },
   {
     "id": "p_182",
-    "category": "⑧ 导游服务基本原则（来自截图）",
+    "category": "⑧ 导游服务基本原则",
     "en": "obey laws and professional rules",
     "cn": "遵守法律法规与行业规范",
     "example": "In tour service: obey laws and professional rules (遵守法律法规与行业规范)"
   },
   {
     "id": "p_183",
-    "category": "⑧ 导游服务基本原则（来自截图）",
+    "category": "⑧ 导游服务基本原则",
     "en": "be polite and patient",
     "cn": "礼貌非常有耐心",
     "example": "In tour service: be polite and patient (礼貌非常有耐心)"
   },
   {
     "id": "p_184",
-    "category": "⑧ 导游服务基本原则（来自截图）",
+    "category": "⑧ 导游服务基本原则",
     "en": "keep safe for tourists",
     "cn": "保障游客安全",
     "example": "In tour service: keep safe for tourists (保障游客安全)"
   },
   {
     "id": "p_185",
-    "category": "⑧ 导游服务基本原则（来自截图）",
+    "category": "⑧ 导游服务基本原则",
     "en": "obey the law and rules",
     "cn": "遵守法律法规",
     "example": "In tour service: obey the law and rules (遵守法律法规)"
   },
   {
     "id": "p_186",
-    "category": "⑧ 导游服务基本原则（来自截图）",
+    "category": "⑧ 导游服务基本原则",
     "en": "serve tourists honestly",
     "cn": "诚信服务游客",
     "example": "In tour service: serve tourists honestly (诚信服务游客)"
   },
   {
     "id": "p_187",
-    "category": "⑧ 导游服务基本原则（来自截图）",
+    "category": "⑧ 导游服务基本原则",
     "en": "protect the environment",
     "cn": "保护环境",
     "example": "In tour service: protect the environment (保护环境)"
   },
   {
     "id": "p_188",
-    "category": "⑧ 导游服务基本原则（来自截图）",
+    "category": "⑧ 导游服务基本原则",
     "en": "good communication skills",
     "cn": "良好沟通能力",
     "example": "In tour service: good communication skills (良好沟通能力)"
   },
   {
     "id": "p_189",
-    "category": "⑧ 导游服务基本原则（来自截图）",
+    "category": "⑧ 导游服务基本原则",
     "en": "professional knowledge",
     "cn": "专业知识",
     "example": "In tour service: professional knowledge (专业知识)"
   },
   {
     "id": "p_190",
-    "category": "⑧ 导游服务基本原则（来自截图）",
+    "category": "⑧ 导游服务基本原则",
     "en": "strong organization ability",
     "cn": "较强组织能力",
     "example": "In tour service: strong organization ability (较强组织能力)"
   },
   {
     "id": "p_191",
-    "category": "⑧ 导游服务基本原则（来自截图）",
+    "category": "⑧ 导游服务基本原则",
     "en": "problem solving skills",
     "cn": "解决问题能力",
     "example": "In tour service: problem solving skills (解决问题能力)"
   },
   {
     "id": "p_192",
-    "category": "⑧ 导游服务基本原则（来自截图）",
+    "category": "⑧ 导游服务基本原则",
     "en": "polite and patient attitudes",
     "cn": "礼貌耐心的态度",
     "example": "In tour service: polite and patient attitudes (礼貌耐心的态度)"
   },
   {
     "id": "p_193",
-    "category": "⑧ 导游服务基本原则（来自截图）",
+    "category": "⑧ 导游服务基本原则",
     "en": "teamwork spirit",
     "cn": "团队合作精神",
     "example": "In tour service: teamwork spirit (团队合作精神)"

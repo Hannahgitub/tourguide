@@ -1084,8 +1084,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const item = list[currentPhraseIndex];
     const status = phraseProgress[item.id];
     let statusBadge = '';
-    if (status === 'mastered') statusBadge = ' <span style="color:#16a34a;font-size:12px;">(已熟知)</span>';
-    else if (status === 'again') statusBadge = ' <span style="color:#dc2626;font-size:12px;">(需复习)</span>';
+    if (status === 'mastered') statusBadge = ' <span style="color:#16a34a;font-size:12px;">(已认识)</span>';
+    else if (status === 'again') statusBadge = ' <span style="color:#dc2626;font-size:12px;">(遗忘)</span>';
     else if (status === 'vague') statusBadge = ' <span style="color:#d97706;font-size:12px;">(模糊)</span>';
 
     if (tagBadge) tagBadge.innerHTML = `${item.category}${statusBadge}`;
@@ -1124,8 +1124,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const status = phraseProgress[item.id];
       let badgeHTML = '<span style="background:#f3f4f6;color:#6b7280;padding:2px 8px;border-radius:4px;font-size:12px;">未学习</span>';
-      if (status === 'mastered') badgeHTML = '<span style="background:#dcfce7;color:#16a34a;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600;">✅ 已熟知</span>';
-      else if (status === 'again') badgeHTML = '<span style="background:#fee2e2;color:#dc2626;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600;">❌ 待复习</span>';
+      if (status === 'mastered') badgeHTML = '<span style="background:#dcfce7;color:#16a34a;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600;">✅ 已认识</span>';
+      else if (status === 'again') badgeHTML = '<span style="background:#fee2e2;color:#dc2626;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600;">❌ 遗忘</span>';
       else if (status === 'vague') badgeHTML = '<span style="background:#fef3c7;color:#d97706;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600;">🤔 模糊</span>';
 
       card.innerHTML = `

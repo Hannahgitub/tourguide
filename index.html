@@ -16,6 +16,7 @@
       </div>
       <nav class="nav-tabs" id="main-nav-tabs">
         <button class="tab-btn active" data-tab="interview">背诵导游词</button>
+        <button class="tab-btn" data-tab="cheatsheet" style="background: #fff5f5; color: #8c2522; border-color: #f7dcd5; font-weight: 700;">💡 应试锦囊</button>
         <button class="tab-btn" data-tab="phrases">短语速记</button>
         <button class="tab-btn" data-tab="practice">刷题</button>
         <button class="tab-btn" data-tab="cards">专题讲解</button>
@@ -102,6 +103,25 @@
         <div id="speech-cards-container"></div>
       </section>
 
+      <!-- 10. 应试锦囊 VIEW (新增，结构化万能应试备考模型) -->
+      <section id="view-cheatsheet" class="view-section" style="display: none;">
+        <div class="card section-header-card section-header-warm" style="background: linear-gradient(135deg, #fffcf9 0%, #fff5f5 100%); border-left: 5px solid #8c2522;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+            <div>
+              <h2 class="section-heading section-heading-red" style="margin-bottom: 4px;">💡 广西英文导游现场考试·通用应试锦囊</h2>
+              <span style="font-size: 13.5px; color: #666;">《24广西英导词》（官方考纲答案） + 《导游服务能力讲义》（万能应试解题器）融会贯通版</span>
+            </div>
+            <div class="practice-mode-toggle" id="cheatsheet-subnav">
+              <button class="action-btn active" id="btn-cheat-topic">专题讲解万用模板</button>
+              <button class="action-btn" id="btn-cheat-spot">景点讲解万用模板</button>
+              <button class="action-btn" id="btn-cheat-emergency">突发问答三步法</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="cheatsheet-content-container"></div>
+      </section>
+
       <!-- 7. 考试技巧 VIEW -->
       <section id="view-skills" class="view-section" style="display: none;">
         <div class="card section-header-card section-header-warm">
@@ -140,8 +160,8 @@
         <div class="card" style="margin-bottom: 16px; padding: 14px 18px; background: #fffcf9; border: 1px solid #f0eae1;">
           <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
             <div style="display: flex; align-items: center; gap: 16px;">
-              <div><span style="font-size: 12.5px; color: #8c2522; font-weight: 600;">已熟知斩掉:</span> <strong id="phrase-stat-mastered" style="font-size: 16px; color: #16a34a;">0</strong></div>
-              <div><span style="font-size: 12.5px; color: #8c2522; font-weight: 600;">待复习/模糊:</span> <strong id="phrase-stat-review" style="font-size: 16px; color: #dc2626;">0</strong></div>
+              <div><span style="font-size: 12.5px; color: #8c2522; font-weight: 600;">已认识:</span> <strong id="phrase-stat-mastered" style="font-size: 16px; color: #16a34a;">0</strong></div>
+              <div><span style="font-size: 12.5px; color: #8c2522; font-weight: 600;">需复习/模糊/遗忘:</span> <strong id="phrase-stat-review" style="font-size: 16px; color: #dc2626;">0</strong></div>
               <div><span style="font-size: 12.5px; color: #8c2522; font-weight: 600;">收录短语总数:</span> <strong id="phrase-stat-total" style="font-size: 16px; color: #2563eb;">0</strong></div>
             </div>
             <div style="display: flex; align-items: center; gap: 8px;">
@@ -183,14 +203,14 @@
             </div>
 
             <div id="phrase-revealed-actions" style="display: none; display: flex; gap: 10px; justify-content: center;">
-              <button class="action-btn" id="btn-phrase-again" style="flex: 1; padding: 12px 6px; font-size: 13.5px; font-weight: 700; background: #fef2f2; color: #dc2626; border-color: #fca5a5;">
-                ❌ 不认识
+              <button class="action-btn" id="btn-phrase-mastered" style="flex: 1; padding: 12px 6px; font-size: 13.5px; font-weight: 700; background: #f0fdf4; color: #16a34a; border-color: #86efac;">
+                ✅ 认识
               </button>
-              <button class="action-btn" id="btn-phrase-vague" style="flex: 1; padding: 12px 6px; font-size: 13.5px; font-weight: 700; background: #fffbebf; color: #d97706; border-color: #fcd34d;">
+              <button class="action-btn" id="btn-phrase-vague" style="flex: 1; padding: 12px 6px; font-size: 13.5px; font-weight: 700; background: #fffbeb; color: #d97706; border-color: #fcd34d;">
                 🤔 模糊
               </button>
-              <button class="action-btn" id="btn-phrase-mastered" style="flex: 1; padding: 12px 6px; font-size: 13.5px; font-weight: 700; background: #f0fdf4; color: #16a34a; border-color: #86efac;">
-                ✅ 熟知
+              <button class="action-btn" id="btn-phrase-again" style="flex: 1; padding: 12px 6px; font-size: 13.5px; font-weight: 700; background: #fef2f2; color: #dc2626; border-color: #fca5a5;">
+                ❌ 遗忘
               </button>
             </div>
 
