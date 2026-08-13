@@ -1,20 +1,23 @@
 /* Modern UI CSS for Guangxi English Tour Guide Exam Assistant */
 :root {
-  --bg-color: #f7f5ef;
+  --bg-color: #f2f7f3;
   --card-bg: #ffffff;
-  --border-color: #e6e1d6;
-  --primary-red: #8c2522;
-  --primary-red-hover: #731e1c;
-  --primary-red-light: #fdf2f2;
-  --text-main: #2c2c2c;
-  --text-muted: #666666;
-  --text-light: #888888;
+  --border-color: #dce7de;
+  --primary-green: #2d7a4c;
+  --primary-green-hover: #23613c;
+  --primary-green-light: #ebf5ee;
+  --primary-red: #2d7a4c;
+  --primary-red-hover: #23613c;
+  --primary-red-light: #ebf5ee;
+  --text-main: #233328;
+  --text-muted: #556b5c;
+  --text-light: #7a9282;
   --pill-bg: #ffffff;
-  --pill-border: #ded8cb;
-  --pill-active-bg: #8c2522;
+  --pill-border: #cee0d2;
+  --pill-active-bg: #2d7a4c;
   --pill-active-text: #ffffff;
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
-  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.06);
+  --shadow-sm: 0 2px 8px rgba(45, 122, 76, 0.05);
+  --shadow-md: 0 4px 16px rgba(45, 122, 76, 0.08);
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 20px;
@@ -58,13 +61,13 @@ header.main-header {
 .brand-title {
   font-size: 22px;
   font-weight: 800;
-  color: #1a1a1a;
+  color: #1b3826;
   letter-spacing: -0.5px;
 }
 
 .brand-subtitle {
   font-size: 13px;
-  color: #666;
+  color: #556b5c;
   font-weight: 500;
 }
 
@@ -90,15 +93,27 @@ header.main-header {
 }
 
 .tab-btn:hover {
-  border-color: #b5ada0;
-  background-color: #faf8f5;
+  border-color: #a8caaf;
+  background-color: #f6faf7;
+}
+
+.tab-btn.cheatsheet-btn {
+  background: #ebf5ee;
+  color: #2d7a4c;
+  border-color: #c6e2ce;
+  font-weight: 700;
+}
+
+.tab-btn.cheatsheet-btn:hover {
+  background: #dcefdc;
+  border-color: #2d7a4c;
 }
 
 .tab-btn.active {
   background-color: var(--pill-active-bg);
   color: var(--pill-active-text);
   border-color: var(--pill-active-bg);
-  box-shadow: 0 2px 6px rgba(140, 37, 34, 0.25);
+  box-shadow: 0 2px 6px rgba(45, 122, 76, 0.25);
 }
 
 /* Secondary & Tertiary Nav Bar */
@@ -135,7 +150,7 @@ header.main-header {
   flex-wrap: wrap;
   gap: 8px;
   margin-bottom: 12px;
-  background: #eae4d8;
+  background: #e2ebe3;
   padding: 6px 10px;
   border-radius: var(--radius-sm);
 }
@@ -147,20 +162,21 @@ header.main-header {
   border-radius: 4px;
   font-size: 13px;
   font-weight: 600;
-  color: #555;
+  color: #4a6352;
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
 .cat-btn:hover {
-  color: #111;
-  background: rgba(255, 255, 255, 0.5);
+  color: #1b3826;
+  background: rgba(255, 255, 255, 0.7);
 }
 
 .cat-btn.active {
   background: #ffffff;
-  color: var(--primary-red);
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  color: var(--primary-green);
+  font-weight: 700;
+  box-shadow: 0 1px 4px rgba(45, 122, 76, 0.12);
 }
 
 .spot-nav-tabs {
@@ -176,18 +192,20 @@ header.main-header {
   border-radius: var(--radius-pill);
   font-size: 13px;
   cursor: pointer;
-  color: #444;
+  color: #334438;
   transition: all 0.15s ease;
 }
 
 .spot-chip:hover {
-  background: #f0eae1;
+  background: #e5f0e7;
+  border-color: #b8d8be;
 }
 
 .spot-chip.active {
-  background: #2a2a2a;
+  background: #2d7a4c;
   color: #fff;
-  border-color: #2a2a2a;
+  border-color: #2d7a4c;
+  box-shadow: 0 2px 6px rgba(45, 122, 76, 0.2);
 }
 
 /* Card General */
@@ -260,9 +278,9 @@ header.main-header {
 }
 
 .btn-secondary {
-  background: #fdf5e6;
-  border: 1px solid #eed6b3;
-  color: #8b5700;
+  background: #ebf5ee;
+  border: 1px solid #c6e2ce;
+  color: #2d7a4c;
   padding: 6px 14px;
   border-radius: var(--radius-sm);
   font-size: 13px;
@@ -326,10 +344,10 @@ header.main-header {
 
 .speech-text-cn {
   font-size: 14px;
-  color: #555;
-  background-color: #faf8f5;
+  color: #2e4436;
+  background-color: #f4f9f5;
   padding: 12px 16px;
-  border-left: 4px solid #d4c5b2;
+  border-left: 4px solid #a8caaf;
   border-radius: 4px;
   margin-bottom: 16px;
   line-height: 1.6;
@@ -347,8 +365,8 @@ header.main-header {
 }
 
 .kw-masked:hover, .kw-masked.revealed {
-  background-color: #fff2a8;
-  color: #8c2522;
+  background-color: #d7f5dd;
+  color: #1e5631;
   font-weight: 600;
 }
 
@@ -360,12 +378,12 @@ header.main-header {
 }
 
 .action-btn {
-  background-color: #f5f2eb;
-  border: 1px solid var(--pill-border);
+  background-color: #f0f7f2;
+  border: 1px solid #c6e2ce;
   padding: 7px 16px;
   border-radius: var(--radius-sm);
   font-size: 13px;
-  color: #333;
+  color: #233328;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -375,7 +393,8 @@ header.main-header {
 }
 
 .action-btn:hover {
-  background-color: #eae4d8;
+  background-color: #e2f0e6;
+  border-color: #a8caaf;
 }
 
 /* Strategy Step Cards */
@@ -639,8 +658,8 @@ header.main-header {
 
 /* AI Examiner Feedback Area */
 .ai-dialog-box {
-  background: #fffdf9;
-  border: 1px dashed #e2d2b5;
+  background: #f6faf7;
+  border: 1px dashed #c6e2ce;
   border-radius: var(--radius-md);
   padding: 18px;
   margin-top: 16px;
@@ -649,7 +668,7 @@ header.main-header {
 .ai-dialog-title {
   font-size: 14px;
   font-weight: 700;
-  color: #8c2522;
+  color: #2d7a4c;
   margin-bottom: 10px;
   display: flex;
   align-items: center;
@@ -669,12 +688,12 @@ header.main-header {
 }
 
 .ai-eval-result {
-  background: #fff8ee;
-  border: 1px solid #f2e2c6;
+  background: #f0f7f2;
+  border: 1px solid #c6e2ce;
   border-radius: var(--radius-sm);
   padding: 14px 16px;
   font-size: 13.5px;
-  color: #4a3b2c;
+  color: #233328;
   line-height: 1.7;
 }
 
@@ -734,28 +753,29 @@ header.main-header {
 
 /* ===== SECTION HEADER CARDS ===== */
 .section-header-card {
-  background: #faf8f5;
+  background: #f6faf7;
   margin-bottom: 14px;
   padding: 14px 18px;
 }
 .section-header-warm {
-  background: #fff8f5;
-  border-color: #f7dcd5;
+  background: #ebf5ee;
+  border-color: #c6e2ce;
+  border-left: 5px solid #2d7a4c;
 }
 .section-heading {
   font-size: 17px;
   font-weight: 800;
-  color: #1a1a1a;
+  color: #1b3826;
   margin: 0;
   line-height: 1.4;
 }
 .section-heading-red {
-  color: var(--primary-red);
+  color: var(--primary-green);
 }
 
 /* ===== PRACTICE HEADER ROW ===== */
 .practice-header-card {
-  background: #faf8f5;
+  background: #f6faf7;
   margin-bottom: 14px;
   padding: 12px 16px;
 }
@@ -909,4 +929,31 @@ header.main-header {
   .spot-nav-tabs {
     gap: 6px;
   }
+}
+
+/* ==========================================
+   Word-level Speech Synthesis Highlighting
+   ========================================== */
+.word-token {
+  display: inline;
+  padding: 1px 2px;
+  margin: 0;
+  border-radius: 3px;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+/* 前后邻近单词高亮 (前后约3词窗口辅助高亮 - 清爽薄荷浅绿) */
+.word-near {
+  background-color: #d1fae5 !important;
+  color: #14532d !important;
+  border-radius: 3px;
+}
+
+/* 当前正在发音的主单词高亮 (翡翠竹绿) */
+.word-active {
+  background-color: #2d7a4c !important;
+  color: #ffffff !important;
+  font-weight: 700;
+  border-radius: 3px;
+  box-shadow: 0 2px 6px rgba(45, 122, 76, 0.3);
 }

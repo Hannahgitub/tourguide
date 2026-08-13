@@ -44,7 +44,7 @@
             <h2 class="section-heading">真题特训刷题库</h2>
             <div class="practice-mode-toggle" id="practice-mode-toggle">
               <button class="action-btn active" id="btn-mode-card">卡片翻页</button>
-              <button class="action-btn" id="btn-mode-list">全量列表</button>
+              <button class="action-btn" id="btn-mode-list">完整题库</button>
             </div>
           </div>
         </div>
@@ -53,26 +53,23 @@
 
         <!-- 刷题模式 A: 逐题卡片翻页 -->
         <div class="card" id="practice-main-card">
-          <div style="margin-bottom: 10px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <span id="practice-num-badge" style="font-size: 12.5px; font-weight: 700; color: #6b7280; background: #f3f4f6; border: 1px solid #e5e7eb; padding: 2px 8px; border-radius: 4px; display: inline-block;">#1</span>
             <span class="qa-tag-badge" id="practice-tag-badge" style="background: #eef2ff; color: #3b82f6; border: 1px solid #bfdbfe; font-weight: 600;"></span>
           </div>
 
-          <h3 class="qa-question-title" style="font-size: 17px; margin-bottom: 6px; color: #1a1a1a;" id="practice-en-question">Loading...</h3>
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 6px;">
+            <h3 class="qa-question-title" style="font-size: 17px; margin-bottom: 0; color: #1a1a1a; flex: 1;" id="practice-en-question">Loading...</h3>
+            <button class="action-btn" id="btn-practice-listen" title="听题" style="padding: 4px 10px; font-size: 15px; background: #ebf5ee; border: 1px solid #c6e2ce; color: #2d7a4c; border-radius: 50%; width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; transition: transform 0.2s;">🔊</button>
+          </div>
           <div style="font-size: 14.5px; color: #666; font-weight: 500; margin-bottom: 14px;" id="practice-cn-question"></div>
 
-          <div style="display: flex; gap: 12px; margin-bottom: 14px; flex-wrap: wrap; align-items: center;">
-            <button class="action-btn" id="btn-practice-listen">🔊 听题</button>
-            <button class="play-main-btn" id="btn-practice-toggle-ans" style="padding: 6px 16px; font-size: 13px;">参考答案</button>
+          <div style="display: flex; gap: 12px; margin-bottom: 14px; align-items: center;">
+            <button class="play-main-btn" id="btn-practice-toggle-ans" style="padding: 6px 20px; font-size: 13px;">参考答案</button>
           </div>
 
           <div class="ref-answer-box" id="practice-ref-box" style="display: none; margin-bottom: 16px;">
-            <div class="ref-answer-title">参考答案：</div>
             <div class="ref-answer-text" id="practice-ref-text"></div>
-          </div>
-
-          <div class="ai-dialog-box">
-            <div class="ai-dialog-title">✍️ 考场作答训练</div>
-            <textarea class="user-input-textarea" id="practice-user-input" placeholder="在此输入你的英文回答或作答要点..."></textarea>
           </div>
 
           <div class="page-nav-bar" style="margin-top: 20px;">
@@ -120,15 +117,15 @@
 
       <!-- 9. 短语速记 VIEW (新增，严格隔离) -->
       <section id="view-phrases" class="view-section" style="display: none;">
-        <div class="card section-header-card section-header-warm">
-          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+        <div class="card section-header-card" style="background: #ebf5ee; border: 1px solid #b2dbbc; box-shadow: 0 2px 8px rgba(45, 122, 76, 0.08);">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
             <div>
-              <h2 class="section-heading section-heading-red" style="margin-bottom: 4px;">⚡ 导游高频短语速记</h2>
-              <span style="font-size: 13px; color: #666;">涵盖考纲10大服务基本原则与流程专题 · 记忆卡片与导游词实战例句</span>
+              <h2 class="section-heading" style="color: #1b5231; font-weight: 800; margin-bottom: 4px;">⚡ 导游高频短语速记</h2>
+              <span style="font-size: 13px; color: #3b6e4d; font-weight: 500;">涵盖考纲10大服务基本原则与流程专题 · 记忆卡片与导游词实战例句</span>
             </div>
-            <div class="practice-mode-toggle" id="phrase-mode-toggle">
-              <button class="action-btn active" id="btn-phrase-mode-card">卡片速记</button>
-              <button class="action-btn" id="btn-phrase-mode-list">短语列表</button>
+            <div class="practice-mode-toggle" id="phrase-mode-toggle" style="background: #ffffff; padding: 4px; border-radius: 20px; border: 1px solid #c6e2ce; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+              <button class="action-btn active" id="btn-phrase-mode-card" style="border-radius: 16px;">卡片速记</button>
+              <button class="action-btn" id="btn-phrase-mode-list" style="border-radius: 16px;">短语列表</button>
             </div>
           </div>
         </div>
@@ -139,7 +136,7 @@
           <div id="phrases-category-tabs" style="flex: 1; max-width: 320px;"></div>
 
           <!-- 右侧：重置进度按钮 -->
-          <button class="action-btn" id="btn-phrase-reset" style="padding: 6px 14px; font-size: 12px; background: #fff; border: 1px solid #e5e7eb; color: #6b7280; border-radius: 8px; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px; box-shadow: 0 1px 2px rgba(0,0,0,0.03); flex-shrink: 0;">
+          <button class="action-btn" id="btn-phrase-reset" style="padding: 7px 16px; font-size: 13px; background: #ffffff; border: 1px solid #cbd5e1; color: #475569; font-weight: 600; border-radius: 20px; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); flex-shrink: 0;">
             🔄 重置进度
           </button>
         </div>
@@ -202,7 +199,7 @@
   <!-- 隐藏全局兜底语速节点 (防止 JavaScript 空指针异常) -->
   <select id="speech-rate-select" style="display: none;"><option value="1.0" selected>1.0</option></select>
 
-  <script src="data.js?v=20260814_v16" charset="UTF-8"></script>
-  <script src="app.js?v=20260814_v16" charset="UTF-8"></script>
+  <script src="data.js?v=20260814_v20" charset="UTF-8"></script>
+  <script src="app.js?v=20260814_v20" charset="UTF-8"></script>
 </body>
 </html>

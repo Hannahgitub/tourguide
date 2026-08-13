@@ -329,8 +329,8 @@ document.addEventListener('DOMContentLoaded', () => {
             <div style="font-weight: 700; font-size: 14px; color: #1a1a1a; margin-bottom: 8px;">📌 核心考点词汇与表达词组：</div>
             <div style="display: flex; gap: 8px; flex-wrap: wrap;">
               ${cardItem.keywords.map(k => `
-                <span class="spot-chip active" style="font-size: 12.5px; font-weight: 500; border-radius: 6px; padding: 5px 11px; background: #f0eae1; border-color: #d6cbba; color: #333;">
-                  <strong>${k.en}</strong> <span style="color: #666;">(${k.cn})</span>
+                <span class="spot-chip active" style="font-size: 12.5px; font-weight: 500; border-radius: 6px; padding: 5px 11px; background: #e5f0e7; border-color: #c6e2ce; color: #233328;">
+                  <strong>${k.en}</strong> <span style="color: #556b5c;">(${k.cn})</span>
                 </span>
               `).join('')}
             </div>
@@ -364,7 +364,7 @@ document.addEventListener('DOMContentLoaded', () => {
               ${sec.en}
             </div>
             
-            <div class="speech-text-cn" style="font-size: 13.5px; color: #555; background-color: #faf8f5; padding: 12px 14px; border-left: 4px solid #d4c5b2; border-radius: 4px; margin-bottom: 14px; line-height: 1.6;">
+            <div class="speech-text-cn" style="font-size: 13.5px; color: #2e4436; background-color: #f4f9f5; padding: 12px 14px; border-left: 4px solid #a8caaf; border-radius: 4px; margin-bottom: 14px; line-height: 1.6;">
               ${sec.cn}
             </div>
 
@@ -397,7 +397,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="speech-text-en" style="font-size: 15px; color: #2d7a4c; background: #ebf5ee; border-left: 4px solid #2d7a4c; padding: 12px 14px; border-radius: 6px; margin-bottom: 12px;">
             "${cardItem.enSentence}"
           </div>
-          <div class="speech-text-cn" style="font-size: 13.5px; color: #444; background: #faf8f5; padding: 10px 14px; border-radius: 6px; margin-bottom: 12px;">
+          <div class="speech-text-cn" style="font-size: 13.5px; color: #2e4436; background: #f4f9f5; padding: 10px 14px; border-radius: 6px; margin-bottom: 12px;">
             ${cardItem.cnSentence}
           </div>
           <button class="action-btn btn-read-topic-sec" style="padding: 5px 14px; font-size: 13px;">
@@ -459,20 +459,20 @@ document.addEventListener('DOMContentLoaded', () => {
           tagBadge.style.background = '#fff7ed';
           tagBadge.style.color = '#c2410c';
           tagBadge.style.borderColor = '#ffedd5';
-          if (listenBtn) listenBtn.textContent = '🔊 示范英文发音';
+          if (listenBtn) { listenBtn.textContent = '🔊'; listenBtn.title = '示范英文发音'; }
         } else {
           tagBadge.textContent = '🇺🇸➔🇨🇳 英译中 (口译考题)';
           tagBadge.style.background = '#eff6ff';
           tagBadge.style.color = '#1d4ed8';
           tagBadge.style.borderColor = '#dbeafe';
-          if (listenBtn) listenBtn.textContent = '🔊 听英文原句';
+          if (listenBtn) { listenBtn.textContent = '🔊'; listenBtn.title = '听英文原句'; }
         }
       } else {
         tagBadge.textContent = qItem.spot || currentPracticeCategory;
         tagBadge.style.background = '#f3f4f6';
         tagBadge.style.color = '#374151';
         tagBadge.style.borderColor = '#e5e7eb';
-        if (listenBtn) listenBtn.textContent = '🔊 听题';
+        if (listenBtn) { listenBtn.textContent = '🔊'; listenBtn.title = '听题'; }
       }
     }
 
@@ -480,20 +480,20 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('practice-en-question').textContent = qItem.enQuestion || qItem.question;
     document.getElementById('practice-cn-question').textContent = qItem.cnQuestion || '';
     
-    // 答案中英文对照
+    // 答案中英文对照 (无多余重复标题，直接呈现英文与中文译文)
     let ansHTML = `
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-        <span style="font-weight:700; color:#2d7a4c; font-size:14px;">💡 参考答案 (Answer Reference)：</span>
-        <button class="action-btn" id="btn-practice-listen-ans" style="padding:4px 12px; font-size:12.5px;">🔊 听英文答案</button>
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 10px;">
+        <div style="white-space: pre-line; font-size: 15px; font-weight: 700; color: #1e3a8a; line-height: 1.6; flex: 1;">${qItem.answer}</div>
+        <button class="action-btn" id="btn-practice-listen-ans" title="听答案" style="padding: 4px 10px; font-size: 15px; background: #ebf5ee; border: 1px solid #c6e2ce; color: #2d7a4c; border-radius: 50%; width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0;">🔊</button>
       </div>
-      <div style="white-space: pre-line; font-size: 15px; font-weight: 700; color: #1e3a8a; line-height: 1.6;">${qItem.answer}</div>
     `;
     if (qItem.cnAnswer) {
       ansHTML += `<div style="white-space: pre-line; font-size: 14px; color: #475569; margin-top: 10px; border-top: 1px dashed #cbd5e1; padding-top: 10px; line-height: 1.6; font-weight: 500;">${qItem.cnAnswer}</div>`;
     }
     document.getElementById('practice-ref-text').innerHTML = ansHTML;
     document.getElementById('practice-ref-box').style.display = 'none';
-    document.getElementById('practice-user-input').value = '';
+    const inputElem = document.getElementById('practice-user-input');
+    if (inputElem) inputElem.value = '';
 
     const btnListenAns = document.getElementById('btn-practice-listen-ans');
     if (btnListenAns) {
@@ -568,18 +568,22 @@ document.addEventListener('DOMContentLoaded', () => {
             <span style="font-size: 12.5px; font-weight: 700; color: #6b7280; background: #f3f4f6; border: 1px solid #e5e7eb; padding: 2px 8px; border-radius: 4px; display: inline-block;">#${idx + 1}</span>
             <span class="qa-tag-badge" style="font-size: 12px; ${isC2E ? 'background:#fff7ed;color:#c2410c;border:1px solid #ffedd5;' : 'background:#eff6ff;color:#1d4ed8;border:1px solid #dbeafe;'}">${tagText}</span>
           </div>
-          <h3 class="qa-question-title" style="font-size: 16.5px; margin-bottom: 4px; color: #1a1a1a; font-weight: 700; line-height: 1.4;">${qa.enQuestion || qa.question}</h3>
+          
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 4px;">
+            <h3 class="qa-question-title" style="font-size: 16.5px; margin-bottom: 0; color: #1a1a1a; font-weight: 700; line-height: 1.4; flex: 1;">${qa.enQuestion || qa.question}</h3>
+            <button class="action-btn btn-qa-read" data-idx="${idx}" title="${isC2E ? '示范英文发音' : '听题'}" style="padding: 4px 10px; font-size: 15px; background: #ebf5ee; border: 1px solid #c6e2ce; color: #2d7a4c; border-radius: 50%; width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0;">🔊</button>
+          </div>
           ${qa.cnQuestion ? `<div style="font-size: 14px; color: #666; font-weight: 500; margin-bottom: 12px;">${qa.cnQuestion}</div>` : ''}
           
-          <div style="display: flex; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; margin-top: 10px;">
-            <button class="action-btn btn-qa-read" data-idx="${idx}">${isC2E ? '🔊 示范英文发音' : '🔊 听题'}</button>
-            <button class="play-main-btn btn-qa-ans-toggle" data-idx="${idx}" style="padding: 5px 16px; font-size: 13px;">参考答案</button>
-            <button class="action-btn btn-qa-read-ans" data-idx="${idx}">🔊 听答案</button>
+          <div style="display: flex; gap: 10px; margin-bottom: 8px; margin-top: 10px;">
+            <button class="play-main-btn btn-qa-ans-toggle" data-idx="${idx}" style="padding: 5px 20px; font-size: 13px;">参考答案</button>
           </div>
 
           <div class="ref-answer-box" id="ref-box-${idx}" style="display: none; margin-top: 12px;">
-            <div class="ref-answer-title" style="font-weight: 700; color: #2d7a4c; font-size: 14px; margin-bottom: 6px;">💡 参考答案 (Answer Reference)：</div>
-            <div class="ref-answer-text">${ansContentHTML}</div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 10px;">
+              <div style="flex: 1;">${ansContentHTML}</div>
+              <button class="action-btn btn-qa-read-ans" data-idx="${idx}" title="听答案" style="padding: 4px 10px; font-size: 15px; background: #ebf5ee; border: 1px solid #c6e2ce; color: #2d7a4c; border-radius: 50%; width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0;">🔊</button>
+            </div>
           </div>
         `;
         listContainer.appendChild(card);
@@ -644,8 +648,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const headerCard = document.createElement('div');
       headerCard.className = 'card';
       headerCard.style.marginBottom = '16px';
-      headerCard.style.background = '#faf8f5';
-      headerCard.style.borderColor = '#e2d9cd';
+      headerCard.style.background = '#f6faf7';
+      headerCard.style.borderColor = '#c6e2ce';
       headerCard.innerHTML = `
         <h3 style="font-size: 18px; font-weight: 800; color: #2d7a4c; margin-bottom: 6px;">讲义官方专篇：${selectedSub.subject || ''}</h3>
         <p style="font-size: 13.5px; color: #555; line-height: 1.6;">${selectedSub.desc || selectedSub.title || ''}</p>
@@ -697,7 +701,7 @@ document.addEventListener('DOMContentLoaded', () => {
           formattedText = formattedText.replace(/\n/g, '<br>');
 
           itemCard.innerHTML = `
-            <h4 style="font-size: 16px; font-weight: 700; color: #1a1a1a; margin-bottom: 10px; border-bottom: 2px solid #f0eae1; padding-bottom: 6px;">${item.subtitle || '核心要点'}</h4>
+            <h4 style="font-size: 16px; font-weight: 700; color: #1a1a1a; margin-bottom: 10px; border-bottom: 2px solid #dce7de; padding-bottom: 6px;">${item.subtitle || '核心要点'}</h4>
             <div style="font-size: 14.5px; color: #333; line-height: 1.8;">${formattedText}</div>
           `;
         }
@@ -725,7 +729,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 1. 每篇导游词单独开一栏显示导游词总标题
     const headerCard = document.createElement('div');
     headerCard.className = 'card';
-    headerCard.style.background = '#faf8f5';
+    headerCard.style.background = '#f6faf7';
     headerCard.style.borderLeft = '5px solid #2d7a4c';
     headerCard.style.marginBottom = '16px';
     headerCard.innerHTML = `
@@ -736,7 +740,7 @@ document.addEventListener('DOMContentLoaded', () => {
           </span>
           <h2 style="font-size: 20px; font-weight: 800; color: #1a1a1a; margin-top: 4px;">${speech.name}</h2>
         </div>
-        <span style="font-size: 13px; color: #666; font-weight: 600; background: #eee7dd; padding: 4px 12px; border-radius: 20px;">
+        <span style="font-size: 13px; color: #23613c; font-weight: 600; background: #e2ebe3; padding: 4px 12px; border-radius: 20px;">
           📖 共 ${speech.sections.length} 个讲解段落
         </span>
       </div>
@@ -1127,7 +1131,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <td style="padding: 12px 10px;"><strong>重大事件与英烈</strong><br><span style="color:#555;">Taiping Rebellion, Zhennan Pass Victory (Feng Zicai), Baise Uprising (Deng Xiaoping).</span></td>
                     <td style="padding: 12px 10px;"><strong>现代成就与枢纽</strong><br><span style="color:#555;">Frontier for China-ASEAN open cooperation and the Belt & Road Initiative.</span></td>
                   </tr>
-                  <tr style="border-bottom: 1px solid #f0eae1; background: #faf8f5;">
+                  <tr style="border-bottom: 1px solid #dce7de; background: #f6faf7;">
                     <td style="padding: 12px 10px; font-weight: 700; color: #1a1a1a;">(2) 民族广西</td>
                     <td style="padding: 12px 10px;"><strong>12世居民族共处</strong><br><span style="color:#555;">Home to 12 indigenous ethnic groups (Zhuang, Yao, Miao, Dong, etc.) in harmony.</span></td>
                     <td style="padding: 12px 10px;"><strong>建筑与民俗工艺</strong><br><span style="color:#555;">Zhuang stilted buildings, Dong Wind & Rain Bridges, Yao Long Drum Dance, Zhuang Brocade.</span></td>
@@ -1139,7 +1143,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <td style="padding: 12px 10px;"><strong>名特优产与名茶名酒</strong><br><span style="color:#555;">Yongfu Luohanguo, Wuzhou Liubao Tea, Guilin Sanhua Wine (rice-flavor liquor).</span></td>
                     <td style="padding: 12px 10px;"><strong>特色美食小吃</strong><br><span style="color:#555;">Guilin Rice Noodles, Liuzhou River Snail Noodles (螺蛳粉), Nanning Laoyou Noodles.</span></td>
                   </tr>
-                  <tr style="border-bottom: 1px solid #f0eae1; background: #faf8f5;">
+                  <tr style="border-bottom: 1px solid #dce7de; background: #f6faf7;">
                     <td style="padding: 12px 10px; font-weight: 700; color: #1a1a1a;">(4) 山水广西</td>
                     <td style="padding: 12px 10px;"><strong>喀斯特/丹霞奇观</strong><br><span style="color:#555;">World-class Karst peak forests & caves (Guilin), Danxia cliffs (Bajiao Village).</span></td>
                     <td style="padding: 12px 10px;"><strong>江河与滨海风光</strong><br><span style="color:#555;">Meandering Lijiang River, Yongjiang, Beihai Silver Beach & Weizhou Volcanic Island.</span></td>
@@ -1167,12 +1171,12 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
 
             <div style="display: grid; gap: 12px; margin-top: 14px;">
-              <div style="background: #faf8f5; border: 1px solid #e8dfd1; border-radius: 8px; padding: 12px 16px;">
+              <div style="background: #f6faf7; border: 1px solid #d4e8da; border-radius: 8px; padding: 12px 16px;">
                 <div style="font-weight: 700; color: #2563eb; font-size: 14px; margin-bottom: 4px;">Step 1: Welcome & Spot Overview (欢迎与景点定位 - 30秒)</div>
                 <div style="font-size: 13.5px; color: #222; font-family: monospace;">"Dear tourists, welcome to <mark style="background:#fef08a; padding:1px 4px;">[景点名称]</mark>! Located in <mark style="background:#fef08a; padding:1px 4px;">[Guilin/Nanning/Liuzhou]</mark>, this site is a national 5A-level scenic area, combining stunning natural beauty with deep cultural heritage."</div>
               </div>
 
-              <div style="background: #faf8f5; border: 1px solid #e8dfd1; border-radius: 8px; padding: 12px 16px;">
+              <div style="background: #f6faf7; border: 1px solid #d4e8da; border-radius: 8px; padding: 12px 16px;">
                 <div style="font-weight: 700; color: #2563eb; font-size: 14px; margin-bottom: 4px;">Step 2: Features & Layout (景点特色与游览线索 - 45秒)</div>
                 <div style="font-size: 13.5px; color: #222; font-family: monospace;">"What makes <mark style="background:#fef08a; padding:1px 4px;">[景点名称]</mark> unique is its <mark style="background:#fef08a; padding:1px 4px;">[Karst mountains / authentic Dong villages]</mark>. The scenic area is laid out along <mark style="background:#fef08a; padding:1px 4px;">[the river / lush hills]</mark>, offering a breathtaking view at every turn."</div>
               </div>
@@ -1185,12 +1189,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 Finally, we arrive at <mark style="background:#dbeafe; color:#1e40af; padding:1px 4px;">[地标三, 如: Huangbu Reflection]</mark>, printed on the 20-yuan RMB note."</div>
               </div>
 
-              <div style="background: #faf8f5; border: 1px solid #e8dfd1; border-radius: 8px; padding: 12px 16px;">
+              <div style="background: #f6faf7; border: 1px solid #d4e8da; border-radius: 8px; padding: 12px 16px;">
                 <div style="font-weight: 700; color: #2563eb; font-size: 14px; margin-bottom: 4px;">Step 4: History & Interactive Guidance (历史诗句与照料互动 - 30秒)</div>
                 <div style="font-size: 13.5px; color: #222; font-family: monospace;">"Famous Tang poet Han Yu once praised this view: 'The river is like a green silk ribbon, and the mountains are like jade hairpins.' By the way, this is the best photo spot! Would you like me to take a photo of you? Please watch your step."</div>
               </div>
 
-              <div style="background: #faf8f5; border: 1px solid #e8dfd1; border-radius: 8px; padding: 12px 16px;">
+              <div style="background: #f6faf7; border: 1px solid #d4e8da; border-radius: 8px; padding: 12px 16px;">
                 <div style="font-weight: 700; color: #2563eb; font-size: 14px; margin-bottom: 4px;">Step 5: Closing & Farewell (总结与致谢告别 - 30秒)</div>
                 <div style="font-size: 13.5px; color: #222; font-family: monospace;">"This scenic area is not only a visual feast but a cradle of local culture. I hope today's tour leaves you with wonderful memories. Thank you and wish you a pleasant journey!"</div>
               </div>
@@ -1217,7 +1221,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <td style="padding: 12px 10px;">1. <strong>象鼻山</strong>: Elephant drinking water.<br>2. <strong>九马画山</strong>: Wall patterns.<br>3. <strong>黄布倒影</strong>: 20-yuan RMB background.</td>
                     <td style="padding: 12px 10px;">Han Yu's poem: <em>"Green silk ribbon & jade hairpins"</em>. Xu Xiake traveled here.</td>
                   </tr>
-                  <tr style="border-bottom: 1px solid #f0eae1; background: #faf8f5;">
+                  <tr style="border-bottom: 1px solid #dce7de; background: #f6faf7;">
                     <td style="padding: 12px 10px; font-weight: 700; color: #1a1a1a;">(2) 南宁青秀山</td>
                     <td style="padding: 12px 10px;">City green lung by Yongjiang River, 13.54 sq km, oxygen bar.</td>
                     <td style="padding: 12px 10px;">1. <strong>壮锦广场</strong>: Zhuang sculptures.<br>2. <strong>千年苏铁园</strong>: Relocation base.<br>3. <strong>龙象塔</strong>: Ming tower with skyline view.</td>
@@ -1229,7 +1233,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <td style="padding: 12px 10px;">1. <strong>日月双塔</strong>: Copper Sun & Glazed Moon.<br>2. <strong>榕湖古南门</strong>: Historic city gate.<br>3. <strong>木龙湖宋城</strong>: Song Dynasty architecture.</td>
                     <td style="padding: 12px 10px;">Water system built in Song Dynasty. Brilliant romantic LED night views.</td>
                   </tr>
-                  <tr style="border-bottom: 1px solid #f0eae1; background: #faf8f5;">
+                  <tr style="border-bottom: 1px solid #dce7de; background: #f6faf7;">
                     <td style="padding: 12px 10px; font-weight: 700; color: #1a1a1a;">(4) 柳州程阳八寨</td>
                     <td style="padding: 12px 10px;">8 Dong villages in Sanjiang. Wooden architectural marvels.</td>
                     <td style="padding: 12px 10px;">1. <strong>马鞍寨鼓楼</strong>: Village assembly landmark.<br>2. <strong>程阳风雨桥</strong>: Mortise & tenon (no nails).<br>3. <strong>百家宴</strong>: Sharing ethnic delicacies.</td>
