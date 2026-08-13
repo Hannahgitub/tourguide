@@ -1504,7 +1504,7 @@ function getPhraseStatus(id) {
     cats.forEach(cat => {
       const opt = document.createElement('option');
       opt.value = cat;
-      opt.textContent = cat === '全部专题' ? '📚 全部专题（点击折叠切换）' : 📌 专题：;
+      opt.textContent = cat === '全部专题' ? '📚 全部专题（点击折叠切换）' : `📌 专题：${cat}`;
       if (cat === currentPhraseCategory) opt.selected = true;
       select.appendChild(opt);
     });
