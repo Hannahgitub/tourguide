@@ -1256,12 +1256,48 @@ document.addEventListener('DOMContentLoaded', () => {
     phraseProgress = {};
   }
 
+  function getPhraseStatus(id) {
+    const item = phraseProgress[id];
+    if (!item) return { status: 'unlearned', remaining: 0 };
+    if (typeof item === 'string') {
+      if (item === 'mastered') return { status: 'mastered', remaining: 0 };
+      if (item === 'vague') return { status: 'vague', remaining: 2 };
+      if (item === 'again') return { status: 'again', remaining: 4 };
+    }
+    return item;
+  }
+
   function getFilteredPhrases() {
     const list = data.phrasesData || [];
-    if (currentPhraseCategory === '全部专题' || !currentPhraseCategory) {
-      return list;
+    let base = list;
+    if (currentPhraseCategory && currentPhraseCategory !== '全部专题') {
+      base = list.filter(p => p.category === currentPhraseCategory);
     }
-    return list.filter(p => p.category === currentPhraseCategory);
+
+    if (phraseViewMode === 'list') {
+      return base;
+    }
+
+    // 墨墨穿插重复算法：构造动态刷词序列
+    const result = [];
+    base.forEach(p => {
+      const st = getPhraseStatus(p.id);
+      if (st.status === 'unlearned') {
+        result.push(p);
+      } else if (st.status === 'mastered') {
+        if (st.remaining > 0) {
+          for (let i = 0; i < st.remaining; i++) result.push(p);
+        }
+      } else if (st.status === 'vague') {
+        const count = st.remaining > 0 ? st.remaining : 2;
+        for (let i = 0; i < count; i++) result.push(p);
+      } else if (st.status === 'again') {
+        const count = st.remaining > 0 ? st.remaining : 4;
+        for (let i = 0; i < count; i++) result.push(p);
+      }
+    });
+
+    return result.length > 0 ? result : base;
   }
 
   function updatePhraseStats() {
