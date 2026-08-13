@@ -1742,7 +1742,13 @@ function getPhraseStatus(id) {
     }
 
     const btnPhraseReveal = document.getElementById('btn-phrase-reveal');
-    if (btnPhraseReveal) {
+    const unrevealedActions = document.getElementById('phrase-unrevealed-actions');
+    if (unrevealedActions) {
+      unrevealedActions.addEventListener('click', () => {
+        isPhraseRevealed = true;
+        renderCurrentPhraseCard();
+      });
+    } else if (btnPhraseReveal) {
       btnPhraseReveal.addEventListener('click', () => {
         isPhraseRevealed = true;
         renderCurrentPhraseCard();
