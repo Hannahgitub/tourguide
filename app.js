@@ -1500,10 +1500,49 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    function recordPhraseProgress(status) {
+    function recordPhraseProgress(actionType) {
       const list = getFilteredPhrases();
       if (list.length > 0 && list[currentPhraseIndex]) {
-        phraseProgress[list[currentPhraseIndex].id] = status;
+        const item = list[currentPhraseIndex];
+        const currentSt = getPhraseStatus(item.id);
+
+        if (actionType === 'mastered') {
+          if (currentSt.status === 'vague' || currentSt.status === 'again') {
+            const nextRem = Math.max(0, currentSt.remaining - 1);
+            phraseProgress[item.id] = {
+              status: 'mastered',
+              remaining: nextRem
+            };
+          } else {
+            phraseProgress[item.id] = {
+              status: 'mastered',
+              remaining: 0
+            };
+          }
+        } else if (actionType === 'vague') {
+          // 如果此前已经是模糊/遗忘状态，再次模糊仅增加 1 次复现，上限为 3 次
+          let rem = 2;
+          if (currentSt.status === 'vague' || currentSt.status === 'again') {
+            rem = Math.min(3, currentSt.remaining + 1);
+          }
+          phraseProgress[item.id] = {
+            status: 'vague',
+            remaining: rem
+          };
+        } else if (actionType === 'again') {
+          const isFirst = (currentSt.status === 'unlearned');
+          // 如果此前已经是模糊/遗忘状态，再次遗忘仅增加 1 次复现，上限为 5 次
+          let rem = 4;
+          if (currentSt.status === 'vague' || currentSt.status === 'again') {
+            rem = Math.min(5, currentSt.remaining + 1);
+          }
+          phraseProgress[item.id] = {
+            status: 'again',
+            remaining: rem,
+            isFirstTime: isFirst
+          };
+        }
+
         try {
           localStorage.setItem('guangxi_phrase_progress', JSON.stringify(phraseProgress));
         } catch (e) {}
