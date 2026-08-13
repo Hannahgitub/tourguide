@@ -1479,25 +1479,56 @@ function getPhraseStatus(id) {
     const container = document.getElementById('phrases-category-tabs');
     if (!container) return;
     container.innerHTML = '';
-    const cats = data.phrasesCategories || ["全部专题"];
+    const cats = data.phrasesCategories || ['全部专题'];
+
+    const wrapper = document.createElement('div');
+    wrapper.style.position = 'relative';
+    wrapper.style.display = 'inline-block';
+    wrapper.style.width = '100%';
+
+    const select = document.createElement('select');
+    select.className = 'cat-select';
+    select.style.width = '100%';
+    select.style.padding = '8px 36px 8px 16px';
+    select.style.fontSize = '14px';
+    select.style.fontWeight = '700';
+    select.style.color = '#2d7a4c';
+    select.style.background = '#ebf5ee';
+    select.style.border = '1px solid #c6e2ce';
+    select.style.borderRadius = '20px';
+    select.style.outline = 'none';
+    select.style.cursor = 'pointer';
+    select.style.appearance = 'none';
+    select.style.webkitAppearance = 'none';
 
     cats.forEach(cat => {
-      const btn = document.createElement('button');
-      btn.className = `cat-btn ${cat === currentPhraseCategory ? 'active' : ''}`;
-      btn.style.width = '100%';
-      btn.style.textAlign = 'center';
-      btn.style.padding = '8px 10px';
-      btn.style.fontSize = '13.5px';
-      btn.style.fontWeight = '600';
-      btn.textContent = cat;
-      btn.addEventListener('click', () => {
-        currentPhraseCategory = cat;
-        currentPhraseIndex = 0;
-        isPhraseRevealed = false;
-        renderPhrasesView();
-      });
-      container.appendChild(btn);
+      const opt = document.createElement('option');
+      opt.value = cat;
+      opt.textContent = cat === '全部专题' ? '📚 全部专题（点击折叠切换）' : 📌 专题：;
+      if (cat === currentPhraseCategory) opt.selected = true;
+      select.appendChild(opt);
     });
+
+    select.addEventListener('change', (e) => {
+      currentPhraseCategory = e.target.value;
+      currentPhraseIndex = 0;
+      isPhraseRevealed = false;
+      renderPhrasesView();
+    });
+
+    const arrow = document.createElement('span');
+    arrow.textContent = '▼';
+    arrow.style.position = 'absolute';
+    arrow.style.right = '14px';
+    arrow.style.top = '50%';
+    arrow.style.transform = 'translateY(-50%)';
+    arrow.style.fontSize = '10px';
+    arrow.style.color = '#2d7a4c';
+    arrow.style.pointerEvents = 'none';
+
+    wrapper.appendChild(select);
+    wrapper.appendChild(arrow);
+    container.appendChild(wrapper);
   }
 
   function renderCurrentPhraseCard() {
