@@ -2703,1249 +2703,1249 @@ window.data = {
   "translations": [
     {
       "id": 1,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "一路上还好吗?(此句话用于乘飞机)",
+      "ref": "How was the flight?"
+    },
+    {
+      "id": 2,
       "type": "E2C",
       "tag": "英译中",
       "src": "Welcome to China!",
       "ref": "欢迎您到中国来!"
     },
     {
-      "id": 2,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "How was the flight?",
-      "ref": "一路上还好吗?(此句话用于乘飞机)"
+      "id": 3,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "我能应付。",
+      "ref": "I can manage."
     },
     {
-      "id": 3,
+      "id": 4,
       "type": "E2C",
       "tag": "英译中",
       "src": "May I help you with your luggage?",
       "ref": "让我来帮你拿行李好吗?"
     },
     {
-      "id": 4,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "I can manage.",
-      "ref": "我能应付。"
+      "id": 5,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "杰克，这是你第一次到北京来吗?",
+      "ref": "Is this your frst visit to Beijing, Jack?"
     },
     {
-      "id": 5,
+      "id": 6,
       "type": "E2C",
       "tag": "英译中",
       "src": "You will have plenty of time to see all the interesting places in China.",
       "ref": "你会有很多时间欣赏中国的著名景点。"
     },
     {
-      "id": 6,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "Is this your frst visit to Beijing, Jack?",
-      "ref": "杰克，这是你第一次到北京来吗?"
+      "id": 7,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "这边请！",
+      "ref": "This way, please!"
     },
     {
-      "id": 7,
+      "id": 8,
       "type": "E2C",
       "tag": "英译中",
       "src": "Excuse me! Are you Mr. David from New York?",
       "ref": "你好，您是来自纽约的戴维先生吗？"
     },
     {
-      "id": 8,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "This way, please!",
-      "ref": "这边请！"
+      "id": 9,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "我希望您和您的旅行团成员在杭州都能玩得开心。",
+      "ref": "And I hope you and your group members have great fun in Hangzhou."
     },
     {
-      "id": 9,
+      "id": 10,
       "type": "E2C",
       "tag": "英译中",
       "src": "Did you enjoy your flight?",
       "ref": "旅途愉快吗?"
     },
     {
-      "id": 10,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "And I hope you and your group members have great fun in Hangzhou.",
-      "ref": "我希望您和您的旅行团成员在杭州都能玩得开心。"
+      "id": 11,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "我们旅行社的大巴正在外面等着大家。",
+      "ref": "The coach of our travel service is just waiting for your group outside."
     },
     {
-      "id": 11,
+      "id": 12,
       "type": "E2C",
       "tag": "英译中",
       "src": "If everything is OK,we are going to board the bus.",
       "ref": "如果一切就绪，我们将去乘车。"
     },
     {
-      "id": 12,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "The coach of our travel service is just waiting for your group outside.",
-      "ref": "我们旅行社的大巴正在外面等着大家。"
-    },
-    {
       "id": 13,
-      "type": "C2E",
-      "tag": "汉译英",
-      "src": "打扰一下，请问您是领队",
-      "ref": "Miler 先生吗? Excuse me, are you Mr. Miler, the tour leader?"
-    },
-    {
-      "id": 14,
       "type": "C2E",
       "tag": "汉译英",
       "src": "您的团队一共有 25 人，是吗?",
       "ref": "There are 25 people in your team, aren't there?"
     },
     {
-      "id": 15,
-      "type": "C2E",
-      "tag": "汉译英",
-      "src": "希望您和您的队员在宜昌玩得开心!",
-      "ref": "I hope you and your team have a good time in Yichang!"
+      "id": 14,
+      "type": "E2C",
+      "tag": "英译中",
+      "src": "Excuse me, are you Mr. Miler, the tour leader?",
+      "ref": "打扰一下，请问您是领队 Miler 先生吗?"
     },
     {
-      "id": 16,
+      "id": 15,
       "type": "C2E",
       "tag": "汉译英",
       "src": "在上车之前，请大家再次检查一下自己的行李以确保没有遗失东西。",
       "ref": "Before you get on the bus, please check your luggage again to make sure that nothing is lost."
     },
     {
+      "id": 16,
+      "type": "E2C",
+      "tag": "英译中",
+      "src": "I hope you and your team have a good time in Yichang!",
+      "ref": "希望您和您的队员在宜昌玩得开心!"
+    },
+    {
       "id": 17,
       "type": "C2E",
       "tag": "汉译英",
-      "src": "我们旅行社的大巴正在外面等着大家，请跟我来!",
-      "ref": "The coach of our travel service is just waiting for you outside, please come with me!"
+      "src": "但是我在航班动态表上看到“MU 584 航班延误”",
+      "ref": "But I see“MU 584 is delayed” on the flight movement board."
     },
     {
       "id": 18,
       "type": "E2C",
       "tag": "英译中",
-      "src": "But I see“MU 584 is delayed” on the flight movement board.",
-      "ref": "但是我在航班动态表上看到“MU 584 航班延误”"
+      "src": "The coach of our travel service is just waiting for you outside, please come with me!",
+      "ref": "我们旅行社的大巴正在外面等着大家，请跟我来!"
     },
     {
       "id": 19,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "您预计航班什么时候到?",
+      "ref": "When do you expect it to arrive?"
+    },
+    {
+      "id": 20,
       "type": "E2C",
       "tag": "英译中",
       "src": "You know, due to the weather conditions at Hongqiao Airport, the flight was diverted from here to Hangzhou Airport.",
       "ref": "您有所不知，由于虹桥机场的天气状况，航班临时改道飞往杭州机场。"
     },
     {
-      "id": 20,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "When do you expect it to arrive?",
-      "ref": "您预计航班什么时候到?"
+      "id": 21,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "所以我将为你们安排先到酒店休息一下。",
+      "ref": "So I will arrange for your group to have a short rest in the hotel first."
     },
     {
-      "id": 21,
+      "id": 22,
       "type": "E2C",
       "tag": "英译中",
       "src": "I'm terribly sorry to have kept you waiting so long.",
       "ref": "非常抱歉让您久等了"
     },
     {
-      "id": 22,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "So I will arrange for your group to have a short rest in the hotel first.",
-      "ref": "所以我将为你们安排先到酒店休息一下。"
+      "id": 23,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "你们一定很累了，所以我会安排你们一行人先在酒店休息一会儿。",
+      "ref": "You would be very tired. So I will arrange for your group to have a short rest in the hotel first."
     },
     {
-      "id": 23,
+      "id": 24,
       "type": "E2C",
       "tag": "英译中",
       "src": "We have been informed that it will leave Hangzhou at 3:20 p.m. and it should bearrived at 5:35 p.m.",
       "ref": "根据通知，飞机将于下午 3:20离开杭州，在下午 5:35到达。"
     },
     {
-      "id": 24,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "You would be very tired. So I will arrange for your group to have a short rest in the hotel first.",
-      "ref": "你们一定很累了，所以我会安排你们一行人先在酒店休息一会儿。"
+      "id": 25,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "无论你何时上车，你要做的第一件事就是系好安全带",
+      "ref": "Whenever you get on a car, the first thing you should do is to fasten the seatbelt."
     },
     {
-      "id": 25,
+      "id": 26,
       "type": "E2C",
       "tag": "英译中",
       "src": "Please get on the bus one by one and fasten the seat belt while seated.",
       "ref": "请依次上车，坐下时请系好安全带"
     },
     {
-      "id": 26,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "Whenever you get on a car, the first thing you should do is to fasten the seatbelt.",
-      "ref": "无论你何时上车，你要做的第一件事就是系好安全带"
+      "id": 27,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "我原路返回去找它(钱包)",
+      "ref": "I went back over the same road to look for it."
     },
     {
-      "id": 27,
+      "id": 28,
       "type": "E2C",
       "tag": "英译中",
       "src": "We won't leave behind anyone.",
       "ref": "我们不会丢下任何人。"
     },
     {
-      "id": 28,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "I went back over the same road to look for it.",
-      "ref": "我原路返回去找它(钱包)"
+      "id": 29,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "让我们上路吧，不然看演出就晚了。",
+      "ref": "Let's hit the road, or we will be late for the show."
     },
     {
-      "id": 29,
+      "id": 30,
       "type": "E2C",
       "tag": "英译中",
       "src": "But please be more careful to keep an eye on your personal belonging next time.",
       "ref": "但是请您下一次可以更小心地保管好您的个人财物。"
     },
     {
-      "id": 30,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "Let's hit the road, or we will be late for the show.",
-      "ref": "让我们上路吧，不然看演出就晚了。"
-    },
-    {
       "id": 31,
-      "type": "C2E",
-      "tag": "汉译英",
-      "src": "一个合格的导游必须知道如何礼貌地清点人数。",
-      "ref": "A qualified guide must know how to count people politely"
-    },
-    {
-      "id": 32,
       "type": "C2E",
       "tag": "汉译英",
       "src": "游客上下车时是一个清点人数的好机会。",
       "ref": "It is a good opportunity to count the number of visitors when they get on and off the bus"
     },
     {
+      "id": 32,
+      "type": "E2C",
+      "tag": "英译中",
+      "src": "A qualified guide must know how to count people politely",
+      "ref": "一个合格的导游必须知道如何礼貌地清点人数。"
+    },
+    {
       "id": 33,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "高质量的服务,一流的设施,便捷的交通,希望你们能喜欢",
+      "ref": "High quality services, first class facilities and convenient transportation, I hope you will enjoy it."
+    },
+    {
+      "id": 34,
       "type": "E2C",
       "tag": "英译中",
       "src": "First of all, please allow me to express the most heartfelt welcome to all of you on behalf of our Dong Xing Travel Agency.",
       "ref": "首先请允许我代表东兴旅行社向你们表示最衷心的欢迎。"
     },
     {
-      "id": 34,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "High quality services, first class facilities and convenient transportation, I hope you will enjoy it.",
-      "ref": "高质量的服务,一流的设施,便捷的交通,希望你们能喜欢"
+      "id": 35,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "一方面，是有关你们的身体健康。另一方面，是有关时间问题。",
+      "ref": "For one thing, it is about your health, For another thing, it's time question."
     },
     {
-      "id": 35,
+      "id": 36,
       "type": "E2C",
       "tag": "英译中",
       "src": "You can use these two numbers to find us in case we get separated.",
       "ref": "万一我们走散了，你们能用这两个号码找到我们"
     },
     {
-      "id": 36,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "For one thing, it is about your health, For another thing, it's time question.",
-      "ref": "一方面，是有关你们的身体健康。另一方面，是有关时间问题。"
+      "id": 37,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "如果你有任何问题或要求，请不要犹豫地告诉我们.",
+      "ref": "If you have any questions or requests, don't hesitate to let us know."
     },
     {
-      "id": 37,
+      "id": 38,
       "type": "E2C",
       "tag": "英译中",
       "src": "Only in this way can guarantee the arranged journey smooth as we wish.",
       "ref": "只有这样才能确保我们的行程像我们希望的那样顺畅。"
     },
     {
-      "id": 38,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "If you have any questions or requests, don't hesitate to let us know.",
-      "ref": "如果你有任何问题或要求，请不要犹豫地告诉我们."
+      "id": 39,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "未煮沸的水可能导致疾病。",
+      "ref": "Unboiled water may result in illness."
     },
     {
-      "id": 39,
+      "id": 40,
       "type": "E2C",
       "tag": "英译中",
       "src": "You mustn't drink any tap water in the hotel or in any scenic spot.",
       "ref": "不要饮用任何酒店和景区内的自来水。"
     },
     {
-      "id": 40,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "Unboiled water may result in illness.",
-      "ref": "未煮沸的水可能导致疾病。"
+      "id": 41,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "我们非常感谢您的理解与合作。",
+      "ref": "We really appreciate your understanding and cooperation."
     },
     {
-      "id": 41,
+      "id": 42,
       "type": "E2C",
       "tag": "英译中",
       "src": "Please pay attention to the time difference and adjust your watches now.",
       "ref": "请注意时差，现在就调好您的表。"
     },
     {
-      "id": 42,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "We really appreciate your understanding and cooperation.",
-      "ref": "我们非常感谢您的理解与合作。"
+      "id": 43,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "当你亲眼看到它你才会知道它有多壮观。",
+      "ref": "You won't know how magnificent it is until you see it with your own eyes."
     },
     {
-      "id": 43,
+      "id": 44,
       "type": "E2C",
       "tag": "英译中",
       "src": "Could you please give me a brief introduction so that I can pick some easily?",
       "ref": "你能给我简单介绍一下吗?以便我挑选起来可以容易一些。"
     },
     {
-      "id": 44,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "You won't know how magnificent it is until you see it with your own eyes.",
-      "ref": "当你亲眼看到它你才会知道它有多壮观。"
+      "id": 45,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "请问您有预约吗?",
+      "ref": "Do you have a reservation?"
     },
     {
-      "id": 45,
+      "id": 46,
       "type": "E2C",
       "tag": "英译中",
       "src": "Please be sure not to have anything behind.",
       "ref": "请务必不要遗忘什么东西"
     },
     {
-      "id": 46,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "Do you have a reservation?",
-      "ref": "请问您有预约吗?"
+      "id": 47,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "请填写您的登记表。",
+      "ref": "Please fill in your registration forms."
     },
     {
-      "id": 47,
+      "id": 48,
       "type": "E2C",
       "tag": "英译中",
       "src": "I'm Wang Wei from China International Travel Service Wuhan Branch.",
       "ref": "我是中国国际旅行社武汉分社的王伟。"
     },
     {
-      "id": 48,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "Please fill in your registration forms.",
-      "ref": "请填写您的登记表。"
+      "id": 49,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "我们听说这里限时供应热水。",
+      "ref": "We were told that hot water supply is timed here."
     },
     {
-      "id": 49,
+      "id": 50,
       "type": "E2C",
       "tag": "英译中",
       "src": "May I see your passports,please?",
       "ref": "我能看一下你们的护照吗?"
     },
     {
-      "id": 50,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "We were told that hot water supply is timed here.",
-      "ref": "我们听说这里限时供应热水。"
+      "id": 51,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "如果您已经办理好入住手续，请到您的房间休息一下。",
+      "ref": "If you have fnished checking in, please go to your rooms now for a short rest."
     },
     {
-      "id": 51,
+      "id": 52,
       "type": "E2C",
       "tag": "英译中",
       "src": "Our hotel meets the international standards in both facilities and service.",
       "ref": "我们酒店的设施和服务达到了国际标准。"
     },
     {
-      "id": 52,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "If you have fnished checking in, please go to your rooms now for a short rest.",
-      "ref": "如果您已经办理好入住手续，请到您的房间休息一下。"
+      "id": 53,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "他们对造成的不便之处很抱歉。",
+      "ref": "They are awfully sorry for the inconvenience."
     },
     {
-      "id": 53,
+      "id": 54,
       "type": "E2C",
       "tag": "英译中",
       "src": "Let me check with the front office and I am sure they will come with asatisfactory solution.",
       "ref": "我跟前台联系一下，他们一定能给您一个满意的解决方案。"
     },
     {
-      "id": 54,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "They are awfully sorry for the inconvenience.",
-      "ref": "他们对造成的不便之处很抱歉。"
+      "id": 55,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "我想要一间有两张桌子的包房，每桌可以坐 10个人",
+      "ref": "I'd like to have a private room with 2 tables, each table for 10 people."
     },
     {
-      "id": 55,
+      "id": 56,
       "type": "E2C",
       "tag": "英译中",
       "src": "Are you satisfed with their maintenance service?",
       "ref": "你对他们的维修服务还满意吗?"
     },
     {
-      "id": 56,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "I'd like to have a private room with 2 tables, each table for 10 people.",
-      "ref": "我想要一间有两张桌子的包房，每桌可以坐 10个人"
+      "id": 57,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "我们是有预约的。",
+      "ref": "We have made a reservation."
     },
     {
-      "id": 57,
+      "id": 58,
       "type": "E2C",
       "tag": "英译中",
       "src": "I'm sorry, sir. The private rooms are not available now.",
       "ref": "抱歉先生，没有包房了。"
     },
     {
-      "id": 58,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "We have made a reservation.",
-      "ref": "我们是有预约的。"
+      "id": 59,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "我来给您带路，这边请。",
+      "ref": "I will show you the way.This way,please!"
     },
     {
-      "id": 59,
+      "id": 60,
       "type": "E2C",
       "tag": "英译中",
       "src": "Let me check the reservation list, May I have your name, please?",
       "ref": "让我查一下预约单，请问您叫什么名字?"
     },
     {
-      "id": 60,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "I will show you the way.This way,please!",
-      "ref": "我来给您带路，这边请。"
+      "id": 61,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "大家都能听到我的话吗?",
+      "ref": "Hello,everybody,can everyone hear me?"
     },
     {
-      "id": 61,
+      "id": 62,
       "type": "E2C",
       "tag": "英译中",
       "src": "Please enjoy yourself!",
       "ref": "请慢用。"
     },
     {
-      "id": 62,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "Hello,everybody,can everyone hear me?",
-      "ref": "大家都能听到我的话吗?"
+      "id": 63,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "明天上午 8点出游，大约游玩 3个小时。",
+      "ref": "The tour starts at 8 o'clock tomorrow morning and lasts about 3 hours."
     },
     {
-      "id": 63,
+      "id": 64,
       "type": "E2C",
       "tag": "英译中",
       "src": "I'd like to say something about tomorrow morning's arrangement.",
       "ref": "我想说一下明天上午的行程安排，"
     },
     {
-      "id": 64,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "The tour starts at 8 o'clock tomorrow morning and lasts about 3 hours.",
-      "ref": "明天上午 8点出游，大约游玩 3个小时。"
+      "id": 65,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "我建议您带上太阳镜",
+      "ref": "I suggest you bring your sunglasses."
     },
     {
-      "id": 65,
+      "id": 66,
       "type": "E2C",
       "tag": "英译中",
       "src": "We will meet outside the hotel entrance at ten to eight.",
       "ref": "我们 7:50 在酒店门口集合。"
     },
     {
-      "id": 66,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "I suggest you bring your sunglasses.",
-      "ref": "我建议您带上太阳镜"
+      "id": 67,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "我们的行程将在公园里的英雄纪念碑前结束。",
+      "ref": "The tour will end at the heroes’memorial in the park."
     },
     {
-      "id": 67,
+      "id": 68,
       "type": "E2C",
       "tag": "英译中",
       "src": "We will walk through the pedestrian street of Jianghan Road and visit WuhanCustom House.",
       "ref": "我们会逛逛江汉路步行街参观一下武汉关"
     },
     {
-      "id": 68,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "The tour will end at the heroes’memorial in the park.",
-      "ref": "我们的行程将在公园里的英雄纪念碑前结束。"
+      "id": 69,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "我们能仅用一天的时间就参观完整个博物馆吗?",
+      "ref": "Can we spent only one day visiting the whole museum?"
     },
     {
-      "id": 69,
+      "id": 70,
       "type": "E2C",
       "tag": "英译中",
       "src": "Would you like to go with me?",
       "ref": "你想和我一起去吗?"
     },
     {
-      "id": 70,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "Can we spent only one day visiting the whole museum?",
-      "ref": "我们能仅用一天的时间就参观完整个博物馆吗?"
+      "id": 71,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "正如俗话所说“眼见为实。",
+      "ref": "Just as the saying goes“To see is to believe”."
     },
     {
-      "id": 71,
+      "id": 72,
       "type": "E2C",
       "tag": "英译中",
       "src": "What amarvelous place!",
       "ref": "多么奇妙的一个地方啊!"
     },
     {
-      "id": 72,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "Just as the saying goes“To see is to believe”.",
-      "ref": "正如俗话所说“眼见为实。"
+      "id": 73,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "那里有很多武汉风味的小吃，我们可以大吃一顿。",
+      "ref": "There are many snacks with Wuhan flavor characteristics. We could have a big meal there."
     },
     {
-      "id": 73,
+      "id": 74,
       "type": "E2C",
       "tag": "英译中",
       "src": "You can get a feast for your eyes.",
       "ref": "你可以大饱眼福。"
     },
     {
-      "id": 74,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "There are many snacks with Wuhan flavor characteristics. We could have a big meal there.",
-      "ref": "那里有很多武汉风味的小吃，我们可以大吃一顿。"
+      "id": 75,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "真的很感谢你，你让我的梦想成真了。",
+      "ref": "I really appreciate you.You make my dream come true."
     },
     {
-      "id": 75,
+      "id": 76,
       "type": "E2C",
       "tag": "英译中",
       "src": "I'm anxious to take a picture with them.",
       "ref": "我好想和它们拍照。"
     },
     {
-      "id": 76,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "I really appreciate you.You make my dream come true.",
-      "ref": "真的很感谢你，你让我的梦想成真了。"
+      "id": 77,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "你不可能两者兼得。",
+      "ref": "You can't have your cake and eat it too."
     },
     {
-      "id": 77,
+      "id": 78,
       "type": "E2C",
       "tag": "英译中",
       "src": "I am happy as long as you are happy.",
       "ref": "你高兴，我就高兴."
     },
     {
-      "id": 78,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "You can't have your cake and eat it too.",
-      "ref": "你不可能两者兼得。"
+      "id": 79,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "大丈夫能屈能伸。",
+      "ref": "A man among men is he who knows when to eat humble pie and when to hold hishead high."
     },
     {
-      "id": 79,
+      "id": 80,
       "type": "E2C",
       "tag": "英译中",
       "src": "Don't put all your eggs in one basket.",
       "ref": "不要把所有的鸡蛋放在一个篮子里。"
     },
     {
-      "id": 80,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "A man among men is he who knows when to eat humble pie and when to hold hishead high.",
-      "ref": "大丈夫能屈能伸。"
+      "id": 81,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "不要班门弄斧。",
+      "ref": "Do not teach your grandmother to suck eggs."
     },
     {
-      "id": 81,
+      "id": 82,
       "type": "E2C",
       "tag": "英译中",
       "src": "Birds ready cooked do not fly into your mouth.",
       "ref": "不能坐享其成。"
     },
     {
-      "id": 82,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "Do not teach your grandmother to suck eggs.",
-      "ref": "不要班门弄斧。"
+      "id": 83,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "它象征着中国人的智慧。",
+      "ref": "It represents the wisdom of Chinese people."
     },
     {
-      "id": 83,
+      "id": 84,
       "type": "E2C",
       "tag": "英译中",
       "src": "Can you recommend me some souvenirs that have a Chinese cultural flavor?",
       "ref": "你可以向我推荐一些具有中国文化韵味的纪念品吗?"
     },
     {
-      "id": 84,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "It represents the wisdom of Chinese people.",
-      "ref": "它象征着中国人的智慧。"
+      "id": 85,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "我可以给您打八折。",
+      "ref": "I will give you 20% discount."
     },
     {
-      "id": 85,
+      "id": 86,
       "type": "E2C",
       "tag": "英译中",
       "src": "They are silk fans with double-side hand embroidery.",
       "ref": "这些是双面手工刺绣绸扇子。"
     },
     {
-      "id": 86,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "I will give you 20% discount.",
-      "ref": "我可以给您打八折。"
+      "id": 87,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "你们今天玩得开心吗？",
+      "ref": "Did you enioy yourselves today?"
     },
     {
-      "id": 87,
+      "id": 88,
       "type": "E2C",
       "tag": "英译中",
       "src": "Here are the fans you want and this is the change. Welcome to our store again.",
       "ref": "这是您要的扇子和找您的零钱,欢迎下次光临。"
     },
     {
-      "id": 88,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "Did you enioy yourselves today?",
-      "ref": "你们今天玩得开心吗？"
+      "id": 89,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "长沙食物的特点是辛辣。",
+      "ref": "Changsha food is characterized by its hot and pungent favoring."
     },
     {
-      "id": 89,
+      "id": 90,
       "type": "E2C",
       "tag": "英译中",
       "src": "And this is the most famous street where the local snacks are served.",
       "ref": "这是一条著名的小吃街。"
     },
     {
-      "id": 90,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "Changsha food is characterized by its hot and pungent favoring.",
-      "ref": "长沙食物的特点是辛辣。"
+      "id": 91,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "臭豆腐是一种味道浓郁的发酵豆制品，它闻起来是臭的但吃起来却很好吃。",
+      "ref": "Stinky tofu is a form of fermented tofu that has a strong odor. Stinky tofu smells rotten, but it tastes great."
     },
     {
-      "id": 91,
+      "id": 92,
       "type": "E2C",
       "tag": "英译中",
       "src": "Welcome to our bar. Can I help you?",
       "ref": "欢迎来到我们的小吃吧，请问您要点什么?"
     },
     {
-      "id": 92,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "Stinky tofu is a form of fermented tofu that has a strong odor. Stinky tofu smells rotten, but it tastes great.",
-      "ref": "臭豆腐是一种味道浓郁的发酵豆制品，它闻起来是臭的但吃起来却很好吃。"
+      "id": 93,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "四川的气候常年潮湿，所以人们吃一些味重的食物来驱除湿气。",
+      "ref": "The climate in Sichuan is very humid all through the year, then people there like to keep the damp out by eating heavily spiced food."
     },
     {
-      "id": 93,
+      "id": 94,
       "type": "E2C",
       "tag": "英译中",
       "src": "Hot Dry Noodles is the most popular food in Wuhan.",
       "ref": "热千面是武汉最受欢迎的小吃。"
     },
     {
-      "id": 94,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "The climate in Sichuan is very humid all through the year, then people there like to keep the damp out by eating heavily spiced food.",
-      "ref": "四川的气候常年潮湿，所以人们吃一些味重的食物来驱除湿气。"
+      "id": 95,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "饺子在中国历史悠久。传说它是由医圣张仲景为了预防人们生病而发明的。",
+      "ref": "The dumpling has a very long history in China. It was invented by a famous doctor named Zhangzhongjing to prevent people from getting sick."
     },
     {
-      "id": 95,
+      "id": 96,
       "type": "E2C",
       "tag": "英译中",
       "src": "Generally speaking, Chinese food is divided into eight big cuisines.",
       "ref": "一般来说中国菜可以分为八大菜系。"
     },
     {
-      "id": 96,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "The dumpling has a very long history in China. It was invented by a famous doctor named Zhangzhongjing to prevent people from getting sick.",
-      "ref": "饺子在中国历史悠久。传说它是由医圣张仲景为了预防人们生病而发明的。"
+      "id": 97,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "火锅是典型的四川菜，在中国非常受欢迎。",
+      "ref": "Hotpot is a typical of Sichuan food. It's very popular in China."
     },
     {
-      "id": 97,
+      "id": 98,
       "type": "E2C",
       "tag": "英译中",
       "src": "Besides the dumplings, the Beijing Roast Duck is also a famous Chinese dish.",
       "ref": "除了饺子，北京烤鸭也是中国的一道名菜。"
     },
     {
-      "id": 98,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "Hotpot is a typical of Sichuan food. It's very popular in China.",
-      "ref": "火锅是典型的四川菜，在中国非常受欢迎。"
+      "id": 99,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "大多数的黑茶都被压制成茶砖的形状，所以它也可以被称为“砖茶”",
+      "ref": "Most of the dark tea is in the form of bricks, so it is also called “brick tea”."
     },
     {
-      "id": 99,
+      "id": 100,
       "type": "E2C",
       "tag": "英译中",
       "src": "The green tea has the longest history and China ranks the first in the world ingreen tea output and exportation.",
       "ref": "绿茶的种植历史最长，中国绿茶的产量和出口量在世界上都排名第一"
     },
     {
-      "id": 100,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "Most of the dark tea is in the form of bricks, so it is also called “brick tea”.",
-      "ref": "大多数的黑茶都被压制成茶砖的形状，所以它也可以被称为“砖茶”"
+      "id": 101,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "我不知道买哪一种 才好，你能给我推荐一种吗?",
+      "ref": "I can't decide which to buy. Could you give me some advice?"
     },
     {
-      "id": 101,
+      "id": 102,
       "type": "E2C",
       "tag": "英译中",
       "src": "Black tea is bright red in color, so black tea is known as “red tea” in China.",
       "ref": "红茶颜色红亮，所以在中国，人们称它为“红茶"
     },
     {
-      "id": 102,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "I can't decide which to buy. Could you give me some advice?",
-      "ref": "我不知道买哪一种 才好，你能给我推荐一种吗?"
+      "id": 103,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "春节是中国最重要的传统节日之一。",
+      "ref": "The Spring Festival is one of the most important traditional festivals in China."
     },
     {
-      "id": 103,
+      "id": 104,
       "type": "E2C",
       "tag": "英译中",
       "src": "On the one hand, it is only produced in China, so it must be a special present; onthe other hand, it can reduce high blood pressure.",
       "ref": "一方面，它是中国特有的茶叶，所以，它是一份很特别的礼物;另一方面，它 有降血压的保健功效。"
     },
     {
-      "id": 104,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "The Spring Festival is one of the most important traditional festivals in China.",
-      "ref": "春节是中国最重要的传统节日之一。"
+      "id": 105,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "虽然很多孩子喜欢燃放烟花爆竹，但是这对空气不好.",
+      "ref": "Although many children would like to set off frecrackers and fireworks, it's not good for the air."
     },
     {
-      "id": 105,
+      "id": 106,
       "type": "E2C",
       "tag": "英译中",
       "src": "In fact, half month before the Spring Festival, people are already busy with all kinds of preparations.",
       "ref": "事实上早在春节前半个月，人们就开始忙碌着做各种准备。"
     },
     {
-      "id": 106,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "Although many children would like to set off frecrackers and fireworks, it's not good for the air.",
-      "ref": "虽然很多孩子喜欢燃放烟花爆竹，但是这对空气不好."
+      "id": 107,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "这也被称为新年的红包，代表了好运和祝福。",
+      "ref": "It is also called the red envelope or red packet, which stands for good luck and wishes."
     },
     {
-      "id": 107,
+      "id": 108,
       "type": "E2C",
       "tag": "英译中",
       "src": "Everyone should make a contribution to protecting the environment.",
       "ref": "每个人都应该为保护环境做贡献。"
     },
     {
-      "id": 108,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "It is also called the red envelope or red packet, which stands for good luck and wishes.",
-      "ref": "这也被称为新年的红包，代表了好运和祝福。"
+      "id": 109,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "例如，家家户户都会打扫房子，贴对联和红剪纸，准备团圆饭。",
+      "ref": "For example, every family will do house cleaning, paste couplets and red paper- cuts, and prepare for reunion dinner."
     },
     {
-      "id": 109,
+      "id": 110,
       "type": "E2C",
       "tag": "英译中",
       "src": "On New Year's Eve, people always stay up late, which is called Shousui",
       "ref": "在除夕夜，人们总是熬夜，这被称为守岁。"
     },
     {
-      "id": 110,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "For example, every family will do house cleaning, paste couplets and red paper- cuts, and prepare for reunion dinner.",
-      "ref": "例如，家家户户都会打扫房子，贴对联和红剪纸，准备团圆饭。"
+      "id": 111,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "红色被认为能带来好运。",
+      "ref": "The red color is believed to bring good luck."
     },
     {
-      "id": 111,
+      "id": 112,
       "type": "E2C",
       "tag": "英译中",
       "src": "At the beginning of the New Year, people pay New Year's visits to their elderly relatives and friends.",
       "ref": "在新年伊始，人们拜年他们的亲戚长辈和朋友。"
     },
     {
-      "id": 112,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "The red color is believed to bring good luck.",
-      "ref": "红色被认为能带来好运。"
+      "id": 113,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "更重要的是，感谢你这三天以来的导游和陪伴。",
+      "ref": "What's more, thank you for your guide and company for these three days."
     },
     {
-      "id": 113,
+      "id": 114,
       "type": "E2C",
       "tag": "英译中",
       "src": "There are so many red things everywhere during the Spring Festival, the lanterns. carpets, paper-cuttings, everything red.",
       "ref": "春节期间到处都有很多红色的东西，灯笼，地毯，剪纸，一切都是红色的。"
     },
     {
-      "id": 114,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "What's more, thank you for your guide and company for these three days.",
-      "ref": "更重要的是，感谢你这三天以来的导游和陪伴。"
+      "id": 115,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "我相信你为此次中国行做了很多功课。",
+      "ref": "I believe you've done much homework for your tour in China."
     },
     {
-      "id": 115,
+      "id": 116,
       "type": "E2C",
       "tag": "英译中",
       "src": "Yunnan is also a great place worth going.",
       "ref": "云南也是一个很值得去的地方。"
     },
     {
-      "id": 116,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "I believe you've done much homework for your tour in China.",
-      "ref": "我相信你为此次中国行做了很多功课。"
+      "id": 117,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "我已经问过酒店前台是否有人归还护照，却什么也没有发现.",
+      "ref": "I have already asked the hotel receptionist if anybody has turned the passport in only to find nothing."
     },
     {
-      "id": 117,
+      "id": 118,
       "type": "E2C",
       "tag": "英译中",
       "src": "As the old saying goes,“Winds are different within 10 miles; customs are various within 100 miles.”",
       "ref": "俗话说:“十里不同风，百里不同俗。"
     },
     {
-      "id": 118,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "I have already asked the hotel receptionist if anybody has turned the passport in only to find nothing.",
-      "ref": "我已经问过酒店前台是否有人归还护照，却什么也没有发现."
+      "id": 119,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "你的护照什么时候到期?",
+      "ref": "What is the expiration date on your passport?"
     },
     {
-      "id": 119,
+      "id": 120,
       "type": "E2C",
       "tag": "英译中",
       "src": "I'm afraid you can't get your exit visa in thirty days.",
       "ref": "恐怕在 30 天之内你都拿不到你的出境签证。"
     },
     {
-      "id": 120,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "What is the expiration date on your passport?",
-      "ref": "你的护照什么时候到期?"
+      "id": 121,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "在那之后，我们将向出入境管理处提交警察刚刚给我们的文件以及一些相关资 料。",
+      "ref": "And after that, we may hand in the document the policeman has just given us,and some relevant materials as well to the exit-entry administration division."
     },
     {
-      "id": 121,
+      "id": 122,
       "type": "E2C",
       "tag": "英译中",
       "src": "You need to make touch with your embassy to report it as soon as possible.",
       "ref": "你需要与贵国大使馆取得联系并尽快向他们报告此事。"
     },
     {
-      "id": 122,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "And after that, we may hand in the document the policeman has just given us,and some relevant materials as well to the exit-entry administration division.",
-      "ref": "在那之后，我们将向出入境管理处提交警察刚刚给我们的文件以及一些相关资 料。"
+      "id": 123,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "我一定会帮您处理这件事的。",
+      "ref": "I'll help you to handle this for sure."
     },
     {
-      "id": 123,
+      "id": 124,
       "type": "E2C",
       "tag": "英译中",
       "src": "When and where did you see it for the last time?",
       "ref": "你最后一次看到它是什么时候？在哪里？"
     },
     {
-      "id": 124,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "I'll help you to handle this for sure.",
-      "ref": "我一定会帮您处理这件事的。"
+      "id": 125,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "我希望这不会影响您在中国度假的心情。",
+      "ref": "I hope it won't affect your mood to enjoy your holiday in China."
     },
     {
-      "id": 125,
+      "id": 126,
       "type": "E2C",
       "tag": "英译中",
       "src": "Could you please tell me your passport number?",
       "ref": "能告诉我您的护照号码吗？"
     },
     {
-      "id": 126,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "I hope it won't affect your mood to enjoy your holiday in China.",
-      "ref": "我希望这不会影响您在中国度假的心情。"
+      "id": 127,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "最重要的是那张全家福，对我来说意义重大。",
+      "ref": "The most important is that the family photo means a lot to me."
     },
     {
-      "id": 127,
+      "id": 128,
       "type": "E2C",
       "tag": "英译中",
       "src": "It's an oblong brow wallet, triple folding.",
       "ref": "它是一个三折的，长方形的棕色的钱包。"
     },
     {
-      "id": 128,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "The most important is that the family photo means a lot to me.",
-      "ref": "最重要的是那张全家福，对我来说意义重大。"
+      "id": 129,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "把这张表格填完了您就可以拿走您的钱包了。",
+      "ref": "Now please fll in this form and you can take your wallet away."
     },
     {
-      "id": 129,
+      "id": 130,
       "type": "E2C",
       "tag": "英译中",
       "src": "I wonder if you have seen it or not,please.",
       "ref": "我想知道您是否看到了它。"
     },
     {
-      "id": 130,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "Now please fll in this form and you can take your wallet away.",
-      "ref": "把这张表格填完了您就可以拿走您的钱包了。"
+      "id": 131,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "我随时准备帮忙。",
+      "ref": "I'm always ready to help"
     },
     {
-      "id": 131,
+      "id": 132,
       "type": "E2C",
       "tag": "英译中",
       "src": "Please remind your friend to take care of his belongs.",
       "ref": "请提醒您的朋友照看好自己的财物。"
     },
     {
-      "id": 132,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "I'm always ready to help",
-      "ref": "我随时准备帮忙。"
+      "id": 133,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "我们想知道是否有人捡到它并交到这里。",
+      "ref": "We'd like to know if anybody found it and handed it in here."
     },
     {
-      "id": 133,
+      "id": 134,
       "type": "E2C",
       "tag": "英译中",
       "src": "It all depends on you.",
       "ref": "这完全取决于你。"
     },
     {
-      "id": 134,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "We'd like to know if anybody found it and handed it in here.",
-      "ref": "我们想知道是否有人捡到它并交到这里。"
+      "id": 135,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "你能详细说一下吗?",
+      "ref": "Can you say something in detail?"
     },
     {
-      "id": 135,
+      "id": 136,
       "type": "E2C",
       "tag": "英译中",
       "src": "Can you describe yours so that I can check it for you?",
       "ref": "你能描述一下你的东西吗?我好帮你查一下。"
     },
     {
-      "id": 136,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "Can you say something in detail?",
-      "ref": "你能详细说一下吗?"
+      "id": 137,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "冷静。",
+      "ref": "Calm down."
     },
     {
-      "id": 137,
+      "id": 138,
       "type": "E2C",
       "tag": "英译中",
       "src": "I'm afraid he is suffering a heart attack!",
       "ref": "恐怕他心脏病犯了"
     },
     {
-      "id": 138,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "Calm down.",
-      "ref": "冷静。"
+      "id": 139,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "他似乎醒来了。",
+      "ref": "It looked as though he were waking."
     },
     {
-      "id": 139,
+      "id": 140,
       "type": "E2C",
       "tag": "英译中",
       "src": "Let's help him to lie down and keep him flat.",
       "ref": "让我们扶他平躺。"
     },
     {
-      "id": 140,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "It looked as though he were waking.",
-      "ref": "他似乎醒来了。"
+      "id": 141,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "我刚才吓死了。",
+      "ref": "I was frightened to death just now."
     },
     {
-      "id": 141,
+      "id": 142,
       "type": "E2C",
       "tag": "英译中",
       "src": "You just take a break here.",
       "ref": "你先在这休息一下"
     },
     {
-      "id": 142,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "I was frightened to death just now.",
-      "ref": "我刚才吓死了。"
+      "id": 143,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "心脏病患者有呼吸困难和心痛的症状。",
+      "ref": "Heart disease patients have symptoms of breath of difculty and heart ache."
     },
     {
-      "id": 143,
+      "id": 144,
       "type": "E2C",
       "tag": "英译中",
       "src": "Maybe he was too excited to keep calm,so he fainted.",
       "ref": "可能他太兴奋了不能控制自己的情绪，所以他昏倒了。"
     },
     {
-      "id": 144,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "Heart disease patients have symptoms of breath of difculty and heart ache.",
-      "ref": "心脏病患者有呼吸困难和心痛的症状。"
+      "id": 145,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "心脏病患者应保持平躺。",
+      "ref": "Heart attack patients should keep flat."
     },
     {
-      "id": 145,
+      "id": 146,
       "type": "E2C",
       "tag": "英译中",
       "src": "He immediately called an ambulance.",
       "ref": "他立即叫了一辆救护车。"
     },
     {
-      "id": 146,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "Heart attack patients should keep flat.",
-      "ref": "心脏病患者应保持平躺。"
+      "id": 147,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "我只是觉得呼吸有点困难。",
+      "ref": "I just feel a bit of difculty in breathing"
     },
     {
-      "id": 147,
+      "id": 148,
       "type": "E2C",
       "tag": "英译中",
       "src": "Heart disease patients should soon be sent to the hospital.",
       "ref": "心脏病患者应尽快送往医院。"
     },
     {
-      "id": 148,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "I just feel a bit of difculty in breathing",
-      "ref": "我只是觉得呼吸有点困难。"
+      "id": 149,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "如果不戴帽子，你最好带把遮阳伞。",
+      "ref": "If you don't want to wear a sunhat, you'd better take a sun umbrella."
     },
     {
-      "id": 149,
+      "id": 150,
       "type": "E2C",
       "tag": "英译中",
       "src": "To protect your skin, we must make good preparation for it.",
       "ref": "为了保护你的皮肤不被晒伤，你必须做好准备。"
     },
     {
-      "id": 150,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "If you don't want to wear a sunhat, you'd better take a sun umbrella.",
-      "ref": "如果不戴帽子，你最好带把遮阳伞。"
+      "id": 151,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "我们今天玩的太开心了!",
+      "ref": "We did have a great fun today!"
     },
     {
-      "id": 151,
+      "id": 152,
       "type": "E2C",
       "tag": "英译中",
       "src": "The scenery here is so beautiful that I wish I could live here.",
       "ref": "这里风景太美了我真想一直住在这里。"
     },
     {
-      "id": 152,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "We did have a great fun today!",
-      "ref": "我们今天玩的太开心了!"
+      "id": 153,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "使用防晒系数(SPF)至少为 30的防晒霜来帮助防止阳光暴晒。",
+      "ref": "Use sunscreen with a sun protection factor (SPF) of at least 30 to help protect against sun exposure."
     },
     {
-      "id": 153,
+      "id": 154,
       "type": "E2C",
       "tag": "英译中",
       "src": "Long-term exposure to the sun's UV rays can damage your skin.",
       "ref": "长期暴露在太阳的紫外线下会损害你的皮肤"
     },
     {
-      "id": 154,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "Use sunscreen with a sun protection factor (SPF) of at least 30 to help protect against sun exposure.",
-      "ref": "使用防晒系数(SPF)至少为 30的防晒霜来帮助防止阳光暴晒。"
+      "id": 155,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "如果你的皮肤比较敏感，最好穿长袖和长裤。",
+      "ref": "If your skin is sensitive, you'd better wear long sleeves and long pants."
     },
     {
-      "id": 155,
+      "id": 156,
       "type": "E2C",
       "tag": "英译中",
       "src": "Wear a sun hat to effectively cover your face. neck and ears.",
       "ref": "戴上太阳帽，有效地遮住你的脸、脖子和耳朵。"
     },
     {
-      "id": 156,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "If your skin is sensitive, you'd better wear long sleeves and long pants.",
-      "ref": "如果你的皮肤比较敏感，最好穿长袖和长裤。"
+      "id": 157,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "你想怎么付款，用现金还是信用卡?",
+      "ref": "How would you like to pay,in cash or by credit card?"
     },
     {
-      "id": 157,
+      "id": 158,
       "type": "E2C",
       "tag": "英译中",
       "src": "Would you like to show me your room card?",
       "ref": "可以出示一下您的房卡吗?"
     },
     {
-      "id": 158,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "How would you like to pay,in cash or by credit card?",
-      "ref": "你想怎么付款，用现金还是信用卡?"
+      "id": 159,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "你想要行李员帮你拿行李吗?",
+      "ref": "Would you like the porter to help with your luggage?"
     },
     {
-      "id": 159,
+      "id": 160,
       "type": "E2C",
       "tag": "英译中",
       "src": "I've been overcharged.",
       "ref": "我被过多收费了。"
     },
     {
-      "id": 160,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "Would you like the porter to help with your luggage?",
-      "ref": "你想要行李员帮你拿行李吗?"
+      "id": 161,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "请稍等!",
+      "ref": "Hold on a minute,please!"
     },
     {
-      "id": 161,
+      "id": 162,
       "type": "E2C",
       "tag": "英译中",
       "src": "Would you like me to call a taxi for you?",
       "ref": "需要我帮你叫辆的士吗?"
     },
     {
-      "id": 162,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "Hold on a minute,please!",
-      "ref": "请稍等!"
+      "id": 163,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "总费用包括您在 5号晚上使用的送餐服务。",
+      "ref": "The total includes room service which you ordered on the evening of fifth."
     },
     {
-      "id": 163,
+      "id": 164,
       "type": "E2C",
       "tag": "英译中",
       "src": "But I have to point out that a 10% service charge will be added to the total if you pay by credit card.",
       "ref": "但是我必须指出，如果您用信用卡支付的话，我们要在总账上加上 10%的服 务费。"
     },
     {
-      "id": 164,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "The total includes room service which you ordered on the evening of fifth.",
-      "ref": "总费用包括您在 5号晚上使用的送餐服务。"
+      "id": 165,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "现在我们要前往机场了。",
+      "ref": "Now we're heading for the airport."
     },
     {
-      "id": 165,
+      "id": 166,
       "type": "E2C",
       "tag": "英译中",
       "src": "This amount here is for the drinks and food you had from the minibar in your room.",
       "ref": "这是您在房间小冰箱里消费的饮料和食物的费用。"
     },
     {
-      "id": 166,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "Now we're heading for the airport.",
-      "ref": "现在我们要前往机场了。"
+      "id": 167,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "你们对游览过的地方有什么想法?",
+      "ref": "What do you think of the places you've visited?"
     },
     {
-      "id": 167,
+      "id": 168,
       "type": "E2C",
       "tag": "英译中",
       "src": "Before we depart the hotel, I'd like you to double check all your belongings, and make sure that your passports and your air tickets are in your carry-on luggage.",
       "ref": "离开酒店之前，希望大家再仔细检查一下自己所有的物品。请确认你们的护照 和机票都在随身携带的行李里面。"
     },
     {
-      "id": 168,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "What do you think of the places you've visited?",
-      "ref": "你们对游览过的地方有什么想法?"
+      "id": 169,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "如果有人有东西要申报的话，请填一下这个通关申报表。",
+      "ref": "If anyone has anything to declare, please fill in the customs declaration form."
     },
     {
-      "id": 169,
+      "id": 170,
       "type": "E2C",
       "tag": "英译中",
       "src": "Thanks for your compliments.",
       "ref": "谢谢你们的夸奖!"
     },
     {
-      "id": 170,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "If anyone has anything to declare, please fill in the customs declaration form.",
-      "ref": "如果有人有东西要申报的话，请填一下这个通关申报表。"
+      "id": 171,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "登机前请密切留意广播并准备好登机牌。",
+      "ref": "Please pay close attention to the broadcasting and prepare the boarding pass before boarding."
     },
     {
-      "id": 171,
+      "id": 172,
       "type": "E2C",
       "tag": "英译中",
       "src": "After the security check, you can wait for your flight at the boarding gate.",
       "ref": "安检之后，你们可以在登机口等候你们的航班。"
     },
     {
-      "id": 172,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "Please pay close attention to the broadcasting and prepare the boarding pass before boarding.",
-      "ref": "登机前请密切留意广播并准备好登机牌。"
+      "id": 173,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "您在武汉的旅行已经接近尾声。",
+      "ref": "Your trip to Wuhan is drawing to a close."
     },
     {
-      "id": 173,
+      "id": 174,
       "type": "E2C",
       "tag": "英译中",
       "src": "You've been very cooperative, understanding and punctual",
       "ref": "你们一直很配合，很善解人意，也很守时。"
     },
     {
-      "id": 174,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "Your trip to Wuhan is drawing to a close.",
-      "ref": "您在武汉的旅行已经接近尾声。"
+      "id": 175,
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "没有在座的各位的支持和合作，就没有这次愉快而又难忘的旅行。",
+      "ref": "Without your cooperation and support, there would not have been a pleasant and unforgettable trip here."
     },
     {
-      "id": 175,
+      "id": 176,
       "type": "E2C",
       "tag": "英译中",
       "src": "Our bus is approaching the airport, on behalf of the Travel Service and the fellows here, I want to express our gratitude and say goodbye to you, my dear friends.",
       "ref": "我们的大巴马上就要到达机场了，在这里我代表我们旅行社和在座的同事们， 向在座的各位表示感谢，向你们道别。"
     },
     {
-      "id": 176,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "Without your cooperation and support, there would not have been a pleasant and unforgettable trip here.",
-      "ref": "没有在座的各位的支持和合作，就没有这次愉快而又难忘的旅行。"
-    },
-    {
       "id": 177,
-      "type": "E2C",
-      "tag": "英译中",
-      "src": "As Chinese saying goes, “A good friend from afar brings a distant land.",
-      "ref": "正如中国谚语说的:“海内存知已，天涯若比邻。"
+      "type": "C2E",
+      "tag": "汉译英",
+      "src": "离别是一种甜蜜的忧愁。相见欢，别时忧，重逢喜。",
+      "ref": "Parting is such a sweet sorrow, It's happy to meet, sorry to depart and happy to meet again."
     },
     {
       "id": 178,
       "type": "E2C",
       "tag": "英译中",
-      "src": "Parting is such a sweet sorrow, It's happy to meet, sorry to depart and happy to meet again.",
-      "ref": "离别是一种甜蜜的忧愁。相见欢，别时忧，重逢喜。"
+      "src": "As Chinese saying goes, “A good friend from afar brings a distant land.",
+      "ref": "正如中国谚语说的:“海内存知已，天涯若比邻。"
     }
   ],
   "knowledgeCards": [

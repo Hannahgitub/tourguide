@@ -73,8 +73,14 @@
           </div>
 
           <div class="ai-dialog-box">
-            <div class="ai-dialog-title">✍️ 考场作答训练</div>
-            <textarea class="user-input-textarea" id="practice-user-input" placeholder="在此输入你的英文回答或作答要点..."></textarea>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <div class="ai-dialog-title" style="margin-bottom: 0;">✍️ 考场作答训练</div>
+              <button id="btn-practice-mic" title="点击开始/停止语音输入" style="background: #ebf5ee; border: 1px solid #c6e2ce; color: #2d7a4c; padding: 4px 12px; border-radius: 16px; font-size: 13px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; transition: all 0.2s;">
+                <span id="practice-mic-icon">🎤</span> <span id="practice-mic-text">语音作答</span>
+              </button>
+            </div>
+            <textarea class="user-input-textarea" id="practice-user-input" placeholder="在此输入你的英文回答或作答要点，或点击右上方 🎤 尝试语音转文字..."></textarea>
+            <div id="practice-eval-result" class="ai-eval-result" style="display: none; margin-top: 10px;"></div>
           </div>
 
           <div class="page-nav-bar" style="margin-top: 20px;">
