@@ -4174,1532 +4174,1532 @@ window.data.phrasesData = [
     "category": "① 游览服务",
     "en": "arrive at the scenic spot",
     "cn": "抵达景区",
-    "example": "In tour service: arrive at the scenic spot (抵达景区)"
+    "example": "As we arrive at the scenic spot, please follow me and stay together."
   },
   {
     "id": "p_2",
     "category": "① 游览服务",
     "en": "introduce scenic spots",
     "cn": "介绍景区/景点",
-    "example": "In tour service: introduce scenic spots (介绍景区/景点)"
+    "example": "It is my pleasure to introduce scenic spots to all of you today."
   },
   {
     "id": "p_3",
     "category": "① 游览服务",
     "en": "lead the tour group",
     "cn": "带领团队",
-    "example": "In tour service: lead the tour group (带领团队)"
+    "example": "I will lead the tour group to visit the main hall first."
   },
   {
     "id": "p_4",
     "category": "① 游览服务",
     "en": "keep up with the team",
     "cn": "跟上队伍",
-    "example": "In tour service: keep up with the team (跟上队伍)"
+    "example": "Please keep up with the team so nobody gets lost in the crowd."
   },
   {
     "id": "p_5",
     "category": "① 游览服务",
     "en": "pay attention to safety",
     "cn": "注意安全",
-    "example": "In tour service: pay attention to safety (注意安全)"
+    "example": "While walking on the mountain trail, please pay attention to safety."
   },
   {
     "id": "p_6",
     "category": "① 游览服务",
     "en": "watch your step",
     "cn": "踩稳脚下/小心脚下",
-    "example": "In tour service: watch your step (踩稳脚下/小心脚下)"
+    "example": "The steps are a bit wet, so watch your step as you walk down."
   },
   {
     "id": "p_7",
     "category": "① 游览服务",
     "en": "keep environment clean",
     "cn": "保持环境整洁",
-    "example": "In tour service: keep environment clean (保持环境整洁)"
+    "example": "Let us work together to keep environment clean during our tour."
   },
   {
     "id": "p_8",
     "category": "① 游览服务",
     "en": "take photos",
     "cn": "拍照留念",
-    "example": "In tour service: take photos (拍照留念)"
+    "example": "We will stop here for 15 minutes so everyone can take photos."
   },
   {
     "id": "p_9",
     "category": "① 游览服务",
     "en": "free movement time",
     "cn": "自由活动时间",
-    "example": "In tour service: free movement time (自由活动时间)"
+    "example": "You will have 30 minutes of free movement time to look around."
   },
   {
     "id": "p_10",
     "category": "① 游览服务",
     "en": "gather at the entrance",
     "cn": "在入口处集合",
-    "example": "In tour service: gather at the entrance (在入口处集合)"
+    "example": "After shopping, please gather at the entrance at 4:00 PM."
   },
   {
     "id": "p_11",
     "category": "① 游览服务",
     "en": "designate meeting point",
     "cn": "指定集合地点",
-    "example": "In tour service: designate meeting point (指定集合地点)"
+    "example": "The clock tower will be our designate meeting point."
   },
   {
     "id": "p_12",
     "category": "① 游览服务",
     "en": "keep in order",
     "cn": "保持秩序",
-    "example": "In tour service: keep in order (保持秩序)"
+    "example": "Please keep in order when queuing for the cable car tickets."
   },
   {
     "id": "p_13",
     "category": "① 游览服务",
     "en": "follow the guided route",
     "cn": "沿导览路线游览",
-    "example": "In tour service: follow the guided route (沿导览路线游览)"
+    "example": "Tourists are required to follow the guided route inside the cave."
   },
   {
     "id": "p_14",
     "category": "① 游览服务",
     "en": "explanation service",
     "cn": "讲解服务",
-    "example": "In tour service: explanation service (讲解服务)"
+    "example": "I will provide detailed explanation service throughout the visit."
   },
   {
     "id": "p_15",
     "category": "① 游览服务",
     "en": "highlight of the attraction",
     "cn": "景点的亮点",
-    "example": "In tour service: highlight of the attraction (景点的亮点)"
+    "example": "The ancient pavilion is the core highlight of the attraction."
   },
   {
     "id": "p_16",
     "category": "① 游览服务",
     "en": "historical background",
     "cn": "历史背景",
-    "example": "In tour service: historical background (历史背景)"
+    "example": "Let me share the rich historical background of this landmark."
   },
   {
     "id": "p_17",
     "category": "① 游览服务",
     "en": "local customs",
     "cn": "当地风俗",
-    "example": "In tour service: local customs (当地风俗)"
+    "example": "You will experience unique local customs of the Zhuang minority here."
   },
   {
     "id": "p_18",
     "category": "① 游览服务",
     "en": "answer tourists' questions",
     "cn": "回答游客问题",
-    "example": "In tour service: answer tourists' questions (回答游客问题)"
+    "example": "Feel free to ask if you have any doubts; I am glad to answer tourists' questions."
   },
   {
     "id": "p_19",
     "category": "① 游览服务",
     "en": "avoid crowded places",
     "cn": "避开拥挤场所",
-    "example": "In tour service: avoid crowded places (避开拥挤场所)"
+    "example": "We adjusted our itinerary to avoid crowded places during peak hours."
   },
   {
     "id": "p_20",
     "category": "① 游览服务",
     "en": "take care of children and elders",
     "cn": "照顾老人与小孩",
-    "example": "In tour service: take care of children and elders (照顾老人与小孩)"
+    "example": "Please take care of children and elders when crossing the busy bridge."
   },
   {
     "id": "p_21",
     "category": "① 游览服务",
     "en": "respect local culture",
     "cn": "尊重当地文化",
-    "example": "In tour service: respect local culture (尊重当地文化)"
+    "example": "When entering temples, we should always respect local culture."
   },
   {
     "id": "p_22",
     "category": "① 游览服务",
     "en": "do not touch cultural relics",
     "cn": "请勿触摸文物",
-    "example": "In tour service: do not touch cultural relics (请勿触摸文物)"
+    "example": "Please remember do not touch cultural relics inside the museum."
   },
   {
     "id": "p_23",
     "category": "② 交通服务",
     "en": "stay calm",
     "cn": "保持冷静",
-    "example": "In tour service: stay calm (保持冷静)"
+    "example": "In case of unexpected situations, please stay calm and listen to your guide."
   },
   {
     "id": "p_24",
     "category": "② 交通服务",
     "en": "keep safe",
     "cn": "注意安全",
-    "example": "In tour service: keep safe (注意安全)"
+    "example": "Always follow safety instructions to keep safe during transport."
   },
   {
     "id": "p_25",
     "category": "② 交通服务",
     "en": "call the police",
     "cn": "报警",
-    "example": "In tour service: call the police (报警)"
+    "example": "If any theft occurs, I will call the police immediately."
   },
   {
     "id": "p_26",
     "category": "② 交通服务",
     "en": "call the ambulance",
     "cn": "叫救护车",
-    "example": "In tour service: call the ambulance (叫救护车)"
+    "example": "If someone falls ill, I will call the ambulance right away."
   },
   {
     "id": "p_27",
     "category": "② 交通服务",
     "en": "right away",
     "cn": "立刻、马上",
-    "example": "In tour service: right away (立刻、马上)"
+    "example": "Our driver will check the vehicle engine right away."
   },
   {
     "id": "p_28",
     "category": "② 交通服务",
     "en": "do not move the injured people",
     "cn": "不要随意移动伤者",
-    "example": "In tour service: do not move the injured people (不要随意移动伤者)"
+    "example": "Before paramedics arrive, do not move the injured people blindly."
   },
   {
     "id": "p_29",
     "category": "② 交通服务",
     "en": "lightly",
     "cn": "轻易地、随意地",
-    "example": "In tour service: lightly (轻易地、随意地)"
+    "example": "Please handle fragile souvenirs lightly when loading them onto the bus."
   },
   {
     "id": "p_30",
     "category": "② 交通服务",
     "en": "wait for professional help",
     "cn": "等待专业救援",
-    "example": "In tour service: wait for professional help (等待专业救援)"
+    "example": "Remain in a safe area and wait for professional help to arrive."
   },
   {
     "id": "p_31",
     "category": "② 交通服务",
     "en": "protect the accident scene",
     "cn": "保护事故现场",
-    "example": "In tour service: protect the accident scene (保护事故现场)"
+    "example": "Our staff will protect the accident scene before police officers arrive."
   },
   {
     "id": "p_32",
     "category": "② 交通服务",
     "en": "don't leave casually",
     "cn": "不要擅自离开",
-    "example": "In tour service: don't leave casually (不要擅自离开)"
+    "example": "Please stay with your group and don't leave casually at highway stops."
   },
   {
     "id": "p_33",
     "category": "② 交通服务",
     "en": "remind tourists",
     "cn": "提醒游客",
-    "example": "In tour service: remind tourists (提醒游客)"
+    "example": "I will remind tourists to check their seat belts before we depart."
   },
   {
     "id": "p_34",
     "category": "② 交通服务",
     "en": "wear seat belts",
     "cn": "系安全带",
-    "example": "In tour service: wear seat belts (系安全带)"
+    "example": "For your own safety, please wear seat belts while the bus is moving."
   },
   {
     "id": "p_35",
     "category": "② 交通服务",
     "en": "all the time",
     "cn": "全程",
-    "example": "In tour service: all the time (全程)"
+    "example": "Keep your personal belongings with you all the time."
   },
   {
     "id": "p_36",
     "category": "② 交通服务",
     "en": "check the bus safety condition",
     "cn": "检查车辆安全状况",
-    "example": "In tour service: check the bus safety condition (检查车辆安全状况)"
+    "example": "The driver will check the bus safety condition before every trip."
   },
   {
     "id": "p_37",
     "category": "② 交通服务",
     "en": "before the trip start",
     "cn": "出发前",
-    "example": "In tour service: before the trip start (出发前)"
+    "example": "We should double check the headcount before the trip start."
   },
   {
     "id": "p_38",
     "category": "② 交通服务",
     "en": "bus safety rules",
     "cn": "乘车安全规定",
-    "example": "In tour service: bus safety rules (乘车安全规定)"
+    "example": "Please strictly abide by our bus safety rules during long journeys."
   },
   {
     "id": "p_39",
     "category": "② 交通服务",
     "en": "arrange front seat",
     "cn": "安排前排座位",
-    "example": "In tour service: arrange front seat (安排前排座位)"
+    "example": "We can arrange front seat for passengers who are prone to motion sickness."
   },
   {
     "id": "p_40",
     "category": "② 交通服务",
     "en": "carsick tourists",
     "cn": "晕车游客",
-    "example": "In tour service: carsick tourists (晕车游客)"
+    "example": "We have prepared anti-nausea medicine for carsick tourists."
   },
   {
     "id": "p_41",
     "category": "② 交通服务",
     "en": "keep good ventilation",
     "cn": "保持车内通风",
-    "example": "In tour service: keep good ventilation (保持车内通风)"
+    "example": "Opening the air vents will keep good ventilation inside the coach."
   },
   {
     "id": "p_42",
     "category": "② 交通服务",
     "en": "avoid eating greasy food",
     "cn": "不吃油腻食物",
-    "example": "In tour service: avoid eating greasy food (不吃油腻食物)"
+    "example": "Before a long bus ride, it is wise to avoid eating greasy food."
   },
   {
     "id": "p_43",
     "category": "② 交通服务",
     "en": "before riding",
     "cn": "乘车之前",
-    "example": "In tour service: before riding (乘车之前)"
+    "example": "Make sure to take your medicine 30 minutes before riding the bus."
   },
   {
     "id": "p_44",
     "category": "② 交通服务",
     "en": "play mobile phone",
     "cn": "玩手机",
-    "example": "In tour service: play mobile phone (玩手机)"
+    "example": "Looking down to play mobile phone while riding may cause motion sickness."
   },
   {
     "id": "p_45",
     "category": "② 交通服务",
     "en": "provide plastic bags",
     "cn": "提供塑料袋",
-    "example": "In tour service: provide plastic bags (提供塑料袋)"
+    "example": "Our guide will provide plastic bags in case anyone feels unwell."
   },
   {
     "id": "p_46",
     "category": "② 交通服务",
     "en": "in case of need",
     "cn": "以备不时之需",
-    "example": "In tour service: in case of need (以备不时之需)"
+    "example": "Keep these emergency numbers handy in case of need."
   },
   {
     "id": "p_47",
     "category": "② 交通服务",
     "en": "hand a plastic bag",
     "cn": "递塑料袋",
-    "example": "In tour service: hand a plastic bag (递塑料袋)"
+    "example": "The guide will hand a plastic bag to the passenger promptly."
   },
   {
     "id": "p_48",
     "category": "② 交通服务",
     "en": "clean paper",
     "cn": "干净纸巾",
-    "example": "In tour service: clean paper (干净纸巾)"
+    "example": "We also have clean paper and wet wipes available in the bus medical kit."
   },
   {
     "id": "p_49",
     "category": "② 交通服务",
     "en": "at once",
     "cn": "立刻",
-    "example": "In tour service: at once (立刻)"
+    "example": "If you feel sick, please inform me at once."
   },
   {
     "id": "p_50",
     "category": "② 交通服务",
     "en": "ask the driver",
     "cn": "跟司机说",
-    "example": "In tour service: ask the driver (跟司机说)"
+    "example": "I will ask the driver to pull over at the nearest service station."
   },
   {
     "id": "p_51",
     "category": "② 交通服务",
     "en": "spot the bus",
     "cn": "停放大巴",
-    "example": "In tour service: spot the bus (停放大巴)"
+    "example": "The driver will spot the bus in the designated parking area."
   },
   {
     "id": "p_52",
     "category": "② 交通服务",
     "en": "at a safe place",
     "cn": "在安全区域",
-    "example": "In tour service: at a safe place (在安全区域)"
+    "example": "Please disembark and wait at a safe place away from traffic."
   },
   {
     "id": "p_53",
     "category": "③ 离店与送站服务",
     "en": "Confirm departure time",
     "cn": "确认出发时间",
-    "example": "In tour service: Confirm departure time (确认出发时间)"
+    "example": "I will confirm departure time with the hotel reception tonight."
   },
   {
     "id": "p_54",
     "category": "③ 离店与送站服务",
     "en": "ahead of time",
     "cn": "提前",
-    "example": "In tour service: ahead of time (提前)"
+    "example": "We will arrive at the airport two hours ahead of time."
   },
   {
     "id": "p_55",
     "category": "③ 离店与送站服务",
     "en": "gather on time",
     "cn": "准时集合",
-    "example": "In tour service: gather on time (准时集合)"
+    "example": "Please gather on time in the hotel lobby tomorrow morning."
   },
   {
     "id": "p_56",
     "category": "③ 离店与送站服务",
     "en": "take all luggage",
     "cn": "带好全部行李",
-    "example": "In tour service: take all luggage (带好全部行李)"
+    "example": "Before checking out, please make sure you take all luggage with you."
   },
   {
     "id": "p_57",
     "category": "③ 离店与送站服务",
     "en": "luggage delivery",
     "cn": "行李递送/行李托运",
-    "example": "In tour service: luggage delivery (行李递送/行李托运)"
+    "example": "The hotel staff will handle your luggage delivery to the airport bus."
   },
   {
     "id": "p_58",
     "category": "③ 离店与送站服务",
     "en": "checking out",
     "cn": "退房；办理离店手续",
-    "example": "In tour service: checking out (退房；办理离店手续)"
+    "example": "Our guide will assist everyone when checking out at the front desk."
   },
   {
     "id": "p_59",
     "category": "③ 离店与送站服务",
     "en": "checking out procedure",
     "cn": "退房流程",
-    "example": "In tour service: checking out procedure (退房流程)"
+    "example": "The checking out procedure will take around 10 minutes."
   },
   {
     "id": "p_60",
     "category": "③ 离店与送站服务",
     "en": "depart on time",
     "cn": "准时出发",
-    "example": "In tour service: depart on time (准时出发)"
+    "example": "The tour bus will depart on time at 8:00 AM sharp."
   },
   {
     "id": "p_61",
     "category": "③ 离店与送站服务",
     "en": "Remind tourists",
     "cn": "提醒游客",
-    "example": "In tour service: Remind tourists (提醒游客)"
+    "example": "I will remind tourists to double check their passports and tickets."
   },
   {
     "id": "p_62",
     "category": "③ 离店与送站服务",
     "en": "valuable things",
     "cn": "贵重物品",
-    "example": "In tour service: valuable things (贵重物品)"
+    "example": "Please carry your valuable things in your hand luggage."
   },
   {
     "id": "p_63",
     "category": "③ 离店与送站服务",
     "en": "pack ... in luggage",
     "cn": "放进行李里",
-    "example": "In tour service: pack ... in luggage (放进行李里)"
+    "example": "Liquids over 100ml must be packed in checked luggage."
   },
   {
     "id": "p_64",
     "category": "③ 离店与送站服务",
     "en": "tell tourists early",
     "cn": "提前告知游客",
-    "example": "In tour service: tell tourists early (提前告知游客)"
+    "example": "I will tell tourists early about the breakfast schedule."
   },
   {
     "id": "p_65",
     "category": "③ 离店与送站服务",
     "en": "check out time",
     "cn": "退房时间",
-    "example": "In tour service: check out time (退房时间)"
+    "example": "Please note that the hotel check out time is 12:00 noon."
   },
   {
     "id": "p_66",
     "category": "③ 离店与送站服务",
     "en": "enough packing time",
     "cn": "充足收拾行李时间",
-    "example": "In tour service: enough packing time (充足收拾行李时间)"
+    "example": "We have reserved enough packing time for you before leaving."
   },
   {
     "id": "p_67",
     "category": "③ 离店与送站服务",
     "en": "Hand over all luggage",
     "cn": "移交所有行李",
-    "example": "In tour service: Hand over all luggage (移交所有行李)"
+    "example": "Hand over all luggage to the porter for boarding."
   },
   {
     "id": "p_68",
     "category": "③ 离店与送站服务",
     "en": "to the bellman",
     "cn": "交给行李员",
-    "example": "In tour service: to the bellman (交给行李员)"
+    "example": "You can give your luggage tags to the bellman."
   },
   {
     "id": "p_69",
     "category": "③ 离店与送站服务",
     "en": "in person",
     "cn": "亲自",
-    "example": "In tour service: in person (亲自)"
+    "example": "The guide will inspect every room in person before departure."
   },
   {
     "id": "p_70",
     "category": "③ 离店与送站服务",
     "en": "Settle all hotel bills",
     "cn": "结清所有酒店账单",
-    "example": "In tour service: Settle all hotel bills (结清所有酒店账单)"
+    "example": "Please settle all hotel bills at the cashier counter."
   },
   {
     "id": "p_71",
     "category": "③ 离店与送站服务",
     "en": "with the hotel",
     "cn": "和酒店（结算）",
-    "example": "In tour service: with the hotel (和酒店（结算）)"
+    "example": "Make sure extra room expenses are settled with the hotel."
   },
   {
     "id": "p_72",
     "category": "③ 离店与送站服务",
     "en": "Take back",
     "cn": "收回",
-    "example": "In tour service: Take back (收回)"
+    "example": "The front desk clerk will take back your key cards."
   },
   {
     "id": "p_73",
     "category": "③ 离店与送站服务",
     "en": "hotel room keys",
     "cn": "酒店房间钥匙",
-    "example": "In tour service: hotel room keys (酒店房间钥匙)"
+    "example": "Please return all hotel room keys before boarding the bus."
   },
   {
     "id": "p_74",
     "category": "③ 离店与送站服务",
     "en": "Confirm no tourists",
     "cn": "确认游客无遗留",
-    "example": "In tour service: Confirm no tourists (确认游客无遗留)"
+    "example": "We must confirm no tourists leave items in their rooms."
   },
   {
     "id": "p_75",
     "category": "③ 离店与送站服务",
     "en": "leave items",
     "cn": "遗留物品",
-    "example": "In tour service: leave items (遗留物品)"
+    "example": "Inspect drawers so you won't leave items behind."
   },
   {
     "id": "p_76",
     "category": "③ 离店与送站服务",
     "en": "Label luggage",
     "cn": "给行李贴标签",
-    "example": "In tour service: Label luggage (给行李贴标签)"
+    "example": "Remember to label luggage with your name and phone number."
   },
   {
     "id": "p_77",
     "category": "③ 离店与送站服务",
     "en": "person information",
     "cn": "个人信息",
-    "example": "In tour service: person information (个人信息)"
+    "example": "Verify your person information on the boarding pass."
   },
   {
     "id": "p_78",
     "category": "③ 离店与送站服务",
     "en": "Count and check luggage",
     "cn": "清点检查行李",
-    "example": "In tour service: Count and check luggage (清点检查行李)"
+    "example": "Our guide will count and check luggage before loading."
   },
   {
     "id": "p_79",
     "category": "③ 离店与送站服务",
     "en": "before departure",
     "cn": "出发前",
-    "example": "In tour service: before departure (出发前)"
+    "example": "Final headcount will be conducted right before departure."
   },
   {
     "id": "p_80",
     "category": "③ 离店与送站服务",
     "en": "Keep an eye on",
     "cn": "照看、留意",
-    "example": "In tour service: Keep an eye on (照看、留意)"
+    "example": "Please keep an eye on your children while waiting in the lobby."
   },
   {
     "id": "p_81",
     "category": "③ 离店与送站服务",
     "en": "all the time",
     "cn": "一直、始终",
-    "example": "In tour service: all the time (一直、始终)"
+    "example": "Keep your personal belongings with you all the time."
   },
   {
     "id": "p_82",
     "category": "③ 离店与送站服务",
     "en": "Wait for 10 to 15 minutes",
     "cn": "等候10至15分钟",
-    "example": "In tour service: Wait for 10 to 15 minutes (等候10至15分钟)"
+    "example": "The driver will wait for 10 to 15 minutes for stragglers."
   },
   {
     "id": "p_83",
     "category": "③ 离店与送站服务",
     "en": "search places",
     "cn": "搜寻各处",
-    "example": "In tour service: search places (搜寻各处)"
+    "example": "Our guide will search places around the gate if someone is missing."
   },
   {
     "id": "p_84",
     "category": "③ 离店与送站服务",
     "en": "the tourist may go",
     "cn": "游客可能去到的地方",
-    "example": "In tour service: the tourist may go (游客可能去到的地方)"
+    "example": "Check the souvenir shop where the tourist may go."
   },
   {
     "id": "p_85",
     "category": "④ 购物与文化娱乐服务",
     "en": "shopping advice",
     "cn": "购物建议",
-    "example": "In tour service: shopping advice (购物建议)"
+    "example": "In tour guiding practice, we often need to shopping advice (购物建议)."
   },
   {
     "id": "p_86",
     "category": "④ 购物与文化娱乐服务",
     "en": "authentic local products",
     "cn": "地道特产/正宗土特产",
-    "example": "In tour service: authentic local products (地道特产/正宗土特产)"
+    "example": "In tour guiding practice, we often need to authentic local products (地道特产/正宗土特产)."
   },
   {
     "id": "p_87",
     "category": "④ 购物与文化娱乐服务",
     "en": "voluntary shopping",
     "cn": "自愿购物",
-    "example": "In tour service: voluntary shopping (自愿购物)"
+    "example": "In tour guiding practice, we often need to voluntary shopping (自愿购物)."
   },
   {
     "id": "p_88",
     "category": "④ 购物与文化娱乐服务",
     "en": "clear price tag",
     "cn": "明码标价",
-    "example": "In tour service: clear price tag (明码标价)"
+    "example": "In tour guiding practice, we often need to clear price tag (明码标价)."
   },
   {
     "id": "p_89",
     "category": "④ 购物与文化娱乐服务",
     "en": "demand official receipt",
     "cn": "索取正式发票",
-    "example": "In tour service: demand official receipt (索取正式发票)"
+    "example": "In tour guiding practice, we often need to demand official receipt (索取正式发票)."
   },
   {
     "id": "p_90",
     "category": "④ 购物与文化娱乐服务",
     "en": "guarantee product quality",
     "cn": "保证商品质量",
-    "example": "In tour service: guarantee product quality (保证商品质量)"
+    "example": "In tour guiding practice, we often need to guarantee product quality (保证商品质量)."
   },
   {
     "id": "p_91",
     "category": "④ 购物与文化娱乐服务",
     "en": "recommend local performance",
     "cn": "推荐当地演出",
-    "example": "In tour service: recommend local performance (推荐当地演出)"
+    "example": "In tour guiding practice, we often need to recommend local performance (推荐当地演出)."
   },
   {
     "id": "p_92",
     "category": "④ 购物与文化娱乐服务",
     "en": "folk song and dance performance",
     "cn": "民族歌舞表演",
-    "example": "In tour service: folk song and dance performance (民族歌舞表演)"
+    "example": "In tour guiding practice, we often need to folk song and dance performance (民族歌舞表演)."
   },
   {
     "id": "p_93",
     "category": "④ 购物与文化娱乐服务",
     "en": "local snacks and food",
     "cn": "当地特色小吃",
-    "example": "In tour service: local snacks and food (当地特色小吃)"
+    "example": "In tour guiding practice, we often need to local snacks and food (当地特色小吃)."
   },
   {
     "id": "p_94",
     "category": "④ 购物与文化娱乐服务",
     "en": "optional entertainment programs",
     "cn": "自费娱乐项目",
-    "example": "In tour service: optional entertainment programs (自费娱乐项目)"
+    "example": "In tour guiding practice, we often need to optional entertainment programs (自费娱乐项目)."
   },
   {
     "id": "p_95",
     "category": "④ 购物与文化娱乐服务",
     "en": "arrange seats in advance",
     "cn": "提前安排座位",
-    "example": "In tour service: arrange seats in advance (提前安排座位)"
+    "example": "In tour guiding practice, we often need to arrange seats in advance (提前安排座位)."
   },
   {
     "id": "p_96",
     "category": "④ 购物与文化娱乐服务",
     "en": "respect local shopping customs",
     "cn": "尊重当地购物习俗",
-    "example": "In tour service: respect local shopping customs (尊重当地购物习俗)"
+    "example": "In tour guiding practice, we often need to respect local shopping customs (尊重当地购物习俗)."
   },
   {
     "id": "p_97",
     "category": "④ 购物与文化娱乐服务",
     "en": "protect tourists' legal rights",
     "cn": "保护游客合法权益",
-    "example": "In tour service: protect tourists' legal rights (保护游客合法权益)"
+    "example": "In tour guiding practice, we often need to protect tourists' legal rights (保护游客合法权益)."
   },
   {
     "id": "p_98",
     "category": "④ 购物与文化娱乐服务",
     "en": "avoid impulse buying",
     "cn": "避免冲动购物",
-    "example": "In tour service: avoid impulse buying (避免冲动购物)"
+    "example": "In tour guiding practice, we often need to avoid impulse buying (避免冲动购物)."
   },
   {
     "id": "p_99",
     "category": "④ 购物与文化娱乐服务",
     "en": "souvenir shop",
     "cn": "纪念品商店",
-    "example": "In tour service: souvenir shop (纪念品商店)"
+    "example": "In tour guiding practice, we often need to souvenir shop (纪念品商店)."
   },
   {
     "id": "p_100",
     "category": "④ 购物与文化娱乐服务",
     "en": "free choice",
     "cn": "自由选择",
-    "example": "In tour service: free choice (自由选择)"
+    "example": "In tour guiding practice, we often need to free choice (自由选择)."
   },
   {
     "id": "p_101",
     "category": "④ 购物与文化娱乐服务",
     "en": "rich cultural experience",
     "cn": "丰富的文化体验",
-    "example": "In tour service: rich cultural experience (丰富的文化体验)"
+    "example": "In tour guiding practice, we often need to rich cultural experience (丰富的文化体验)."
   },
   {
     "id": "p_102",
     "category": "⑤ 特殊群体服务",
     "en": "elderly tourists",
     "cn": "老年游客",
-    "example": "In tour service: elderly tourists (老年游客)"
+    "example": "In tour guiding practice, we often need to elderly tourists (老年游客)."
   },
   {
     "id": "p_103",
     "category": "⑤ 特殊群体服务",
     "en": "tourists with disabilities",
     "cn": "残障游客",
-    "example": "In tour service: tourists with disabilities (残障游客)"
+    "example": "In tour guiding practice, we often need to tourists with disabilities (残障游客)."
   },
   {
     "id": "p_104",
     "category": "⑤ 特殊群体服务",
     "en": "child tourists",
     "cn": "儿童游客",
-    "example": "In tour service: child tourists (儿童游客)"
+    "example": "In tour guiding practice, we often need to child tourists (儿童游客)."
   },
   {
     "id": "p_105",
     "category": "⑤ 特殊群体服务",
     "en": "slow down the walking pace",
     "cn": "放慢步行节奏",
-    "example": "In tour service: slow down the walking pace (放慢步行节奏)"
+    "example": "In tour guiding practice, we often need to slow down the walking pace (放慢步行节奏)."
   },
   {
     "id": "p_106",
     "category": "⑤ 特殊群体服务",
     "en": "arrange accessible facilities",
     "cn": "安排无障碍设施",
-    "example": "In tour service: arrange accessible facilities (安排无障碍设施)"
+    "example": "In tour guiding practice, we often need to arrange accessible facilities (安排无障碍设施)."
   },
   {
     "id": "p_107",
     "category": "⑤ 特殊群体服务",
     "en": "provide wheelchair assistance",
     "cn": "提供轮椅协助",
-    "example": "In tour service: provide wheelchair assistance (提供轮椅协助)"
+    "example": "In tour guiding practice, we often need to provide wheelchair assistance (提供轮椅协助)."
   },
   {
     "id": "p_108",
     "category": "⑤ 特殊群体服务",
     "en": "pay special attention",
     "cn": "给予特别关照",
-    "example": "In tour service: pay special attention (给予特别关照)"
+    "example": "In tour guiding practice, we often need to pay special attention (给予特别关照)."
   },
   {
     "id": "p_109",
     "category": "⑤ 特殊群体服务",
     "en": "offer warm assistance",
     "cn": "提供热情帮助",
-    "example": "In tour service: offer warm assistance (提供热情帮助)"
+    "example": "In tour guiding practice, we often need to offer warm assistance (提供热情帮助)."
   },
   {
     "id": "p_110",
     "category": "⑤ 特殊群体服务",
     "en": "prepare suitable food",
     "cn": "准备合适餐饮",
-    "example": "In tour service: prepare suitable food (准备合适餐饮)"
+    "example": "In tour guiding practice, we often need to prepare suitable food (准备合适餐饮)."
   },
   {
     "id": "p_111",
     "category": "⑤ 特殊群体服务",
     "en": "avoid strenuous activities",
     "cn": "避免剧烈运动",
-    "example": "In tour service: avoid strenuous activities (避免剧烈运动)"
+    "example": "In tour guiding practice, we often need to avoid strenuous activities (避免剧烈运动)."
   },
   {
     "id": "p_112",
     "category": "⑤ 特殊群体服务",
     "en": "provide seat in advance",
     "cn": "提前提供座位",
-    "example": "In tour service: provide seat in advance (提前提供座位)"
+    "example": "In tour guiding practice, we often need to provide seat in advance (提前提供座位)."
   },
   {
     "id": "p_113",
     "category": "⑤ 特殊群体服务",
     "en": "keep close contact with guardians",
     "cn": "与监护人保持紧密联系",
-    "example": "In tour service: keep close contact with guardians (与监护人保持紧密联系)"
+    "example": "In tour guiding practice, we often need to keep close contact with guardians (与监护人保持紧密联系)."
   },
   {
     "id": "p_114",
     "category": "⑤ 特殊群体服务",
     "en": "friendly and patient service",
     "cn": "友好耐心的服务",
-    "example": "In tour service: friendly and patient service (友好耐心的服务)"
+    "example": "In tour guiding practice, we often need to friendly and patient service (友好耐心的服务)."
   },
   {
     "id": "p_115",
     "category": "⑤ 特殊群体服务",
     "en": "safety assurance",
     "cn": "安全保障",
-    "example": "In tour service: safety assurance (安全保障)"
+    "example": "In tour guiding practice, we often need to safety assurance (安全保障)."
   },
   {
     "id": "p_116",
     "category": "⑤ 特殊群体服务",
     "en": "medical kit on hand",
     "cn": "随身携带急救包",
-    "example": "In tour service: medical kit on hand (随身携带急救包)"
+    "example": "In tour guiding practice, we often need to medical kit on hand (随身携带急救包)."
   },
   {
     "id": "p_117",
     "category": "⑥ 突发事件和常见问题的处理",
     "en": "Put personal safety in the first place",
     "cn": "把人身安全放在首位",
-    "example": "In tour service: Put personal safety in the first place (把人身安全放在首位)"
+    "example": "In tour guiding practice, we often need to Put personal safety in the first place (把人身安全放在首位)."
   },
   {
     "id": "p_118",
     "category": "⑥ 突发事件和常见问题的处理",
     "en": "in the first place",
     "cn": "放在第一位、首要",
-    "example": "In tour service: in the first place (放在第一位、首要)"
+    "example": "In tour guiding practice, we often need to in the first place (放在第一位、首要)."
   },
   {
     "id": "p_119",
     "category": "⑥ 突发事件和常见问题的处理",
     "en": "Keep calm",
     "cn": "保持冷静",
-    "example": "In tour service: Keep calm (保持冷静)"
+    "example": "In tour guiding practice, we often need to Keep calm (保持冷静)."
   },
   {
     "id": "p_120",
     "category": "⑥ 突发事件和常见问题的处理",
     "en": "deal with situation properly",
     "cn": "妥善处理情况",
-    "example": "In tour service: deal with situation properly (妥善处理情况)"
+    "example": "In tour guiding practice, we often need to deal with situation properly (妥善处理情况)."
   },
   {
     "id": "p_121",
     "category": "⑥ 突发事件和常见问题的处理",
     "en": "Follow regulation",
     "cn": "遵守规定",
-    "example": "In tour service: Follow regulation (遵守规定)"
+    "example": "In tour guiding practice, we often need to Follow regulation (遵守规定)."
   },
   {
     "id": "p_122",
     "category": "⑥ 突发事件和常见问题的处理",
     "en": "report timely",
     "cn": "及时上报",
-    "example": "In tour service: report timely (及时上报)"
+    "example": "In tour guiding practice, we often need to report timely (及时上报)."
   },
   {
     "id": "p_123",
     "category": "⑥ 突发事件和常见问题的处理",
     "en": "tour group",
     "cn": "旅行团",
-    "example": "In tour service: tour group (旅行团)"
+    "example": "In tour guiding practice, we often need to tour group (旅行团)."
   },
   {
     "id": "p_124",
     "category": "⑥ 突发事件和常见问题的处理",
     "en": "adjust travel schedules",
     "cn": "调整行程安排",
-    "example": "In tour service: adjust travel schedules (调整行程安排)"
+    "example": "In tour guiding practice, we often need to adjust travel schedules (调整行程安排)."
   },
   {
     "id": "p_125",
     "category": "⑥ 突发事件和常见问题的处理",
     "en": "force measure",
     "cn": "应对措施 / 不可抗力",
-    "example": "In tour service: force measure (应对措施 / 不可抗力)"
+    "example": "In tour guiding practice, we often need to force measure (应对措施 / 不可抗力)."
   },
   {
     "id": "p_126",
     "category": "⑥ 突发事件和常见问题的处理",
     "en": "bad weather",
     "cn": "恶劣天气",
-    "example": "In tour service: bad weather (恶劣天气)"
+    "example": "In tour guiding practice, we often need to bad weather (恶劣天气)."
   },
   {
     "id": "p_127",
     "category": "⑥ 突发事件和常见问题的处理",
     "en": "traffic direction",
     "cn": "交通管制",
-    "example": "In tour service: traffic direction (交通管制)"
+    "example": "In tour guiding practice, we often need to traffic direction (交通管制)."
   },
   {
     "id": "p_128",
     "category": "⑥ 突发事件和常见问题的处理",
     "en": "mistake made by staff",
     "cn": "工作人员造成的失误",
-    "example": "In tour service: mistake made by staff (工作人员造成的失误)"
+    "example": "In tour guiding practice, we often need to mistake made by staff (工作人员造成的失误)."
   },
   {
     "id": "p_129",
     "category": "⑥ 突发事件和常见问题的处理",
     "en": "travel agency staff",
     "cn": "旅行社工作人员",
-    "example": "In tour service: travel agency staff (旅行社工作人员)"
+    "example": "In tour guiding practice, we often need to travel agency staff (旅行社工作人员)."
   },
   {
     "id": "p_130",
     "category": "⑥ 突发事件和常见问题的处理",
     "en": "Try best to serve well",
     "cn": "尽力做好服务",
-    "example": "In tour service: Try best to serve well (尽力做好服务)"
+    "example": "In tour guiding practice, we often need to Try best to serve well (尽力做好服务)."
   },
   {
     "id": "p_131",
     "category": "⑥ 突发事件和常见问题的处理",
     "en": "the rest trip",
     "cn": "剩余行程",
-    "example": "In tour service: the rest trip (剩余行程)"
+    "example": "In tour guiding practice, we often need to the rest trip (剩余行程)."
   },
   {
     "id": "p_132",
     "category": "⑥ 突发事件和常见问题的处理",
     "en": "Explain the real reason honestly",
     "cn": "如实说明真实原因",
-    "example": "In tour service: Explain the real reason honestly (如实说明真实原因)"
+    "example": "In tour guiding practice, we often need to Explain the real reason honestly (如实说明真实原因)."
   },
   {
     "id": "p_133",
     "category": "⑥ 突发事件和常见问题的处理",
     "en": "real reason",
     "cn": "真实原因",
-    "example": "In tour service: real reason (真实原因)"
+    "example": "In tour guiding practice, we often need to real reason (真实原因)."
   },
   {
     "id": "p_134",
     "category": "⑥ 突发事件和常见问题的处理",
     "en": "Offer sincere apology",
     "cn": "诚恳道歉",
-    "example": "In tour service: Offer sincere apology (诚恳道歉)"
+    "example": "In tour guiding practice, we often need to Offer sincere apology (诚恳道歉)."
   },
   {
     "id": "p_135",
     "category": "⑥ 突发事件和常见问题的处理",
     "en": "at once",
     "cn": "立刻",
-    "example": "In tour service: at once (立刻)"
+    "example": "If you feel sick, please inform me at once."
   },
   {
     "id": "p_136",
     "category": "⑥ 突发事件和常见问题的处理",
     "en": "Keep contact",
     "cn": "保持联系",
-    "example": "In tour service: Keep contact (保持联系)"
+    "example": "In tour guiding practice, we often need to Keep contact (保持联系)."
   },
   {
     "id": "p_137",
     "category": "⑥ 突发事件和常见问题的处理",
     "en": "follow up on retrieval progress",
     "cn": "跟进寻回进展",
-    "example": "In tour service: follow up on retrieval progress (跟进寻回进展)"
+    "example": "In tour guiding practice, we often need to follow up on retrieval progress (跟进寻回进展)."
   },
   {
     "id": "p_138",
     "category": "⑥ 突发事件和常见问题的处理",
     "en": "Fill in relevant form",
     "cn": "填写相关表格",
-    "example": "In tour service: Fill in relevant form (填写相关表格)"
+    "example": "In tour guiding practice, we often need to Fill in relevant form (填写相关表格)."
   },
   {
     "id": "p_139",
     "category": "⑥ 突发事件和常见问题的处理",
     "en": "loss registration form",
     "cn": "遗失登记表",
-    "example": "In tour service: loss registration form (遗失登记表)"
+    "example": "In tour guiding practice, we often need to loss registration form (遗失登记表)."
   },
   {
     "id": "p_140",
     "category": "⑥ 突发事件和常见问题的处理",
     "en": "Report the loss",
     "cn": "报失",
-    "example": "In tour service: Report the loss (报失)"
+    "example": "In tour guiding practice, we often need to Report the loss (报失)."
   },
   {
     "id": "p_141",
     "category": "⑥ 突发事件和常见问题的处理",
     "en": "airport staff",
     "cn": "机场工作人员",
-    "example": "In tour service: airport staff (机场工作人员)"
+    "example": "In tour guiding practice, we often need to airport staff (机场工作人员)."
   },
   {
     "id": "p_142",
     "category": "⑥ 突发事件和常见问题的处理",
     "en": "Comfort visitors",
     "cn": "安抚游客",
-    "example": "In tour service: Comfort visitors (安抚游客)"
+    "example": "In tour guiding practice, we often need to Comfort visitors (安抚游客)."
   },
   {
     "id": "p_143",
     "category": "⑥ 突发事件和常见问题的处理",
     "en": "ask for detailed information",
     "cn": "询问详细信息",
-    "example": "In tour service: ask for detailed information (询问详细信息)"
+    "example": "In tour guiding practice, we often need to ask for detailed information (询问详细信息)."
   },
   {
     "id": "p_144",
     "category": "⑥ 突发事件和常见问题的处理",
     "en": "Help search together",
     "cn": "一同协助搜寻",
-    "example": "In tour service: Help search together (一同协助搜寻)"
+    "example": "In tour guiding practice, we often need to Help search together (一同协助搜寻)."
   },
   {
     "id": "p_145",
     "category": "⑥ 突发事件和常见问题的处理",
     "en": "visited place",
     "cn": "到访过的地点",
-    "example": "In tour service: visited place (到访过的地点)"
+    "example": "In tour guiding practice, we often need to visited place (到访过的地点)."
   },
   {
     "id": "p_146",
     "category": "⑥ 突发事件和常见问题的处理",
     "en": "Report to relevant staff",
     "cn": "向相关工作人员报备",
-    "example": "In tour service: Report to relevant staff (向相关工作人员报备)"
+    "example": "In tour guiding practice, we often need to Report to relevant staff (向相关工作人员报备)."
   },
   {
     "id": "p_147",
     "category": "⑥ 突发事件和常见问题的处理",
     "en": "go through registration formalities",
     "cn": "办理登记手续",
-    "example": "In tour service: go through registration formalities (办理登记手续)"
+    "example": "In tour guiding practice, we often need to go through registration formalities (办理登记手续)."
   },
   {
     "id": "p_148",
     "category": "⑥ 突发事件和常见问题的处理",
     "en": "Assist tourist to report the loss",
     "cn": "协助游客报失",
-    "example": "In tour service: Assist tourist to report the loss (协助游客报失)"
+    "example": "In tour guiding practice, we often need to Assist tourist to report the loss (协助游客报失)."
   },
   {
     "id": "p_149",
     "category": "⑥ 突发事件和常见问题的处理",
     "en": "report the loss promptly",
     "cn": "及时报失",
-    "example": "In tour service: report the loss promptly (及时报失)"
+    "example": "In tour guiding practice, we often need to report the loss promptly (及时报失)."
   },
   {
     "id": "p_150",
     "category": "⑦ 导游带团艺术",
     "en": "flexible itinerary adjustment",
     "cn": "灵活调整行程",
-    "example": "In tour service: flexible itinerary adjustment (灵活调整行程)"
+    "example": "In tour guiding practice, we often need to flexible itinerary adjustment (灵活调整行程)."
   },
   {
     "id": "p_151",
     "category": "⑦ 导游带团艺术",
     "en": "active atmosphere",
     "cn": "活跃氛围",
-    "example": "In tour service: active atmosphere (活跃氛围)"
+    "example": "In tour guiding practice, we often need to active atmosphere (活跃氛围)."
   },
   {
     "id": "p_152",
     "category": "⑦ 导游带团艺术",
     "en": "humorous explanation",
     "cn": "幽默风格讲解",
-    "example": "In tour service: humorous explanation (幽默风格讲解)"
+    "example": "In tour guiding practice, we often need to humorous explanation (幽默风格讲解)."
   },
   {
     "id": "p_153",
     "category": "⑦ 导游带团艺术",
     "en": "build mutual trust",
     "cn": "建立相互信任",
-    "example": "In tour service: build mutual trust (建立相互信任)"
+    "example": "In tour guiding practice, we often need to build mutual trust (建立相互信任)."
   },
   {
     "id": "p_154",
     "category": "⑦ 导游带团艺术",
     "en": "conflict resolution",
     "cn": "调解矛盾/化解冲突",
-    "example": "In tour service: conflict resolution (调解矛盾/化解冲突)"
+    "example": "In tour guiding practice, we often need to conflict resolution (调解矛盾/化解冲突)."
   },
   {
     "id": "p_155",
     "category": "⑦ 导游带团艺术",
     "en": "listen to tourists' opinions",
     "cn": "倾听游客意见",
-    "example": "In tour service: listen to tourists' opinions (倾听游客意见)"
+    "example": "In tour guiding practice, we often need to listen to tourists' opinions (倾听游客意见)."
   },
   {
     "id": "p_156",
     "category": "⑦ 导游带团艺术",
     "en": "balance team needs",
     "cn": "平衡团队需求",
-    "example": "In tour service: balance team needs (平衡团队需求)"
+    "example": "In tour guiding practice, we often need to balance team needs (平衡团队需求)."
   },
   {
     "id": "p_157",
     "category": "⑦ 导游带团艺术",
     "en": "inspire tourists' interest",
     "cn": "激发游客兴趣",
-    "example": "In tour service: inspire tourists' interest (激发游客兴趣)"
+    "example": "In tour guiding practice, we often need to inspire tourists' interest (激发游客兴趣)."
   },
   {
     "id": "p_158",
     "category": "⑦ 导游带团艺术",
     "en": "reasonable time control",
     "cn": "合理控制时间",
-    "example": "In tour service: reasonable time control (合理控制时间)"
+    "example": "In tour guiding practice, we often need to reasonable time control (合理控制时间)."
   },
   {
     "id": "p_159",
     "category": "⑦ 导游带团艺术",
     "en": "clear instruction",
     "cn": "明确指令",
-    "example": "In tour service: clear instruction (明确指令)"
+    "example": "In tour guiding practice, we often need to clear instruction (明确指令)."
   },
   {
     "id": "p_160",
     "category": "⑦ 导游带团艺术",
     "en": "positive emotional guidance",
     "cn": "积极的情绪引导",
-    "example": "In tour service: positive emotional guidance (积极的情绪引导)"
+    "example": "In tour guiding practice, we often need to positive emotional guidance (积极的情绪引导)."
   },
   {
     "id": "p_161",
     "category": "⑦ 导游带团艺术",
     "en": "group cohesion",
     "cn": "团队凝聚力",
-    "example": "In tour service: group cohesion (团队凝聚力)"
+    "example": "In tour guiding practice, we often need to group cohesion (团队凝聚力)."
   },
   {
     "id": "p_162",
     "category": "⑦ 导游带团艺术",
     "en": "praise and encouragement",
     "cn": "赞扬与鼓励",
-    "example": "In tour service: praise and encouragement (赞扬与鼓励)"
+    "example": "In tour guiding practice, we often need to praise and encouragement (赞扬与鼓励)."
   },
   {
     "id": "p_163",
     "category": "⑦ 导游带团艺术",
     "en": "tactful communication",
     "cn": "委婉的沟通",
-    "example": "In tour service: tactful communication (委婉的沟通)"
+    "example": "In tour guiding practice, we often need to tactful communication (委婉的沟通)."
   },
   {
     "id": "p_164",
     "category": "⑧ 导游服务基本原则",
     "en": "wear clean and tidy clothes",
     "cn": "穿着干净整洁的服装",
-    "example": "In tour service: wear clean and tidy clothes (穿着干净整洁的服装)"
+    "example": "In tour guiding practice, we often need to wear clean and tidy clothes (穿着干净整洁的服装)."
   },
   {
     "id": "p_165",
     "category": "⑧ 导游服务基本原则",
     "en": "wear formal clothes",
     "cn": "穿着正式服装",
-    "example": "In tour service: wear formal clothes (穿着正式服装)"
+    "example": "In tour guiding practice, we often need to wear formal clothes (穿着正式服装)."
   },
   {
     "id": "p_166",
     "category": "⑧ 导游服务基本原则",
     "en": "professional clothes",
     "cn": "职业装",
-    "example": "In tour service: professional clothes (职业装)"
+    "example": "In tour guiding practice, we often need to professional clothes (职业装)."
   },
   {
     "id": "p_167",
     "category": "⑧ 导游服务基本原则",
     "en": "wear too casual clothes",
     "cn": "穿着过于随意",
-    "example": "In tour service: wear too casual clothes (穿着过于随意)"
+    "example": "In tour guiding practice, we often need to wear too casual clothes (穿着过于随意)."
   },
   {
     "id": "p_168",
     "category": "⑧ 导游服务基本原则",
     "en": "strange clothes",
     "cn": "奇装异服",
-    "example": "In tour service: strange clothes (奇装异服)"
+    "example": "In tour guiding practice, we often need to strange clothes (奇装异服)."
   },
   {
     "id": "p_169",
     "category": "⑧ 导游服务基本原则",
     "en": "dress appropriately",
     "cn": "着装得体",
-    "example": "In tour service: dress appropriately (着装得体)"
+    "example": "In tour guiding practice, we often need to dress appropriately (着装得体)."
   },
   {
     "id": "p_170",
     "category": "⑧ 导游服务基本原则",
     "en": "for the weather",
     "cn": "适应天气",
-    "example": "In tour service: for the weather (适应天气)"
+    "example": "In tour guiding practice, we often need to for the weather (适应天气)."
   },
   {
     "id": "p_171",
     "category": "⑧ 导游服务基本原则",
     "en": "be polite and friendly",
     "cn": "礼貌友善",
-    "example": "In tour service: be polite and friendly (礼貌友善)"
+    "example": "In tour guiding practice, we often need to be polite and friendly (礼貌友善)."
   },
   {
     "id": "p_172",
     "category": "⑧ 导游服务基本原则",
     "en": "dress neatly",
     "cn": "着装整洁",
-    "example": "In tour service: dress neatly (着装整洁)"
+    "example": "In tour guiding practice, we often need to dress neatly (着装整洁)."
   },
   {
     "id": "p_173",
     "category": "⑧ 导游服务基本原则",
     "en": "look tidy",
     "cn": "仪容整齐",
-    "example": "In tour service: look tidy (仪容整齐)"
+    "example": "In tour guiding practice, we often need to look tidy (仪容整齐)."
   },
   {
     "id": "p_174",
     "category": "⑧ 导游服务基本原则",
     "en": "speak clearly",
     "cn": "表达清晰 / 表述清晰",
-    "example": "In tour service: speak clearly (表达清晰 / 表述清晰)"
+    "example": "In tour guiding practice, we often need to speak clearly (表达清晰 / 表述清晰)."
   },
   {
     "id": "p_175",
     "category": "⑧ 导游服务基本原则",
     "en": "smile often",
     "cn": "时常保持微笑",
-    "example": "In tour service: smile often (时常保持微笑)"
+    "example": "In tour guiding practice, we often need to smile often (时常保持微笑)."
   },
   {
     "id": "p_176",
     "category": "⑧ 导游服务基本原则",
     "en": "be ready to help tourists",
     "cn": "乐于帮助游客",
-    "example": "In tour service: be ready to help tourists (乐于帮助游客)"
+    "example": "In tour guiding practice, we often need to be ready to help tourists (乐于帮助游客)."
   },
   {
     "id": "p_177",
     "category": "⑧ 导游服务基本原则",
     "en": "introduce yourself warmly",
     "cn": "热情自我介绍",
-    "example": "In tour service: introduce yourself warmly (热情自我介绍)"
+    "example": "In tour guiding practice, we often need to introduce yourself warmly (热情自我介绍)."
   },
   {
     "id": "p_178",
     "category": "⑧ 导游服务基本原则",
     "en": "safety first",
     "cn": "安全第一",
-    "example": "In tour service: safety first (安全第一)"
+    "example": "In tour guiding practice, we often need to safety first (安全第一)."
   },
   {
     "id": "p_179",
     "category": "⑧ 导游服务基本原则",
     "en": "sincere and honest service",
     "cn": "真诚诚信服务",
-    "example": "In tour service: sincere and honest service (真诚诚信服务)"
+    "example": "In tour guiding practice, we often need to sincere and honest service (真诚诚信服务)."
   },
   {
     "id": "p_180",
     "category": "⑧ 导游服务基本原则",
     "en": "follow the tour plan strictly",
     "cn": "严格按照行程执行",
-    "example": "In tour service: follow the tour plan strictly (严格按照行程执行)"
+    "example": "In tour guiding practice, we often need to follow the tour plan strictly (严格按照行程执行)."
   },
   {
     "id": "p_181",
     "category": "⑧ 导游服务基本原则",
     "en": "treat all tourists equally",
     "cn": "平等对待所有游客",
-    "example": "In tour service: treat all tourists equally (平等对待所有游客)"
+    "example": "In tour guiding practice, we often need to treat all tourists equally (平等对待所有游客)."
   },
   {
     "id": "p_182",
     "category": "⑧ 导游服务基本原则",
     "en": "obey laws and professional rules",
     "cn": "遵守法律法规与行业规范",
-    "example": "In tour service: obey laws and professional rules (遵守法律法规与行业规范)"
+    "example": "In tour guiding practice, we often need to obey laws and professional rules (遵守法律法规与行业规范)."
   },
   {
     "id": "p_183",
     "category": "⑧ 导游服务基本原则",
     "en": "be polite and patient",
     "cn": "礼貌非常有耐心",
-    "example": "In tour service: be polite and patient (礼貌非常有耐心)"
+    "example": "In tour guiding practice, we often need to be polite and patient (礼貌非常有耐心)."
   },
   {
     "id": "p_184",
     "category": "⑧ 导游服务基本原则",
     "en": "keep safe for tourists",
     "cn": "保障游客安全",
-    "example": "In tour service: keep safe for tourists (保障游客安全)"
+    "example": "In tour guiding practice, we often need to keep safe for tourists (保障游客安全)."
   },
   {
     "id": "p_185",
     "category": "⑧ 导游服务基本原则",
     "en": "obey the law and rules",
     "cn": "遵守法律法规",
-    "example": "In tour service: obey the law and rules (遵守法律法规)"
+    "example": "In tour guiding practice, we often need to obey the law and rules (遵守法律法规)."
   },
   {
     "id": "p_186",
     "category": "⑧ 导游服务基本原则",
     "en": "serve tourists honestly",
     "cn": "诚信服务游客",
-    "example": "In tour service: serve tourists honestly (诚信服务游客)"
+    "example": "In tour guiding practice, we often need to serve tourists honestly (诚信服务游客)."
   },
   {
     "id": "p_187",
     "category": "⑧ 导游服务基本原则",
     "en": "protect the environment",
     "cn": "保护环境",
-    "example": "In tour service: protect the environment (保护环境)"
+    "example": "In tour guiding practice, we often need to protect the environment (保护环境)."
   },
   {
     "id": "p_188",
     "category": "⑧ 导游服务基本原则",
     "en": "good communication skills",
     "cn": "良好沟通能力",
-    "example": "In tour service: good communication skills (良好沟通能力)"
+    "example": "In tour guiding practice, we often need to good communication skills (良好沟通能力)."
   },
   {
     "id": "p_189",
     "category": "⑧ 导游服务基本原则",
     "en": "professional knowledge",
     "cn": "专业知识",
-    "example": "In tour service: professional knowledge (专业知识)"
+    "example": "In tour guiding practice, we often need to professional knowledge (专业知识)."
   },
   {
     "id": "p_190",
     "category": "⑧ 导游服务基本原则",
     "en": "strong organization ability",
     "cn": "较强组织能力",
-    "example": "In tour service: strong organization ability (较强组织能力)"
+    "example": "In tour guiding practice, we often need to strong organization ability (较强组织能力)."
   },
   {
     "id": "p_191",
     "category": "⑧ 导游服务基本原则",
     "en": "problem solving skills",
     "cn": "解决问题能力",
-    "example": "In tour service: problem solving skills (解决问题能力)"
+    "example": "In tour guiding practice, we often need to problem solving skills (解决问题能力)."
   },
   {
     "id": "p_192",
     "category": "⑧ 导游服务基本原则",
     "en": "polite and patient attitudes",
     "cn": "礼貌耐心的态度",
-    "example": "In tour service: polite and patient attitudes (礼貌耐心的态度)"
+    "example": "In tour guiding practice, we often need to polite and patient attitudes (礼貌耐心的态度)."
   },
   {
     "id": "p_193",
     "category": "⑧ 导游服务基本原则",
     "en": "teamwork spirit",
     "cn": "团队合作精神",
-    "example": "In tour service: teamwork spirit (团队合作精神)"
+    "example": "In tour guiding practice, we often need to teamwork spirit (团队合作精神)."
   },
   {
     "id": "p_194",
     "category": "⑨ 准备与接站服务",
     "en": "pre-trip preparation",
     "cn": "出团前准备",
-    "example": "In tour service: pre-trip preparation (出团前准备)"
+    "example": "In tour guiding practice, we often need to pre-trip preparation (出团前准备)."
   },
   {
     "id": "p_195",
     "category": "⑨ 准备与接站服务",
     "en": "check tour itinerary",
     "cn": "检查行程单",
-    "example": "In tour service: check tour itinerary (检查行程单)"
+    "example": "In tour guiding practice, we often need to check tour itinerary (检查行程单)."
   },
   {
     "id": "p_196",
     "category": "⑨ 准备与接站服务",
     "en": "verify flight or train number",
     "cn": "核对航班或车次信息",
-    "example": "In tour service: verify flight or train number (核对航班或车次信息)"
+    "example": "In tour guiding practice, we often need to verify flight or train number (核对航班或车次信息)."
   },
   {
     "id": "p_197",
     "category": "⑨ 准备与接站服务",
     "en": "contact driver in advance",
     "cn": "提前联系司机",
-    "example": "In tour service: contact driver in advance (提前联系司机)"
+    "example": "In tour guiding practice, we often need to contact driver in advance (提前联系司机)."
   },
   {
     "id": "p_198",
     "category": "⑨ 准备与接站服务",
     "en": "welcome board",
     "cn": "接站牌/迎宾牌",
-    "example": "In tour service: welcome board (接站牌/迎宾牌)"
+    "example": "In tour guiding practice, we often need to welcome board (接站牌/迎宾牌)."
   },
   {
     "id": "p_199",
     "category": "⑨ 准备与接站服务",
     "en": "arrive at airport/station in advance",
     "cn": "提前抵达机场/车站",
-    "example": "In tour service: arrive at airport/station in advance (提前抵达机场/车站)"
+    "example": "In tour guiding practice, we often need to arrive at airport/station in advance (提前抵达机场/车站)."
   },
   {
     "id": "p_200",
     "category": "⑨ 准备与接站服务",
     "en": "greet tourists warmly",
     "cn": "热情迎接游客",
-    "example": "In tour service: greet tourists warmly (热情迎接游客)"
+    "example": "In tour guiding practice, we often need to greet tourists warmly (热情迎接游客)."
   },
   {
     "id": "p_201",
     "category": "⑨ 准备与接站服务",
     "en": "count the number of tourists",
     "cn": "清点人数",
-    "example": "In tour service: count the number of tourists (清点人数)"
+    "example": "In tour guiding practice, we often need to count the number of tourists (清点人数)."
   },
   {
     "id": "p_202",
     "category": "⑨ 准备与接站服务",
     "en": "assist with luggage",
     "cn": "协助搬运行李",
-    "example": "In tour service: assist with luggage (协助搬运行李)"
+    "example": "In tour guiding practice, we often need to assist with luggage (协助搬运行李)."
   },
   {
     "id": "p_203",
     "category": "⑨ 准备与接站服务",
     "en": "verify tour group identity",
     "cn": "核对团队身份",
-    "example": "In tour service: verify tour group identity (核对团队身份)"
+    "example": "In tour guiding practice, we often need to verify tour group identity (核对团队身份)."
   },
   {
     "id": "p_204",
     "category": "⑨ 准备与接站服务",
     "en": "check equipment and microphone",
     "cn": "检查设备和麦克风",
-    "example": "In tour service: check equipment and microphone (检查设备和麦克风)"
+    "example": "In tour guiding practice, we often need to check equipment and microphone (检查设备和麦克风)."
   },
   {
     "id": "p_205",
     "category": "⑨ 准备与接站服务",
     "en": "confirm room reservation",
     "cn": "确认房间预订",
-    "example": "In tour service: confirm room reservation (确认房间预订)"
+    "example": "In tour guiding practice, we often need to confirm room reservation (确认房间预订)."
   },
   {
     "id": "p_206",
     "category": "⑨ 准备与接站服务",
     "en": "emergency contact numbers",
     "cn": "紧急联系电话",
-    "example": "In tour service: emergency contact numbers (紧急联系电话)"
+    "example": "In tour guiding practice, we often need to emergency contact numbers (紧急联系电话)."
   },
   {
     "id": "p_207",
     "category": "⑩ 去酒店途中及协助办理入住服务",
     "en": "welcome speech",
     "cn": "迎宾词/欢迎辞",
-    "example": "In tour service: welcome speech (迎宾词/欢迎辞)"
+    "example": "In tour guiding practice, we often need to welcome speech (迎宾词/欢迎辞)."
   },
   {
     "id": "p_208",
     "category": "⑩ 去酒店途中及协助办理入住服务",
     "en": "introduce driver and guide",
     "cn": "介绍司机与导游",
-    "example": "In tour service: introduce driver and guide (介绍司机与导游)"
+    "example": "In tour guiding practice, we often need to introduce driver and guide (介绍司机与导游)."
   },
   {
     "id": "p_209",
     "category": "⑩ 去酒店途中及协助办理入住服务",
     "en": "announce itinerary for tomorrow",
     "cn": "宣布明日行程",
-    "example": "In tour service: announce itinerary for tomorrow (宣布明日行程)"
+    "example": "In tour guiding practice, we often need to announce itinerary for tomorrow (宣布明日行程)."
   },
   {
     "id": "p_210",
     "category": "⑩ 去酒店途中及协助办理入住服务",
     "en": "introduce hotel facilities",
     "cn": "介绍酒店设施",
-    "example": "In tour service: introduce hotel facilities (介绍酒店设施)"
+    "example": "In tour guiding practice, we often need to introduce hotel facilities (介绍酒店设施)."
   },
   {
     "id": "p_211",
     "category": "⑩ 去酒店途中及协助办理入住服务",
     "en": "assist with check-in",
     "cn": "协助办理入住",
-    "example": "In tour service: assist with check-in (协助办理入住)"
+    "example": "In tour guiding practice, we often need to assist with check-in (协助办理入住)."
   },
   {
     "id": "p_212",
     "category": "⑩ 去酒店途中及协助办理入住服务",
     "en": "distribute room keys",
     "cn": "分发房间钥匙",
-    "example": "In tour service: distribute room keys (分发房间钥匙)"
+    "example": "In tour guiding practice, we often need to distribute room keys (分发房间钥匙)."
   },
   {
     "id": "p_213",
     "category": "⑩ 去酒店途中及协助办理入住服务",
     "en": "explain breakfast time and place",
     "cn": "说明早餐时间和地点",
-    "example": "In tour service: explain breakfast time and place (说明早餐时间和地点)"
+    "example": "In tour guiding practice, we often need to explain breakfast time and place (说明早餐时间和地点)."
   },
   {
     "id": "p_214",
     "category": "⑩ 去酒店途中及协助办理入住服务",
     "en": "inform wifi password",
     "cn": "告知无线网络密码",
-    "example": "In tour service: inform wifi password (告知无线网络密码)"
+    "example": "In tour guiding practice, we often need to inform wifi password (告知无线网络密码)."
   },
   {
     "id": "p_215",
     "category": "⑩ 去酒店途中及协助办理入住服务",
     "en": "check room status",
     "cn": "检查房间状况",
-    "example": "In tour service: check room status (检查房间状况)"
+    "example": "In tour guiding practice, we often need to check room status (检查房间状况)."
   },
   {
     "id": "p_216",
     "category": "⑩ 去酒店途中及协助办理入住服务",
     "en": "solve room problems",
     "cn": "解决房间问题",
-    "example": "In tour service: solve room problems (解决房间问题)"
+    "example": "In tour guiding practice, we often need to solve room problems (解决房间问题)."
   },
   {
     "id": "p_217",
     "category": "⑩ 去酒店途中及协助办理入住服务",
     "en": "remind room safety",
     "cn": "提醒房间安全规则",
-    "example": "In tour service: remind room safety (提醒房间安全规则)"
+    "example": "In tour guiding practice, we often need to remind room safety (提醒房间安全规则)."
   },
   {
     "id": "p_218",
     "category": "⑩ 去酒店途中及协助办理入住服务",
     "en": "express warm welcome",
     "cn": "表达热烈欢迎",
-    "example": "In tour service: express warm welcome (表达热烈欢迎)"
+    "example": "In tour guiding practice, we often need to express warm welcome (表达热烈欢迎)."
   },
   {
     "id": "p_219",
     "category": "⑩ 去酒店途中及协助办理入住服务",
     "en": "wish a good rest",
     "cn": "祝愿好好休息",
-    "example": "In tour service: wish a good rest (祝愿好好休息)"
+    "example": "In tour guiding practice, we often need to wish a good rest (祝愿好好休息)."
   }
 ];
