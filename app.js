@@ -187,6 +187,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const viewSpeech = document.getElementById('view-speech');
   const viewSkills = document.getElementById('view-skills');
   const viewResources = document.getElementById('view-resources');
+  const viewCheatsheet = document.getElementById('view-cheatsheet');
 
   // --- INITIALIZATION ---
   initCategoryFilters();
@@ -480,7 +481,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('practice-en-question').textContent = qItem.enQuestion || qItem.question;
     document.getElementById('practice-cn-question').textContent = qItem.cnQuestion || '';
     
-    // 答案中英文对照 (无多余重复标题，直接呈现英文与中文译文)
+    // 答案中英文对照
     let ansHTML = `
       <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 10px;">
         <div style="white-space: pre-line; font-size: 15px; font-weight: 700; color: #1e3a8a; line-height: 1.6; flex: 1;">${qItem.answer}</div>
@@ -492,8 +493,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     document.getElementById('practice-ref-text').innerHTML = ansHTML;
     document.getElementById('practice-ref-box').style.display = 'none';
-    const inputElem = document.getElementById('practice-user-input');
-    if (inputElem) inputElem.value = '';
+    document.getElementById('practice-user-input').value = '';
 
     const btnListenAns = document.getElementById('btn-practice-listen-ans');
     if (btnListenAns) {
@@ -555,7 +555,12 @@ document.addEventListener('DOMContentLoaded', () => {
         card.className = 'card';
         card.style.marginBottom = '14px';
         
-        let ansContentHTML = `<div style="white-space: pre-line; font-size: 15px; font-weight: 700; color: #1e3a8a; line-height: 1.6;">${qa.answer}</div>`;
+        let ansContentHTML = `
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 10px;">
+            <div style="white-space: pre-line; font-size: 15px; font-weight: 700; color: #1e3a8a; line-height: 1.6; flex: 1;">${qa.answer}</div>
+            <button class="action-btn btn-qa-read-ans" data-idx="${idx}" title="听答案" style="padding: 4px 10px; font-size: 15px; background: #ebf5ee; border: 1px solid #c6e2ce; color: #2d7a4c; border-radius: 50%; width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0;">🔊</button>
+          </div>
+        `;
         if (qa.cnAnswer) {
           ansContentHTML += `<div style="white-space: pre-line; font-size: 14px; color: #475569; margin-top: 10px; border-top: 1px dashed #cbd5e1; padding-top: 10px; line-height: 1.6; font-weight: 500;">${qa.cnAnswer}</div>`;
         }
@@ -580,10 +585,7 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
 
           <div class="ref-answer-box" id="ref-box-${idx}" style="display: none; margin-top: 12px;">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 10px;">
-              <div style="flex: 1;">${ansContentHTML}</div>
-              <button class="action-btn btn-qa-read-ans" data-idx="${idx}" title="听答案" style="padding: 4px 10px; font-size: 15px; background: #ebf5ee; border: 1px solid #c6e2ce; color: #2d7a4c; border-radius: 50%; width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0;">🔊</button>
-            </div>
+            <div class="ref-answer-text">${ansContentHTML}</div>
           </div>
         `;
         listContainer.appendChild(card);
@@ -1028,6 +1030,10 @@ document.addEventListener('DOMContentLoaded', () => {
           subNavWrapper.style.display = 'none';
           if (viewPhrases) viewPhrases.style.display = 'block';
           renderPhrasesView();
+        } else if (tab === 'cheatsheet') {
+          subNavWrapper.style.display = 'none';
+          if (viewCheatsheet) viewCheatsheet.style.display = 'block';
+          renderCheatsheetView();
         } else if (tab === 'resources') {
           subNavWrapper.style.display = 'none';
           viewResources.style.display = 'block';
@@ -1063,6 +1069,7 @@ document.addEventListener('DOMContentLoaded', () => {
         btnCheatSpot.classList.remove('active');
         renderCheatsheetView();
       });
+      renderCheatsheetView();
     }
 
     function renderCheatsheetView() {
@@ -1385,6 +1392,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentPhraseIndex = 0;
   let phraseViewMode = 'card';
   let isPhraseRevealed = false;
+  let phraseHistory = []; // 记录用户实际刷过的短语历史
   let phraseProgress = {};
   try {
     phraseProgress = JSON.parse(localStorage.getItem('guangxi_phrase_progress') || '{}');
@@ -1764,6 +1772,7 @@ function getPhraseStatus(id) {
           localStorage.setItem('guangxi_phrase_progress', JSON.stringify(phraseProgress));
         } catch (e) {}
       }
+      phraseHistory.push(currentPhraseIndex);
       isPhraseRevealed = false;
       currentPhraseIndex++;
       renderPhrasesView();
@@ -1781,8 +1790,13 @@ function getPhraseStatus(id) {
     const btnPhrasePrev = document.getElementById('btn-phrase-prev');
     if (btnPhrasePrev) {
       btnPhrasePrev.addEventListener('click', () => {
+        const list = getFilteredPhrases();
+        if (phraseHistory.length > 0) {
+          currentPhraseIndex = phraseHistory.pop();
+        } else {
+          currentPhraseIndex = (currentPhraseIndex - 1 + list.length) % list.length;
+        }
         isPhraseRevealed = false;
-        currentPhraseIndex--;
         renderCurrentPhraseCard();
       });
     }
