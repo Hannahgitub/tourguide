@@ -1171,25 +1171,25 @@ document.addEventListener('DOMContentLoaded', () => {
         // 景点讲解万用模板卡片
         container.innerHTML = `
           <!-- 1. Spot 5-Step Block -->
-          <div class="card" style="border-left: 5px solid #2563eb; margin-bottom: 20px; padding: 22px;">
+          <div class="card" style="border-left: 5px solid #2d7a4c; margin-bottom: 20px; padding: 22px;">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 12px;">
-              <h3 style="font-size: 18px; font-weight: 800; color: #2563eb;">🗺️ 景点讲解移步换景法 (Scenic Spot 5-Step Block)</h3>
-              <span class="qa-tag-badge" style="background:#eff6ff; color:#2563eb; border:1px solid #bfdbfe;">时长 4~5 分钟 · 动线导览</span>
+              <h3 style="font-size: 18px; font-weight: 800; color: #2d7a4c;">🗺️ 景点讲解移步换景法 (Scenic Spot 5-Step Block)</h3>
+              <span class="qa-tag-badge" style="background:#ebf5ee; color:#2d7a4c; border:1px solid #c6e2ce;">时长 4~5 分钟 · 动线导览</span>
             </div>
 
             <div style="display: grid; gap: 12px; margin-top: 14px;">
               <div style="background: #f6faf7; border: 1px solid #d4e8da; border-radius: 8px; padding: 12px 16px;">
-                <div style="font-weight: 700; color: #2563eb; font-size: 14px; margin-bottom: 4px;">Step 1: Welcome & Spot Overview (欢迎与景点定位 - 30秒)</div>
+                <div style="font-weight: 700; color: #2d7a4c; font-size: 14px; margin-bottom: 4px;">Step 1: Welcome & Spot Overview (欢迎与景点定位 - 30秒)</div>
                 <div style="font-size: 13.5px; color: #222; font-family: monospace;">"Dear tourists, welcome to <mark style="background:#fef08a; padding:1px 4px;">[景点名称]</mark>! Located in <mark style="background:#fef08a; padding:1px 4px;">[Guilin/Nanning/Liuzhou]</mark>, this site is a national 5A-level scenic area, combining stunning natural beauty with deep cultural heritage."</div>
               </div>
 
               <div style="background: #f6faf7; border: 1px solid #d4e8da; border-radius: 8px; padding: 12px 16px;">
-                <div style="font-weight: 700; color: #2563eb; font-size: 14px; margin-bottom: 4px;">Step 2: Features & Layout (景点特色与游览线索 - 45秒)</div>
+                <div style="font-weight: 700; color: #2d7a4c; font-size: 14px; margin-bottom: 4px;">Step 2: Features & Layout (景点特色与游览线索 - 45秒)</div>
                 <div style="font-size: 13.5px; color: #222; font-family: monospace;">"What makes <mark style="background:#fef08a; padding:1px 4px;">[景点名称]</mark> unique is its <mark style="background:#fef08a; padding:1px 4px;">[Karst mountains / authentic Dong villages]</mark>. The scenic area is laid out along <mark style="background:#fef08a; padding:1px 4px;">[the river / lush hills]</mark>, offering a breathtaking view at every turn."</div>
               </div>
 
-              <div style="background: #eff6ff; border: 1.5px dashed #93c5fd; border-radius: 8px; padding: 12px 16px;">
-                <div style="font-weight: 700; color: #1d4ed8; font-size: 14px; margin-bottom: 4px;">Step 3: Route & Core Landmarks (三大核心地标套用 - 120~150秒) ⚡重点套用路线</div>
+              <div style="background: #ebf5ee; border: 1.5px dashed #a3d9b1; border-radius: 8px; padding: 12px 16px;">
+                <div style="font-weight: 700; color: #25663e; font-size: 14px; margin-bottom: 4px;">Step 3: Route & Core Landmarks (三大核心地标套用 - 120~150秒) ⚡重点套用路线</div>
                 <div style="font-size: 13.5px; color: #222; font-family: monospace;">"Today, our tour route will take us downstream/along the path to explore 3 highlights:<br>
                 First, we see <mark style="background:#dbeafe; color:#1e40af; padding:1px 4px;">[地标一, 如: Elephant Trunk Hill]</mark>, which gets its name because it resembles an elephant drinking water.<br>
                 Next, we reach <mark style="background:#dbeafe; color:#1e40af; padding:1px 4px;">[地标二, 如: Nine-Horse Painting Hill]</mark>, famous for stone wall patterns.<br>
@@ -1197,12 +1197,12 @@ document.addEventListener('DOMContentLoaded', () => {
               </div>
 
               <div style="background: #f6faf7; border: 1px solid #d4e8da; border-radius: 8px; padding: 12px 16px;">
-                <div style="font-weight: 700; color: #2563eb; font-size: 14px; margin-bottom: 4px;">Step 4: History & Interactive Guidance (历史诗句与照料互动 - 30秒)</div>
+                <div style="font-weight: 700; color: #2d7a4c; font-size: 14px; margin-bottom: 4px;">Step 4: History & Interactive Guidance (历史诗句与照料互动 - 30秒)</div>
                 <div style="font-size: 13.5px; color: #222; font-family: monospace;">"Famous Tang poet Han Yu once praised this view: 'The river is like a green silk ribbon, and the mountains are like jade hairpins.' By the way, this is the best photo spot! Would you like me to take a photo of you? Please watch your step."</div>
               </div>
 
               <div style="background: #f6faf7; border: 1px solid #d4e8da; border-radius: 8px; padding: 12px 16px;">
-                <div style="font-weight: 700; color: #2563eb; font-size: 14px; margin-bottom: 4px;">Step 5: Closing & Farewell (总结与致谢告别 - 30秒)</div>
+                <div style="font-weight: 700; color: #2d7a4c; font-size: 14px; margin-bottom: 4px;">Step 5: Closing & Farewell (总结与致谢告别 - 30秒)</div>
                 <div style="font-size: 13.5px; color: #222; font-family: monospace;">"This scenic area is not only a visual feast but a cradle of local culture. I hope today's tour leaves you with wonderful memories. Thank you and wish you a pleasant journey!"</div>
               </div>
             </div>
@@ -1214,7 +1214,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div style="overflow-x: auto;">
               <table style="width: 100%; border-collapse: collapse; font-size: 13.5px; text-align: left;">
                 <thead>
-                  <tr style="background: #eff6ff; border-bottom: 2px solid #bfdbfe; color: #1e40af;">
+                  <tr style="background: #ebf5ee; border-bottom: 2px solid #c6e2ce; color: #2d7a4c;">
                     <th style="padding: 10px; width: 18%;">抽中景点</th>
                     <th style="padding: 10px; width: 22%;">概况特征 (Step 1&2)</th>
                     <th style="padding: 10px; width: 38%;">三大地标动线 (Step 3)</th>

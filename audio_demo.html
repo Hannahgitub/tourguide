@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>导览词段落语音播放与动态高亮 Demo (淡绿主题系)</title>
+  <style>
+    /* 适配全新淡绿自然主题系 */
+    :root {
+      --bg-color: #f2f7f3;
+      --card-bg: #ffffff;
+      --border-color: #dce7de;
+      --primary-green: #2d7a4c;
+      --primary-green-hover: #23613c;
+      --primary-green-light: #ebf5ee;
+      --text-main: #233328;
+      --text-muted: #556b5c;
+      --text-light: #7a9282;
+      --pill-border: #cee0d2;
+      
+      /* 高亮色彩（淡绿调） */
+      --highlight-active-bg: #2d7a4c;
+      --highlight-active-color: #ffffff;
+      --highlight-near-bg: #d1fae5;
+      --highlight-near-color: #14532d;
+      
+      --shadow-sm: 0 2px 8px rgba(45, 122, 76, 0.05);
+      --shadow-md: 0 4px 16px rgba(45, 122, 76, 0.08);
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-pill: 999px;
+      --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      font-family: var(--font-main);
+      line-height: 1.7;
+      padding: 30px 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      max-width: 900px;
+      width: 100%;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #1b2a1f;
+      letter-spacing: -0.5px;
+      margin-bottom: 0.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    header h1::before, header h1::after {
+      content: "";
+      display: inline-block;
+      width: 24px;
+      height: 3px;
+      background-color: var(--primary-green);
+      border-radius: 2px;
+    }
+
+    header p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .toolbar {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      padding: 1rem 1.5rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .toolbar-group {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .toolbar label {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    select, button.global-btn {
+      background: #ffffff;
+      color: var(--text-main);
+      border: 1px solid var(--pill-border);
+      padding: 0.45rem 0.9rem;
+      border-radius: var(--radius-pill);
+      font-family: inherit;
+      font-size: 0.88rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      outline: none;
+    }
+
+    select:hover, button.global-btn:hover {
+      border-color: #a3c4ab;
+      background-color: #f7fbf8;
+    }
+
+    button.global-btn {
+      background: var(--primary-green-light);
+      color: var(--primary-green);
+      border-color: rgba(45, 122, 76, 0.2);
+      font-weight: 600;
+    }
+
+    button.global-btn:hover {
+      background: var(--primary-green);
+      color: #ffffff;
+    }
+
+    .paragraph-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 1.5rem 1.8rem;
+      margin-bottom: 1.25rem;
+      box-shadow: var(--shadow-sm);
+      transition: border-color 0.25s, box-shadow 0.25s;
+      position: relative;
+    }
+
+    .paragraph-card.is-playing {
+      border-color: var(--primary-green);
+      box-shadow: 0 4px 16px rgba(45, 122, 76, 0.12);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      border-bottom: 1px dashed var(--border-color);
+      padding-bottom: 0.75rem;
+    }
+
+    .paragraph-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .play-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background-color: var(--primary-green);
+      color: #ffffff;
+      border: none;
+      padding: 0.45rem 1.1rem;
+      border-radius: var(--radius-pill);
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 6px rgba(45, 122, 76, 0.25);
+    }
+
+    .play-btn:hover {
+      background-color: var(--primary-green-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 10px rgba(45, 122, 76, 0.35);
+    }
+
+    .play-btn:active {
+      transform: translateY(0);
+    }
+
+    .play-btn.playing {
+      background-color: #dc2626;
+      box-shadow: 0 2px 6px rgba(220, 38, 38, 0.3);
+    }
+
+    .play-btn.playing:hover {
+      background-color: #b91c1c;
+    }
+
+    .paragraph-content {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: #1b2a1f;
+    }
+
+    /* 词级高亮样式 */
+    .word-token {
+      display: inline;
+      padding: 1px 2px;
+      margin: 0;
+      border-radius: 3px;
+      transition: background-color 0.15s ease, color 0.15s ease;
+    }
+
+    /* 前后邻近单词高亮 (薄荷浅绿) */
+    .word-near {
+      background-color: var(--highlight-near-bg);
+      color: var(--highlight-near-color);
+      border-radius: 3px;
+    }
+
+    /* 当前正在发音的主单词高亮 (翡翠竹绿) */
+    .word-active {
+      background-color: var(--highlight-active-bg);
+      color: var(--highlight-active-color);
+      font-weight: 700;
+      border-radius: 3px;
+      box-shadow: 0 2px 6px rgba(45, 122, 76, 0.3);
+    }
+
+    .status-badge {
+      font-size: 0.78rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: var(--radius-pill);
+      background: #e4efe6;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .card-header .status-badge.active {
+      background: var(--primary-green-light);
+      color: var(--primary-green);
+      border: 1px solid rgba(45, 122, 76, 0.2);
+    }
+
+    footer {
+      margin-top: 2.5rem;
+      text-align: center;
+      color: var(--text-light);
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>导览词段落语音播放与前后3词高亮 Demo</h1>
+      <p>契合淡绿自然风格系 · 默认选定美音人声</p>
+    </header>
+
+    <div class="toolbar">
+      <div class="toolbar-group">
+        <label for="rateSelect">朗读语速：</label>
+        <select id="rateSelect">
+          <option value="0.8">0.8x (较慢)</option>
+          <option value="1.0" selected>1.0x (正常)</option>
+          <option value="1.2">1.2x (较快)</option>
+        </select>
+      </div>
+
+      <div class="toolbar-group">
+        <label for="voiceSelect">语音人声：</label>
+        <select id="voiceSelect">
+          <option value="">加载声音列表中...</option>
+        </select>
+      </div>
+
+      <div class="toolbar-group">
+        <button class="global-btn" id="stopAllBtn">停止当前播放</button>
+      </div>
+    </div>
+
+    <!-- 段落 1 -->
+    <div class="paragraph-card" id="card-para-1">
+      <div class="card-header">
+        <div class="paragraph-title">
+          <span>段落 1 · 漓江欢迎词</span>
+          <span class="status-badge" id="badge-1">就绪</span>
+        </div>
+        <button class="play-btn" id="btn-1" onclick="toggleParagraph(1)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          <span>播放</span>
+        </button>
+      </div>
+      <div class="paragraph-content" id="text-1" data-raw="Welcome to Guilin! Today we are taking a breathtaking cruise along the Li River, which is renowned worldwide for its striking karst landscape, crystal-clear water, and picturesque green hills."></div>
+    </div>
+
+    <!-- 段落 2 -->
+    <div class="paragraph-card" id="card-para-2">
+      <div class="card-header">
+        <div class="paragraph-title">
+          <span>段落 2 · 九马画山介绍</span>
+          <span class="status-badge" id="badge-2">就绪</span>
+        </div>
+        <button class="play-btn" id="btn-2" onclick="toggleParagraph(2)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          <span>播放</span>
+        </button>
+      </div>
+      <div class="paragraph-content" id="text-2" data-raw="As our boat moves forward, please look to your right. Here stands the famous Nine-Horse Fresco Hill. Legend has it that if you can spot all nine horses hidden in the cliff patterns, you must be a true genius!"></div>
+    </div>
+
+    <!-- 段落 3 -->
+    <div class="paragraph-card" id="card-para-3">
+      <div class="card-header">
+        <div class="paragraph-title">
+          <span>段落 3 · 阳朔结语</span>
+          <span class="status-badge" id="badge-3">就绪</span>
+        </div>
+        <button class="play-btn" id="btn-3" onclick="toggleParagraph(3)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          <span>播放</span>
+        </button>
+      </div>
+      <div class="paragraph-content" id="text-3" data-raw="We will soon disembark at Yangshuo, an ancient town with over fourteen hundred years of history. Enjoy the lively West Street, taste local delicacies, and experience the magnificent Impression Liu Sanjie show tonight."></div>
+    </div>
+
+    <footer>
+      广西英语导游考试助手 · 独立导览词段落语音高亮模块 (淡绿系)
+    </footer>
+  </div>
+
+  <script>
+    let currentSpeakingParaId = null;
+    let currentUtterance = null;
+    let voices = [];
+
+    const paraData = {};
+
+    function initParagraphs() {
+      [1, 2, 3].forEach(id => {
+        const container = document.getElementById(`text-${id}`);
+        const rawText = container.getAttribute('data-raw');
+        
+        const regex = /(\b[a-zA-Z0-9'-]+\b)|([^\w\s]+)|(\s+)/g;
+        let match;
+        let htmlStr = '';
+        let wordIndex = 0;
+        const wordMap = [];
+
+        while ((match = regex.exec(rawText)) !== null) {
+          const textToken = match[0];
+          const startChar = match.index;
+          const endChar = startChar + textToken.length;
+
+          if (match[1]) {
+            htmlStr += `<span class="word-token" id="word-${id}-${wordIndex}">${escapeHtml(textToken)}</span>`;
+            wordMap.push({
+              index: wordIndex,
+              text: textToken,
+              startChar: startChar,
+              endChar: endChar,
+              id: `word-${id}-${wordIndex}`
+            });
+            wordIndex++;
+          } else {
+            htmlStr += escapeHtml(textToken);
+          }
+        }
+
+        container.innerHTML = htmlStr;
+        paraData[id] = {
+          rawText: rawText,
+          wordMap: wordMap
+        };
+      });
+    }
+
+    function escapeHtml(str) {
+      return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+
+    function initVoices() {
+      if ('speechSynthesis' in window) {
+        const updateVoices = () => {
+          voices = window.speechSynthesis.getVoices();
+          const voiceSelect = document.getElementById('voiceSelect');
+          voiceSelect.innerHTML = '';
+          
+          const enVoices = voices.filter(v => v.lang.startsWith('en'));
+          const displayVoices = enVoices.length > 0 ? enVoices : voices;
+
+          let defaultUSIndex = -1;
+          displayVoices.forEach((voice, index) => {
+            if (defaultUSIndex === -1 && (voice.lang === 'en-US' || voice.lang.includes('US') || voice.name.includes('US'))) {
+              defaultUSIndex = index;
+            }
+          });
+
+          displayVoices.forEach((voice, i) => {
+            const option = document.createElement('option');
+            option.value = voice.name;
+            const isUS = voice.lang === 'en-US' || voice.lang.includes('US') || voice.name.includes('US');
+            option.textContent = `${voice.name} (${voice.lang})${isUS ? ' ★美音' : ''}`;
+            
+            if (i === (defaultUSIndex !== -1 ? defaultUSIndex : 0)) {
+              option.selected = true;
+            }
+            voiceSelect.appendChild(option);
+          });
+        };
+
+        updateVoices();
+        if (speechSynthesis.onvoiceschanged !== undefined) {
+          speechSynthesis.onvoiceschanged = updateVoices;
+        }
+      }
+    }
+
+    function toggleParagraph(paraId) {
+      if (currentSpeakingParaId === paraId) {
+        stopSpeech();
+      } else {
+        playParagraph(paraId);
+      }
+    }
+
+    function stopSpeech() {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+      if (currentSpeakingParaId) {
+        clearHighlights(currentSpeakingParaId);
+        updateCardUI(currentSpeakingParaId, false);
+        currentSpeakingParaId = null;
+      }
+    }
+
+    function playParagraph(paraId) {
+      stopSpeech();
+
+      if (!('speechSynthesis' in window)) {
+        alert('您的浏览器不支持 Web Speech API 语音播放功能。');
+        return;
+      }
+
+      const data = paraData[paraId];
+      if (!data) return;
+
+      const utterance = new SpeechSynthesisUtterance(data.rawText);
+      currentUtterance = utterance;
+
+      const rate = parseFloat(document.getElementById('rateSelect').value) || 1.0;
+      utterance.rate = rate;
+
+      const selectedVoiceName = document.getElementById('voiceSelect').value;
+      if (selectedVoiceName) {
+        const voiceObj = voices.find(v => v.name === selectedVoiceName);
+        if (voiceObj) utterance.voice = voiceObj;
+      } else {
+        const usVoice = voices.find(v => v.lang === 'en-US' || v.lang.includes('US'));
+        if (usVoice) utterance.voice = usVoice;
+      }
+
+      utterance.onboundary = (event) => {
+        if (event.name === 'word' || event.charIndex !== undefined) {
+          highlightWordWindow(paraId, event.charIndex);
+        }
+      };
+
+      utterance.onend = () => {
+        clearHighlights(paraId);
+        updateCardUI(paraId, false);
+        currentSpeakingParaId = null;
+      };
+
+      utterance.onerror = (err) => {
+        console.error('Speech error:', err);
+        clearHighlights(paraId);
+        updateCardUI(paraId, false);
+        currentSpeakingParaId = null;
+      };
+
+      currentSpeakingParaId = paraId;
+      updateCardUI(paraId, true);
+      window.speechSynthesis.speak(utterance);
+    }
+
+    function highlightWordWindow(paraId, charIndex) {
+      const data = paraData[paraId];
+      if (!data || !data.wordMap.length) return;
+
+      let activeIndex = -1;
+      for (let i = 0; i < data.wordMap.length; i++) {
+        const wordInfo = data.wordMap[i];
+        if (charIndex >= wordInfo.startChar && charIndex < wordInfo.endChar) {
+          activeIndex = i;
+          break;
+        }
+        if (charIndex < wordInfo.startChar && activeIndex === -1) {
+          activeIndex = Math.max(0, i - 1);
+          break;
+        }
+      }
+
+      if (activeIndex === -1) {
+        activeIndex = data.wordMap.length - 1;
+      }
+
+      clearHighlights(paraId);
+
+      const minIdx = Math.max(0, activeIndex - 1);
+      const maxIdx = Math.min(data.wordMap.length - 1, activeIndex + 1);
+
+      for (let i = minIdx; i <= maxIdx; i++) {
+        const wordEl = document.getElementById(data.wordMap[i].id);
+        if (wordEl) {
+          if (i === activeIndex) {
+            wordEl.classList.add('word-active');
+          } else {
+            wordEl.classList.add('word-near');
+          }
+        }
+      }
+    }
+
+    function clearHighlights(paraId) {
+      const data = paraData[paraId];
+      if (!data) return;
+      data.wordMap.forEach(w => {
+        const el = document.getElementById(w.id);
+        if (el) {
+          el.classList.remove('word-active', 'word-near');
+        }
+      });
+    }
+
+    function updateCardUI(paraId, isPlaying) {
+      const card = document.getElementById(`card-para-${paraId}`);
+      const btn = document.getElementById(`btn-${paraId}`);
+      const badge = document.getElementById(`badge-${paraId}`);
+
+      if (isPlaying) {
+        card.classList.add('is-playing');
+        btn.classList.add('playing');
+        btn.querySelector('span').textContent = '暂停';
+        btn.querySelector('svg').innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
+        badge.classList.add('active');
+        badge.textContent = '朗读中...';
+      } else {
+        card.classList.remove('is-playing');
+        btn.classList.remove('playing');
+        btn.querySelector('span').textContent = '播放';
+        btn.querySelector('svg').innerHTML = '<path d="M8 5v14l11-7z"/>';
+        badge.classList.remove('active');
+        badge.textContent = '就绪';
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      initParagraphs();
+      initVoices();
+
+      document.getElementById('stopAllBtn').addEventListener('click', () => {
+        stopSpeech();
+      });
+
+      document.getElementById('rateSelect').addEventListener('change', () => {
+        if (currentSpeakingParaId !== null) {
+          const activeId = currentSpeakingParaId;
+          playParagraph(activeId);
+        }
+      });
+    });
+  </script>
+</body>
+</html>

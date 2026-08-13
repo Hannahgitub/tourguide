@@ -1,0 +1,72 @@
+=== QUESTIONS ===
+[
+  {
+    "id": 1,
+    "question": "1.按业务范围划分，导游人员可分为哪几类？参考答案：",
+    "answer": "广西英文导游资格面试知识问答\n一、导游规范知识问答及参考答案（85问）\n（1）出境旅游领队；\n（2）全程陪同导游；\n（3）地方陪同导游；",
+    "officialCategory": "业务规范问答"
+  },
+  {
+    "id": 2,
+    "question": "1. What are the categories of tour guides divided by business scope?",
+    "answer": "Answers:\n(1) Outbound tour leaders;\n(2) National tour guides;\n(3) Local tour guides.",
+    "officialCategory": "应变处理问答"
+  },
+  {
+    "id": 3,
+    "question": "2.熟悉团队是导游人员带团的第一步，它主要包括哪几方面的内容？参考答案：",
+    "answer": "（1）熟悉团员情况；\n（2）熟悉团队特点；\n（3）熟悉接待计划；\n（4）熟悉行程特点；\n（5）熟悉团队特殊要求和注意事项。",
+    "officialCategory": "综合常识问答"
+  },
+  {
+    "id": 4,
+    "question": "2. Familiarizing oneself with the group is the first step for a tour guide to lead a group. What are the main contents it includes?",
+    "answer": "Answers:\n(1) Familiarizing oneself with the group members' information;\n(2) Familiarizing oneself with the group's characteristics;\n(3) Familiarizing oneself with the reception plan;\n(4) Familiarizing oneself with the itinerary characteristics;\n(5) Familiarizing oneself with the group's special requirements and precautions.",
+    "officialCategory": "业务规范问答"
+  },
+  {
+    "id": 5,
+    "question": "3.在旅游团抵达的前一天，地陪导游人员应主要落实哪些接待事宜？参考答案：",
+    "answer": "（1）与旅行社计调人员联系；\n（2）联系旅游车辆，和司机确定接站时间；\n（3）核实团队住房及用餐预订情况；\n（4）掌握各种联系电话。",
+    "officialCategory": "应变处理问答"
+  }
+]
+
+=== TRANSLATIONS ===
+[
+  {
+    "id": 1,
+    "type": "E2C",
+    "tag": "英译中",
+    "src": "Welcome to China!",
+    "ref": "欢迎您到中国来!"
+  },
+  {
+    "id": 2,
+    "type": "E2C",
+    "tag": "英译中",
+    "src": "How was the flight?",
+    "ref": "一路上还好吗?(此句话用于乘飞机)"
+  },
+  {
+    "id": 3,
+    "type": "E2C",
+    "tag": "英译中",
+    "src": "May I help you with your luggage?",
+    "ref": "让我来帮你拿行李好吗?"
+  },
+  {
+    "id": 4,
+    "type": "E2C",
+    "tag": "英译中",
+    "src": "I can manage.",
+    "ref": "我能应付。"
+  },
+  {
+    "id": 5,
+    "type": "E2C",
+    "tag": "英译中",
+    "src": "You will have plenty of time to see all the interesting places in China.",
+    "ref": "你会有很多时间欣赏中国的著名景点。"
+  }
+]

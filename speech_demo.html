@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>英语导游语音转文字 & 口语评分 Demo (高灵敏强化版)</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --bg-gradient: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+      --card-bg: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --border-color: #e2e8f0;
+      --success: #16a34a;
+      --danger: #dc2626;
+      --warning: #d97706;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    body {
+      background: var(--bg-gradient);
+      color: var(--text-main);
+      min-height: 100vh;
+      padding: 24px 16px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 800px;
+      background: var(--card-bg);
+      border-radius: 16px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+      padding: 28px;
+      border: 1px solid rgba(255, 255, 255, 0.8);
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 16px;
+    }
+
+    header h1 {
+      font-size: 24px;
+      color: #1e3a8a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    header p {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-top: 6px;
+    }
+
+    .badge-env {
+      display: inline-block;
+      background: #eff6ff;
+      color: var(--primary);
+      border: 1px solid #bfdbfe;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-top: 8px;
+    }
+
+    .support-warning {
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      color: #991b1b;
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+      margin-bottom: 20px;
+      display: none;
+    }
+
+    .section-box {
+      background: #f8fafc;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    select {
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      background: #fff;
+      font-size: 15px;
+      color: var(--text-main);
+      outline: none;
+      cursor: pointer;
+    }
+
+    .question-card {
+      margin-top: 14px;
+      background: #fff;
+      padding: 16px;
+      border-radius: 8px;
+      border-left: 4px solid var(--primary);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .question-card h3 {
+      font-size: 16px;
+      color: #1e293b;
+      margin-bottom: 8px;
+    }
+
+    .reference-answer {
+      font-size: 14px;
+      color: #334155;
+      background: #f1f5f9;
+      padding: 10px 12px;
+      border-radius: 6px;
+      line-height: 1.5;
+    }
+
+    .controls {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      margin: 20px 0;
+    }
+
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+    }
+
+    .mic-btn {
+      position: relative;
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+      transition: all 0.2s ease;
+    }
+
+    .mic-btn:hover {
+      background: var(--primary-hover);
+      transform: scale(1.05);
+    }
+
+    .mic-btn.recording {
+      background: var(--danger);
+      box-shadow: 0 4px 14px rgba(220, 38, 38, 0.5);
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.6); }
+      70% { box-shadow: 0 0 0 18px rgba(220, 38, 38, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }
+    }
+
+    /* 实时音量波形可视化 */
+    .vol-meter-wrapper {
+      width: 100%;
+      max-width: 320px;
+      height: 10px;
+      background: #e2e8f0;
+      border-radius: 5px;
+      overflow: hidden;
+      margin-top: 4px;
+    }
+
+    .vol-meter-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #10b981 0%, #ef4444 100%);
+      transition: width 0.08s ease-out;
+      border-radius: 5px;
+    }
+
+    .status-text {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    .status-text.active {
+      color: var(--danger);
+    }
+
+    .transcript-box {
+      width: 100%;
+      min-height: 130px;
+      max-height: 220px;
+      padding: 14px;
+      border: 2px dashed #cbd5e1;
+      border-radius: 10px;
+      background: #fafafa;
+      font-size: 15px;
+      line-height: 1.6;
+      color: #0f172a;
+      overflow-y: auto;
+      margin-bottom: 16px;
+      white-space: pre-wrap;
+    }
+
+    .transcript-box.listening {
+      border-color: var(--primary);
+      background: #fff;
+    }
+
+    .placeholder {
+      color: #94a3b8;
+      font-style: italic;
+    }
+
+    .interim-text {
+      color: #0284c7;
+      background: #e0f2fe;
+      padding: 2px 4px;
+      border-radius: 4px;
+    }
+
+    .action-group {
+      display: flex;
+      gap: 12px;
+      justify-content: flex-end;
+    }
+
+    .btn {
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-secondary {
+      background: #e2e8f0;
+      color: #334155;
+    }
+
+    .btn-secondary:hover {
+      background: #cbd5e1;
+    }
+
+    .btn-primary {
+      background: var(--success);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #15803d;
+    }
+
+    .report-card {
+      margin-top: 24px;
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 12px;
+      padding: 20px;
+      display: none;
+    }
+
+    .report-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .report-title {
+      font-weight: 700;
+      color: #166534;
+      font-size: 16px;
+    }
+
+    .score-badge {
+      font-size: 24px;
+      font-weight: 800;
+      color: #15803d;
+    }
+
+    .keyword-analysis {
+      margin-top: 12px;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      margin: 2px 4px 2px 0;
+    }
+
+    .tag-hit {
+      background: #dcfce7;
+      color: #15803d;
+      border: 1px solid #86efac;
+    }
+
+    .tag-miss {
+      background: #fee2e2;
+      color: #991b1b;
+      border: 1px solid #fca5a5;
+    }
+
+    .tips-box {
+      margin-top: 16px;
+      background: #fffbe6;
+      border: 1px solid #ffe58f;
+      padding: 12px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      color: #d46b08;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>🎙️ 英语导游语音转文字 & 口语评分 (高灵敏版)</h1>
+    <p>优化连续听写 + 麦克风实时音量监控 + 自动续接防断开</p>
+    <div class="badge-env">🛡️ 隔离测试环境 (无改动原项目代码)</div>
+  </header>
+
+  <div id="supportWarning" class="support-warning">
+    ⚠️ 您的浏览器暂不支持原生 Web Speech API。推荐使用 Chrome 或 Microsoft Edge 浏览器获得最佳语音识别体验。
+  </div>
+
+  <!-- 1. 题目选择区 -->
+  <div class="section-box">
+    <div class="section-title">
+      <span>1. 选择导游问答题目</span>
+    </div>
+    <select id="questionSelect" onchange="loadQuestion()">
+      <option value="0">【象鼻山】Please give a brief introduction to Elephant Trunk Hill.</option>
+      <option value="1">【芦笛岩】What makes Reed Flute Cave unique in Guilin?</option>
+      <option value="2">【漓江导游】How long is the Li River cruise from Guilin to Yangshuo?</option>
+      <option value="3">【中文讲解测试】请简要介绍桂林山水的特点。</option>
+    </select>
+
+    <div class="question-card">
+      <h3 id="qTitle">题目内容...</h3>
+      <div style="font-size: 12px; font-weight: 700; color: #64748b; margin-bottom: 4px;">💡 参考答案 (Reference Answer):</div>
+      <div id="qAnswer" class="reference-answer">答案加载中...</div>
+    </div>
+  </div>
+
+  <!-- 2. 语音控制与监听区 -->
+  <div class="section-box">
+    <div class="section-title">
+      <span>2. 高灵敏语音听写区</span>
+    </div>
+
+    <div class="controls">
+      <div class="lang-selector">
+        <label for="langSelect">识别语言：</label>
+        <select id="langSelect" style="width: auto; padding: 6px 12px;" onchange="onLangChange()">
+          <option value="en-US" selected>English (US - 美式英语)</option>
+          <option value="en-GB">English (UK - 英式英语)</option>
+          <option value="zh-CN">中文 (zh-CN - 普通话)</option>
+        </select>
+      </div>
+
+      <button id="micBtn" class="mic-btn" onclick="toggleRecognition()" title="点击开始/停止录音">
+        🎤
+      </button>
+
+      <!-- 音量可视指示条 -->
+      <div class="vol-meter-wrapper" title="麦克风输入实时音量">
+        <div id="volBar" class="vol-meter-bar"></div>
+      </div>
+
+      <div id="statusText" class="status-text">点击麦克风图标开始说话</div>
+    </div>
+
+    <div class="section-title">
+      <span>实时识别文本 (Recognized Text):</span>
+    </div>
+    <div id="transcriptBox" class="transcript-box">
+      <span class="placeholder">按下录音按钮后对着麦克风说话，文字将在此实时且连续地显示...</span>
+    </div>
+
+    <div class="action-group">
+      <button class="btn btn-secondary" onclick="clearTranscript()">清空重说</button>
+      <button class="btn btn-primary" onclick="evaluateAnswer()">提交并评估口语</button>
+    </div>
+
+    <div class="tips-box">
+      💡 <strong>灵敏度调优提示</strong>：<br/>
+      1. 说话时观察上方绿色音量条，如果音量条没有反应，说明浏览器尚未成功捕获麦克风声音或麦克风设为了静音。<br/>
+      2. 本强化版集成了<strong>“停顿自动重连”</strong>机制，即使您停顿思考几秒钟，系统也会持续监听不会中断。
+    </div>
+  </div>
+
+  <!-- 3. 口语评估报告 -->
+  <div id="reportCard" class="report-card">
+    <div class="report-header">
+      <div class="report-title">🎯 导游口语评估报告</div>
+      <div id="scoreDisplay" class="score-badge">0分</div>
+    </div>
+    <div id="evaluationDetail" class="keyword-analysis">
+      <!-- 动态填充评估结果 -->
+    </div>
+  </div>
+</div>
+
+<script>
+  // 预设测试题库
+  const questions = [
+    {
+      title: "Please give a brief introduction to Elephant Trunk Hill.",
+      answer: "Elephant Trunk Hill is the symbol of Guilin landscape. Located at the confluence of the Li River and Peach Blossom River, it looks like a giant elephant drinking water from the river with its trunk.",
+      lang: "en-US",
+      keywords: ["elephant", "trunk", "hill", "symbol", "guilin", "confluence", "li river", "peach blossom", "drinking", "water"]
+    },
+    {
+      title: "What makes Reed Flute Cave unique in Guilin?",
+      answer: "Reed Flute Cave is known as the Palace of Natural Art. It is filled with a large number of stalactites, stalagmites, and rock formations illuminated by colored lights, creating a fairyland atmosphere.",
+      lang: "en-US",
+      keywords: ["reed", "flute", "cave", "palace", "natural", "art", "stalactites", "stalagmites", "colored", "lights", "fairyland"]
+    },
+    {
+      title: "How long is the Li River cruise from Guilin to Yangshuo?",
+      answer: "The Li River cruise from Guilin to Yangshuo is about 83 kilometers long and takes around 4 hours. Along the way, tourists can enjoy breathtaking karst mountains and peaceful countryside scenery.",
+      lang: "en-US",
+      keywords: ["li river", "cruise", "yangshuo", "83", "kilometers", "4 hours", "karst", "mountains", "countryside", "scenery"]
+    },
+    {
+      title: "请简要介绍桂林山水的特点。",
+      answer: "桂林山水以山青、水秀、洞奇、石美“四绝”闻名于世。典型的喀斯特地貌造就了千姿百态的奇峰和清澈见底的漓江。",
+      lang: "zh-CN",
+      keywords: ["桂林山水", "山青", "水秀", "洞奇", "石美", "四绝", "喀斯特", "漓江"]
+    }
+  ];
+
+  let recognition = null;
+  let isListening = false;
+  let userWantsListening = false; // 用户意图：是否保持监听
+  let finalTranscript = '';
+  let audioContext = null;
+  let mediaStream = null;
+  let animFrameId = null;
+
+  window.addEventListener('DOMContentLoaded', () => {
+    checkBrowserSupport();
+    loadQuestion();
+  });
+
+  function checkBrowserSupport() {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      document.getElementById('supportWarning').style.display = 'block';
+      document.getElementById('micBtn').disabled = true;
+      document.getElementById('micBtn').style.opacity = '0.5';
+      document.getElementById('statusText').innerText = '当前浏览器不支持语音识别';
+      return false;
+    }
+
+    recognition = new SpeechRecognition();
+    recognition.continuous = true;     // 开启持续听写
+    recognition.interimResults = true; // 返回实时中间结果，提高响应灵敏度
+    recognition.maxAlternatives = 1;   // 获取最佳匹配
+
+    recognition.onstart = () => {
+      isListening = true;
+      updateUIState(true);
+      document.getElementById('statusText').innerText = '🎙️ 正在倾听中... 请说话 (音量条响应中)';
+    };
+
+    recognition.onresult = (event) => {
+      let interimTranscript = '';
+      for (let i = event.resultIndex; i < event.results.length; ++i) {
+        const transcriptChunk = event.results[i][0].transcript;
+        if (event.results[i].isFinal) {
+          finalTranscript += (finalTranscript && !finalTranscript.endsWith(' ') ? ' ' : '') + transcriptChunk;
+        } else {
+          interimTranscript += transcriptChunk;
+        }
+      }
+      renderTranscript(finalTranscript, interimTranscript);
+    };
+
+    recognition.onerror = (event) => {
+      console.warn('Speech recognition error:', event.error);
+      if (event.error === 'no-speech') {
+        // 允许静音无声音时继续自动保持监听
+      } else if (event.error === 'not-allowed') {
+        document.getElementById('statusText').innerText = '❌ 麦克风权限被拒绝，请在浏览器地址栏左侧勾选“允许麦克风”。';
+        userWantsListening = false;
+        stopRecognition();
+      } else {
+        document.getElementById('statusText').innerText = '⚠️ 识别提示: ' + event.error;
+      }
+    };
+
+    recognition.onend = () => {
+      isListening = false;
+      // 🌟 核心改进：若用户未手动点击“停止”，即便浏览器因短暂停顿引发 onend，也立即自动无缝重启听写！
+      if (userWantsListening) {
+        setTimeout(() => {
+          if (userWantsListening && !isListening) {
+            try {
+              recognition.start();
+            } catch (e) {
+              console.log('Restarting recognition...', e);
+            }
+          }
+        }, 150);
+      } else {
+        updateUIState(false);
+      }
+    };
+
+    return true;
+  }
+
+  function loadQuestion() {
+    const idx = document.getElementById('questionSelect').value;
+    const q = questions[idx];
+    document.getElementById('qTitle').innerText = q.title;
+    document.getElementById('qAnswer').innerText = q.answer;
+    document.getElementById('langSelect').value = q.lang;
+    clearTranscript();
+    document.getElementById('reportCard').style.display = 'none';
+  }
+
+  function onLangChange() {
+    if (userWantsListening) {
+      stopRecognition();
+      setTimeout(startRecognition, 300);
+    }
+  }
+
+  function toggleRecognition() {
+    if (!recognition && !checkBrowserSupport()) return;
+
+    if (userWantsListening) {
+      userWantsListening = false;
+      stopRecognition();
+    } else {
+      userWantsListening = true;
+      startRecognition();
+    }
+  }
+
+  async function startRecognition() {
+    const lang = document.getElementById('langSelect').value;
+    recognition.lang = lang;
+
+    // 启动 Web Audio API 捕获麦克风实时音量波形，验证麦克风有效性
+    startAudioVisualizer();
+
+    try {
+      recognition.start();
+    } catch (e) {
+      console.warn("Recognition start failed/already active:", e);
+    }
+  }
+
+  function stopRecognition() {
+    userWantsListening = false;
+    isListening = false;
+    stopAudioVisualizer();
+    if (recognition) {
+      try { recognition.stop(); } catch(e){}
+    }
+    updateUIState(false);
+  }
+
+  // Web Audio API 音量监听与波形绘制 (用于帮助调试麦克风灵敏度)
+  async function startAudioVisualizer() {
+    try {
+      if (!mediaStream) {
+        mediaStream = await navigator.mediaDevices.getUserMedia({
+          audio: {
+            echoCancellation: true,
+            noiseSuppression: true,
+            autoGainControl: true
+          }
+        });
+      }
+      if (!audioContext) {
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioContext.state === 'suspended') {
+        await audioContext.resume();
+      }
+
+      const source = audioContext.createMediaStreamSource(mediaStream);
+      const analyser = audioContext.createAnalyser();
+      analyser.fftSize = 256;
+      source.connect(analyser);
+
+      const dataArray = new Uint8Array(analyser.frequencyBinCount);
+      const volBar = document.getElementById('volBar');
+
+      function updateVol() {
+        if (!userWantsListening) return;
+        analyser.getByteFrequencyData(dataArray);
+        let sum = 0;
+        for (let i = 0; i < dataArray.length; i++) {
+          sum += dataArray[i];
+        }
+        let average = sum / dataArray.length;
+        let volPercent = Math.min(100, Math.round((average / 128) * 100));
+        volBar.style.width = volPercent + '%';
+
+        animFrameId = requestAnimationFrame(updateVol);
+      }
+      updateVol();
+    } catch (err) {
+      console.warn("Audio Context / Volume Meter initialization failed:", err);
+    }
+  }
+
+  function stopAudioVisualizer() {
+    if (animFrameId) cancelAnimationFrame(animFrameId);
+    const volBar = document.getElementById('volBar');
+    if (volBar) volBar.style.width = '0%';
+    if (mediaStream) {
+      mediaStream.getTracks().forEach(t => t.stop());
+      mediaStream = null;
+    }
+    if (audioContext) {
+      audioContext.close();
+      audioContext = null;
+    }
+  }
+
+  function updateUIState(listening) {
+    const micBtn = document.getElementById('micBtn');
+    const statusText = document.getElementById('statusText');
+    const box = document.getElementById('transcriptBox');
+
+    if (listening) {
+      micBtn.classList.add('recording');
+      micBtn.innerText = '⏹️';
+      statusText.innerText = '🎙️ 正在倾听中... (请说话，再次点击停止)';
+      statusText.classList.add('active');
+      box.classList.add('listening');
+    } else {
+      micBtn.classList.remove('recording');
+      micBtn.innerText = '🎤';
+      statusText.innerText = '点击麦克风图标开始说话';
+      statusText.classList.remove('active');
+      box.classList.remove('listening');
+    }
+  }
+
+  function renderTranscript(finalText, interimText) {
+    const box = document.getElementById('transcriptBox');
+    if (!finalText && !interimText) {
+      box.innerHTML = '<span class="placeholder">按下录音按钮后对着麦克风说话，文字将在此实时且连续地显示...</span>';
+      return;
+    }
+    
+    let html = `<span>${escapeHTML(finalText)}</span>`;
+    if (interimText) {
+      html += `<span class="interim-text"> ${escapeHTML(interimText)}</span>`;
+    }
+    box.innerHTML = html;
+    box.scrollTop = box.scrollHeight;
+  }
+
+  function clearTranscript() {
+    finalTranscript = '';
+    renderTranscript('', '');
+    document.getElementById('reportCard').style.display = 'none';
+  }
+
+  function evaluateAnswer() {
+    const idx = document.getElementById('questionSelect').value;
+    const q = questions[idx];
+    const userText = finalTranscript.trim().toLowerCase();
+
+    if (!userText) {
+      alert('请先使用麦克风回答问题或进行语音转文字！');
+      return;
+    }
+
+    let hitCount = 0;
+    const hitKeywords = [];
+    const missKeywords = [];
+
+    q.keywords.forEach(kw => {
+      const lowerKw = kw.toLowerCase();
+      if (userText.includes(lowerKw)) {
+        hitCount++;
+        hitKeywords.push(kw);
+      } else {
+        missKeywords.push(kw);
+      }
+    });
+
+    const totalKw = q.keywords.length;
+    const score = Math.round((hitCount / totalKw) * 100);
+
+    const scoreEl = document.getElementById('scoreDisplay');
+    scoreEl.innerText = score + '分';
+    if (score >= 80) {
+      scoreEl.style.color = '#16a34a';
+    } else if (score >= 50) {
+      scoreEl.style.color = '#d97706';
+    } else {
+      scoreEl.style.color = '#dc2626';
+    }
+
+    let detailHTML = `
+      <p style="margin-bottom: 8px;"><strong>准确率分析：</strong>关键词覆盖率 <strong>${hitCount} / ${totalKw}</strong></p>
+      <p style="margin-bottom: 6px;"><strong>✅ 成功提及的关键词:</strong></p>
+      <div style="margin-bottom: 10px;">
+        ${hitKeywords.length ? hitKeywords.map(k => `<span class="tag tag-hit">${k}</span>`).join('') : '<span style="color:#94a3b8;">暂无</span>'}
+      </div>
+      <p style="margin-bottom: 6px;"><strong>💡 漏讲/可改进的关键词:</strong></p>
+      <div>
+        ${missKeywords.length ? missKeywords.map(k => `<span class="tag tag-miss">${k}</span>`).join('') : '<span style="color:#16a34a;">无！表现非常出色！</span>'}
+      </div>
+    `;
+
+    document.getElementById('evaluationDetail').innerHTML = detailHTML;
+    document.getElementById('reportCard').style.display = 'block';
+  }
+
+  function escapeHTML(str) {
+    return str.replace(/[&<>'"]/g, 
+      tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+    );
+  }
+</script>
+
+</body>
+</html>
