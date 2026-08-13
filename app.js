@@ -1621,7 +1621,7 @@ function getPhraseStatus(id) {
       btnPhraseSpeak.addEventListener('click', () => {
         const list = getFilteredPhrases();
         if (list.length > 0 && list[currentPhraseIndex]) {
-          const cardEl = document.getElementById('phrase-card-en');
+          const cardEl = document.getElementById('phrase-en-title');
           speakText(list[currentPhraseIndex].en, cardEl);
         }
       });
