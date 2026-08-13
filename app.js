@@ -1278,22 +1278,29 @@ document.addEventListener('DOMContentLoaded', () => {
       return base;
     }
 
-    // 墨墨穿插重复算法：构造动态刷词序列
+    // 墨墨穿插重复算法：精准后置 5 位穿插调度
     const result = [];
+    const pendingReview = [];
+
     base.forEach(p => {
       const st = getPhraseStatus(p.id);
       if (st.status === 'unlearned') {
         result.push(p);
       } else if (st.status === 'mastered') {
         if (st.remaining > 0) {
-          for (let i = 0; i < st.remaining; i++) result.push(p);
+          pendingReview.push({ item: p, rem: st.remaining });
         }
-      } else if (st.status === 'vague') {
-        const count = st.remaining > 0 ? st.remaining : 2;
-        for (let i = 0; i < count; i++) result.push(p);
-      } else if (st.status === 'again') {
-        const count = st.remaining > 0 ? st.remaining : 4;
-        for (let i = 0; i < count; i++) result.push(p);
+      } else if (st.status === 'vague' || st.status === 'again') {
+        const count = st.remaining > 0 ? st.remaining : (st.status === 'vague' ? 2 : 4);
+        pendingReview.push({ item: p, rem: count });
+      }
+    });
+
+    // 将需要复现的卡片，按 5 个卡片间隔均匀插入主序列中
+    pendingReview.forEach(rev => {
+      for (let i = 0; i < rev.rem; i++) {
+        const insertIdx = Math.min(result.length, (i + 1) * 5);
+        result.splice(insertIdx, 0, rev.item);
       }
     });
 
