@@ -2,24 +2,161 @@
 document.addEventListener('DOMContentLoaded', () => {
   const data = window.data || window.GUANGXI_DATA || {};
 
-  // --- RESTORED TO EXACT INITIAL DELIVERED SPEECH SYNTHESIS ENGINE ---
-  function speakText(text) {
+  // --- SPEECH SYNTHESIS ENGINE WITH WORD HIGHLIGHTING & US VOICE PRIORITY ---
+  let activeSpeechContainer = null;
+  let activeWordMap = [];
+
+  function clearSpeechHighlights(containerEl) {
+    const target = containerEl || activeSpeechContainer;
+    if (target) {
+      target.querySelectorAll('.word-token').forEach(el => {
+        el.classList.remove('word-active', 'word-near');
+      });
+    }
+  }
+
+  function getBestUSVoice() {
+    if (!('speechSynthesis' in window)) return null;
+    const voices = window.speechSynthesis.getVoices();
+    return voices.find(v => v.lang === 'en-US' || v.lang.includes('US') || v.name.includes('US')) ||
+           voices.find(v => v.lang.startsWith('en')) || null;
+  }
+
+  function escapeHtml(str) {
+    return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+
+  function prepareContainerHighlight(containerEl, rawText) {
+    if (!containerEl) return [];
+    
+    if (containerEl.dataset.tokenized === 'true') {
+      const map = [];
+      const spans = containerEl.querySelectorAll('.word-token');
+      spans.forEach((span, idx) => {
+        const start = parseInt(span.dataset.startChar || '0', 10);
+        const end = parseInt(span.dataset.endChar || '0', 10);
+        map.push({ index: idx, el: span, startChar: start, endChar: end });
+      });
+      return map;
+    }
+
+    const textToTokenize = rawText || containerEl.innerText || '';
+    const regex = /(\b[a-zA-Z0-9'-]+\b)|([^\w\s]+)|(\s+)/g;
+    let match;
+    let htmlStr = '';
+    let wordIdx = 0;
+
+    const hasChildNodes = containerEl.children.length > 0;
+    if (!hasChildNodes) {
+      while ((match = regex.exec(textToTokenize)) !== null) {
+        const textToken = match[0];
+        const startChar = match.index;
+        const endChar = startChar + textToken.length;
+
+        if (match[1]) {
+          const spanId = 'wt-' + Math.random().toString(36).substring(2, 7) + '-' + wordIdx;
+          htmlStr += `<span class="word-token" id="${spanId}" data-start-char="${startChar}" data-end-char="${endChar}">${escapeHtml(textToken)}</span>`;
+          wordIdx++;
+        } else {
+          htmlStr += escapeHtml(textToken);
+        }
+      }
+      containerEl.innerHTML = htmlStr;
+      containerEl.dataset.tokenized = 'true';
+
+      const map = [];
+      const spans = containerEl.querySelectorAll('.word-token');
+      spans.forEach((span, idx) => {
+        const start = parseInt(span.dataset.startChar || '0', 10);
+        const end = parseInt(span.dataset.endChar || '0', 10);
+        map.push({ index: idx, el: span, startChar: start, endChar: end });
+      });
+      return map;
+    }
+
+    return [];
+  }
+
+  function speakText(text, containerEl) {
     if ('speechSynthesis' in window) {
       window.speechSynthesis.cancel();
+      clearSpeechHighlights();
+
       const rateElem = document.getElementById('speech-rate-select');
       const rate = rateElem ? parseFloat(rateElem.value || '1.0') : 1.0;
       
-      let cleanText = text.replace(/<[^>]*>/g, '').replace(/^(English|Chinese)[:：\/\s]*/gi, '').trim();
+      let cleanText = (text || (containerEl ? containerEl.innerText : '')).replace(/<[^>]*>/g, '').replace(/^(English|Chinese)[:：\/\s]*/gi, '').trim();
       if (!cleanText) return;
 
       const utterance = new SpeechSynthesisUtterance(cleanText);
       utterance.lang = 'en-US';
       utterance.rate = rate;
+
+      const usVoice = getBestUSVoice();
+      if (usVoice) utterance.voice = usVoice;
+
+      if (containerEl) {
+        activeSpeechContainer = containerEl;
+        activeWordMap = prepareContainerHighlight(containerEl, cleanText);
+
+        utterance.onboundary = (event) => {
+          if ((event.name === 'word' || event.charIndex !== undefined) && activeWordMap.length > 0) {
+            const charIdx = event.charIndex;
+            let activeIndex = -1;
+
+            for (let i = 0; i < activeWordMap.length; i++) {
+              const item = activeWordMap[i];
+              if (charIdx >= item.startChar && charIdx < item.endChar) {
+                activeIndex = i;
+                break;
+              }
+              if (charIdx < item.startChar && activeIndex === -1) {
+                activeIndex = Math.max(0, i - 1);
+                break;
+              }
+            }
+
+            if (activeIndex === -1 && charIdx >= activeWordMap[activeWordMap.length - 1].endChar) {
+              activeIndex = activeWordMap.length - 1;
+            }
+
+            if (activeIndex !== -1) {
+              clearSpeechHighlights(containerEl);
+              const minIdx = Math.max(0, activeIndex - 1);
+              const maxIdx = Math.min(activeWordMap.length - 1, activeIndex + 1);
+
+              for (let i = minIdx; i <= maxIdx; i++) {
+                if (activeWordMap[i] && activeWordMap[i].el) {
+                  if (i === activeIndex) {
+                    activeWordMap[i].el.classList.add('word-active');
+                  } else {
+                    activeWordMap[i].el.classList.add('word-near');
+                  }
+                }
+              }
+            }
+          }
+        };
+
+        utterance.onend = () => {
+          clearSpeechHighlights(containerEl);
+          activeSpeechContainer = null;
+          activeWordMap = [];
+        };
+
+        utterance.onerror = () => {
+          clearSpeechHighlights(containerEl);
+          activeSpeechContainer = null;
+          activeWordMap = [];
+        };
+      }
+
       window.speechSynthesis.speak(utterance);
     } else {
       alert('您的浏览器暂不支持 SpeechSynthesis 语音合成。');
     }
   }
+
 
   // State
   let currentMainTab = 'interview';
@@ -169,16 +306,16 @@ document.addEventListener('DOMContentLoaded', () => {
       let logicChainHTML = '';
       if (cardItem.logicChain && cardItem.logicChain.length > 0) {
         logicChainHTML = `
-          <div style="background: linear-gradient(135deg, #fffcf9 0%, #fff6ee 100%); border: 1px dashed #e5ccb4; border-radius: 10px; padding: 14px 16px; margin-top: 14px; margin-bottom: 16px;">
-            <div style="font-weight: 800; font-size: 14.5px; color: #8c2522; margin-bottom: 10px; display: flex; align-items: center; gap: 6px;">
+          <div style="background: linear-gradient(135deg, #f6faf7 0%, #ebf5ee 100%); border: 1px dashed #c6e2ce; border-radius: 10px; padding: 14px 16px; margin-top: 14px; margin-bottom: 16px;">
+            <div style="font-weight: 800; font-size: 14.5px; color: #2d7a4c; margin-bottom: 10px; display: flex; align-items: center; gap: 6px;">
               🧠 官方考点背诵逻辑链 (Mind Chain):
             </div>
             <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center;">
               ${cardItem.logicChain.map((step, idx) => `
-                <span style="background: #ffffff; border: 1px solid #e8d0b5; color: #7a2220; font-weight: 700; font-size: 12.5px; padding: 4px 11px; border-radius: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
+                <span style="background: #ffffff; border: 1px solid #c6e2ce; color: #23613c; font-weight: 700; font-size: 12.5px; padding: 4px 11px; border-radius: 20px; box-shadow: 0 1px 3px rgba(45,122,76,0.06);">
                   ${idx + 1}. ${step}
                 </span>
-                ${idx < cardItem.logicChain.length - 1 ? '<span style="color: #c9ab8d; font-size: 13px; font-weight: bold;">➔</span>' : ''}
+                ${idx < cardItem.logicChain.length - 1 ? '<span style="color: #88b897; font-size: 13px; font-weight: bold;">➔</span>' : ''}
               `).join('')}
             </div>
           </div>
@@ -202,7 +339,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       headerCard.innerHTML = `
-        <span class="qa-tag-badge" style="background: #fff5f5; color: #8c2522; border: 1px solid #f7dcd5;">《24广西英导词》源文件专题范文</span>
+        <span class="qa-tag-badge" style="background: #ebf5ee; color: #2d7a4c; border: 1px solid #c6e2ce;">《24广西英导词》源文件专题范文</span>
         <h3 style="font-size: 19px; font-weight: 800; color: #1a1a1a; margin-top: 6px; margin-bottom: 6px;">${cardItem.title}</h3>
         <p style="font-size: 13.5px; color: #666; line-height: 1.6;">${cardItem.desc}</p>
         
@@ -243,9 +380,11 @@ document.addEventListener('DOMContentLoaded', () => {
         container.querySelectorAll('.btn-read-topic-sec').forEach(btn => {
           btn.addEventListener('click', e => {
             const idx = e.currentTarget.getAttribute('data-idx');
+            const secCard = e.currentTarget.closest('.card');
+            const enContainer = secCard ? secCard.querySelector('.speech-text-en') : null;
             const targetSec = cardItem.sections[idx];
             if (targetSec && targetSec.en) {
-              speakText(targetSec.en);
+              speakText(targetSec.en, enContainer);
             }
           });
         });
@@ -255,7 +394,7 @@ document.addEventListener('DOMContentLoaded', () => {
         secCard.className = 'card';
         secCard.style.marginBottom = '14px';
         secCard.innerHTML = `
-          <div class="speech-text-en" style="font-size: 15px; color: #8c2522; background: #fff5f5; border-left: 4px solid #8c2522; padding: 12px 14px; border-radius: 6px; margin-bottom: 12px;">
+          <div class="speech-text-en" style="font-size: 15px; color: #2d7a4c; background: #ebf5ee; border-left: 4px solid #2d7a4c; padding: 12px 14px; border-radius: 6px; margin-bottom: 12px;">
             "${cardItem.enSentence}"
           </div>
           <div class="speech-text-cn" style="font-size: 13.5px; color: #444; background: #faf8f5; padding: 10px 14px; border-radius: 6px; margin-bottom: 12px;">
@@ -267,7 +406,8 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
         container.appendChild(secCard);
         secCard.querySelector('.btn-read-topic-sec').addEventListener('click', () => {
-          speakText(cardItem.enSentence);
+          const enContainer = secCard.querySelector('.speech-text-en');
+          speakText(cardItem.enSentence, enContainer);
         });
       }
     }
@@ -338,7 +478,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 答案中英文对照
     let ansHTML = `
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-        <span style="font-weight:700; color:#8c2522; font-size:14px;">💡 参考答案 (Answer Reference)：</span>
+        <span style="font-weight:700; color:#2d7a4c; font-size:14px;">💡 参考答案 (Answer Reference)：</span>
         <button class="action-btn" id="btn-practice-listen-ans" style="padding:4px 12px; font-size:12.5px;">🔊 听英文答案</button>
       </div>
       <div style="white-space: pre-line; font-size: 15px; font-weight: 700; color: #1e3a8a; line-height: 1.6;">${qItem.answer}</div>
@@ -354,7 +494,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btnListenAns) {
       btnListenAns.addEventListener('click', () => {
         const cleanAnsText = qItem.answer.replace(/<[^>]*>/g, '');
-        speakText(cleanAnsText);
+        const ansContainer = document.getElementById('practice-ref-text');
+        speakText(cleanAnsText, ansContainer);
       });
     }
   }
@@ -432,7 +573,7 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
 
           <div class="ref-answer-box" id="ref-box-${idx}" style="display: none; margin-top: 12px;">
-            <div class="ref-answer-title" style="font-weight: 700; color: #8c2522; font-size: 14px; margin-bottom: 6px;">💡 参考答案 (Answer Reference)：</div>
+            <div class="ref-answer-title" style="font-weight: 700; color: #2d7a4c; font-size: 14px; margin-bottom: 6px;">💡 参考答案 (Answer Reference)：</div>
             <div class="ref-answer-text">${ansContentHTML}</div>
           </div>
         `;
@@ -501,7 +642,7 @@ document.addEventListener('DOMContentLoaded', () => {
       headerCard.style.background = '#faf8f5';
       headerCard.style.borderColor = '#e2d9cd';
       headerCard.innerHTML = `
-        <h3 style="font-size: 18px; font-weight: 800; color: #8c2522; margin-bottom: 6px;">讲义官方专篇：${selectedSub.subject || ''}</h3>
+        <h3 style="font-size: 18px; font-weight: 800; color: #2d7a4c; margin-bottom: 6px;">讲义官方专篇：${selectedSub.subject || ''}</h3>
         <p style="font-size: 13.5px; color: #555; line-height: 1.6;">${selectedSub.desc || selectedSub.title || ''}</p>
       `;
       cardsContainer.appendChild(headerCard);
@@ -519,7 +660,7 @@ document.addEventListener('DOMContentLoaded', () => {
           } else {
             itemCard.innerHTML = `
               <div style="font-weight: 700; font-size: 15.5px; color: #1a1a1a; margin-bottom: 10px;">• ${item.subtitle || ''}</div>
-              <div style="font-size: 14.5px; color: #8c2522; background: #fff5f5; border-left: 4px solid #8c2522; padding: 12px 16px; border-radius: 6px; font-weight: 500; font-family: monospace; margin-bottom: 10px; line-height: 1.6;">"${item.en || ''}"</div>
+              <div style="font-size: 14.5px; color: #2d7a4c; background: #ebf5ee; border-left: 4px solid #2d7a4c; padding: 12px 16px; border-radius: 6px; font-weight: 500; font-family: monospace; margin-bottom: 10px; line-height: 1.6;">"${item.en || ''}"</div>
               <div style="font-size: 13.5px; color: #444; line-height: 1.6;">${item.cn || ''}</div>
             `;
           }
@@ -543,7 +684,7 @@ document.addEventListener('DOMContentLoaded', () => {
           formattedText = formattedText.replace(/章节指南与核心要点/g, '');
 
           formattedText = formattedText.replace(/"([^"]+)"/g, `
-            <div style="font-size: 14.5px; color: #8c2522; background: #fff5f5; border-left: 4px solid #8c2522; padding: 12px 16px; border-radius: 6px; font-weight: 500; font-family: monospace; margin: 10px 0; line-height: 1.6;">
+            <div style="font-size: 14.5px; color: #2d7a4c; background: #ebf5ee; border-left: 4px solid #2d7a4c; padding: 12px 16px; border-radius: 6px; font-weight: 500; font-family: monospace; margin: 10px 0; line-height: 1.6;">
               "$1"
             </div>
           `);
@@ -580,12 +721,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const headerCard = document.createElement('div');
     headerCard.className = 'card';
     headerCard.style.background = '#faf8f5';
-    headerCard.style.borderLeft = '5px solid #8c2522';
+    headerCard.style.borderLeft = '5px solid #2d7a4c';
     headerCard.style.marginBottom = '16px';
     headerCard.innerHTML = `
       <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
         <div>
-          <span class="qa-tag-badge" style="background: #fff5f5; color: #8c2522; border: 1px solid #f7dcd5; margin-bottom: 6px; display: inline-block;">
+          <span class="qa-tag-badge" style="background: #ebf5ee; color: #2d7a4c; border: 1px solid #c6e2ce; margin-bottom: 6px; display: inline-block;">
             ${speech.category || '官方现场导游词'}
           </span>
           <h2 style="font-size: 20px; font-weight: 800; color: #1a1a1a; margin-top: 4px;">${speech.name}</h2>
@@ -688,43 +829,27 @@ document.addEventListener('DOMContentLoaded', () => {
         const btn = card.querySelector('.btn-read-sec');
         if (!btn) return;
         btn.addEventListener('click', () => {
-          const rateElem = document.getElementById('speech-rate-select');
-          const rate = rateElem ? parseFloat(rateElem.value || '1.0') : 1.0;
           const state = card.dataset.playState;
           const cleanText = sec.en.replace(/<[^>]*>/g, '');
+          const enContainer = card.querySelector('.speech-text-en');
 
-          if (state === 'idle') {
+          if (state === 'playing') {
             window.speechSynthesis.cancel();
-            const u = new SpeechSynthesisUtterance(cleanText);
-            u.lang = 'en-US';
-            u.rate = rate;
-            u.onend = () => {
-              card.dataset.playState = 'idle';
-              const b = card.querySelector('.btn-read-sec');
-              if (b) b.textContent = '示范朗读';
-            };
-            window.speechSynthesis.speak(u);
+            card.dataset.playState = 'idle';
+            btn.textContent = '示范朗读';
+            clearSpeechHighlights(enContainer);
+          } else {
+            speakText(cleanText, enContainer);
             card.dataset.playState = 'playing';
             btn.textContent = '⏸ 暂停';
-
-          } else if (state === 'playing') {
-            window.speechSynthesis.pause();
-            card.dataset.playState = 'paused';
-            btn.textContent = '▶ 重播';
-
-          } else if (state === 'paused') {
-            window.speechSynthesis.cancel();
-            const u = new SpeechSynthesisUtterance(cleanText);
-            u.lang = 'en-US';
-            u.rate = rate;
-            u.onend = () => {
-              card.dataset.playState = 'idle';
-              const b = card.querySelector('.btn-read-sec');
-              if (b) b.textContent = '示范朗读';
-            };
-            window.speechSynthesis.speak(u);
-            card.dataset.playState = 'playing';
-            btn.textContent = '⏸ 暂停';
+            
+            const checkEnded = setInterval(() => {
+              if (!window.speechSynthesis.speaking) {
+                clearInterval(checkEnded);
+                card.dataset.playState = 'idle';
+                if (btn) btn.textContent = '示范朗读';
+              }
+            }, 300);
           }
         });
       }
@@ -846,7 +971,7 @@ document.addEventListener('DOMContentLoaded', () => {
         item.innerHTML = `
           <div style="flex: 1; padding-right: 12px;">
             <div style="font-weight: 600; color: #1a1a1a; font-size: 15px; margin-bottom: 5px;">${file.name}</div>
-            <span class="resource-category" style="font-size: 12px; color: #8c2522; background: #fff5f5; padding: 2px 8px; border-radius: 4px; font-weight: 500;">${file.subCategory ? `${file.category} · ${file.subCategory}` : file.category}</span>
+            <span class="resource-category" style="font-size: 12px; color: #2d7a4c; background: #ebf5ee; padding: 2px 8px; border-radius: 4px; font-weight: 500;">${file.subCategory ? `${file.category} · ${file.subCategory}` : file.category}</span>
           </div>
           <div>
             <a href="${fileUrl}" target="_blank" download="${file.fullName || file.name}" class="play-main-btn" style="padding: 6px 20px; font-size: 13.5px; text-decoration: none; display: inline-flex; align-items: center; gap: 4px;">
@@ -940,38 +1065,38 @@ document.addEventListener('DOMContentLoaded', () => {
         // 专题讲解万用模板卡片
         container.innerHTML = `
           <!-- 1. Universal 5-Step Block -->
-          <div class="card" style="border-left: 5px solid #8c2522; margin-bottom: 20px; padding: 22px;">
+          <div class="card" style="border-left: 5px solid #2d7a4c; margin-bottom: 20px; padding: 22px;">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 12px;">
-              <h3 style="font-size: 18px; font-weight: 800; color: #8c2522;">🎯 专题讲解Universal 5步积木法 (Universal 5-Step Block)</h3>
-              <span class="qa-tag-badge" style="background:#fff5f5; color:#8c2522; border:1px solid #f7dcd5;">时长 4~5 分钟 · 逻辑定型</span>
+              <h3 style="font-size: 18px; font-weight: 800; color: #2d7a4c;">🎯 专题讲解Universal 5步积木法 (Universal 5-Step Block)</h3>
+              <span class="qa-tag-badge" style="background:#ebf5ee; color:#2d7a4c; border:1px solid #c6e2ce;">时长 4~5 分钟 · 逻辑定型</span>
             </div>
             
             <div style="display: grid; gap: 12px; margin-top: 14px;">
-              <div style="background: #faf8f5; border: 1px solid #e8dfd1; border-radius: 8px; padding: 12px 16px;">
-                <div style="font-weight: 700; color: #8c2522; font-size: 14px; margin-bottom: 4px;">Step 1: Hook & Welcome (破冰开场 - 30秒)</div>
+              <div style="background: #f6faf7; border: 1px solid #d4e8da; border-radius: 8px; padding: 12px 16px;">
+                <div style="font-weight: 700; color: #2d7a4c; font-size: 14px; margin-bottom: 4px;">Step 1: Hook & Welcome (破冰开场 - 30秒)</div>
                 <div style="font-size: 13.5px; color: #222; font-family: monospace;">"Dear tourists and friends, hello everyone! Welcome to beautiful Guangxi. Today, it’s my absolute pleasure to take you on a journey to explore <mark style="background:#fef08a; padding:1px 4px;">[the rich ethnic culture / longevity secrets]</mark> of this magical land."</div>
               </div>
 
-              <div style="background: #faf8f5; border: 1px solid #e8dfd1; border-radius: 8px; padding: 12px 16px;">
-                <div style="font-weight: 700; color: #8c2522; font-size: 14px; margin-bottom: 4px;">Step 2: Macro Overview & Significance (宏观定调与地位 - 60秒)</div>
+              <div style="background: #f6faf7; border: 1px solid #d4e8da; border-radius: 8px; padding: 12px 16px;">
+                <div style="font-weight: 700; color: #2d7a4c; font-size: 14px; margin-bottom: 4px;">Step 2: Macro Overview & Significance (宏观定调与地位 - 60秒)</div>
                 <div style="font-size: 13.5px; color: #222; font-family: monospace;">"Guangxi, located in southern China, is blessed with <mark style="background:#fef08a; padding:1px 4px;">[ancient history / breath-taking karst landscapes]</mark>. What you are about to discover is not just scenery, but a living picture of human harmony with nature and culture."</div>
               </div>
 
-              <div style="background: #fff8f8; border: 1.5px dashed #fca5a5; border-radius: 8px; padding: 12px 16px;">
-                <div style="font-weight: 700; color: #dc2626; font-size: 14px; margin-bottom: 4px;">Step 3: Core Highlights Breakdown (三大核心亮点拆解 - 120~150秒) ⚡重点套用词库</div>
+              <div style="background: #ebf5ee; border: 1.5px dashed #a3d9b1; border-radius: 8px; padding: 12px 16px;">
+                <div style="font-weight: 700; color: #25663e; font-size: 14px; margin-bottom: 4px;">Step 3: Core Highlights Breakdown (三大核心亮点拆解 - 120~150秒) ⚡重点套用词库</div>
                 <div style="font-size: 13.5px; color: #222; font-family: monospace;">"When speaking of <mark style="background:#fef08a; padding:1px 4px;">[专题名称]</mark>, there are 3 key highlights you cannot miss:<br>
                 First of all, <mark style="background:#dbeafe; color:#1e40af; padding:1px 4px;">[亮点一: 历史沿革 / 12世居民族 / 喀斯特地貌]</mark>...<br>
                 Secondly, <mark style="background:#dbeafe; color:#1e40af; padding:1px 4px;">[亮点二: 代表文化 / 名特风物 / 宜居环境]</mark>...<br>
                 Last but not least, <mark style="background:#dbeafe; color:#1e40af; padding:1px 4px;">[亮点三: 现代发展 / 风味美食 / 乐观心态]</mark>..."</div>
               </div>
 
-              <div style="background: #faf8f5; border: 1px solid #e8dfd1; border-radius: 8px; padding: 12px 16px;">
-                <div style="font-weight: 700; color: #8c2522; font-size: 14px; margin-bottom: 4px;">Step 4: Interactive Guidance (现场互动与体验 - 30秒)</div>
+              <div style="background: #f6faf7; border: 1px solid #d4e8da; border-radius: 8px; padding: 12px 16px;">
+                <div style="font-weight: 700; color: #2d7a4c; font-size: 14px; margin-bottom: 4px;">Step 4: Interactive Guidance (现场互动与体验 - 30秒)</div>
                 <div style="font-size: 13.5px; color: #222; font-family: monospace;">"As we walk along this journey, please feel free to take photos or immerse yourselves in local music. Can you feel the unique warmth and hospitality of Guangxi people?"</div>
               </div>
 
-              <div style="background: #faf8f5; border: 1px solid #e8dfd1; border-radius: 8px; padding: 12px 16px;">
-                <div style="font-weight: 700; color: #8c2522; font-size: 14px; margin-bottom: 4px;">Step 5: Theme Elevation & Closing (主题升华与结语 - 30秒)</div>
+              <div style="background: #f6faf7; border: 1px solid #d4e8da; border-radius: 8px; padding: 12px 16px;">
+                <div style="font-weight: 700; color: #2d7a4c; font-size: 14px; margin-bottom: 4px;">Step 5: Theme Elevation & Closing (主题升华与结语 - 30秒)</div>
                 <div style="font-size: 13.5px; color: #222; font-family: monospace;">"More than just a tourist destination, Guangxi's heritage is a silent historian. I hope this visit adds a brilliant highlight to your journey. Thank you all!"</div>
               </div>
             </div>
@@ -983,7 +1108,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div style="overflow-x: auto;">
               <table style="width: 100%; border-collapse: collapse; font-size: 13.5px; text-align: left;">
                 <thead>
-                  <tr style="background: #f7f5ef; border-bottom: 2px solid #e6e1d6; color: #8c2522;">
+                  <tr style="background: #ebf5ee; border-bottom: 2px solid #c6e2ce; color: #2d7a4c;">
                     <th style="padding: 10px; width: 15%;">抽中专题</th>
                     <th style="padding: 10px; width: 28%;">亮点一 (First of all...)</th>
                     <th style="padding: 10px; width: 28%;">亮点二 (Secondly...)</th>
@@ -1195,13 +1320,15 @@ document.addEventListener('DOMContentLoaded', () => {
         if (list.length > 0 && currentPracticeIndex < list.length) {
           const item = list[currentPracticeIndex];
           if (item.type === 'C2E' || item.tag === '汉译英') {
-            speakText(item.answer);
+            const ansEl = document.getElementById('practice-ref-box');
+            speakText(item.answer, ansEl);
           } else {
-            speakText(item.question);
+            const qEl = document.getElementById('practice-en-question');
+            speakText(item.question, qEl);
           }
         } else {
-          const text = document.getElementById('practice-en-question').textContent;
-          speakText(text);
+          const qEl = document.getElementById('practice-en-question');
+          speakText(qEl ? qEl.textContent : '', qEl);
         }
       });
     }
@@ -1265,7 +1392,7 @@ function getPhraseStatus(id) {
       if (item === 'again') return { status: 'again', remaining: 4 };
     }
     return item;
-  }
+}
 
   function getFilteredPhrases() {
     const list = data.phrasesData || [];
@@ -1453,13 +1580,13 @@ function getPhraseStatus(id) {
       card.innerHTML = `
         <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:8px;">
           <div>
-            <span style="font-size:12px;color:#8c2522;background:#fff5f5;padding:2px 6px;border-radius:4px;margin-right:8px;">${item.category}</span>
+            <span style="font-size:12px;color:#2d7a4c;background:#ebf5ee;padding:2px 6px;border-radius:4px;margin-right:8px;">${item.category}</span>
             ${badgeHTML}
           </div>
           <button class="action-btn btn-phrase-list-speak" data-en="${encodeURIComponent(item.en)}" style="padding:4px 10px;font-size:12px;">🔊 朗读</button>
         </div>
         <div style="font-size:17px;font-weight:700;color:#1a1a1a;margin-bottom:4px;">${idx + 1}. ${item.en}</div>
-        <div style="font-size:14.5px;color:#8c2522;font-weight:600;margin-bottom:8px;">${item.cn}</div>
+        <div style="font-size:14.5px;color:#2d7a4c;font-weight:600;margin-bottom:8px;">${item.cn}</div>
         ${item.example ? `<div style="font-size:13px;color:#666;background:#faf8f5;padding:8px 12px;border-left:3px solid #d4c5b2;border-radius:4px;">💡 例句：${item.example}</div>` : ''}
       `;
       container.appendChild(card);
@@ -1468,7 +1595,9 @@ function getPhraseStatus(id) {
     container.querySelectorAll('.btn-phrase-list-speak').forEach(btn => {
       btn.addEventListener('click', e => {
         const text = decodeURIComponent(e.currentTarget.getAttribute('data-en'));
-        speakText(text);
+        const card = e.currentTarget.closest('.card');
+        const enEl = card ? card.querySelector('div[style*="font-weight:700"]') : null;
+        speakText(text, enEl);
       });
     });
   }
@@ -1492,7 +1621,8 @@ function getPhraseStatus(id) {
       btnPhraseSpeak.addEventListener('click', () => {
         const list = getFilteredPhrases();
         if (list.length > 0 && list[currentPhraseIndex]) {
-          speakText(list[currentPhraseIndex].en);
+          const cardEl = document.getElementById('phrase-card-en');
+          speakText(list[currentPhraseIndex].en, cardEl);
         }
       });
     }

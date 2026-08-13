@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>孝女制造·导考助手 · 英文导游证·广西考区</title>
+  <title>广西导考宝典</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -11,12 +11,12 @@
     <!-- Top Header -->
     <header class="main-header">
       <div class="brand-section">
-        <h1 class="brand-title">孝女制造·导考助手</h1>
+        <h1 class="brand-title">广西导考宝典</h1>
         <span class="brand-subtitle">英文导游证 · 广西考区</span>
       </div>
       <nav class="nav-tabs" id="main-nav-tabs">
         <button class="tab-btn active" data-tab="interview">背诵导游词</button>
-        <button class="tab-btn" data-tab="cheatsheet" style="background: #fff5f5; color: #8c2522; border-color: #f7dcd5; font-weight: 700;">💡 应试锦囊</button>
+        <button class="tab-btn cheatsheet-btn" data-tab="cheatsheet">💡 应试锦囊</button>
         <button class="tab-btn" data-tab="phrases">短语速记</button>
         <button class="tab-btn" data-tab="practice">刷题</button>
         <button class="tab-btn" data-tab="resources">资料下载</button>
@@ -93,7 +93,7 @@
 
       <!-- 10. 应试锦囊 VIEW (只保留锦囊) -->
       <section id="view-cheatsheet" class="view-section" style="display: none;">
-        <div class="card section-header-card section-header-warm" style="background: linear-gradient(135deg, #fffcf9 0%, #fff5f5 100%); border-left: 5px solid #8c2522;">
+        <div class="card section-header-card section-header-warm">
           <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
             <div>
               <h2 class="section-heading section-heading-red" style="margin-bottom: 4px;">💡 广西英文导游现场考试·通用应试锦囊</h2>
@@ -134,10 +134,10 @@
           </div>
         </div>
 
-        <!-- 专题分类 (分两栏网格) + 右侧重置进度按钮 -->
-        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; gap: 12px;">
-          <!-- 左侧：两栏网格 Tabs -->
-          <div id="phrases-category-tabs" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; flex: 1; max-width: 600px;"></div>
+        <!-- 专题分类 (下拉选择框) + 右侧重置进度按钮 -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; gap: 12px; flex-wrap: wrap;">
+          <!-- 左侧：下拉选择框容器 -->
+          <div id="phrases-category-tabs" style="flex: 1; max-width: 320px;"></div>
 
           <!-- 右侧：重置进度按钮 -->
           <button class="action-btn" id="btn-phrase-reset" style="padding: 6px 14px; font-size: 12px; background: #fff; border: 1px solid #e5e7eb; color: #6b7280; border-radius: 8px; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px; box-shadow: 0 1px 2px rgba(0,0,0,0.03); flex-shrink: 0;">
@@ -149,7 +149,7 @@
         <div class="card" id="phrase-main-card" style="padding: 24px; min-height: 320px; display: flex; flex-direction: column; justify-content: space-between; position: relative;">
           <div>
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-              <span class="qa-tag-badge" id="phrase-tag-badge" style="background: #fff5f5; color: #8c2522; border: 1px solid #f7dcd5; font-weight: 600;"></span>
+              <span class="qa-tag-badge" id="phrase-tag-badge" style="background: #ebf5ee; color: #2d7a4c; border: 1px solid #c6e2ce; font-weight: 600;"></span>
               <span id="phrase-card-counter" style="font-size: 13px; color: #888; font-weight: 600;">1 / 20</span>
             </div>
 
@@ -159,9 +159,9 @@
               <button class="action-btn" id="btn-phrase-speak" style="padding: 6px 18px; font-size: 13.5px; margin-bottom: 16px;">🔊 听标准发音</button>
 
               <!-- 翻转展示区 -->
-              <div id="phrase-answer-box" style="display: none; background: #fdfbf7; border: 1px solid #e8dfd1; border-radius: 12px; padding: 18px; text-align: left; margin-top: 16px;">
-                <div style="font-size: 18px; font-weight: 700; color: #8c2522; margin-bottom: 8px;" id="phrase-cn-text"></div>
-                <div id="phrase-example-text" style="font-size: 14px; color: #4b5563; line-height: 1.6; border-top: 1px dashed #e5ccb4; padding-top: 10px; margin-top: 10px;"></div>
+              <div id="phrase-answer-box" style="display: none; background: #f6faf7; border: 1px solid #d4e8da; border-radius: 12px; padding: 18px; text-align: left; margin-top: 16px;">
+                <div style="font-size: 18px; font-weight: 700; color: #2d7a4c; margin-bottom: 8px;" id="phrase-cn-text"></div>
+                <div id="phrase-example-text" style="font-size: 14px; color: #4b5563; line-height: 1.6; border-top: 1px dashed #c6e2ce; padding-top: 10px; margin-top: 10px;"></div>
               </div>
             </div>
           </div>
