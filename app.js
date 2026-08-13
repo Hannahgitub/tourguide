@@ -2,9 +2,30 @@
 document.addEventListener('DOMContentLoaded', () => {
   const data = window.data || window.GUANGXI_DATA || {};
 
-  // --- SPEECH SYNTHESIS ENGINE WITH WORD HIGHLIGHTING & US VOICE PRIORITY ---
+  // --- SPEECH SYNTHESIS & AUDIO DUAL ENGINE WITH GC PROTECTION ---
   let activeSpeechContainer = null;
   let activeWordMap = [];
+  window._activeUtterance = null; // 全局强引用防止 V8 GC 强制干掉 utterance
+  const staticAudioPlayer = new Audio();
+  let currentPlayingCard = null;
+
+  function stopAllAudio() {
+    if (staticAudioPlayer) {
+      staticAudioPlayer.pause();
+      staticAudioPlayer.currentTime = 0;
+    }
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+    }
+    window._activeUtterance = null;
+    clearSpeechHighlights();
+    if (currentPlayingCard) {
+      currentPlayingCard.dataset.playState = 'idle';
+      const b = currentPlayingCard.querySelector('.btn-read-sec');
+      if (b) b.textContent = '示范朗读';
+      currentPlayingCard = null;
+    }
+  }
 
   function clearSpeechHighlights(containerEl) {
     const target = containerEl || activeSpeechContainer;
@@ -77,10 +98,9 @@ document.addEventListener('DOMContentLoaded', () => {
     return [];
   }
 
-  function speakText(text, containerEl) {
+  function speakText(text, containerEl, onEndCallback) {
     if ('speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
-      clearSpeechHighlights();
+      stopAllAudio();
 
       const rateElem = document.getElementById('speech-rate-select');
       const rate = rateElem ? parseFloat(rateElem.value || '1.0') : 1.0;
@@ -89,6 +109,8 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!cleanText) return;
 
       const utterance = new SpeechSynthesisUtterance(cleanText);
+      window._activeUtterance = utterance; // 强引用防止 V8 GC 回收销毁对象
+
       utterance.lang = 'en-US';
       utterance.rate = rate;
 
@@ -137,23 +159,55 @@ document.addEventListener('DOMContentLoaded', () => {
             }
           }
         };
-
-        utterance.onend = () => {
-          clearSpeechHighlights(containerEl);
-          activeSpeechContainer = null;
-          activeWordMap = [];
-        };
-
-        utterance.onerror = () => {
-          clearSpeechHighlights(containerEl);
-          activeSpeechContainer = null;
-          activeWordMap = [];
-        };
       }
 
+      const handleEnd = () => {
+        clearSpeechHighlights(containerEl);
+        activeSpeechContainer = null;
+        activeWordMap = [];
+        window._activeUtterance = null;
+        if (typeof onEndCallback === 'function') onEndCallback();
+      };
+
+      utterance.onend = handleEnd;
+      utterance.onerror = (err) => {
+        console.warn('[TTS Error]', err);
+        handleEnd();
+      };
+
+      if (window.speechSynthesis.paused) {
+        window.speechSynthesis.resume();
+      }
       window.speechSynthesis.speak(utterance);
     } else {
       alert('您的浏览器暂不支持 SpeechSynthesis 语音合成。');
+    }
+  }
+
+  function playSmartAudio(audioUrl, fallbackText, containerEl, onEndCallback) {
+    stopAllAudio();
+    const rateElem = document.getElementById('speech-rate-select');
+    const rate = rateElem ? parseFloat(rateElem.value || '1.0') : 1.0;
+
+    const handleEnd = () => {
+      clearSpeechHighlights(containerEl);
+      if (typeof onEndCallback === 'function') onEndCallback();
+    };
+
+    if (audioUrl) {
+      staticAudioPlayer.src = audioUrl;
+      staticAudioPlayer.playbackRate = rate;
+      staticAudioPlayer.onended = handleEnd;
+      staticAudioPlayer.onerror = () => {
+        speakText(fallbackText, containerEl, onEndCallback);
+      };
+
+      staticAudioPlayer.play().catch(err => {
+        console.warn('[Audio] 静态 MP3 播放异常，自动降级至 Web Speech:', err);
+        staticAudioPlayer.onerror();
+      });
+    } else {
+      speakText(fallbackText, containerEl, onEndCallback);
     }
   }
 
@@ -865,26 +919,50 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!btn) return;
         btn.addEventListener('click', () => {
           const state = card.dataset.playState;
-          const cleanText = sec.en.replace(/<[^>]*>/g, '');
+          const cleanText = sec.en.replace(/<[^>]*>/g, '').replace(/^(English|Chinese)[:：\/\s]*/gi, '').trim();
           const enContainer = card.querySelector('.speech-text-en');
 
+          const spotName = speech.name || speech.id || '';
+          const safeSpotName = spotName.replace(/[\\/:*?"<>|]/g, '_').trim();
+          const audioUrl = `audio/${encodeURIComponent(safeSpotName)}/section_${idx}.mp3`;
+
           if (state === 'playing') {
-            window.speechSynthesis.cancel();
+            stopAllAudio();
             card.dataset.playState = 'idle';
             btn.textContent = '示范朗读';
             clearSpeechHighlights(enContainer);
           } else {
-            speakText(cleanText, enContainer);
-            card.dataset.playState = 'playing';
-            btn.textContent = '⏸ 暂停';
-            
-            const checkEnded = setInterval(() => {
-              if (!window.speechSynthesis.speaking) {
-                clearInterval(checkEnded);
-                card.dataset.playState = 'idle';
-                if (btn) btn.textContent = '示范朗读';
-              }
-            }, 300);
+            stopAllAudio();
+            currentPlayingCard = card;
+
+            const rateElem = document.getElementById('speech-rate-select');
+            const rate = rateElem ? parseFloat(rateElem.value || '1.0') : 1.0;
+
+            const resetState = () => {
+              card.dataset.playState = 'idle';
+              if (btn) btn.textContent = '示范朗读';
+              clearSpeechHighlights(enContainer);
+              currentPlayingCard = null;
+            };
+
+            staticAudioPlayer.src = audioUrl;
+            staticAudioPlayer.playbackRate = rate;
+            staticAudioPlayer.onended = resetState;
+
+            staticAudioPlayer.onerror = () => {
+              // 音频加载失败（如手机脱机或本地无该 MP3），无缝降级为优化后的 Web Speech
+              card.dataset.playState = 'playing';
+              btn.textContent = '⏸ 暂停';
+              speakText(cleanText, enContainer, resetState);
+            };
+
+            staticAudioPlayer.play().then(() => {
+              card.dataset.playState = 'playing';
+              btn.textContent = '⏸ 暂停';
+            }).catch(err => {
+              console.warn('[Audio] 静态音频自动播放失败，触发降级:', err);
+              staticAudioPlayer.onerror();
+            });
           }
         });
       }
@@ -1727,9 +1805,18 @@ function getPhraseStatus(id) {
       });
     }
 
+    const unrevealedZone = document.getElementById('phrase-unrevealed-actions');
+    if (unrevealedZone) {
+      unrevealedZone.addEventListener('click', () => {
+        isPhraseRevealed = true;
+        renderCurrentPhraseCard();
+      });
+    }
+
     const btnPhraseReveal = document.getElementById('btn-phrase-reveal');
     if (btnPhraseReveal) {
-      btnPhraseReveal.addEventListener('click', () => {
+      btnPhraseReveal.addEventListener('click', (e) => {
+        e.stopPropagation();
         isPhraseRevealed = true;
         renderCurrentPhraseCard();
       });
