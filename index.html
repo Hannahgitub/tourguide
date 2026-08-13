@@ -19,8 +19,6 @@
         <button class="tab-btn" data-tab="cheatsheet" style="background: #fff5f5; color: #8c2522; border-color: #f7dcd5; font-weight: 700;">💡 应试锦囊</button>
         <button class="tab-btn" data-tab="phrases">短语速记</button>
         <button class="tab-btn" data-tab="practice">刷题</button>
-        <button class="tab-btn" data-tab="cards">专题讲解</button>
-        <button class="tab-btn" data-tab="skills">考试技巧</button>
         <button class="tab-btn" data-tab="resources">资料下载</button>
       </nav>
     </header>
@@ -88,22 +86,12 @@
         <div id="practice-list-container" style="display: none;"></div>
       </section>
 
-      <!-- 1. 知识卡 VIEW -->
-      <section id="view-cards" class="view-section" style="display: none;">
-        <div class="card section-header-card section-header-warm">
-          <h2 class="section-heading section-heading-red">《24广西英导词》专题讲解</h2>
-        </div>
-
-        <div class="cat-filter-tabs" id="cards-category-tabs" style="margin-bottom: 16px;"></div>
-        <div id="cards-content-container"></div>
-      </section>
-
       <!-- 3. 背诵导游词 (英文导游词 PAGE VIEW) -->
       <section id="view-speech" class="view-section" style="display: none;">
         <div id="speech-cards-container"></div>
       </section>
 
-      <!-- 10. 应试锦囊 VIEW (新增，结构化万能应试备考模型) -->
+      <!-- 10. 应试锦囊 VIEW (只保留锦囊) -->
       <section id="view-cheatsheet" class="view-section" style="display: none;">
         <div class="card section-header-card section-header-warm" style="background: linear-gradient(135deg, #fffcf9 0%, #fff5f5 100%); border-left: 5px solid #8c2522;">
           <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
@@ -120,16 +108,6 @@
         </div>
 
         <div id="cheatsheet-content-container"></div>
-      </section>
-
-      <!-- 7. 考试技巧 VIEW -->
-      <section id="view-skills" class="view-section" style="display: none;">
-        <div class="card section-header-card section-header-warm">
-          <h2 class="section-heading section-heading-red">《导游服务能力（导游词技巧）讲义》官方主题技巧库</h2>
-        </div>
-
-        <div class="cat-filter-tabs" id="skills-subject-tabs" style="margin-bottom: 16px;"></div>
-        <div id="skills-cards-container"></div>
       </section>
 
       <!-- 8. 复习资料概览 VIEW -->
@@ -210,7 +188,7 @@
                 🤔 模糊
               </button>
               <button class="action-btn" id="btn-phrase-again" style="flex: 1; padding: 12px 6px; font-size: 13.5px; font-weight: 700; background: #fef2f2; color: #dc2626; border-color: #fca5a5;">
-                ❌ 遗忘
+                ❌ 不认识
               </button>
             </div>
 
@@ -230,7 +208,7 @@
   <!-- 隐藏全局兜底语速节点 (防止 JavaScript 空指针异常) -->
   <select id="speech-rate-select" style="display: none;"><option value="1.0" selected>1.0</option></select>
 
-  <script src="data.js?v=20260813_v14" charset="UTF-8"></script>
-  <script src="app.js?v=20260813_v14" charset="UTF-8"></script>
+  <script src="data.js?v=20260813_v15" charset="UTF-8"></script>
+  <script src="app.js?v=20260813_v15" charset="UTF-8"></script>
 </body>
 </html>

@@ -902,6 +902,271 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
+    // --- CHEATSHEET SUBNAV TOGGLE ---
+    let currentCheatSubtab = 'topic';
+    const btnCheatTopic = document.getElementById('btn-cheat-topic');
+    const btnCheatSpot = document.getElementById('btn-cheat-spot');
+    const btnCheatEmergency = document.getElementById('btn-cheat-emergency');
+    if (btnCheatTopic && btnCheatSpot && btnCheatEmergency) {
+      btnCheatTopic.addEventListener('click', () => {
+        currentCheatSubtab = 'topic';
+        btnCheatTopic.classList.add('active');
+        btnCheatSpot.classList.remove('active');
+        btnCheatEmergency.classList.remove('active');
+        renderCheatsheetView();
+      });
+      btnCheatSpot.addEventListener('click', () => {
+        currentCheatSubtab = 'spot';
+        btnCheatSpot.classList.add('active');
+        btnCheatTopic.classList.remove('active');
+        btnCheatEmergency.classList.remove('active');
+        renderCheatsheetView();
+      });
+      btnCheatEmergency.addEventListener('click', () => {
+        currentCheatSubtab = 'emergency';
+        btnCheatEmergency.classList.add('active');
+        btnCheatTopic.classList.remove('active');
+        btnCheatSpot.classList.remove('active');
+        renderCheatsheetView();
+      });
+    }
+
+    function renderCheatsheetView() {
+      const container = document.getElementById('cheatsheet-content-container');
+      if (!container) return;
+      container.innerHTML = '';
+
+      if (currentCheatSubtab === 'topic') {
+        // 专题讲解万用模板卡片
+        container.innerHTML = `
+          <!-- 1. Universal 5-Step Block -->
+          <div class="card" style="border-left: 5px solid #8c2522; margin-bottom: 20px; padding: 22px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 12px;">
+              <h3 style="font-size: 18px; font-weight: 800; color: #8c2522;">🎯 专题讲解Universal 5步积木法 (Universal 5-Step Block)</h3>
+              <span class="qa-tag-badge" style="background:#fff5f5; color:#8c2522; border:1px solid #f7dcd5;">时长 4~5 分钟 · 逻辑定型</span>
+            </div>
+            
+            <div style="display: grid; gap: 12px; margin-top: 14px;">
+              <div style="background: #faf8f5; border: 1px solid #e8dfd1; border-radius: 8px; padding: 12px 16px;">
+                <div style="font-weight: 700; color: #8c2522; font-size: 14px; margin-bottom: 4px;">Step 1: Hook & Welcome (破冰开场 - 30秒)</div>
+                <div style="font-size: 13.5px; color: #222; font-family: monospace;">"Dear tourists and friends, hello everyone! Welcome to beautiful Guangxi. Today, it’s my absolute pleasure to take you on a journey to explore <mark style="background:#fef08a; padding:1px 4px;">[the rich ethnic culture / longevity secrets]</mark> of this magical land."</div>
+              </div>
+
+              <div style="background: #faf8f5; border: 1px solid #e8dfd1; border-radius: 8px; padding: 12px 16px;">
+                <div style="font-weight: 700; color: #8c2522; font-size: 14px; margin-bottom: 4px;">Step 2: Macro Overview & Significance (宏观定调与地位 - 60秒)</div>
+                <div style="font-size: 13.5px; color: #222; font-family: monospace;">"Guangxi, located in southern China, is blessed with <mark style="background:#fef08a; padding:1px 4px;">[ancient history / breath-taking karst landscapes]</mark>. What you are about to discover is not just scenery, but a living picture of human harmony with nature and culture."</div>
+              </div>
+
+              <div style="background: #fff8f8; border: 1.5px dashed #fca5a5; border-radius: 8px; padding: 12px 16px;">
+                <div style="font-weight: 700; color: #dc2626; font-size: 14px; margin-bottom: 4px;">Step 3: Core Highlights Breakdown (三大核心亮点拆解 - 120~150秒) ⚡重点套用词库</div>
+                <div style="font-size: 13.5px; color: #222; font-family: monospace;">"When speaking of <mark style="background:#fef08a; padding:1px 4px;">[专题名称]</mark>, there are 3 key highlights you cannot miss:<br>
+                First of all, <mark style="background:#dbeafe; color:#1e40af; padding:1px 4px;">[亮点一: 历史沿革 / 12世居民族 / 喀斯特地貌]</mark>...<br>
+                Secondly, <mark style="background:#dbeafe; color:#1e40af; padding:1px 4px;">[亮点二: 代表文化 / 名特风物 / 宜居环境]</mark>...<br>
+                Last but not least, <mark style="background:#dbeafe; color:#1e40af; padding:1px 4px;">[亮点三: 现代发展 / 风味美食 / 乐观心态]</mark>..."</div>
+              </div>
+
+              <div style="background: #faf8f5; border: 1px solid #e8dfd1; border-radius: 8px; padding: 12px 16px;">
+                <div style="font-weight: 700; color: #8c2522; font-size: 14px; margin-bottom: 4px;">Step 4: Interactive Guidance (现场互动与体验 - 30秒)</div>
+                <div style="font-size: 13.5px; color: #222; font-family: monospace;">"As we walk along this journey, please feel free to take photos or immerse yourselves in local music. Can you feel the unique warmth and hospitality of Guangxi people?"</div>
+              </div>
+
+              <div style="background: #faf8f5; border: 1px solid #e8dfd1; border-radius: 8px; padding: 12px 16px;">
+                <div style="font-weight: 700; color: #8c2522; font-size: 14px; margin-bottom: 4px;">Step 5: Theme Elevation & Closing (主题升华与结语 - 30秒)</div>
+                <div style="font-size: 13.5px; color: #222; font-family: monospace;">"More than just a tourist destination, Guangxi's heritage is a silent historian. I hope this visit adds a brilliant highlight to your journey. Thank you all!"</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. 5大专题核心考点填空矩阵卡 -->
+          <div class="card" style="padding: 22px;">
+            <h3 style="font-size: 18px; font-weight: 800; color: #1a1a1a; margin-bottom: 14px;">🧩 考纲5大专题“核心词汇速填矩阵” (填入Step 3)</h3>
+            <div style="overflow-x: auto;">
+              <table style="width: 100%; border-collapse: collapse; font-size: 13.5px; text-align: left;">
+                <thead>
+                  <tr style="background: #f7f5ef; border-bottom: 2px solid #e6e1d6; color: #8c2522;">
+                    <th style="padding: 10px; width: 15%;">抽中专题</th>
+                    <th style="padding: 10px; width: 28%;">亮点一 (First of all...)</th>
+                    <th style="padding: 10px; width: 28%;">亮点二 (Secondly...)</th>
+                    <th style="padding: 10px; width: 29%;">亮点三 (Last but not least...)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr style="border-bottom: 1px solid #f0eae1;">
+                    <td style="padding: 12px 10px; font-weight: 700; color: #1a1a1a;">(1) 历史广西</td>
+                    <td style="padding: 12px 10px;"><strong>古今沿革与管辖</strong><br><span style="color:#555;">Since Qin Dynasty set up Guilin & Xiang Prefectures, formally part of China.</span></td>
+                    <td style="padding: 12px 10px;"><strong>重大事件与英烈</strong><br><span style="color:#555;">Taiping Rebellion, Zhennan Pass Victory (Feng Zicai), Baise Uprising (Deng Xiaoping).</span></td>
+                    <td style="padding: 12px 10px;"><strong>现代成就与枢纽</strong><br><span style="color:#555;">Frontier for China-ASEAN open cooperation and the Belt & Road Initiative.</span></td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid #f0eae1; background: #faf8f5;">
+                    <td style="padding: 12px 10px; font-weight: 700; color: #1a1a1a;">(2) 民族广西</td>
+                    <td style="padding: 12px 10px;"><strong>12世居民族共处</strong><br><span style="color:#555;">Home to 12 indigenous ethnic groups (Zhuang, Yao, Miao, Dong, etc.) in harmony.</span></td>
+                    <td style="padding: 12px 10px;"><strong>建筑与民俗工艺</strong><br><span style="color:#555;">Zhuang stilted buildings, Dong Wind & Rain Bridges, Yao Long Drum Dance, Zhuang Brocade.</span></td>
+                    <td style="padding: 12px 10px;"><strong>节日与非遗艺术</strong><br><span style="color:#555;">Zhuang March 3rd Song Fair, Dong Grand Songs (unaccompanied chorus), Panwang Festival.</span></td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid #f0eae1;">
+                    <td style="padding: 12px 10px; font-weight: 700; color: #1a1a1a;">(3) 风物广西</td>
+                    <td style="padding: 12px 10px;"><strong>特色工艺美术</strong><br><span style="color:#555;">Handwoven Zhuang Brocade, embroidered balls, Hepu Horn Carvings, Yangshuo painted fans.</span></td>
+                    <td style="padding: 12px 10px;"><strong>名特优产与名茶名酒</strong><br><span style="color:#555;">Yongfu Luohanguo, Wuzhou Liubao Tea, Guilin Sanhua Wine (rice-flavor liquor).</span></td>
+                    <td style="padding: 12px 10px;"><strong>特色美食小吃</strong><br><span style="color:#555;">Guilin Rice Noodles, Liuzhou River Snail Noodles (螺蛳粉), Nanning Laoyou Noodles.</span></td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid #f0eae1; background: #faf8f5;">
+                    <td style="padding: 12px 10px; font-weight: 700; color: #1a1a1a;">(4) 山水广西</td>
+                    <td style="padding: 12px 10px;"><strong>喀斯特/丹霞奇观</strong><br><span style="color:#555;">World-class Karst peak forests & caves (Guilin), Danxia cliffs (Bajiao Village).</span></td>
+                    <td style="padding: 12px 10px;"><strong>江河与滨海风光</strong><br><span style="color:#555;">Meandering Lijiang River, Yongjiang, Beihai Silver Beach & Weizhou Volcanic Island.</span></td>
+                    <td style="padding: 12px 10px;"><strong>诗意文化内涵</strong><br><span style="color:#555;">"The river is like a green silk ribbon, and the mountains are like jade hairpins."</span></td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 12px 10px; font-weight: 700; color: #1a1a1a;">(5) 长寿广西</td>
+                    <td style="padding: 12px 10px;"><strong>长寿之乡分布</strong><br><span style="color:#555;">World & Chinese Longevity Hometowns, led by Bama Yao Autonomous County.</span></td>
+                    <td style="padding: 12px 10px;"><strong>生态环境奥秘</strong><br><span style="color:#555;">Pure air rich in negative oxygen ions, clear mineral water, pleasant mild climate.</span></td>
+                    <td style="padding: 12px 10px;"><strong>饮食与生活心态</strong><br><span style="color:#555;">Light seasonal diet with coarse grains (sweet potatoes), peaceful & cheerful mindset.</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        `;
+      } else if (currentCheatSubtab === 'spot') {
+        // 景点讲解万用模板卡片
+        container.innerHTML = `
+          <!-- 1. Spot 5-Step Block -->
+          <div class="card" style="border-left: 5px solid #2563eb; margin-bottom: 20px; padding: 22px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 12px;">
+              <h3 style="font-size: 18px; font-weight: 800; color: #2563eb;">🗺️ 景点讲解移步换景法 (Scenic Spot 5-Step Block)</h3>
+              <span class="qa-tag-badge" style="background:#eff6ff; color:#2563eb; border:1px solid #bfdbfe;">时长 4~5 分钟 · 动线导览</span>
+            </div>
+
+            <div style="display: grid; gap: 12px; margin-top: 14px;">
+              <div style="background: #faf8f5; border: 1px solid #e8dfd1; border-radius: 8px; padding: 12px 16px;">
+                <div style="font-weight: 700; color: #2563eb; font-size: 14px; margin-bottom: 4px;">Step 1: Welcome & Spot Overview (欢迎与景点定位 - 30秒)</div>
+                <div style="font-size: 13.5px; color: #222; font-family: monospace;">"Dear tourists, welcome to <mark style="background:#fef08a; padding:1px 4px;">[景点名称]</mark>! Located in <mark style="background:#fef08a; padding:1px 4px;">[Guilin/Nanning/Liuzhou]</mark>, this site is a national 5A-level scenic area, combining stunning natural beauty with deep cultural heritage."</div>
+              </div>
+
+              <div style="background: #faf8f5; border: 1px solid #e8dfd1; border-radius: 8px; padding: 12px 16px;">
+                <div style="font-weight: 700; color: #2563eb; font-size: 14px; margin-bottom: 4px;">Step 2: Features & Layout (景点特色与游览线索 - 45秒)</div>
+                <div style="font-size: 13.5px; color: #222; font-family: monospace;">"What makes <mark style="background:#fef08a; padding:1px 4px;">[景点名称]</mark> unique is its <mark style="background:#fef08a; padding:1px 4px;">[Karst mountains / authentic Dong villages]</mark>. The scenic area is laid out along <mark style="background:#fef08a; padding:1px 4px;">[the river / lush hills]</mark>, offering a breathtaking view at every turn."</div>
+              </div>
+
+              <div style="background: #eff6ff; border: 1.5px dashed #93c5fd; border-radius: 8px; padding: 12px 16px;">
+                <div style="font-weight: 700; color: #1d4ed8; font-size: 14px; margin-bottom: 4px;">Step 3: Route & Core Landmarks (三大核心地标套用 - 120~150秒) ⚡重点套用路线</div>
+                <div style="font-size: 13.5px; color: #222; font-family: monospace;">"Today, our tour route will take us downstream/along the path to explore 3 highlights:<br>
+                First, we see <mark style="background:#dbeafe; color:#1e40af; padding:1px 4px;">[地标一, 如: Elephant Trunk Hill]</mark>, which gets its name because it resembles an elephant drinking water.<br>
+                Next, we reach <mark style="background:#dbeafe; color:#1e40af; padding:1px 4px;">[地标二, 如: Nine-Horse Painting Hill]</mark>, famous for stone wall patterns.<br>
+                Finally, we arrive at <mark style="background:#dbeafe; color:#1e40af; padding:1px 4px;">[地标三, 如: Huangbu Reflection]</mark>, printed on the 20-yuan RMB note."</div>
+              </div>
+
+              <div style="background: #faf8f5; border: 1px solid #e8dfd1; border-radius: 8px; padding: 12px 16px;">
+                <div style="font-weight: 700; color: #2563eb; font-size: 14px; margin-bottom: 4px;">Step 4: History & Interactive Guidance (历史诗句与照料互动 - 30秒)</div>
+                <div style="font-size: 13.5px; color: #222; font-family: monospace;">"Famous Tang poet Han Yu once praised this view: 'The river is like a green silk ribbon, and the mountains are like jade hairpins.' By the way, this is the best photo spot! Would you like me to take a photo of you? Please watch your step."</div>
+              </div>
+
+              <div style="background: #faf8f5; border: 1px solid #e8dfd1; border-radius: 8px; padding: 12px 16px;">
+                <div style="font-weight: 700; color: #2563eb; font-size: 14px; margin-bottom: 4px;">Step 5: Closing & Farewell (总结与致谢告别 - 30秒)</div>
+                <div style="font-size: 13.5px; color: #222; font-family: monospace;">"This scenic area is not only a visual feast but a cradle of local culture. I hope today's tour leaves you with wonderful memories. Thank you and wish you a pleasant journey!"</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. 5大景点考纲词库矩阵卡 -->
+          <div class="card" style="padding: 22px;">
+            <h3 style="font-size: 18px; font-weight: 800; color: #1a1a1a; margin-bottom: 14px;">📍 考纲5大景点“路线与地标速填矩阵” (填入Step 3)</h3>
+            <div style="overflow-x: auto;">
+              <table style="width: 100%; border-collapse: collapse; font-size: 13.5px; text-align: left;">
+                <thead>
+                  <tr style="background: #eff6ff; border-bottom: 2px solid #bfdbfe; color: #1e40af;">
+                    <th style="padding: 10px; width: 18%;">抽中景点</th>
+                    <th style="padding: 10px; width: 22%;">概况特征 (Step 1&2)</th>
+                    <th style="padding: 10px; width: 38%;">三大地标动线 (Step 3)</th>
+                    <th style="padding: 10px; width: 22%;">诗句/历史/卡点 (Step 4)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr style="border-bottom: 1px solid #f0eae1;">
+                    <td style="padding: 12px 10px; font-weight: 700; color: #1a1a1a;">(1) 桂林漓江景区</td>
+                    <td style="padding: 12px 10px;">Origin: Mao'er Mtn, 164 km. Clear water like green silk ribbon.</td>
+                    <td style="padding: 12px 10px;">1. <strong>象鼻山</strong>: Elephant drinking water.<br>2. <strong>九马画山</strong>: Wall patterns.<br>3. <strong>黄布倒影</strong>: 20-yuan RMB background.</td>
+                    <td style="padding: 12px 10px;">Han Yu's poem: <em>"Green silk ribbon & jade hairpins"</em>. Xu Xiake traveled here.</td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid #f0eae1; background: #faf8f5;">
+                    <td style="padding: 12px 10px; font-weight: 700; color: #1a1a1a;">(2) 南宁青秀山</td>
+                    <td style="padding: 12px 10px;">City green lung by Yongjiang River, 13.54 sq km, oxygen bar.</td>
+                    <td style="padding: 12px 10px;">1. <strong>壮锦广场</strong>: Zhuang sculptures.<br>2. <strong>千年苏铁园</strong>: Relocation base.<br>3. <strong>龙象塔</strong>: Ming tower with skyline view.</td>
+                    <td style="padding: 12px 10px;">Summer resort since Sui & Tang. Guanyin Temple; Folk Song Festival.</td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid #f0eae1;">
+                    <td style="padding: 12px 10px; font-weight: 700; color: #1a1a1a;">(3) 两江四湖·象山</td>
+                    <td style="padding: 12px 10px;">City-center water system: Lijiang/Taohua + 4 lakes + Xiangshan.</td>
+                    <td style="padding: 12px 10px;">1. <strong>日月双塔</strong>: Copper Sun & Glazed Moon.<br>2. <strong>榕湖古南门</strong>: Historic city gate.<br>3. <strong>木龙湖宋城</strong>: Song Dynasty architecture.</td>
+                    <td style="padding: 12px 10px;">Water system built in Song Dynasty. Brilliant romantic LED night views.</td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid #f0eae1; background: #faf8f5;">
+                    <td style="padding: 12px 10px; font-weight: 700; color: #1a1a1a;">(4) 柳州程阳八寨</td>
+                    <td style="padding: 12px 10px;">8 Dong villages in Sanjiang. Wooden architectural marvels.</td>
+                    <td style="padding: 12px 10px;">1. <strong>马鞍寨鼓楼</strong>: Village assembly landmark.<br>2. <strong>程阳风雨桥</strong>: Mortise & tenon (no nails).<br>3. <strong>百家宴</strong>: Sharing ethnic delicacies.</td>
+                    <td style="padding: 12px 10px;">Dong Grand Song (unaccompanied chorus). Offer local Oil Tea to guests.</td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 12px 10px; font-weight: 700; color: #1a1a1a;">(5) 崇左花山岩画</td>
+                    <td style="padding: 12px 10px;">UNESCO World Cultural Heritage Site along Zuo River.</td>
+                    <td style="padding: 12px 10px;">1. <strong>明江游船</strong>: Scenic cruise along cliffs.<br>2. <strong>壁画岩面</strong>: Ochre frog dance & drums.<br>3. <strong>解密中心</strong>: Pigment technique center.</td>
+                    <td style="padding: 12px 10px;">Ancient Luoyue ritual for rain. Red hematite pigment lasting 2,000+ yrs.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        `;
+      } else if (currentCheatSubtab === 'emergency') {
+        // 突发事件应答三步法卡片
+        container.innerHTML = `
+          <div class="card" style="border-left: 5px solid #16a34a; padding: 22px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 14px;">
+              <h3 style="font-size: 18px; font-weight: 800; color: #16a34a;">⚡ 现场突发问答“黄金三步法则” (Emergency Answering Model)</h3>
+              <span class="qa-tag-badge" style="background:#f0fdf4; color:#16a34a; border:1px solid #bbf7d0;">考场问答救命急救包</span>
+            </div>
+
+            <!-- 公式卡片 -->
+            <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; padding: 16px; margin-bottom: 20px; text-align: center;">
+              <div style="font-size: 16px; font-weight: 800; color: #15803d;">突发事件英文万能公式</div>
+              <div style="font-size: 15px; color: #166534; font-family: monospace; margin-top: 6px;">
+                Answer = 1. Calm Down & Reassure (镇定安抚) + 2. Immediate Action (紧急处置) + 3. Follow-up & Record (跟进上报)
+              </div>
+            </div>
+
+            <!-- 3大场景模板卡 -->
+            <div style="display: grid; gap: 14px;">
+              <div style="border: 1px solid #e5e7eb; border-radius: 8px; padding: 14px; background: #fff;">
+                <div style="font-weight: 700; color: #1a1a1a; font-size: 14.5px; margin-bottom: 6px;">场景 1: 游客中暑或突发疾病 (Medical Emergency)</div>
+                <div style="font-size: 13.5px; color: #374151; font-family: monospace; line-height: 1.6;">
+                  "<strong>First</strong>, I will stay calm and reassure the tourists to prevent panic.<br>
+                  <strong>Then</strong>, I will immediately move the sick tourist to a shady, well-ventilated area, provide basic first aid, and call 120 for medical assistance.<br>
+                  <strong>Finally</strong>, I will keep a detailed record of the incident and report to my travel agency."
+                </div>
+              </div>
+
+              <div style="border: 1px solid #e5e7eb; border-radius: 8px; padding: 14px; background: #fff;">
+                <div style="font-weight: 700; color: #1a1a1a; font-size: 14.5px; margin-bottom: 6px;">场景 2: 游客在景区走失 (Lost Tourist)</div>
+                <div style="font-size: 13.5px; color: #374151; font-family: monospace; line-height: 1.6;">
+                  "<strong>First</strong>, I will count the group and confirm the missing person's physical features.<br>
+                  <strong>Then</strong>, I will contact scenic security to broadcast a search message and inform local police if necessary.<br>
+                  <strong>Afterwards</strong>, once found, I will check their condition and report to the agency."
+                </div>
+              </div>
+
+              <div style="border: 1px solid #e5e7eb; border-radius: 8px; padding: 14px; background: #fff;">
+                <div style="font-weight: 700; color: #1a1a1a; font-size: 14.5px; margin-bottom: 6px;">场景 3: 景区临时关闭或天气恶劣 (Attraction Closure)</div>
+                <div style="font-size: 13.5px; color: #374151; font-family: monospace; line-height: 1.6;">
+                  "<strong>First</strong>, I will obtain official notices immediately and explain the situation to tourists to win their understanding.<br>
+                  <strong>Then</strong>, I will quickly adjust the itinerary and provide an exciting alternative tour.<br>
+                  <strong>Finally</strong>, I will make sure everyone is satisfied and update the agency."
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+    }
+
     // --- PRACTICE MODE TOGGLE (卡片翻页 VS 全量题库列表) ---
     const btnModeCard = document.getElementById('btn-mode-card');
     const btnModeList = document.getElementById('btn-mode-list');
@@ -1082,11 +1347,20 @@ document.addEventListener('DOMContentLoaded', () => {
     if (currentPhraseIndex < 0) currentPhraseIndex = list.length - 1;
 
     const item = list[currentPhraseIndex];
-    const status = phraseProgress[item.id];
+    const stObj = phraseProgress[item.id];
     let statusBadge = '';
-    if (status === 'mastered') statusBadge = ' <span style="color:#16a34a;font-size:12px;">(已认识)</span>';
-    else if (status === 'again') statusBadge = ' <span style="color:#dc2626;font-size:12px;">(遗忘)</span>';
-    else if (status === 'vague') statusBadge = ' <span style="color:#d97706;font-size:12px;">(模糊)</span>';
+    
+    if (typeof stObj === 'string') {
+      if (stObj === 'mastered') statusBadge = ' <span style="color:#16a34a;font-size:12px;">(已认识)</span>';
+      else if (stObj === 'again') statusBadge = ' <span style="color:#dc2626;font-size:12px;">(遗忘)</span>';
+      else if (stObj === 'vague') statusBadge = ' <span style="color:#d97706;font-size:12px;">(模糊)</span>';
+    } else if (stObj && typeof stObj === 'object') {
+      if (stObj.status === 'mastered') statusBadge = ' <span style="color:#16a34a;font-size:12px;">(已认识)</span>';
+      else if (stObj.status === 'again') {
+        const labelText = stObj.isFirstTime ? '不认识' : '遗忘';
+        statusBadge = ` <span style="color:#dc2626;font-size:12px;">(${labelText} · 穿插剩${stObj.remaining}次)</span>`;
+      } else if (stObj.status === 'vague') statusBadge = ' <span style="color:#d97706;font-size:12px;">(模糊)</span>';
+    }
 
     if (tagBadge) tagBadge.innerHTML = `${item.category}${statusBadge}`;
     if (counter) counter.textContent = `${currentPhraseIndex + 1} / ${list.length}`;
