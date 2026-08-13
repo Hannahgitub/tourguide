@@ -1594,21 +1594,7 @@ function getPhraseStatus(id) {
     if (currentPhraseIndex < 0) currentPhraseIndex = list.length - 1;
 
     const item = list[currentPhraseIndex];
-    const stObj = getPhraseStatus(item.id);
-    let statusBadge = '';
-    
-    if (stObj.status === 'mastered') {
-      statusBadge = stObj.remaining > 0 
-        ? ` <span style="color:#16a34a;font-size:12px;">(已认识 · 还需巩固${stObj.remaining}次)</span>`
-        : ' <span style="color:#16a34a;font-size:12px;">(已斩掉)</span>';
-    } else if (stObj.status === 'again') {
-      const labelText = stObj.isFirstTime ? '不认识' : '遗忘';
-      statusBadge = ` <span style="color:#dc2626;font-size:12px;">(${labelText} · 穿插剩${stObj.remaining}次)</span>`;
-    } else if (stObj.status === 'vague') {
-      statusBadge = ` <span style="color:#d97706;font-size:12px;">(模糊 · 穿插剩${stObj.remaining}次)</span>`;
-    }
-
-    if (tagBadge) tagBadge.innerHTML = `${item.category}${statusBadge}`;
+    if (tagBadge) tagBadge.textContent = item.category;
     if (counter) counter.textContent = `${currentPhraseIndex + 1} / ${list.length}`;
     if (enTitle) enTitle.textContent = item.en;
     if (cnText) cnText.textContent = item.cn;
@@ -1742,13 +1728,7 @@ function getPhraseStatus(id) {
     }
 
     const btnPhraseReveal = document.getElementById('btn-phrase-reveal');
-    const unrevealedActions = document.getElementById('phrase-unrevealed-actions');
-    if (unrevealedActions) {
-      unrevealedActions.addEventListener('click', () => {
-        isPhraseRevealed = true;
-        renderCurrentPhraseCard();
-      });
-    } else if (btnPhraseReveal) {
+    if (btnPhraseReveal) {
       btnPhraseReveal.addEventListener('click', () => {
         isPhraseRevealed = true;
         renderCurrentPhraseCard();
