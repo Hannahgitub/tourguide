@@ -453,27 +453,39 @@ document.addEventListener('DOMContentLoaded', () => {
       numBadge.textContent = `#${currentPracticeIndex + 1} / ${list.length}`;
     }
 
+    const isInterpretation = currentPracticeCategory === "英汉双向口译";
+    const isC2E = isInterpretation && (qItem.type === 'C2E' || qItem.tag === '汉译英');
+    const isE2C = isInterpretation && !isC2E;
+
     if (tagBadge) {
-      if (currentPracticeCategory === "英汉双向口译") {
-        if (qItem.type === 'C2E' || qItem.tag === '汉译英') {
+      if (isInterpretation) {
+        if (isC2E) {
           tagBadge.textContent = '🇨🇳➔🇺🇸 汉译英 (口译考题)';
           tagBadge.style.background = '#fff7ed';
           tagBadge.style.color = '#c2410c';
           tagBadge.style.borderColor = '#ffedd5';
-          if (listenBtn) { listenBtn.textContent = '🔊'; listenBtn.title = '示范英文发音'; }
         } else {
           tagBadge.textContent = '🇺🇸➔🇨🇳 英译中 (口译考题)';
           tagBadge.style.background = '#eff6ff';
           tagBadge.style.color = '#1d4ed8';
           tagBadge.style.borderColor = '#dbeafe';
-          if (listenBtn) { listenBtn.textContent = '🔊'; listenBtn.title = '听英文原句'; }
         }
       } else {
         tagBadge.textContent = qItem.spot || currentPracticeCategory;
         tagBadge.style.background = '#f3f4f6';
         tagBadge.style.color = '#374151';
         tagBadge.style.borderColor = '#e5e7eb';
-        if (listenBtn) { listenBtn.textContent = '🔊'; listenBtn.title = '听题'; }
+      }
+    }
+
+    // 题目朗读图标：中文题目不念，仅英文题目念
+    if (listenBtn) {
+      if (isC2E) {
+        listenBtn.style.display = 'none';
+      } else {
+        listenBtn.style.display = 'inline-flex';
+        listenBtn.textContent = '🔊';
+        listenBtn.title = isInterpretation ? '听英文原句' : '听题';
       }
     }
 
@@ -481,11 +493,12 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('practice-en-question').textContent = qItem.enQuestion || qItem.question;
     document.getElementById('practice-cn-question').textContent = qItem.cnQuestion || '';
     
-    // 答案中英文对照
+    // 答案朗读图标：中文答案不念，仅英文答案念
+    const showAnsAudio = !isE2C;
     let ansHTML = `
       <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 10px;">
         <div style="white-space: pre-line; font-size: 15px; font-weight: 700; color: #1e3a8a; line-height: 1.6; flex: 1;">${qItem.answer}</div>
-        <button class="action-btn" id="btn-practice-listen-ans" title="听答案" style="padding: 4px 10px; font-size: 15px; background: #ebf5ee; border: 1px solid #c6e2ce; color: #2d7a4c; border-radius: 50%; width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0;">🔊</button>
+        ${showAnsAudio ? `<button class="action-btn" id="btn-practice-listen-ans" title="听英文答案" style="padding: 4px 10px; font-size: 15px; background: #ebf5ee; border: 1px solid #c6e2ce; color: #2d7a4c; border-radius: 50%; width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0;">🔊</button>` : ''}
       </div>
     `;
     if (qItem.cnAnswer) {
@@ -558,18 +571,26 @@ document.addEventListener('DOMContentLoaded', () => {
         card.className = 'card';
         card.style.marginBottom = '14px';
         
+
+
+        const isInterp = currentPracticeCategory === "英汉双向口译";
+        const isC2E = isInterp && (qa.type === 'C2E' || qa.tag === '汉译英');
+        const isE2C = isInterp && !isC2E;
+
+        const showQAudio = !isC2E; // 中文题目不念
+        const showAAudio = !isE2C; // 中文答案不念
+
         let ansContentHTML = `
           <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 10px;">
             <div style="white-space: pre-line; font-size: 15px; font-weight: 700; color: #1e3a8a; line-height: 1.6; flex: 1;">${qa.answer}</div>
-            <button class="action-btn btn-qa-read-ans" data-idx="${idx}" title="听答案" style="padding: 4px 10px; font-size: 15px; background: #ebf5ee; border: 1px solid #c6e2ce; color: #2d7a4c; border-radius: 50%; width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0;">🔊</button>
+            ${showAAudio ? `<button class="action-btn btn-qa-read-ans" data-idx="${idx}" title="听英文答案" style="padding: 4px 10px; font-size: 15px; background: #ebf5ee; border: 1px solid #c6e2ce; color: #2d7a4c; border-radius: 50%; width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0;">🔊</button>` : ''}
           </div>
         `;
         if (qa.cnAnswer) {
           ansContentHTML += `<div style="white-space: pre-line; font-size: 14px; color: #475569; margin-top: 10px; border-top: 1px dashed #cbd5e1; padding-top: 10px; line-height: 1.6; font-weight: 500;">${qa.cnAnswer}</div>`;
         }
 
-        const isC2E = qa.type === 'C2E' || qa.tag === '汉译英';
-        const tagText = currentPracticeCategory === "英汉双向口译" ? (isC2E ? '🇨🇳➔🇺🇸 汉译英' : '🇺🇸➔🇨🇳 英译中') : (qa.spot || currentPracticeCategory);
+        const tagText = isInterp ? (isC2E ? '🇨🇳➔🇺🇸 汉译英' : '🇺🇸➔🇨🇳 英译中') : (qa.spot || currentPracticeCategory);
 
         card.innerHTML = `
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
@@ -579,7 +600,7 @@ document.addEventListener('DOMContentLoaded', () => {
           
           <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 4px;">
             <h3 class="qa-question-title" style="font-size: 16.5px; margin-bottom: 0; color: #1a1a1a; font-weight: 700; line-height: 1.4; flex: 1;">${qa.enQuestion || qa.question}</h3>
-            <button class="action-btn btn-qa-read" data-idx="${idx}" title="${isC2E ? '示范英文发音' : '听题'}" style="padding: 4px 10px; font-size: 15px; background: #ebf5ee; border: 1px solid #c6e2ce; color: #2d7a4c; border-radius: 50%; width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0;">🔊</button>
+            ${showQAudio ? `<button class="action-btn btn-qa-read" data-idx="${idx}" title="${isInterp ? '听英文原句' : '听题'}" style="padding: 4px 10px; font-size: 15px; background: #ebf5ee; border: 1px solid #c6e2ce; color: #2d7a4c; border-radius: 50%; width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0;">🔊</button>` : ''}
           </div>
           ${qa.cnQuestion ? `<div style="font-size: 14px; color: #666; font-weight: 500; margin-bottom: 12px;">${qa.cnQuestion}</div>` : ''}
           
