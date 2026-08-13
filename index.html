@@ -149,7 +149,10 @@
         <div class="card" id="phrase-main-card" style="padding: 24px; min-height: 320px; display: flex; flex-direction: column; justify-content: space-between; position: relative;">
           <div>
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-              <span class="qa-tag-badge" id="phrase-tag-badge" style="background: #ebf5ee; color: #2d7a4c; border: 1px solid #c6e2ce; font-weight: 600;"></span>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <button class="action-btn" id="btn-phrase-prev" title="查看上一个短语" style="padding: 2px 10px; font-size: 14px; font-weight: 700; background: #ebf5ee; border: 1px solid #c6e2ce; color: #2d7a4c; border-radius: 12px; cursor: pointer;">←</button>
+                <span class="qa-tag-badge" id="phrase-tag-badge" style="background: #ebf5ee; color: #2d7a4c; border: 1px solid #c6e2ce; font-weight: 600;"></span>
+              </div>
               <span id="phrase-card-counter" style="font-size: 13px; color: #888; font-weight: 600;">1 / 20</span>
             </div>
 
@@ -187,10 +190,7 @@
               </button>
             </div>
 
-            <div style="display: flex; justify-content: space-between; margin-top: 16px; font-size: 13px;">
-              <button class="btn-nav-prev" id="btn-phrase-prev" style="border: none; background: transparent; color: #666; cursor: pointer;">← 上一个短语</button>
-              <button class="btn-nav-next" id="btn-phrase-next" style="border: none; background: transparent; color: #666; cursor: pointer;">下一个短语 →</button>
-            </div>
+
           </div>
         </div>
 
@@ -203,7 +203,7 @@
   <!-- 隐藏全局兜底语速节点 (防止 JavaScript 空指针异常) -->
   <select id="speech-rate-select" style="display: none;"><option value="1.0" selected>1.0</option></select>
 
-  <script src="data.js?v=20260813_v15" charset="UTF-8"></script>
-  <script src="app.js?v=20260813_v15" charset="UTF-8"></script>
+  <script src="data.js?v=20260814_v16" charset="UTF-8"></script>
+  <script src="app.js?v=20260814_v16" charset="UTF-8"></script>
 </body>
 </html>
