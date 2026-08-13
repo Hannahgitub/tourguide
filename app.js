@@ -445,7 +445,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const qItem = list[currentPracticeIndex];
 
     const tagBadge = document.getElementById('practice-tag-badge');
+    const numBadge = document.getElementById('practice-num-badge');
     const listenBtn = document.getElementById('btn-practice-listen');
+
+    if (numBadge) {
+      numBadge.textContent = `#${currentPracticeIndex + 1} / ${list.length}`;
+    }
 
     if (tagBadge) {
       if (currentPracticeCategory === "英汉双向口译") {
@@ -558,15 +563,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const isC2E = qa.type === 'C2E' || qa.tag === '汉译英';
         const tagText = currentPracticeCategory === "英汉双向口译" ? (isC2E ? '🇨🇳➔🇺🇸 汉译英' : '🇺🇸➔🇨🇳 英译中') : (qa.spot || currentPracticeCategory);
 
-        // 彻底删除题号前缀 node，严格遵循用户截图样式
         card.innerHTML = `
-          <div style="display: flex; justify-content: flex-end; align-items: center; margin-bottom: 8px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <span style="font-size: 12.5px; font-weight: 700; color: #6b7280; background: #f3f4f6; border: 1px solid #e5e7eb; padding: 2px 8px; border-radius: 4px; display: inline-block;">#${idx + 1}</span>
             <span class="qa-tag-badge" style="font-size: 12px; ${isC2E ? 'background:#fff7ed;color:#c2410c;border:1px solid #ffedd5;' : 'background:#eff6ff;color:#1d4ed8;border:1px solid #dbeafe;'}">${tagText}</span>
           </div>
-          <h3 class="qa-question-title" style="font-size: 17px; margin-bottom: 6px; color: #1a1a1a; font-weight: 700; line-height: 1.4;">${qa.enQuestion || qa.question}</h3>
-          ${qa.cnQuestion ? `<div style="font-size: 14.5px; color: #666; font-weight: 500; margin-bottom: 12px;">${qa.cnQuestion}</div>` : ''}
+          <h3 class="qa-question-title" style="font-size: 16.5px; margin-bottom: 4px; color: #1a1a1a; font-weight: 700; line-height: 1.4;">${qa.enQuestion || qa.question}</h3>
+          ${qa.cnQuestion ? `<div style="font-size: 14px; color: #666; font-weight: 500; margin-bottom: 12px;">${qa.cnQuestion}</div>` : ''}
           
-          <div style="display: flex; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; margin-top: 12px;">
+          <div style="display: flex; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; margin-top: 10px;">
             <button class="action-btn btn-qa-read" data-idx="${idx}">${isC2E ? '🔊 示范英文发音' : '🔊 听题'}</button>
             <button class="play-main-btn btn-qa-ans-toggle" data-idx="${idx}" style="padding: 5px 16px; font-size: 13px;">参考答案</button>
             <button class="action-btn btn-qa-read-ans" data-idx="${idx}">🔊 听答案</button>
