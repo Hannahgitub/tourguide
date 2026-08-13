@@ -1440,8 +1440,8 @@ function getPhraseStatus(id) {
     let review = 0;
     all.forEach(p => {
       const st = phraseProgress[p.id];
-      if (st === 'mastered') mastered++;
-      else if (st === 'again' || st === 'vague') review++;
+      if (st && st.status === 'mastered') mastered++;
+      else if (st && (st.status === 'again' || st.status === 'vague')) review++;
     });
     const elM = document.getElementById('phrase-stat-mastered');
     const elR = document.getElementById('phrase-stat-review');
@@ -1504,7 +1504,7 @@ function getPhraseStatus(id) {
     cats.forEach(cat => {
       const opt = document.createElement('option');
       opt.value = cat;
-      opt.textContent = cat === '全部专题' ? '📚 全部专题（点击折叠切换）' : `📌 专题：${cat}`;
+      opt.textContent = cat === '全部专题' ? '📚 全部专题（点击切换）' : `📌 专题：${cat}`;
       if (cat === currentPhraseCategory) opt.selected = true;
       select.appendChild(opt);
     });
@@ -1553,19 +1553,18 @@ function getPhraseStatus(id) {
     if (currentPhraseIndex < 0) currentPhraseIndex = list.length - 1;
 
     const item = list[currentPhraseIndex];
-    const stObj = phraseProgress[item.id];
+    const stObj = getPhraseStatus(item.id);
     let statusBadge = '';
     
-    if (typeof stObj === 'string') {
-      if (stObj === 'mastered') statusBadge = ' <span style="color:#16a34a;font-size:12px;">(已认识)</span>';
-      else if (stObj === 'again') statusBadge = ' <span style="color:#dc2626;font-size:12px;">(遗忘)</span>';
-      else if (stObj === 'vague') statusBadge = ' <span style="color:#d97706;font-size:12px;">(模糊)</span>';
-    } else if (stObj && typeof stObj === 'object') {
-      if (stObj.status === 'mastered') statusBadge = ' <span style="color:#16a34a;font-size:12px;">(已认识)</span>';
-      else if (stObj.status === 'again') {
-        const labelText = stObj.isFirstTime ? '不认识' : '遗忘';
-        statusBadge = ` <span style="color:#dc2626;font-size:12px;">(${labelText} · 穿插剩${stObj.remaining}次)</span>`;
-      } else if (stObj.status === 'vague') statusBadge = ' <span style="color:#d97706;font-size:12px;">(模糊)</span>';
+    if (stObj.status === 'mastered') {
+      statusBadge = stObj.remaining > 0 
+        ? ` <span style="color:#16a34a;font-size:12px;">(已认识 · 还需巩固${stObj.remaining}次)</span>`
+        : ' <span style="color:#16a34a;font-size:12px;">(已斩掉)</span>';
+    } else if (stObj.status === 'again') {
+      const labelText = stObj.isFirstTime ? '不认识' : '遗忘';
+      statusBadge = ` <span style="color:#dc2626;font-size:12px;">(${labelText} · 穿插剩${stObj.remaining}次)</span>`;
+    } else if (stObj.status === 'vague') {
+      statusBadge = ` <span style="color:#d97706;font-size:12px;">(模糊 · 穿插剩${stObj.remaining}次)</span>`;
     }
 
     if (tagBadge) tagBadge.innerHTML = `${item.category}${statusBadge}`;
@@ -1602,11 +1601,18 @@ function getPhraseStatus(id) {
       card.style.marginBottom = '12px';
       card.style.padding = '16px';
 
-      const status = phraseProgress[item.id];
+      const stObj = getPhraseStatus(item.id);
       let badgeHTML = '<span style="background:#f3f4f6;color:#6b7280;padding:2px 8px;border-radius:4px;font-size:12px;">未学习</span>';
-      if (status === 'mastered') badgeHTML = '<span style="background:#dcfce7;color:#16a34a;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600;">✅ 已认识</span>';
-      else if (status === 'again') badgeHTML = '<span style="background:#fee2e2;color:#dc2626;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600;">❌ 遗忘</span>';
-      else if (status === 'vague') badgeHTML = '<span style="background:#fef3c7;color:#d97706;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600;">🤔 模糊</span>';
+      if (stObj.status === 'mastered') {
+        badgeHTML = stObj.remaining > 0 
+          ? `<span style="background:#dcfce7;color:#16a34a;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600;">✅ 认识(剩${stObj.remaining}次)</span>`
+          : '<span style="background:#dcfce7;color:#16a34a;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600;">✅ 绝杀已斩</span>';
+      } else if (stObj.status === 'again') {
+        const labelText = stObj.isFirstTime ? '不认识' : '遗忘';
+        badgeHTML = `<span style="background:#fee2e2;color:#dc2626;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600;">❌ ${labelText}(剩${stObj.remaining}次)</span>`;
+      } else if (stObj.status === 'vague') {
+        badgeHTML = `<span style="background:#fef3c7;color:#d97706;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600;">🤔 模糊(剩${stObj.remaining}次)</span>`;
+      }
 
       card.innerHTML = `
         <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:8px;">
