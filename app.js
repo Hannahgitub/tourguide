@@ -1256,7 +1256,7 @@ document.addEventListener('DOMContentLoaded', () => {
     phraseProgress = {};
   }
 
-  function getPhraseStatus(id) {
+function getPhraseStatus(id) {
     const item = phraseProgress[id];
     if (!item) return { status: 'unlearned', remaining: 0 };
     if (typeof item === 'string') {
@@ -1357,6 +1357,11 @@ document.addEventListener('DOMContentLoaded', () => {
     cats.forEach(cat => {
       const btn = document.createElement('button');
       btn.className = `cat-btn ${cat === currentPhraseCategory ? 'active' : ''}`;
+      btn.style.width = '100%';
+      btn.style.textAlign = 'center';
+      btn.style.padding = '8px 10px';
+      btn.style.fontSize = '13.5px';
+      btn.style.fontWeight = '600';
       btn.textContent = cat;
       btn.addEventListener('click', () => {
         currentPhraseCategory = cat;

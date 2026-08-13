@@ -124,7 +124,7 @@
         <div class="card section-header-card section-header-warm">
           <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
             <div>
-              <h2 class="section-heading section-heading-red" style="margin-bottom: 4px;">⚡ 导游高频短语速记（墨墨抗遗忘模式）</h2>
+              <h2 class="section-heading section-heading-red" style="margin-bottom: 4px;">⚡ 导游高频短语速记</h2>
               <span style="font-size: 13px; color: #666;">涵盖考纲10大服务基本原则与流程专题 · 记忆卡片与导游词实战例句</span>
             </div>
             <div class="practice-mode-toggle" id="phrase-mode-toggle">
@@ -134,10 +134,13 @@
           </div>
         </div>
 
-        <!-- 专题分类 Filter + 重置进度布局 -->
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 10px;">
-          <div class="cat-filter-tabs" id="phrases-category-tabs" style="margin-bottom: 0;"></div>
-          <button class="action-btn" id="btn-phrase-reset" style="padding: 5px 14px; font-size: 12px; background: #fff; border: 1px solid #e5e7eb; color: #6b7280; border-radius: 20px; white-space: nowrap; height: 32px; display: inline-flex; align-items: center; gap: 4px; box-shadow: 0 1px 2px rgba(0,0,0,0.03);">
+        <!-- 专题分类 (分两栏网格) + 右侧重置进度按钮 -->
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; gap: 12px;">
+          <!-- 左侧：两栏网格 Tabs -->
+          <div id="phrases-category-tabs" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; flex: 1; max-width: 600px;"></div>
+
+          <!-- 右侧：重置进度按钮 -->
+          <button class="action-btn" id="btn-phrase-reset" style="padding: 6px 14px; font-size: 12px; background: #fff; border: 1px solid #e5e7eb; color: #6b7280; border-radius: 8px; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px; box-shadow: 0 1px 2px rgba(0,0,0,0.03); flex-shrink: 0;">
             🔄 重置进度
           </button>
         </div>
