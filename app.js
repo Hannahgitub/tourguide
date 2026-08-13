@@ -1571,7 +1571,28 @@ function getPhraseStatus(id) {
     if (counter) counter.textContent = `${currentPhraseIndex + 1} / ${list.length}`;
     if (enTitle) enTitle.textContent = item.en;
     if (cnText) cnText.textContent = item.cn;
-    if (exText) exText.textContent = item.example ? `💡 导游例句：${item.example}` : '';
+        if (exText) {
+      if (item.example) {
+        exText.innerHTML = `
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:8px;">
+            <div style="flex:1;">
+              <span style="font-weight:700; color:#2d7a4c;">💡 例句：</span>
+              <span id="phrase-example-sentence" style="color:#4b5563;">${item.example}</span>
+            </div>
+            <button class="action-btn" id="btn-phrase-example-speak" title="朗读例句" style="padding: 2px 8px; font-size: 13px; background: #ebf5ee; border: 1px solid #c6e2ce; color: #2d7a4c; border-radius: 12px; cursor: pointer; flex-shrink: 0;">🔊 读例句</button>
+          </div>
+        `;
+        const btnExSpeak = document.getElementById('btn-phrase-example-speak');
+        if (btnExSpeak) {
+          btnExSpeak.addEventListener('click', () => {
+            const exContainer = document.getElementById('phrase-example-sentence');
+            speakText(item.example, exContainer);
+          });
+        }
+      } else {
+        exText.innerHTML = '';
+      }
+    }
 
     if (isPhraseRevealed) {
       if (ansBox) ansBox.style.display = 'block';
@@ -1624,7 +1645,15 @@ function getPhraseStatus(id) {
         </div>
         <div style="font-size:17px;font-weight:700;color:#1a1a1a;margin-bottom:4px;">${idx + 1}. ${item.en}</div>
         <div style="font-size:14.5px;color:#2d7a4c;font-weight:600;margin-bottom:8px;">${item.cn}</div>
-        ${item.example ? `<div style="font-size:13px;color:#666;background:#faf8f5;padding:8px 12px;border-left:3px solid #d4c5b2;border-radius:4px;">💡 例句：${item.example}</div>` : ''}
+        ${item.example ? `
+          <div style="font-size:13px;color:#666;background:#faf8f5;padding:8px 12px;border-left:3px solid #d4c5b2;border-radius:4px;display:flex;justify-content:space-between;align-items:flex-start;gap:8px;">
+            <div style="flex:1;">
+              <span style="font-weight:700;color:#2d7a4c;">💡 例句：</span>
+              <span class="phrase-list-example-text" style="color:#4b5563;">${item.example}</span>
+            </div>
+            <button class="action-btn btn-phrase-list-ex-speak" data-ex="${encodeURIComponent(item.example)}" style="padding:2px 8px;font-size:12px;background:#ebf5ee;border:1px solid #c6e2ce;color:#2d7a4c;border-radius:12px;cursor:pointer;flex-shrink:0;">🔊 读例句</button>
+          </div>
+        ` : ''}
       `;
       container.appendChild(card);
     });
@@ -1632,9 +1661,16 @@ function getPhraseStatus(id) {
     container.querySelectorAll('.btn-phrase-list-speak').forEach(btn => {
       btn.addEventListener('click', e => {
         const text = decodeURIComponent(e.currentTarget.getAttribute('data-en'));
+        speakText(text);
+      });
+    });
+
+    container.querySelectorAll('.btn-phrase-list-ex-speak').forEach(btn => {
+      btn.addEventListener('click', e => {
+        const text = decodeURIComponent(e.currentTarget.getAttribute('data-ex'));
         const card = e.currentTarget.closest('.card');
-        const enEl = card ? card.querySelector('div[style*="font-weight:700"]') : null;
-        speakText(text, enEl);
+        const exEl = card ? card.querySelector('.phrase-list-example-text') : null;
+        speakText(text, exEl);
       });
     });
   }
