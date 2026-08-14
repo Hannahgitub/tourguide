@@ -109,11 +109,27 @@ header.main-header {
 .tab-btn:nth-child(7) { background: #ffffff; border-color: #d8dce2; color: #374151; }
 .tab-btn:nth-child(8) { background: #d8eee0; border-color: #9ed4b2; color: #16532d; }
 
-.tab-btn:hover {
-  background-color: #d8eedf !important;
-  border-color: #2d7a4c !important;
-  color: #1b5331 !important;
+/* 深绿按钮 hover 态（保持深绿微亮） */
+.tab-btn:nth-child(1):hover,
+.tab-btn:nth-child(3):hover,
+.tab-btn:nth-child(6):hover,
+.tab-btn:nth-child(8):hover {
+  background-color: #cee8d8;
+  border-color: #2d7a4c;
+  color: #16532d;
   transform: translateY(-1px);
+}
+
+/* 纯白浅色按钮 hover 态（保持纯白底色，边框与字色微亮，绝不变深绿底） */
+.tab-btn:nth-child(2):hover,
+.tab-btn:nth-child(4):hover,
+.tab-btn:nth-child(5):hover,
+.tab-btn:nth-child(7):hover {
+  background-color: #ffffff;
+  border-color: #2d7a4c;
+  color: #2d7a4c;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.04);
 }
 
 .tab-btn.active {

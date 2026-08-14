@@ -526,43 +526,64 @@
     return html;
   }
 
-  // 生成关键词遮挡版 HTML
+  // 生成关键词遮挡版 HTML (采用占位符安全替换，彻底防止 HTML 标签二次破坏)
   function generateClozeHtml(text, speech) {
     if (!text) return '';
 
-    let keywords = [];
+    let rawKeywords = [];
     if (speech && speech.outline && speech.outline.nodes) {
       speech.outline.nodes.forEach(node => {
         if (node.kws) {
           node.kws.forEach(kw => {
             const enPart = kw.replace(/[\u4e00-\u9fa5]/g, '').trim();
-            if (enPart.length >= 3) keywords.push(enPart);
+            if (enPart.length >= 3) rawKeywords.push(enPart);
           });
         }
       });
     }
 
-    const wordList = text.match(/[A-Z][a-z]{3,}|[a-z]{6,}/g) || [];
-    const stopWords = new Set(['welcome', 'tourists', 'morning', 'afternoon', 'evening', 'because', 'however', 'although', 'between', 'through', 'during', 'another', 'located']);
+    const wordList = text.match(/[A-Za-z]{4,}/g) || [];
+    const stopWords = new Set([
+      'welcome', 'tourists', 'morning', 'afternoon', 'evening', 'because', 'however',
+      'although', 'between', 'through', 'during', 'another', 'located', 'there', 'their',
+      'which', 'where', 'about', 'these', 'those', 'first', 'second', 'today', 'please'
+    ]);
+
     wordList.forEach(w => {
-      if (!stopWords.has(w.toLowerCase()) && !keywords.includes(w)) {
-        keywords.push(w);
+      if (!stopWords.has(w.toLowerCase()) && !rawKeywords.includes(w)) {
+        rawKeywords.push(w);
       }
     });
 
-    keywords = [...new Set(keywords)].sort((a, b) => b.length - a.length);
+    // 过滤去重并按长度降序排序
+    const keywords = [...new Set(rawKeywords)]
+      .filter(k => k && k.length >= 3 && !/^[0-9]+$/.test(k))
+      .sort((a, b) => b.length - a.length);
 
-    let maskedText = escapeHtml(text);
-    keywords.slice(0, 20).forEach(kw => {
+    let workingText = text;
+    const placeholderMap = [];
+
+    keywords.slice(0, 25).forEach(kw => {
       if (!kw || kw.length < 3) return;
       const escapedKw = kw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
       const regex = new RegExp(`\\b(${escapedKw})\\b`, 'gi');
-      maskedText = maskedText.replace(regex, match => {
-        return `<span class="cloze-mask-blank" title="点击翻看答案" data-kw="${escapeHtml(match)}">______</span>`;
+      workingText = workingText.replace(regex, match => {
+        const ph = `__CLOZE_PH_${placeholderMap.length}__`;
+        placeholderMap.push(match);
+        return ph;
       });
     });
 
-    return maskedText;
+    let safeHtml = escapeHtml(workingText);
+
+    // 将占位符安全转换为 HTML 标签
+    placeholderMap.forEach((origWord, idx) => {
+      const ph = `__CLOZE_PH_${idx}__`;
+      const maskSpan = `<span class="cloze-mask-blank" title="点击翻看答案" data-kw="${escapeHtml(origWord)}">______</span>`;
+      safeHtml = safeHtml.replace(ph, maskSpan);
+    });
+
+    return safeHtml;
   }
 
   // 阶段 3: 知识问答 (纯英文题目，提供查看标准答案)
