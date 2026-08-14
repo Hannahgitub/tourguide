@@ -205,7 +205,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function playAudioOrTTS(audioUrl, fallbackText, containerEl, onEndCallback, isFromTour = false) {
-    stopAllAudio({ resetTour: !isFromTour });
+    if (!isFromTour) {
+      stopAllAudio({ resetTour: true });
+    }
     
     if (!audioUrl) {
       speakText(fallbackText, containerEl, onEndCallback, isFromTour);
@@ -1232,13 +1234,14 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       continuousTourIndex = secIdx;
+      container.querySelectorAll('.card').forEach(c => {
+        c.classList.remove('reading-active');
+      });
+
       const targetCard = container.querySelector(`.card[data-idx="${secIdx}"]`);
       if (targetCard) {
-        targetCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        container.querySelectorAll('.card').forEach(c => {
-          c.classList.remove('reading-active');
-        });
         targetCard.classList.add('reading-active');
+        targetCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
 
       const sec = speech.sections[secIdx];
@@ -1251,7 +1254,7 @@ document.addEventListener('DOMContentLoaded', () => {
           if (tourState === 'playing' && sessionId === globalTourSessionId) {
             playContinuousSection(secIdx + 1, sessionId);
           }
-        }, 300);
+        }, 400);
       };
 
       speakText(cleanText, enContainer, onSectionEnd, true);
