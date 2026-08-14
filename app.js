@@ -1346,49 +1346,40 @@ document.addEventListener('DOMContentLoaded', () => {
               现场考试采取<strong>室内模拟讲解</strong>与<strong>知识问答</strong>的形式。考生须在规定时间内完成全部考核环节，考试结束后考评员根据考生现场综合表现独立评分。
             </p>
 
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px;">
-              <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 14px 16px;">
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 8px;">
-                  <strong style="color: #1e293b; font-size: 15px;">🇨🇳 中文类考生</strong>
-                  <span style="background: #dbeafe; color: #1e40af; font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 4px;">总时长 15 分钟</span>
-                </div>
-                <div style="font-size: 13px; color: #475569; line-height: 1.6;">
-                  包含：① 专题线路讲解（5分钟） + ② 旅游景区讲解（5分钟） + ③ 知识问答（服务规范/应变能力/综合知识 5分钟）。
-                </div>
+            <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; padding: 16px 18px;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 8px; flex-wrap:wrap; gap:8px;">
+                <strong style="color: #166534; font-size: 16px;">🌐 外语类考生 (英语现场面试)</strong>
+                <span style="background: #2d7a4c; color: #ffffff; font-size: 13px; font-weight: 700; padding: 3px 10px; border-radius: 6px;">考试总时长 20 分钟</span>
               </div>
-
-              <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; padding: 14px 16px;">
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 8px;">
-                  <strong style="color: #166534; font-size: 15px;">🌐 外语类考生 (英语)</strong>
-                  <span style="background: #2d7a4c; color: #ffffff; font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 4px;">总时长 20 分钟</span>
-                </div>
-                <div style="font-size: 13px; color: #166534; line-height: 1.6;">
-                  包含：① 英文专题线路讲解（5分钟） + ② 英文旅游景区讲解（5分钟） + ③ 英文知识问答（5分钟） + ④ 口译测试（英汉互译 5分钟）。
-                </div>
+              <div style="font-size: 13.5px; color: #166534; line-height: 1.7;">
+                考核流程包含：<strong>① 英文专题线路讲解</strong>（5分钟） + <strong>② 英文旅游景区讲解</strong>（5分钟） + <strong>③ 英文知识问答</strong>（5分钟） + <strong>④ 口译测试</strong>（中译外/外译中各1题 5分钟）。
               </div>
             </div>
           </div>
 
-          <!-- 2. 考试内容与四大考核板块 -->
+          <!-- 2. 考试内容与四大考核板块 (2x2 对齐网格) -->
           <div class="card" style="margin-bottom: 20px; padding: 22px;">
             <h3 style="font-size: 18px; font-weight: 800; color: #1a1a1a; margin-bottom: 14px;">🎯 三、现场考试考核内容与考查重点</h3>
             
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px;">
-              <div style="background: #fafaf9; border: 1px solid #e7e5e4; border-radius: 8px; padding: 12px 14px;">
-                <div style="font-weight: 700; color: #2d7a4c; font-size: 14px; margin-bottom: 4px;">1. 专题线路讲解 (5分钟)</div>
-                <div style="font-size: 12.5px; color: #57534e;">系统机考随机抽取1个专题，考生自选1条线路。考查宏观总结概括、行程安排与主要景点元素。</div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px;">
+              <!-- 第1行: 专题线路 + 景区讲解 -->
+              <div style="background: #fafaf9; border: 1px solid #e7e5e4; border-radius: 8px; padding: 14px 16px;">
+                <div style="font-weight: 700; color: #2d7a4c; font-size: 14.5px; margin-bottom: 6px;">1. 专题线路讲解 (5分钟)</div>
+                <div style="font-size: 13px; color: #57534e; line-height: 1.6;">系统机考随机抽取1个专题，考生自选1条线路。考查宏观总结概括、行程安排与主要景点元素。</div>
               </div>
-              <div style="background: #fafaf9; border: 1px solid #e7e5e4; border-radius: 8px; padding: 12px 14px;">
-                <div style="font-weight: 700; color: #2d7a4c; font-size: 14px; margin-bottom: 4px;">2. 旅游景区讲解 (5分钟)</div>
-                <div style="font-size: 12.5px; color: #57534e;">系统机考随机抽取1个国家AAAAA级景区。考查景区概况、特色、游览动线、代表性景观与讲解礼仪。</div>
+              <div style="background: #fafaf9; border: 1px solid #e7e5e4; border-radius: 8px; padding: 14px 16px;">
+                <div style="font-weight: 700; color: #2d7a4c; font-size: 14.5px; margin-bottom: 6px;">2. 旅游景区讲解 (5分钟)</div>
+                <div style="font-size: 13px; color: #57534e; line-height: 1.6;">系统机考随机抽取1个国家AAAAA级景区。考查景区概况、特色、游览动线、代表性景观与讲解礼仪。</div>
               </div>
-              <div style="background: #fafaf9; border: 1px solid #e7e5e4; border-radius: 8px; padding: 12px 14px;">
-                <div style="font-weight: 700; color: #2d7a4c; font-size: 14px; margin-bottom: 4px;">3. 知识问答 (3道题 / 5分钟)</div>
-                <div style="font-size: 12.5px; color: #57534e;">考评员现场提问：① 服务规范问答 + ② 应变能力问答（常见问题/突发事件） + ③ 综合知识问答。</div>
+
+              <!-- 第2行: 知识问答 + 口译测试 -->
+              <div style="background: #fafaf9; border: 1px solid #e7e5e4; border-radius: 8px; padding: 14px 16px;">
+                <div style="font-weight: 700; color: #2d7a4c; font-size: 14.5px; margin-bottom: 6px;">3. 知识问答 (3道题 / 5分钟)</div>
+                <div style="font-size: 13px; color: #57534e; line-height: 1.6;">考评员现场提问：① 服务规范问答 + ② 应变能力问答（常见问题/突发事件） + ③ 综合知识问答。</div>
               </div>
-              <div style="background: #fafaf9; border: 1px solid #e7e5e4; border-radius: 8px; padding: 12px 14px;">
-                <div style="font-weight: 700; color: #2d7a4c; font-size: 14px; margin-bottom: 4px;">4. 口译测试 (外语类专有)</div>
-                <div style="font-size: 12.5px; color: #57534e;">考官即时播报/提问，包含英译汉与汉译英双向现场口译，考查双语即时转换与听辨应用能力。</div>
+              <div style="background: #fafaf9; border: 1px solid #e7e5e4; border-radius: 8px; padding: 14px 16px;">
+                <div style="font-weight: 700; color: #2d7a4c; font-size: 14.5px; margin-bottom: 6px;">4. 口译测试 (外语类专有)</div>
+                <div style="font-size: 13px; color: #57534e; line-height: 1.6;">考官即时提问，随机抽取英译汉与汉译英双向现场口译各1题，考查双语即时转换与听辨应用能力。</div>
               </div>
             </div>
           </div>
@@ -1639,7 +1630,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <!-- 7. 四、分值比例 (100分制权威对照) -->
           <div class="card" style="padding: 22px;">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 14px; flex-wrap:wrap; gap:8px;">
-              <h3 style="font-size: 18px; font-weight: 800; color: #1a1a1a;">📊 四、现场考试分值比例 (100 分制)</h3>
+              <h3 style="font-size: 18px; font-weight: 800; color: #1a1a1a;">📊 四、外语类现场考试分值比例 (100 分制)</h3>
               <span class="qa-tag-badge" style="background:#ebf5ee; color:#2d7a4c; border:1px solid #c6e2ce; font-weight:700;">满分 100 分 · 评分细则</span>
             </div>
 
@@ -1647,61 +1638,60 @@ document.addEventListener('DOMContentLoaded', () => {
               <table style="width: 100%; border-collapse: collapse; font-size: 13.5px; text-align: left;">
                 <thead>
                   <tr style="background: #ebf5ee; border-bottom: 2px solid #c6e2ce; color: #2d7a4c;">
-                    <th style="padding: 12px 14px; width: 35%;">考核项目 / 环节</th>
-                    <th style="padding: 12px 14px; width: 32%; text-align: center;">🇨🇳 中文类考生 (100分)</th>
-                    <th style="padding: 12px 14px; width: 33%; text-align: center;">🌐 外语类考生 (100分)</th>
+                    <th style="padding: 12px 14px; width: 45%;">考核项目 / 环节</th>
+                    <th style="padding: 12px 14px; width: 25%; text-align: center;">分值</th>
+                    <th style="padding: 12px 14px; width: 30%;">考查核心与要点</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr style="border-bottom: 1px solid #f0eae1;">
                     <td style="padding: 10px 14px; font-weight: 600;">1. 礼貌仪态</td>
                     <td style="padding: 10px 14px; text-align: center; color: #2d7a4c; font-weight: 700;">5 分</td>
-                    <td style="padding: 10px 14px; text-align: center; color: #2d7a4c; font-weight: 700;">5 分</td>
+                    <td style="padding: 10px 14px; color: #666; font-size: 12.5px;">着装得体、仪态大方、导游手势礼仪规范</td>
                   </tr>
                   <tr style="border-bottom: 1px solid #f0eae1; background: #fafaf9;">
-                    <td style="padding: 10px 14px; font-weight: 600;">2. 语言表达 / 语言表达及语法</td>
-                    <td style="padding: 10px 14px; text-align: center; color: #2d7a4c; font-weight: 700;">15 分</td>
-                    <td style="padding: 10px 14px; text-align: center; color: #e11d48; font-weight: 800;">25 分 (重点)</td>
+                    <td style="padding: 10px 14px; font-weight: 600;">2. 语言表达及语法</td>
+                    <td style="padding: 10px 14px; text-align: center; color: #e11d48; font-weight: 800; font-size: 15px;">25 分 ⭐</td>
+                    <td style="padding: 10px 14px; color: #666; font-size: 12.5px;">发音纯正流畅、语法准确规范、词汇表达地道丰富</td>
                   </tr>
                   <tr style="border-bottom: 1px solid #f0eae1;">
                     <td style="padding: 10px 14px; font-weight: 600;">3. 专题线路讲解 (1 题)</td>
-                    <td style="padding: 10px 14px; text-align: center; color: #2d7a4c; font-weight: 700;">25 分</td>
                     <td style="padding: 10px 14px; text-align: center; color: #2d7a4c; font-weight: 700;">15 分</td>
+                    <td style="padding: 10px 14px; color: #666; font-size: 12.5px;">宏观总结概括、行程安排、主要景点与元素整合</td>
                   </tr>
                   <tr style="border-bottom: 1px solid #f0eae1; background: #fafaf9;">
                     <td style="padding: 10px 14px; font-weight: 600;">4. 旅游景区讲解 (1 题)</td>
-                    <td style="padding: 10px 14px; text-align: center; color: #2d7a4c; font-weight: 700;">25 分</td>
                     <td style="padding: 10px 14px; text-align: center; color: #2d7a4c; font-weight: 700;">15 分</td>
+                    <td style="padding: 10px 14px; color: #666; font-size: 12.5px;">5A景区概况、移步换景、三大地标动线与文化特色</td>
                   </tr>
                   <tr style="border-bottom: 1px solid #f0eae1;">
                     <td style="padding: 10px 14px; font-weight: 600;">5. 服务规范问答题 (1 题)</td>
                     <td style="padding: 10px 14px; text-align: center; color: #2d7a4c; font-weight: 700;">10 分</td>
-                    <td style="padding: 10px 14px; text-align: center; color: #2d7a4c; font-weight: 700;">10 分</td>
+                    <td style="padding: 10px 14px; color: #666; font-size: 12.5px;">国家导游规范、出入境接待、文明引导、老年服务</td>
                   </tr>
                   <tr style="border-bottom: 1px solid #f0eae1; background: #fafaf9;">
                     <td style="padding: 10px 14px; font-weight: 600;">6. 应变能力问答题 (1 题)</td>
-                    <td style="padding: 10px 14px; text-align: center; color: #2d7a4c; font-weight: 700;">10 分</td>
                     <td style="padding: 10px 14px; text-align: center; color: #2d7a4c; font-weight: 700;">5 分</td>
+                    <td style="padding: 10px 14px; color: #666; font-size: 12.5px;">常见问题与突发事件黄金三步法处理（安抚/处置/上报）</td>
                   </tr>
                   <tr style="border-bottom: 1px solid #f0eae1;">
                     <td style="padding: 10px 14px; font-weight: 600;">7. 综合知识问答题 (1 题)</td>
-                    <td style="padding: 10px 14px; text-align: center; color: #2d7a4c; font-weight: 700;">10 分</td>
                     <td style="padding: 10px 14px; text-align: center; color: #2d7a4c; font-weight: 700;">5 分</td>
+                    <td style="padding: 10px 14px; color: #666; font-size: 12.5px;">时政热点、广西区情历史文化、风物旅游综合常识</td>
                   </tr>
                   <tr style="border-bottom: 1px solid #f0eae1; background: #f0fdf4;">
-                    <td style="padding: 10px 14px; font-weight: 600; color: #166534;">8. 中译外 (1 题)</td>
-                    <td style="padding: 10px 14px; text-align: center; color: #9ca3af;">—</td>
+                    <td style="padding: 10px 14px; font-weight: 600; color: #166534;">8. 口译测试：中译外 (1 题)</td>
                     <td style="padding: 10px 14px; text-align: center; color: #166534; font-weight: 700;">10 分</td>
+                    <td style="padding: 10px 14px; color: #166534; font-size: 12.5px;">中文导游语段现场即时口译为规范地道英文</td>
                   </tr>
                   <tr style="border-bottom: 2px solid #c6e2ce; background: #f0fdf4;">
-                    <td style="padding: 10px 14px; font-weight: 600; color: #166534;">9. 外译中 (1 题)</td>
-                    <td style="padding: 10px 14px; text-align: center; color: #9ca3af;">—</td>
+                    <td style="padding: 10px 14px; font-weight: 600; color: #166534;">9. 口译测试：外译中 (1 题)</td>
                     <td style="padding: 10px 14px; text-align: center; color: #166534; font-weight: 700;">10 分</td>
+                    <td style="padding: 10px 14px; color: #166534; font-size: 12.5px;">英文导游语段现场即时口译为流畅准确中文</td>
                   </tr>
                   <tr style="background: #ebf5ee; font-weight: 800;">
                     <td style="padding: 12px 14px; color: #1e3a8a;">总分合计</td>
-                    <td style="padding: 12px 14px; text-align: center; color: #1e3a8a; font-size: 15px;">100 分</td>
-                    <td style="padding: 12px 14px; text-align: center; color: #1e3a8a; font-size: 15px;">100 分</td>
+                    <td style="padding: 12px 14px; text-align: center; color: #1e3a8a; font-size: 16px;" colspan="2">100 分</td>
                   </tr>
                 </tbody>
               </table>
