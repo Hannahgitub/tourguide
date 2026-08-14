@@ -8,9 +8,11 @@ document.addEventListener('DOMContentLoaded', () => {
   window._activeUtterance = null; // 全局强引用防止 V8 GC 强制干掉 utterance
   const staticAudioPlayer = new Audio();
   let currentPlayingCard = null;
-  let activeTourController = null; // 记录当前活跃的连续导览控制器
+  let activeTourController = null;
+  let globalTourSessionId = 0; // 记录当前活跃的连续导览控制器
 
   function stopAllAudio(options = { resetTour: true }) {
+    globalTourSessionId++;
     if (staticAudioPlayer) {
       staticAudioPlayer.pause();
       staticAudioPlayer.currentTime = 0;
@@ -316,6 +318,7 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.className = `cat-btn ${cat === currentCategory ? 'active' : ''}`;
       btn.textContent = cat;
       btn.addEventListener('click', () => {
+        stopAllAudio();
         currentCategory = cat;
         document.querySelectorAll('#cat-filter-container .cat-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
@@ -350,6 +353,7 @@ document.addEventListener('DOMContentLoaded', () => {
         chip.className = `spot-chip ${globalIdx === currentScenicIndex ? 'active' : ''}`;
         chip.textContent = sp.name;
         chip.addEventListener('click', () => {
+        stopAllAudio();
           currentScenicIndex = globalIdx;
           document.querySelectorAll('#spot-chips-container .spot-chip').forEach(c => c.classList.remove('active'));
           chip.classList.add('active');
@@ -377,6 +381,7 @@ document.addEventListener('DOMContentLoaded', () => {
         chip.className = `spot-chip ${globalIdx === currentSpotIndex ? 'active' : ''}`;
         chip.textContent = sp.name;
         chip.addEventListener('click', () => {
+        stopAllAudio();
           currentSpotIndex = globalIdx;
           document.querySelectorAll('#spot-chips-container .spot-chip').forEach(c => c.classList.remove('active'));
           chip.classList.add('active');
@@ -404,6 +409,7 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.className = `cat-btn ${cat === currentCardCategory ? 'active' : ''}`;
       btn.textContent = cat;
       btn.addEventListener('click', () => {
+        stopAllAudio();
         currentCardCategory = cat;
         document.querySelectorAll('#cards-category-tabs .cat-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
@@ -634,6 +640,7 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.className = `cat-btn ${cat === currentPracticeCategory ? 'active' : ''}`;
       btn.textContent = cat;
       btn.addEventListener('click', () => {
+        stopAllAudio();
         currentPracticeCategory = cat;
         currentPracticeIndex = 0;
         practiceHistory = [];
@@ -820,6 +827,7 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.className = `cat-btn ${cat === currentInterpCategory ? 'active' : ''}`;
       btn.textContent = cat === '全部口译' ? `全部真题 (178题)` : cat;
       btn.addEventListener('click', () => {
+        stopAllAudio();
         currentInterpCategory = cat;
         currentInterpIndex = 0;
         interpHistory = [];
@@ -924,6 +932,7 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.className = `cat-btn ${subjectName === currentSkillSubject ? 'active' : ''}`;
       btn.textContent = subjectName;
       btn.addEventListener('click', () => {
+        stopAllAudio();
         currentSkillSubject = subjectName;
         document.querySelectorAll('#skills-subject-tabs .cat-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
@@ -1095,15 +1104,13 @@ document.addEventListener('DOMContentLoaded', () => {
         updatePlayAllBtn('idle');
         container.querySelectorAll('.card').forEach(c => {
           c.classList.remove('reading-active');
-          const en = c.querySelector('.speech-text-en');
         });
       }
     };
 
-    function playContinuousSection(secIdx) {
-      if (tourState !== 'playing') return;
+    function playContinuousSection(secIdx, sessionId) {
+      if (tourState !== 'playing' || sessionId !== globalTourSessionId) return;
       if (!speech || !speech.sections || secIdx >= speech.sections.length) {
-        // 全篇播放完毕
         stopAllAudio();
         return;
       }
@@ -1111,49 +1118,42 @@ document.addEventListener('DOMContentLoaded', () => {
       continuousTourIndex = secIdx;
       const targetCard = container.querySelector(`.card[data-idx="${secIdx}"]`);
       if (targetCard) {
-        // 平滑滚动至当前正在讲解的卡片（使用 nearest 避免剧烈跳动）
         targetCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         container.querySelectorAll('.card').forEach(c => {
           c.classList.remove('reading-active');
-          const en = c.querySelector('.speech-text-en');
         });
         targetCard.classList.add('reading-active');
-        const en = targetCard.querySelector('.speech-text-en');
       }
 
       const sec = speech.sections[secIdx];
-      const cleanText = sec.en.replace(/<[^>]*>/g, '').replace(/^(English|Chinese)[:：\/\s]*/gi, '').trim();
+      const cleanText = sec.en.replace(/<[^>]*>/g, '').replace(/^(English|Chinese)[:：/\s]*/gi, '').trim();
       const enContainer = targetCard ? targetCard.querySelector('.speech-text-en') : null;
 
       const onSectionEnd = () => {
-        if (tourState !== 'playing') return;
-        // 当前段读完，稍作停顿 300ms 后进入下一段
+        if (tourState !== 'playing' || sessionId !== globalTourSessionId) return;
         setTimeout(() => {
-          if (tourState === 'playing') {
-            playContinuousSection(secIdx + 1);
+          if (tourState === 'playing' && sessionId === globalTourSessionId) {
+            playContinuousSection(secIdx + 1, sessionId);
           }
         }, 300);
       };
 
-      // 传入 isFromTour = true 保持导览状态
       speakText(cleanText, enContainer, onSectionEnd, true);
     }
 
     playAllBtn.addEventListener('click', () => {
       if (tourState === 'playing') {
-        // 正在播放中，点击直接彻底停止播放并复位
         stopAllAudio();
       } else {
-        // 初始状态，从第0段开始全篇讲解
         stopAllAudio();
+        const sessionId = globalTourSessionId;
         tourState = 'playing';
         updatePlayAllBtn('playing');
         continuousTourIndex = 0;
-        playContinuousSection(0);
+        playContinuousSection(0, sessionId);
       }
     });
 
-    // Smart keyword extractor: proper nouns (capitalized mid-sentence), numbers+units, long content words
     function extractKeywords(text) {
       const words = text.match(/\b[A-Za-z0-9'''-]+\b/g) || [];
       const stopwords = new Set([
@@ -1210,6 +1210,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const btn = card.querySelector('.btn-read-sec');
         if (!btn) return;
         btn.addEventListener('click', () => {
+        stopAllAudio();
           const state = card.dataset.playState;
           const cleanText = sec.en.replace(/<[^>]*>/g, '').replace(/^(English|Chinese)[:：\/\s]*/gi, '').trim();
           const enContainer = card.querySelector('.speech-text-en');
@@ -1321,6 +1322,7 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.className = `cat-btn ${cat === currentResourceCategory ? 'active' : ''}`;
       btn.textContent = cat;
       btn.addEventListener('click', () => {
+        stopAllAudio();
         currentResourceCategory = cat;
         document.querySelectorAll('#resource-category-tabs .cat-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
@@ -1340,6 +1342,7 @@ document.addEventListener('DOMContentLoaded', () => {
           chip.className = `spot-chip ${subCat === currentResourceSubCategory ? 'active' : ''}`;
           chip.textContent = subCat;
           chip.addEventListener('click', () => {
+        stopAllAudio();
             currentResourceSubCategory = subCat;
             document.querySelectorAll('#resource-sub-tabs .spot-chip').forEach(c => c.classList.remove('active'));
             chip.classList.add('active');
@@ -1394,12 +1397,13 @@ document.addEventListener('DOMContentLoaded', () => {
   function bindEvents() {
     mainNavBtns.forEach(btn => {
       btn.addEventListener('click', () => {
+        stopAllAudio();
         const tab = btn.getAttribute('data-tab');
         mainNavBtns.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
 
         document.querySelectorAll('.view-section').forEach(v => v.style.display = 'none');
-        if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+        stopAllAudio();
         
         if (tab === 'practice') {
           subNavWrapper.style.display = 'none';
@@ -1467,6 +1471,7 @@ document.addEventListener('DOMContentLoaded', () => {
     cheatBtns.forEach(item => {
       if (item.btn) {
         item.btn.addEventListener('click', () => {
+        stopAllAudio();
           currentCheatSubtab = item.key;
           cheatBtns.forEach(b => { if (b.btn) b.btn.classList.remove('active'); });
           item.btn.classList.add('active');
@@ -2127,7 +2132,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     document.getElementById('btn-practice-prev').addEventListener('click', () => {
-      if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+      stopAllAudio();
       if (practiceHistory.length > 0) {
         currentPracticeIndex = practiceHistory.pop();
         renderCurrentPracticeCard();
@@ -2135,7 +2140,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     document.getElementById('btn-practice-next').addEventListener('click', () => {
-      if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+      stopAllAudio();
       const list = getFilteredPracticeList();
       if (list.length <= 1) { renderCurrentPracticeCard(); return; }
 
@@ -2179,7 +2184,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (btnInterpRandom) {
       btnInterpRandom.addEventListener('click', () => {
-        if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+        stopAllAudio();
         const list = getFilteredInterpList();
         if (list.length === 0) return;
         interpViewMode = 'card';
@@ -2229,7 +2234,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnInterpPrev = document.getElementById('btn-interp-prev');
     if (btnInterpPrev) {
       btnInterpPrev.addEventListener('click', () => {
-        if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+        stopAllAudio();
         const list = getFilteredInterpList();
         if (list.length === 0) return;
         if (interpHistory.length > 0) {
@@ -2244,7 +2249,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnInterpNext = document.getElementById('btn-interp-next');
     if (btnInterpNext) {
       btnInterpNext.addEventListener('click', () => {
-        if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+        stopAllAudio();
         const list = getFilteredInterpList();
         if (list.length === 0) return;
         interpHistory.push(currentInterpIndex);
@@ -2977,3 +2982,7 @@ function getPhraseStatus(id) {
     }
   }
 });
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) stopAllAudio();
+  });
