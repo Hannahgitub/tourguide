@@ -21,8 +21,12 @@ document.addEventListener('DOMContentLoaded', () => {
     clearSpeechHighlights();
     const playBtnText = document.getElementById('play-btn-text');
     const playAllBtn = document.getElementById('btn-play-all');
-    if (playBtnText) playBtnText.textContent = '现场导览 (连续讲解)';
-    if (playAllBtn) playAllBtn.style.background = '';
+    if (playBtnText) playBtnText.textContent = '全篇讲解';
+    if (playAllBtn) {
+      playAllBtn.style.background = '';
+      const icon = playAllBtn.querySelector('span:first-child');
+      if (icon) icon.textContent = '🎧';
+    }
     if (currentPlayingCard) {
       currentPlayingCard.dataset.playState = 'idle';
       const b = currentPlayingCard.querySelector('.btn-read-sec');
@@ -233,10 +237,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // State
   let currentMainTab = 'interview';
-  let currentCategory = '城市名胜';
+  let currentCategory = '自然山水';
   let currentSkillSubject = '万能句式';
   let currentResourceCategory = '英文景点与路线导游词';
-  let currentResourceSubCategory = '城市名胜';
+  let currentResourceSubCategory = '景区讲解';
   let currentPracticeCategory = '业务规范问答';
   let currentCardCategory = '历史文化';
   let currentPracticeIndex = 0;
@@ -245,7 +249,8 @@ document.addEventListener('DOMContentLoaded', () => {
   let shuffledPracticeQueue = []; // 已打乱的题目索引队列
   let shuffleCategory = '';       // 上次 shuffle 时对应的分类
 
-  let currentSpotIndex = 0;
+  let currentSpotIndex = 0;   // 专题导游词当前索引
+  let currentScenicIndex = 0; // 景区讲解当前索引
   let isMaskedMode = false;
 
   // DOM elements
@@ -288,10 +293,10 @@ document.addEventListener('DOMContentLoaded', () => {
   renderPhrasesView();
   bindEvents();
 
-  // --- CATEGORY FILTERS ---
+  // --- CATEGORY FILTERS (For 背诵导游词 5大专题) ---
   function initCategoryFilters() {
     catFilterContainer.innerHTML = '';
-    const cats = data.categories || ["城市名胜", "自然山水", "民族风情", "历史文化", "康养长寿", "特色物产"];
+    const cats = data.categories || ["自然山水", "民族风情", "历史文化", "康养长寿", "特色物产"];
     cats.forEach(cat => {
       const btn = document.createElement('button');
       btn.className = `cat-btn ${cat === currentCategory ? 'active' : ''}`;
@@ -306,36 +311,66 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // --- SPOT CHIPS ---
+  // --- SPOT CHIPS (支持 景区讲解 与 背诵导游词) ---
   function renderSpotChips() {
     spotChipsContainer.innerHTML = '';
     if (!data.speeches || data.speeches.length === 0) return;
 
-    const matchingSpots = data.speeches.filter(sp => (sp.category || "特色物产") === currentCategory);
-    const spotList = matchingSpots.length > 0 ? matchingSpots : data.speeches;
-    
-    // 自动将 currentSpotIndex 对齐到当前分类的第一篇导游词
-    const currentInList = spotList.some(sp => data.speeches.findIndex(s => s.id === sp.id) === currentSpotIndex);
-    if (!currentInList && spotList.length > 0) {
-      currentSpotIndex = data.speeches.findIndex(s => s.id === spotList[0].id);
-    }
-    if (currentSpotIndex < 0 || currentSpotIndex >= data.speeches.length) {
-      currentSpotIndex = 0;
-    }
+    if (currentMainTab === 'scenic') {
+      // 景区讲解模式：直接展示 5 大必考景区
+      catFilterContainer.style.display = 'none';
+      const scenicSpots = data.speeches.filter(sp => sp.category === "景区讲解");
+      const spotList = scenicSpots.length > 0 ? scenicSpots : data.speeches;
 
-    spotList.forEach(sp => {
-      const globalIdx = data.speeches.findIndex(s => s.id === sp.id);
-      const chip = document.createElement('div');
-      chip.className = `spot-chip ${globalIdx === currentSpotIndex ? 'active' : ''}`;
-      chip.textContent = sp.name;
-      chip.addEventListener('click', () => {
-        currentSpotIndex = globalIdx;
-        document.querySelectorAll('#spot-chips-container .spot-chip').forEach(c => c.classList.remove('active'));
-        chip.classList.add('active');
-        renderSpeechView();
+      const currentInList = spotList.some(sp => data.speeches.findIndex(s => s.id === sp.id) === currentScenicIndex);
+      if (!currentInList && spotList.length > 0) {
+        currentScenicIndex = data.speeches.findIndex(s => s.id === spotList[0].id);
+      }
+      if (currentScenicIndex < 0 || currentScenicIndex >= data.speeches.length) {
+        currentScenicIndex = 0;
+      }
+
+      spotList.forEach(sp => {
+        const globalIdx = data.speeches.findIndex(s => s.id === sp.id);
+        const chip = document.createElement('div');
+        chip.className = `spot-chip ${globalIdx === currentScenicIndex ? 'active' : ''}`;
+        chip.textContent = sp.name;
+        chip.addEventListener('click', () => {
+          currentScenicIndex = globalIdx;
+          document.querySelectorAll('#spot-chips-container .spot-chip').forEach(c => c.classList.remove('active'));
+          chip.classList.add('active');
+          renderSpeechView();
+        });
+        spotChipsContainer.appendChild(chip);
       });
-      spotChipsContainer.appendChild(chip);
-    });
+    } else {
+      // 背诵导游词模式：展示当前专题分类下的 3 条路线
+      catFilterContainer.style.display = 'flex';
+      const matchingSpots = data.speeches.filter(sp => (sp.category || "自然山水") === currentCategory);
+      const spotList = matchingSpots.length > 0 ? matchingSpots : data.speeches;
+      
+      const currentInList = spotList.some(sp => data.speeches.findIndex(s => s.id === sp.id) === currentSpotIndex);
+      if (!currentInList && spotList.length > 0) {
+        currentSpotIndex = data.speeches.findIndex(s => s.id === spotList[0].id);
+      }
+      if (currentSpotIndex < 0 || currentSpotIndex >= data.speeches.length) {
+        currentSpotIndex = 0;
+      }
+
+      spotList.forEach(sp => {
+        const globalIdx = data.speeches.findIndex(s => s.id === sp.id);
+        const chip = document.createElement('div');
+        chip.className = `spot-chip ${globalIdx === currentSpotIndex ? 'active' : ''}`;
+        chip.textContent = sp.name;
+        chip.addEventListener('click', () => {
+          currentSpotIndex = globalIdx;
+          document.querySelectorAll('#spot-chips-container .spot-chip').forEach(c => c.classList.remove('active'));
+          chip.classList.add('active');
+          renderSpeechView();
+        });
+        spotChipsContainer.appendChild(chip);
+      });
+    }
 
     renderSpeechView();
   }
@@ -820,9 +855,9 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    let speech = data.speeches[currentSpotIndex];
+    const activeIdx = (currentMainTab === 'scenic') ? currentScenicIndex : currentSpotIndex;
+    let speech = data.speeches[activeIdx];
     if (!speech) {
-      currentSpotIndex = 0;
       speech = data.speeches[0];
     }
 
@@ -859,7 +894,7 @@ document.addEventListener('DOMContentLoaded', () => {
     controlCard.innerHTML = `
       <div class="audio-left">
         <button class="play-main-btn" id="btn-play-all">
-          <span>🎧</span> <span id="play-btn-text">现场导览 (连续讲解)</span>
+          <span>🎧</span> <span id="play-btn-text">全篇讲解</span>
         </button>
       </div>
       <div class="audio-controls">
@@ -873,28 +908,36 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
     container.appendChild(controlCard);
 
-    // 绑定"现场导览"（连续导览逐段高亮朗读）
-    let isContinuousTourPlaying = false;
+    // 绑定"全篇讲解"（支持：全篇讲解 -> 暂停讲解 -> 继续讲解）
+    let tourState = 'idle'; // 'idle' | 'playing' | 'paused'
     let continuousTourIndex = 0;
     const playAllBtn = controlCard.querySelector('#btn-play-all');
     const playBtnText = controlCard.querySelector('#play-btn-text');
+    const playBtnIcon = playAllBtn.querySelector('span:first-child');
 
-    function updatePlayAllBtn(playing) {
-      isContinuousTourPlaying = playing;
-      if (playing) {
-        if (playBtnText) playBtnText.textContent = '⏸ 暂停导览';
+    function updatePlayAllBtn(state) {
+      tourState = state;
+      if (state === 'playing') {
+        if (playBtnIcon) playBtnIcon.textContent = '⏸';
+        if (playBtnText) playBtnText.textContent = '暂停讲解';
         playAllBtn.style.background = '#dc2626';
+      } else if (state === 'paused') {
+        if (playBtnIcon) playBtnIcon.textContent = '▶';
+        if (playBtnText) playBtnText.textContent = '继续讲解';
+        playAllBtn.style.background = '#2563eb';
       } else {
-        if (playBtnText) playBtnText.textContent = '现场导览 (连续讲解)';
+        // idle
+        if (playBtnIcon) playBtnIcon.textContent = '🎧';
+        if (playBtnText) playBtnText.textContent = '全篇讲解';
         playAllBtn.style.background = '';
       }
     }
 
     function playContinuousSection(secIdx) {
-      if (!isContinuousTourPlaying) return;
+      if (tourState !== 'playing') return;
       if (!speech || !speech.sections || secIdx >= speech.sections.length) {
-        // 导览结束
-        updatePlayAllBtn(false);
+        // 全篇播放完毕
+        updatePlayAllBtn('idle');
         continuousTourIndex = 0;
         return;
       }
@@ -911,10 +954,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const enContainer = targetCard ? targetCard.querySelector('.speech-text-en') : null;
 
       const onSectionEnd = () => {
-        if (!isContinuousTourPlaying) return;
+        if (tourState !== 'playing') return;
         // 当前段读完，稍作停顿后进入下一段
         setTimeout(() => {
-          if (isContinuousTourPlaying) {
+          if (tourState === 'playing') {
             playContinuousSection(secIdx + 1);
           }
         }, 500);
@@ -925,14 +968,26 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     playAllBtn.addEventListener('click', () => {
-      if (isContinuousTourPlaying) {
-        // 暂停/停止连续导览
-        stopAllAudio();
-        updatePlayAllBtn(false);
+      if (tourState === 'playing') {
+        // 正在播放中，点击暂停
+        if ('speechSynthesis' in window) {
+          window.speechSynthesis.cancel();
+        }
+        if (staticAudioPlayer) {
+          staticAudioPlayer.pause();
+        }
+        clearSpeechHighlights();
+        updatePlayAllBtn('paused');
+      } else if (tourState === 'paused') {
+        // 处于暂停状态，点击继续讲解
+        updatePlayAllBtn('playing');
+        playContinuousSection(continuousTourIndex);
       } else {
+        // 初始状态，从第0段开始全篇讲解
         stopAllAudio();
-        updatePlayAllBtn(true);
-        playContinuousSection(continuousTourIndex || 0);
+        updatePlayAllBtn('playing');
+        continuousTourIndex = 0;
+        playContinuousSection(0);
       }
     });
 
@@ -1095,7 +1150,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!primaryTabsContainer || !secondaryTabsContainer || !container || !data.fileList) return;
     
     const primaryCategories = data.resourceCategories || ["英文景点与路线导游词", "现场问答题库", "英汉双向口译题库", "备考技巧与词汇讲义"];
-    const secondaryCategories = data.speechSubCategories || ["城市名胜", "自然山水", "民族风情", "历史文化", "康养长寿", "特色物产"];
+    const secondaryCategories = data.speechSubCategories || ["景区讲解", "自然山水", "民族风情", "历史文化", "康养长寿", "特色物产"];
 
     primaryTabsContainer.innerHTML = '';
     primaryCategories.forEach(cat => {
@@ -1197,9 +1252,19 @@ document.addEventListener('DOMContentLoaded', () => {
           renderSkillsView();
         } else if (tab === 'interview') {
           // 背诵导游词 VIEW
+          currentMainTab = 'interview';
           subNavWrapper.style.display = 'block';
           viewSpeech.style.display = 'block';
           catFilterContainer.style.display = 'flex';
+          spotChipsContainer.style.display = 'flex';
+          renderSpotChips();
+          renderSpeechView();
+        } else if (tab === 'scenic') {
+          // 景区讲解 VIEW
+          currentMainTab = 'scenic';
+          subNavWrapper.style.display = 'block';
+          viewSpeech.style.display = 'block';
+          catFilterContainer.style.display = 'none';
           spotChipsContainer.style.display = 'flex';
           renderSpotChips();
           renderSpeechView();
