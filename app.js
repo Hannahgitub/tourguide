@@ -2164,8 +2164,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- INTERPRETATION EVENTS (独立口译测试交互) ---
     const btnInterpCard = document.getElementById('btn-interp-card');
     const btnInterpList = document.getElementById('btn-interp-list');
-    const btnInterpRandom = document.getElementById('btn-interp-random');
-
+    
     if (btnInterpCard && btnInterpList) {
       btnInterpCard.addEventListener('click', () => {
         interpViewMode = 'card';
@@ -2182,26 +2181,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    if (btnInterpRandom) {
-      btnInterpRandom.addEventListener('click', () => {
-        stopAllAudio();
-        const list = getFilteredInterpList();
-        if (list.length === 0) return;
-        interpViewMode = 'card';
-        if (btnInterpCard) btnInterpCard.classList.add('active');
-        if (btnInterpList) btnInterpList.classList.remove('active');
-
-        // 随机抽取一道题
-        interpHistory.push(currentInterpIndex);
-        let randomIdx = Math.floor(Math.random() * list.length);
-        if (list.length > 1 && randomIdx === currentInterpIndex) {
-          randomIdx = (randomIdx + 1) % list.length;
-        }
-        currentInterpIndex = randomIdx;
-        renderInterpretingView();
-      });
-    }
-
+    
     const btnInterpListenQ = document.getElementById('btn-interp-listen-q');
     if (btnInterpListenQ) {
       btnInterpListenQ.addEventListener('click', () => {

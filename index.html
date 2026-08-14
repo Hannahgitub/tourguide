@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>广西导考宝典</title>
-  <link rel="stylesheet" href="style.css?v=20260815_v1">
+  <link rel="stylesheet" href="style.css?v=20260815_full">
 </head>
 <body>
   <div class="app-container">
@@ -12,11 +12,13 @@
     <header class="main-header">
       <div class="brand-section">
         <h1 class="brand-title">广西导考宝典</h1>
+        <span class="brand-subtitle">外语导游必备工具</span>
       </div>
       <nav class="nav-tabs" id="main-nav-tabs">
         <button class="tab-btn active" data-tab="interview">专题讲解</button>
         <button class="tab-btn" data-tab="scenic">景区讲解</button>
         <button class="tab-btn" data-tab="practice">知识问答</button>
+        <button class="tab-btn" data-tab="interpreting">口译测试</button>
         <button class="tab-btn" data-tab="phrases">短语速记</button>
         <button class="tab-btn cheatsheet-btn" data-tab="cheatsheet">💡 应试锦囊</button>
         <button class="tab-btn" data-tab="resources">资料下载</button>
@@ -38,11 +40,14 @@
 
     <!-- MAIN CONTENT VIEW -->
     <main id="main-content-area">
-      <!-- 0. 刷题 VIEW -->
+      <!-- 0. 知识问答 VIEW -->
       <section id="view-practice" class="view-section" style="display: none;">
         <div class="card practice-header-card">
           <div class="practice-header-row">
-            <h2 class="section-heading">真题特训刷题库</h2>
+            <div>
+              <h2 class="section-heading" style="margin-bottom: 2px;">📝 知识问答真题库</h2>
+              <span style="font-size: 13px; color: #666;">考评员现场提问 3 题 · 占 20 分 · 涵盖服务规范、应变处理与综合知识</span>
+            </div>
             <div class="practice-mode-toggle" id="practice-mode-toggle">
               <button class="action-btn active" id="btn-mode-card">卡片翻页</button>
               <button class="action-btn" id="btn-mode-list">完整题库</button>
@@ -90,11 +95,68 @@
           </div>
         </div>
 
-        <!-- 刷题模式 B: 迁移过来的全量问答题库列表容器 -->
+        <!-- 刷题模式 B: 问答题库列表容器 -->
         <div id="practice-list-container" style="display: none;"></div>
       </section>
 
-      <!-- 3. 背诵导游词 (英文导游词 PAGE VIEW) -->
+      <!-- 1. 口译测试 VIEW (独立拆分专区) -->
+      <section id="view-interpreting" class="view-section" style="display: none;">
+        <div class="card practice-header-card">
+          <div class="practice-header-row">
+            <div>
+              <h2 class="section-heading" style="margin-bottom: 2px;">🌐 现场口译测试真题特训 (178题)</h2>
+              <span style="font-size: 13px; color: #666;">考场随机抽取中译英与英译中各 1 题 · 占 20 分 · 考查双语即时转换与地道表达</span>
+            </div>
+            <div class="practice-mode-toggle" id="interp-mode-toggle">
+              <button class="action-btn active" id="btn-interp-card">卡片翻页</button>
+              <button class="action-btn" id="btn-interp-list">完整题库</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="cat-filter-tabs" id="interp-category-tabs" style="margin-bottom: 16px;"></div>
+
+        <!-- 口译模式 A: 逐题训练卡片 -->
+        <div class="card" id="interp-main-card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <span id="interp-num-badge" style="font-size: 12.5px; font-weight: 700; color: #6b7280; background: #f3f4f6; border: 1px solid #e5e7eb; padding: 2px 8px; border-radius: 4px; display: inline-block;">#1 / 178</span>
+            <span class="qa-tag-badge" id="interp-tag-badge" style="background: #eef2ff; color: #3b82f6; border: 1px solid #bfdbfe; font-weight: 600;"></span>
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 8px;">
+            <h3 class="qa-question-title" style="font-size: 17.5px; margin-bottom: 0; color: #1a1a1a; flex: 1; line-height: 1.5;" id="interp-question-text">Loading...</h3>
+            <button class="action-btn" id="btn-interp-listen-q" title="听题" style="padding: 4px 10px; font-size: 15px; background: #ebf5ee; border: 1px solid #c6e2ce; color: #2d7a4c; border-radius: 50%; width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; transition: transform 0.2s;">🔊</button>
+          </div>
+
+          <div style="display: flex; gap: 12px; margin-bottom: 14px; align-items: center;">
+            <button class="play-main-btn" id="btn-interp-toggle-ans" style="padding: 6px 20px; font-size: 13px;">参考译文</button>
+          </div>
+
+          <div class="ref-answer-box" id="interp-ref-box" style="display: none; margin-bottom: 16px;">
+            <div class="ref-answer-text" id="interp-ref-text"></div>
+          </div>
+
+          <div class="ai-dialog-box">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <div class="ai-dialog-title" style="margin-bottom: 0;">✍️ 现场即时口译训练</div>
+              <button id="btn-interp-mic" title="点击开始/停止语音输入" style="background: #ebf5ee; border: 1px solid #c6e2ce; color: #2d7a4c; padding: 4px 12px; border-radius: 16px; font-size: 13px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; transition: all 0.2s;">
+                <span id="interp-mic-icon">🎤</span> <span id="interp-mic-text">语音口译</span>
+              </button>
+            </div>
+            <textarea class="user-input-textarea" id="interp-user-input" placeholder="在此输入你的口译译文，或点击上方 🎤 进行语音口译..."></textarea>
+          </div>
+
+          <div class="page-nav-bar" style="margin-top: 20px;">
+            <button class="btn-nav-prev" id="btn-interp-prev">← 上一题</button>
+            <button class="btn-nav-next" id="btn-interp-next">下一题 →</button>
+          </div>
+        </div>
+
+        <!-- 口译模式 B: 题库全览列表 -->
+        <div id="interp-list-container" style="display: none;"></div>
+      </section>
+
+      <!-- 2. 导游词 (英文导游词 PAGE VIEW) -->
       <section id="view-speech" class="view-section" style="display: none;">
         <div id="speech-cards-container"></div>
       </section>
@@ -208,7 +270,7 @@
   <!-- 隐藏全局兜底语速节点 (防止 JavaScript 空指针异常) -->
   <select id="speech-rate-select" style="display: none;"><option value="1.0" selected>1.0</option></select>
 
-  <script src="data.js?v=20260815_v1" charset="UTF-8"></script>
-  <script src="app.js?v=20260815_v1" charset="UTF-8"></script>
+  <script src="data.js?v=20260815_full" charset="UTF-8"></script>
+  <script src="app.js?v=20260815_full" charset="UTF-8"></script>
 </body>
 </html>
