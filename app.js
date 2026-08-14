@@ -29,7 +29,6 @@ document.addEventListener('DOMContentLoaded', () => {
       currentPlayingCard.dataset.playState = 'idle';
       currentPlayingCard.classList.remove('reading-active');
       const en = currentPlayingCard.querySelector('.speech-text-en');
-      if (en) en.classList.remove('reading-text-active');
       const b = currentPlayingCard.querySelector('.btn-read-sec');
       if (b) b.textContent = '示范朗读';
       currentPlayingCard = null;
@@ -146,7 +145,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (containerEl) {
           activeSpeechContainer = containerEl;
           activeWordMap = prepareContainerHighlight(containerEl, cleanText);
-          containerEl.classList.add('reading-text-active');
           const parentCard = containerEl.closest('.card');
           if (parentCard) parentCard.classList.add('reading-active');
 
@@ -173,7 +171,6 @@ document.addEventListener('DOMContentLoaded', () => {
           clearInterval(watchDog);
           clearSpeechHighlights(containerEl);
           if (containerEl) {
-            containerEl.classList.remove('reading-text-active');
             const parentCard = containerEl.closest('.card');
             if (parentCard) parentCard.classList.remove('reading-active');
           }
@@ -248,6 +245,8 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentSkillSubject = '万能句式';
   let currentResourceCategory = '英文景点与路线导游词';
   let currentResourceSubCategory = '景区讲解';
+  
+  // 知识问答状态
   let currentPracticeCategory = '业务规范问答';
   let currentCardCategory = '历史文化';
   let currentPracticeIndex = 0;
@@ -255,6 +254,12 @@ document.addEventListener('DOMContentLoaded', () => {
   let practiceViewMode = 'card'; // 'card' or 'list'
   let shuffledPracticeQueue = []; // 已打乱的题目索引队列
   let shuffleCategory = '';       // 上次 shuffle 时对应的分类
+
+  // 口译测试状态 (独立拆出)
+  let currentInterpCategory = '全部口译'; // '全部口译' | '汉译英' | '英译中'
+  let currentInterpIndex = 0;
+  let interpHistory = [];
+  let interpViewMode = 'card'; // 'card' or 'list'
 
   let currentSpotIndex = 0;   // 专题导游词当前索引
   let currentScenicIndex = 0; // 景区讲解当前索引
@@ -268,6 +273,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Views
   const viewPractice = document.getElementById('view-practice');
+  const viewInterpreting = document.getElementById('view-interpreting');
   const viewCards = document.getElementById('view-cards');
   const viewSpeech = document.getElementById('view-speech');
   const viewSkills = document.getElementById('view-skills');
@@ -278,6 +284,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initCategoryFilters();
   renderSpotChips();
   renderPracticeView();
+  renderInterpretingView();
   renderCardsView();
   renderSpeechView();
   renderSkillsView();
@@ -530,18 +537,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  // ==========================================
+  // --- 知识问答模块 (PRACTICE MODULE) ---
+  // ==========================================
   function getFilteredPracticeList() {
     let list = [];
-    if (currentPracticeCategory === "英汉双向口译") {
-      list = (data.translations || []).map(t => ({
-        type: t.type || 'E2C',
-        tag: t.tag || (t.type === 'C2E' ? '汉译英' : '英译中'),
-        cnQuestion: '',
-        question: t.src || t.question || t.en || '',
-        answer: t.ref || t.answer || t.cn || '',
-        spot: '英汉双向口译真题178题'
-      }));
-    } else if (currentPracticeCategory.includes("应变")) {
+    if (currentPracticeCategory.includes("应变")) {
       list = (data.questions || []).filter(q => (q.officialCategory || q.category || "").includes("应变"));
     } else if (currentPracticeCategory.includes("综合")) {
       list = (data.questions || []).filter(q => (q.officialCategory || q.category || "").includes("综合"));
@@ -569,60 +570,42 @@ document.addEventListener('DOMContentLoaded', () => {
       numBadge.textContent = `#${currentPracticeIndex + 1} / ${list.length}`;
     }
 
-    const isInterpretation = currentPracticeCategory === "英汉双向口译";
-    const isC2E = isInterpretation && (qItem.type === 'C2E' || qItem.tag === '汉译英');
-    const isE2C = isInterpretation && !isC2E;
-
     if (tagBadge) {
-      if (isInterpretation) {
-        if (isC2E) {
-          tagBadge.textContent = '🇨🇳➔🇺🇸 汉译英 (口译考题)';
-          tagBadge.style.background = '#fff7ed';
-          tagBadge.style.color = '#c2410c';
-          tagBadge.style.borderColor = '#ffedd5';
-        } else {
-          tagBadge.textContent = '🇺🇸➔🇨🇳 英译中 (口译考题)';
-          tagBadge.style.background = '#eff6ff';
-          tagBadge.style.color = '#1d4ed8';
-          tagBadge.style.borderColor = '#dbeafe';
-        }
-      } else {
-        tagBadge.textContent = qItem.spot || currentPracticeCategory;
-        tagBadge.style.background = '#f3f4f6';
-        tagBadge.style.color = '#374151';
-        tagBadge.style.borderColor = '#e5e7eb';
-      }
+      tagBadge.textContent = qItem.spot || currentPracticeCategory;
+      tagBadge.style.background = '#f3f4f6';
+      tagBadge.style.color = '#374151';
+      tagBadge.style.borderColor = '#e5e7eb';
     }
 
-    // 题目朗读图标：中文题目不念，仅英文题目念
     if (listenBtn) {
-      if (isC2E) {
-        listenBtn.style.display = 'none';
-      } else {
-        listenBtn.style.display = 'inline-flex';
-        listenBtn.textContent = '🔊';
-        listenBtn.title = isInterpretation ? '听英文原句' : '听题';
-      }
+      listenBtn.style.display = 'inline-flex';
+      listenBtn.textContent = '🔊';
+      listenBtn.title = '听题';
     }
 
     // 英文在上，中文在下
-    document.getElementById('practice-en-question').textContent = qItem.enQuestion || qItem.question;
-    document.getElementById('practice-cn-question').textContent = qItem.cnQuestion || '';
+    const enQElem = document.getElementById('practice-en-question');
+    const cnQElem = document.getElementById('practice-cn-question');
+    if (enQElem) enQElem.textContent = qItem.enQuestion || qItem.question;
+    if (cnQElem) cnQElem.textContent = qItem.cnQuestion || '';
     
-    // 答案朗读图标：中文答案不念，仅英文答案念
-    const showAnsAudio = !isE2C;
     let ansHTML = `
       <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 10px;">
         <div style="white-space: pre-line; font-size: 15px; font-weight: 700; color: #1e3a8a; line-height: 1.6; flex: 1;">${qItem.answer}</div>
-        ${showAnsAudio ? `<button class="action-btn" id="btn-practice-listen-ans" title="听英文答案" style="padding: 4px 10px; font-size: 15px; background: #ebf5ee; border: 1px solid #c6e2ce; color: #2d7a4c; border-radius: 50%; width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0;">🔊</button>` : ''}
+        <button class="action-btn" id="btn-practice-listen-ans" title="听英文答案" style="padding: 4px 10px; font-size: 15px; background: #ebf5ee; border: 1px solid #c6e2ce; color: #2d7a4c; border-radius: 50%; width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0;">🔊</button>
       </div>
     `;
     if (qItem.cnAnswer) {
       ansHTML += `<div style="white-space: pre-line; font-size: 14px; color: #475569; margin-top: 10px; border-top: 1px dashed #cbd5e1; padding-top: 10px; line-height: 1.6; font-weight: 500;">${qItem.cnAnswer}</div>`;
     }
-    document.getElementById('practice-ref-text').innerHTML = ansHTML;
-    document.getElementById('practice-ref-box').style.display = 'none';
-    document.getElementById('practice-user-input').value = '';
+    const refTextEl = document.getElementById('practice-ref-text');
+    const refBoxEl = document.getElementById('practice-ref-box');
+    if (refTextEl) refTextEl.innerHTML = ansHTML;
+    if (refBoxEl) refBoxEl.style.display = 'none';
+
+    const userInput = document.getElementById('practice-user-input');
+    if (userInput) userInput.value = '';
+
     const evalBox = document.getElementById('practice-eval-result');
     if (evalBox) { evalBox.style.display = 'none'; evalBox.innerHTML = ''; }
     if (typeof stopPracticeSpeech === 'function') stopPracticeSpeech();
@@ -631,13 +614,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btnListenAns) {
       btnListenAns.addEventListener('click', () => {
         const cleanAnsText = qItem.answer.replace(/<[^>]*>/g, '');
-        const ansContainer = document.getElementById('practice-ref-text');
-        speakText(cleanAnsText, ansContainer);
+        speakText(cleanAnsText, refTextEl);
       });
     }
   }
 
-  // --- RENDER PRACTICE VIEW ---
   function renderPracticeView() {
     const tabsContainer = document.getElementById('practice-category-tabs');
     const mainCard = document.getElementById('practice-main-card');
@@ -645,7 +626,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     if (!tabsContainer || !mainCard || !listContainer) return;
 
-    const categories = ["业务规范问答", "应变处理问答", "综合常识问答", "英汉双向口译"];
+    const categories = ["业务规范问答", "应变处理问答", "综合常识问答"];
 
     tabsContainer.innerHTML = '';
     categories.forEach(cat => {
@@ -686,37 +667,26 @@ document.addEventListener('DOMContentLoaded', () => {
         const card = document.createElement('div');
         card.className = 'card';
         card.style.marginBottom = '14px';
-        
-
-
-        const isInterp = currentPracticeCategory === "英汉双向口译";
-        const isC2E = isInterp && (qa.type === 'C2E' || qa.tag === '汉译英');
-        const isE2C = isInterp && !isC2E;
-
-        const showQAudio = !isC2E; // 中文题目不念
-        const showAAudio = !isE2C; // 中文答案不念
 
         let ansContentHTML = `
           <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 10px;">
             <div style="white-space: pre-line; font-size: 15px; font-weight: 700; color: #1e3a8a; line-height: 1.6; flex: 1;">${qa.answer}</div>
-            ${showAAudio ? `<button class="action-btn btn-qa-read-ans" data-idx="${idx}" title="听英文答案" style="padding: 4px 10px; font-size: 15px; background: #ebf5ee; border: 1px solid #c6e2ce; color: #2d7a4c; border-radius: 50%; width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0;">🔊</button>` : ''}
+            <button class="action-btn btn-qa-read-ans" data-idx="${idx}" title="听英文答案" style="padding: 4px 10px; font-size: 15px; background: #ebf5ee; border: 1px solid #c6e2ce; color: #2d7a4c; border-radius: 50%; width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0;">🔊</button>
           </div>
         `;
         if (qa.cnAnswer) {
           ansContentHTML += `<div style="white-space: pre-line; font-size: 14px; color: #475569; margin-top: 10px; border-top: 1px dashed #cbd5e1; padding-top: 10px; line-height: 1.6; font-weight: 500;">${qa.cnAnswer}</div>`;
         }
 
-        const tagText = isInterp ? (isC2E ? '🇨🇳➔🇺🇸 汉译英' : '🇺🇸➔🇨🇳 英译中') : (qa.spot || currentPracticeCategory);
-
         card.innerHTML = `
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
             <span style="font-size: 12.5px; font-weight: 700; color: #6b7280; background: #f3f4f6; border: 1px solid #e5e7eb; padding: 2px 8px; border-radius: 4px; display: inline-block;">#${idx + 1}</span>
-            <span class="qa-tag-badge" style="font-size: 12px; ${isC2E ? 'background:#fff7ed;color:#c2410c;border:1px solid #ffedd5;' : 'background:#eff6ff;color:#1d4ed8;border:1px solid #dbeafe;'}">${tagText}</span>
+            <span class="qa-tag-badge" style="font-size: 12px; background: #f3f4f6; color: #374151; border: 1px solid #e5e7eb;">${qa.spot || currentPracticeCategory}</span>
           </div>
           
           <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 4px;">
             <h3 class="qa-question-title" style="font-size: 16.5px; margin-bottom: 0; color: #1a1a1a; font-weight: 700; line-height: 1.4; flex: 1;">${qa.enQuestion || qa.question}</h3>
-            ${showQAudio ? `<button class="action-btn btn-qa-read" data-idx="${idx}" title="${isInterp ? '听英文原句' : '听题'}" style="padding: 4px 10px; font-size: 15px; background: #ebf5ee; border: 1px solid #c6e2ce; color: #2d7a4c; border-radius: 50%; width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0;">🔊</button>` : ''}
+            <button class="action-btn btn-qa-read" data-idx="${idx}" title="听题" style="padding: 4px 10px; font-size: 15px; background: #ebf5ee; border: 1px solid #c6e2ce; color: #2d7a4c; border-radius: 50%; width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0;">🔊</button>
           </div>
           ${qa.cnQuestion ? `<div style="font-size: 14px; color: #666; font-weight: 500; margin-bottom: 12px;">${qa.cnQuestion}</div>` : ''}
           
@@ -749,6 +719,189 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.addEventListener('click', e => {
           const i = e.currentTarget.getAttribute('data-idx');
           const box = document.getElementById(`ref-box-${i}`);
+          if (box) {
+            box.style.display = box.style.display === 'none' ? 'block' : 'none';
+          }
+        });
+      });
+    }
+  }
+
+  // ==========================================
+  // --- 口译测试模块 (INTERPRETATION MODULE) ---
+  // ==========================================
+  function getFilteredInterpList() {
+    const raw = data.translations || [];
+    if (currentInterpCategory === '汉译英') {
+      return raw.filter(t => t.type === 'C2E' || t.tag === '汉译英');
+    } else if (currentInterpCategory === '英译中') {
+      return raw.filter(t => t.type === 'E2C' || t.tag === '英译中');
+    }
+    return raw;
+  }
+
+  function renderCurrentInterpCard() {
+    const list = getFilteredInterpList();
+    if (list.length === 0) return;
+    if (currentInterpIndex >= list.length) currentInterpIndex = 0;
+    if (currentInterpIndex < 0) currentInterpIndex = list.length - 1;
+    const item = list[currentInterpIndex];
+
+    const isC2E = item.type === 'C2E' || item.tag === '汉译英';
+    const numBadge = document.getElementById('interp-num-badge');
+    const tagBadge = document.getElementById('interp-tag-badge');
+    const questionTextEl = document.getElementById('interp-question-text');
+    const listenQBtn = document.getElementById('btn-interp-listen-q');
+    const refTextEl = document.getElementById('interp-ref-text');
+    const refBoxEl = document.getElementById('interp-ref-box');
+    const userInput = document.getElementById('interp-user-input');
+
+    if (numBadge) {
+      numBadge.textContent = `#${currentInterpIndex + 1} / ${list.length}`;
+    }
+
+    if (tagBadge) {
+      if (isC2E) {
+        tagBadge.textContent = '🇨🇳➔🇺🇸 汉译英真题';
+        tagBadge.style.background = '#fff7ed';
+        tagBadge.style.color = '#c2410c';
+        tagBadge.style.borderColor = '#ffedd5';
+      } else {
+        tagBadge.textContent = '🇺🇸➔🇨🇳 英译中真题';
+        tagBadge.style.background = '#eff6ff';
+        tagBadge.style.color = '#1d4ed8';
+        tagBadge.style.borderColor = '#dbeafe';
+      }
+    }
+
+    const qText = item.src || item.question || item.en || '';
+    const ansText = item.ref || item.answer || item.cn || '';
+
+    if (questionTextEl) {
+      questionTextEl.textContent = qText;
+    }
+
+    if (listenQBtn) {
+      // 题目朗读：若原句是英文则朗读英文原句；若原句是中文则朗读英文译文辅助
+      listenQBtn.style.display = 'inline-flex';
+      listenQBtn.title = isC2E ? '听英文参考译文' : '听英文原句';
+    }
+
+    let refContentHTML = `
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 10px;">
+        <div style="white-space: pre-line; font-size: 15px; font-weight: 700; color: #1e3a8a; line-height: 1.6; flex: 1;">${ansText}</div>
+        ${isC2E ? `<button class="action-btn" id="btn-interp-listen-ans" title="听英文译文" style="padding: 4px 10px; font-size: 15px; background: #ebf5ee; border: 1px solid #c6e2ce; color: #2d7a4c; border-radius: 50%; width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0;">🔊</button>` : ''}
+      </div>
+    `;
+    if (refTextEl) refTextEl.innerHTML = refContentHTML;
+    if (refBoxEl) refBoxEl.style.display = 'none';
+    if (userInput) userInput.value = '';
+
+    const btnListenAns = document.getElementById('btn-interp-listen-ans');
+    if (btnListenAns) {
+      btnListenAns.addEventListener('click', () => {
+        speakText(ansText, refTextEl);
+      });
+    }
+  }
+
+  function renderInterpretingView() {
+    const tabsContainer = document.getElementById('interp-category-tabs');
+    const mainCard = document.getElementById('interp-main-card');
+    const listContainer = document.getElementById('interp-list-container');
+    
+    if (!tabsContainer || !mainCard || !listContainer) return;
+
+    const categories = ["全部口译", "汉译英", "英译中"];
+
+    tabsContainer.innerHTML = '';
+    categories.forEach(cat => {
+      const btn = document.createElement('button');
+      btn.className = `cat-btn ${cat === currentInterpCategory ? 'active' : ''}`;
+      btn.textContent = cat === '全部口译' ? `全部真题 (178题)` : cat;
+      btn.addEventListener('click', () => {
+        currentInterpCategory = cat;
+        currentInterpIndex = 0;
+        interpHistory = [];
+        document.querySelectorAll('#interp-category-tabs .cat-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        if (interpViewMode === 'card') {
+          renderCurrentInterpCard();
+        } else {
+          renderInterpList();
+        }
+      });
+      tabsContainer.appendChild(btn);
+    });
+
+    if (interpViewMode === 'card') {
+      mainCard.style.display = 'block';
+      listContainer.style.display = 'none';
+      renderCurrentInterpCard();
+    } else {
+      mainCard.style.display = 'none';
+      listContainer.style.display = 'block';
+      renderInterpList();
+    }
+
+    function renderInterpList() {
+      listContainer.innerHTML = '';
+      const list = getFilteredInterpList();
+
+      list.forEach((item, idx) => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.style.marginBottom = '14px';
+
+        const isC2E = item.type === 'C2E' || item.tag === '汉译英';
+        const qText = item.src || item.question || item.en || '';
+        const ansText = item.ref || item.answer || item.cn || '';
+
+        card.innerHTML = `
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <span style="font-size: 12.5px; font-weight: 700; color: #6b7280; background: #f3f4f6; border: 1px solid #e5e7eb; padding: 2px 8px; border-radius: 4px; display: inline-block;">#${idx + 1}</span>
+            <span class="qa-tag-badge" style="font-size: 12px; ${isC2E ? 'background:#fff7ed;color:#c2410c;border:1px solid #ffedd5;' : 'background:#eff6ff;color:#1d4ed8;border:1px solid #dbeafe;'}">${isC2E ? '🇨🇳➔🇺🇸 汉译英' : '🇺🇸➔🇨🇳 英译中'}</span>
+          </div>
+          
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 6px;">
+            <h3 class="qa-question-title" style="font-size: 16.5px; margin-bottom: 0; color: #1a1a1a; font-weight: 700; line-height: 1.5; flex: 1;">${qText}</h3>
+            ${!isC2E ? `<button class="action-btn btn-interp-list-read" data-idx="${idx}" title="听英文原句" style="padding: 4px 10px; font-size: 15px; background: #ebf5ee; border: 1px solid #c6e2ce; color: #2d7a4c; border-radius: 50%; width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0;">🔊</button>` : ''}
+          </div>
+          
+          <div style="display: flex; gap: 10px; margin-bottom: 8px; margin-top: 10px;">
+            <button class="play-main-btn btn-interp-ans-toggle" data-idx="${idx}" style="padding: 5px 20px; font-size: 13px;">参考译文</button>
+          </div>
+
+          <div class="ref-answer-box" id="interp-ref-box-${idx}" style="display: none; margin-top: 12px;">
+            <div class="ref-answer-text">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 10px;">
+                <div style="white-space: pre-line; font-size: 15px; font-weight: 700; color: #1e3a8a; line-height: 1.6; flex: 1;">${ansText}</div>
+                ${isC2E ? `<button class="action-btn btn-interp-list-read-ans" data-idx="${idx}" title="听英文译文" style="padding: 4px 10px; font-size: 15px; background: #ebf5ee; border: 1px solid #c6e2ce; color: #2d7a4c; border-radius: 50%; width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0;">🔊</button>` : ''}
+              </div>
+            </div>
+          </div>
+        `;
+        listContainer.appendChild(card);
+      });
+
+      listContainer.querySelectorAll('.btn-interp-list-read').forEach(btn => {
+        btn.addEventListener('click', e => {
+          const i = e.currentTarget.getAttribute('data-idx');
+          speakText(list[i].src || list[i].question || list[i].en || '');
+        });
+      });
+
+      listContainer.querySelectorAll('.btn-interp-list-read-ans').forEach(btn => {
+        btn.addEventListener('click', e => {
+          const i = e.currentTarget.getAttribute('data-idx');
+          speakText(list[i].ref || list[i].answer || list[i].cn || '');
+        });
+      });
+
+      listContainer.querySelectorAll('.btn-interp-ans-toggle').forEach(btn => {
+        btn.addEventListener('click', e => {
+          const i = e.currentTarget.getAttribute('data-idx');
+          const box = document.getElementById(`interp-ref-box-${i}`);
           if (box) {
             box.style.display = box.style.display === 'none' ? 'block' : 'none';
           }
@@ -943,7 +1096,6 @@ document.addEventListener('DOMContentLoaded', () => {
         container.querySelectorAll('.card').forEach(c => {
           c.classList.remove('reading-active');
           const en = c.querySelector('.speech-text-en');
-          if (en) en.classList.remove('reading-text-active');
         });
       }
     };
@@ -964,11 +1116,9 @@ document.addEventListener('DOMContentLoaded', () => {
         container.querySelectorAll('.card').forEach(c => {
           c.classList.remove('reading-active');
           const en = c.querySelector('.speech-text-en');
-          if (en) en.classList.remove('reading-text-active');
         });
         targetCard.classList.add('reading-active');
         const en = targetCard.querySelector('.speech-text-en');
-        if (en) en.classList.add('reading-text-active');
       }
 
       const sec = speech.sections[secIdx];
@@ -1075,7 +1225,6 @@ document.addEventListener('DOMContentLoaded', () => {
             currentPlayingCard = card;
             card.dataset.playState = 'playing';
             card.classList.add('reading-active');
-            if (enContainer) enContainer.classList.add('reading-text-active');
             btn.textContent = '⏹ 停止朗读';
 
             const rateElem = document.getElementById('speech-rate-select');
@@ -1084,7 +1233,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const resetState = () => {
               card.dataset.playState = 'idle';
               card.classList.remove('reading-active');
-              if (enContainer) enContainer.classList.remove('reading-text-active');
               if (btn) btn.textContent = '示范朗读';
               clearSpeechHighlights(enContainer);
               currentPlayingCard = null;
@@ -1098,7 +1246,6 @@ document.addEventListener('DOMContentLoaded', () => {
               // 音频加载失败（如手机脱机或本地无该 MP3），无缝降级为优化后的 Web Speech
               card.dataset.playState = 'playing';
               card.classList.add('reading-active');
-              if (enContainer) enContainer.classList.add('reading-text-active');
               btn.textContent = '⏹ 停止朗读';
               speakText(cleanText, enContainer, resetState);
             };
@@ -1106,7 +1253,6 @@ document.addEventListener('DOMContentLoaded', () => {
             staticAudioPlayer.play().then(() => {
               card.dataset.playState = 'playing';
               card.classList.add('reading-active');
-              if (enContainer) enContainer.classList.add('reading-text-active');
               btn.textContent = '⏹ 停止朗读';
             }).catch(err => {
               console.warn('[Audio] 静态音频自动播放失败，触发降级:', err);
@@ -1259,6 +1405,10 @@ document.addEventListener('DOMContentLoaded', () => {
           subNavWrapper.style.display = 'none';
           viewPractice.style.display = 'block';
           renderPracticeView();
+        } else if (tab === 'interpreting') {
+          subNavWrapper.style.display = 'none';
+          if (viewInterpreting) viewInterpreting.style.display = 'block';
+          renderInterpretingView();
         } else if (tab === 'cards') {
           subNavWrapper.style.display = 'none';
           viewCards.style.display = 'block';
@@ -1268,7 +1418,7 @@ document.addEventListener('DOMContentLoaded', () => {
           viewSkills.style.display = 'block';
           renderSkillsView();
         } else if (tab === 'interview') {
-          // 背诵导游词 VIEW
+          // 专题讲解 VIEW
           currentMainTab = 'interview';
           subNavWrapper.style.display = 'block';
           viewSpeech.style.display = 'block';
@@ -2005,6 +2155,157 @@ document.addEventListener('DOMContentLoaded', () => {
       currentPracticeIndex = shuffledPracticeQueue.shift(); // 从队列头部取
       renderCurrentPracticeCard();
     });
+
+    // --- INTERPRETATION EVENTS (独立口译测试交互) ---
+    const btnInterpCard = document.getElementById('btn-interp-card');
+    const btnInterpList = document.getElementById('btn-interp-list');
+    const btnInterpRandom = document.getElementById('btn-interp-random');
+
+    if (btnInterpCard && btnInterpList) {
+      btnInterpCard.addEventListener('click', () => {
+        interpViewMode = 'card';
+        btnInterpCard.classList.add('active');
+        btnInterpList.classList.remove('active');
+        renderInterpretingView();
+      });
+
+      btnInterpList.addEventListener('click', () => {
+        interpViewMode = 'list';
+        btnInterpList.classList.add('active');
+        btnInterpCard.classList.remove('active');
+        renderInterpretingView();
+      });
+    }
+
+    if (btnInterpRandom) {
+      btnInterpRandom.addEventListener('click', () => {
+        if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+        const list = getFilteredInterpList();
+        if (list.length === 0) return;
+        interpViewMode = 'card';
+        if (btnInterpCard) btnInterpCard.classList.add('active');
+        if (btnInterpList) btnInterpList.classList.remove('active');
+
+        // 随机抽取一道题
+        interpHistory.push(currentInterpIndex);
+        let randomIdx = Math.floor(Math.random() * list.length);
+        if (list.length > 1 && randomIdx === currentInterpIndex) {
+          randomIdx = (randomIdx + 1) % list.length;
+        }
+        currentInterpIndex = randomIdx;
+        renderInterpretingView();
+      });
+    }
+
+    const btnInterpListenQ = document.getElementById('btn-interp-listen-q');
+    if (btnInterpListenQ) {
+      btnInterpListenQ.addEventListener('click', () => {
+        const list = getFilteredInterpList();
+        if (list.length === 0 || currentInterpIndex >= list.length) return;
+        const item = list[currentInterpIndex];
+        const isC2E = item.type === 'C2E' || item.tag === '汉译英';
+        if (isC2E) {
+          // 汉译英时，朗读参考英文译文
+          const ansEl = document.getElementById('interp-ref-text');
+          speakText(item.ref || item.answer || item.cn || '', ansEl);
+        } else {
+          // 英译中时，朗读英文题目原句
+          const qEl = document.getElementById('interp-question-text');
+          speakText(item.src || item.question || item.en || '', qEl);
+        }
+      });
+    }
+
+    const btnInterpToggleAns = document.getElementById('btn-interp-toggle-ans');
+    if (btnInterpToggleAns) {
+      btnInterpToggleAns.addEventListener('click', () => {
+        const box = document.getElementById('interp-ref-box');
+        if (box) {
+          box.style.display = box.style.display === 'none' ? 'block' : 'none';
+        }
+      });
+    }
+
+    const btnInterpPrev = document.getElementById('btn-interp-prev');
+    if (btnInterpPrev) {
+      btnInterpPrev.addEventListener('click', () => {
+        if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+        const list = getFilteredInterpList();
+        if (list.length === 0) return;
+        if (interpHistory.length > 0) {
+          currentInterpIndex = interpHistory.pop();
+        } else {
+          currentInterpIndex = (currentInterpIndex - 1 + list.length) % list.length;
+        }
+        renderCurrentInterpCard();
+      });
+    }
+
+    const btnInterpNext = document.getElementById('btn-interp-next');
+    if (btnInterpNext) {
+      btnInterpNext.addEventListener('click', () => {
+        if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+        const list = getFilteredInterpList();
+        if (list.length === 0) return;
+        interpHistory.push(currentInterpIndex);
+        currentInterpIndex = (currentInterpIndex + 1) % list.length;
+        renderCurrentInterpCard();
+      });
+    }
+
+    // 口译语音输入绑定
+    const btnInterpMic = document.getElementById('btn-interp-mic');
+    let interpRecognition = null;
+    let isInterpRecording = false;
+
+    if (btnInterpMic && ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)) {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      interpRecognition = new SpeechRecognition();
+      interpRecognition.continuous = true;
+      interpRecognition.interimResults = true;
+
+      interpRecognition.onresult = (event) => {
+        let transcript = '';
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          transcript += event.results[i][0].transcript;
+        }
+        const inputArea = document.getElementById('interp-user-input');
+        if (inputArea) {
+          inputArea.value = transcript;
+        }
+      };
+
+      interpRecognition.onend = () => {
+        isInterpRecording = false;
+        const icon = document.getElementById('interp-mic-icon');
+        const text = document.getElementById('interp-mic-text');
+        if (icon) icon.textContent = '🎤';
+        if (text) text.textContent = '语音口译';
+        if (btnInterpMic) btnInterpMic.style.background = '#ebf5ee';
+      };
+
+      btnInterpMic.addEventListener('click', () => {
+        if (isInterpRecording) {
+          interpRecognition.stop();
+        } else {
+          try {
+            const list = getFilteredInterpList();
+            const cur = list[currentInterpIndex] || {};
+            const isC2E = cur.type === 'C2E' || cur.tag === '汉译英';
+            interpRecognition.lang = isC2E ? 'en-US' : 'zh-CN';
+            interpRecognition.start();
+            isInterpRecording = true;
+            const icon = document.getElementById('interp-mic-icon');
+            const text = document.getElementById('interp-mic-text');
+            if (icon) icon.textContent = '⏹';
+            if (text) text.textContent = '停止录音';
+            btnInterpMic.style.background = '#fee2e2';
+          } catch (e) {
+            console.warn('[Interp Mic Error]', e);
+          }
+        }
+      });
+    }
 
 
   // ==========================================
