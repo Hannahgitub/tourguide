@@ -2238,53 +2238,157 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // 口译语音输入绑定
+    // 口译语音输入与答案校正绑定
     const btnInterpMic = document.getElementById('btn-interp-mic');
+    const interpTextarea = document.getElementById('interp-user-input');
     let interpRecognition = null;
     let isInterpRecording = false;
+    let interpBaseText = '';
+    let interpSessionFinal = '';
+    let interpSessionInterim = '';
+
+    function triggerInterpEvaluation(userText) {
+      const evalBox = document.getElementById('interp-eval-result');
+      if (!evalBox) return;
+
+      const list = getFilteredInterpList();
+      const curItem = list[currentInterpIndex];
+      if (!curItem || !userText || !userText.trim()) {
+        evalBox.style.display = 'none';
+        return;
+      }
+
+      const refAns = curItem.ref || curItem.answer || curItem.cn || '';
+      const result = evaluateUserAnswerAgainstRef(userText, refAns);
+      if (!result || result.totalCount === 0) {
+        evalBox.style.display = 'none';
+        return;
+      }
+
+      let color = '#16a34a';
+      if (result.score < 50) color = '#dc2626';
+      else if (result.score < 80) color = '#d97706';
+
+      let html = `
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+          <span style="font-weight: 700; color: #1e293b;">🎯 译文准确度与要点校对</span>
+          <span style="font-size: 14px; font-weight: 800; color: ${color};">${result.score}分 (匹配 ${result.hitCount}/${result.totalCount} 核心词句)</span>
+        </div>
+      `;
+
+      if (result.hitKeywords.length) {
+        html += `<div style="font-size: 12px; margin-bottom: 4px; line-height: 1.6;">✅ <strong>命中核心点:</strong> ${result.hitKeywords.slice(0, 10).map(k => `<span style="display:inline-block; background:#dcfce7; color:#15803d; border:1px solid #86efac; padding:1px 6px; border-radius:4px; margin:2px;">${k}</span>`).join('')}</div>`;
+      }
+      if (result.missKeywords.length) {
+        html += `<div style="font-size: 12px; line-height: 1.6;">💡 <strong>建议对照补充:</strong> ${result.missKeywords.slice(0, 10).map(k => `<span style="display:inline-block; background:#fee2e2; color:#991b1b; border:1px solid #fca5a5; padding:1px 6px; border-radius:4px; margin:2px;">${k}</span>`).join('')}</div>`;
+      }
+
+      evalBox.innerHTML = html;
+      evalBox.style.display = 'block';
+    }
+
+    if (interpTextarea) {
+      interpTextarea.addEventListener('input', () => {
+        triggerInterpEvaluation(interpTextarea.value);
+      });
+    }
+
+    function stopInterpRecording() {
+      if (!isInterpRecording) return;
+      isInterpRecording = false;
+      if (interpRecognition) {
+        try { interpRecognition.stop(); } catch(e){}
+      }
+      // 停止录音时，确保最新识别的有效文本（包括末尾临时分段）固化在输入框中，绝不丢失
+      if (interpTextarea) {
+        const fullFinal = (interpSessionFinal + ' ' + interpSessionInterim).trim();
+        if (fullFinal) {
+          const prefix = interpBaseText ? interpBaseText + (interpBaseText.endsWith(' ') || interpBaseText.endsWith('\n') ? '' : ' ') : '';
+          interpTextarea.value = prefix + fullFinal;
+        }
+        triggerInterpEvaluation(interpTextarea.value);
+      }
+      const icon = document.getElementById('interp-mic-icon');
+      const text = document.getElementById('interp-mic-text');
+      if (icon) icon.textContent = '🎤';
+      if (text) text.textContent = '语音口译';
+      if (btnInterpMic) {
+        btnInterpMic.style.background = '#ebf5ee';
+        btnInterpMic.style.borderColor = '#c6e2ce';
+        btnInterpMic.style.color = '#2d7a4c';
+      }
+    }
 
     if (btnInterpMic && ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)) {
       const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
       interpRecognition = new SpeechRecognition();
       interpRecognition.continuous = true;
       interpRecognition.interimResults = true;
+      interpRecognition.maxAlternatives = 1;
+
+      interpRecognition.onstart = () => {
+        isInterpRecording = true;
+        const icon = document.getElementById('interp-mic-icon');
+        const text = document.getElementById('interp-mic-text');
+        if (icon) icon.textContent = '🔴';
+        if (text) text.textContent = '正在录音...';
+        btnInterpMic.style.background = '#fef2f2';
+        btnInterpMic.style.borderColor = '#fca5a5';
+        btnInterpMic.style.color = '#dc2626';
+      };
 
       interpRecognition.onresult = (event) => {
-        let transcript = '';
-        for (let i = event.resultIndex; i < event.results.length; i++) {
-          transcript += event.results[i][0].transcript;
+        let curFinal = '';
+        let curInterim = '';
+
+        for (let i = event.resultIndex; i < event.results.length; ++i) {
+          const res = event.results[i];
+          if (res.isFinal) {
+            curFinal += res[0].transcript + ' ';
+          } else {
+            curInterim += res[0].transcript;
+          }
         }
-        const inputArea = document.getElementById('interp-user-input');
-        if (inputArea) {
-          inputArea.value = transcript;
+
+        if (curFinal) {
+          interpSessionFinal += curFinal;
+        }
+        interpSessionInterim = curInterim;
+
+        if (interpTextarea) {
+          const prefix = interpBaseText ? interpBaseText + (interpBaseText.endsWith(' ') || interpBaseText.endsWith('\n') ? '' : ' ') : '';
+          interpTextarea.value = prefix + (interpSessionFinal + curInterim).trim();
+          triggerInterpEvaluation(interpTextarea.value);
         }
       };
 
+      interpRecognition.onerror = (event) => {
+        console.warn('[Interp Mic Error]', event.error);
+        if (event.error === 'not-allowed') {
+          alert('麦克风权限未开启，请在浏览器地址栏左侧允许使用麦克风。');
+        }
+        stopInterpRecording();
+      };
+
       interpRecognition.onend = () => {
-        isInterpRecording = false;
-        const icon = document.getElementById('interp-mic-icon');
-        const text = document.getElementById('interp-mic-text');
-        if (icon) icon.textContent = '🎤';
-        if (text) text.textContent = '语音口译';
-        if (btnInterpMic) btnInterpMic.style.background = '#ebf5ee';
+        if (isInterpRecording) {
+          stopInterpRecording();
+        }
       };
 
       btnInterpMic.addEventListener('click', () => {
         if (isInterpRecording) {
-          interpRecognition.stop();
+          stopInterpRecording();
         } else {
           try {
             const list = getFilteredInterpList();
             const cur = list[currentInterpIndex] || {};
             const isC2E = cur.type === 'C2E' || cur.tag === '汉译英';
             interpRecognition.lang = isC2E ? 'en-US' : 'zh-CN';
+            interpBaseText = interpTextarea ? interpTextarea.value.trim() : '';
+            interpSessionFinal = '';
+            interpSessionInterim = '';
             interpRecognition.start();
-            isInterpRecording = true;
-            const icon = document.getElementById('interp-mic-icon');
-            const text = document.getElementById('interp-mic-text');
-            if (icon) icon.textContent = '⏹';
-            if (text) text.textContent = '停止录音';
-            btnInterpMic.style.background = '#fee2e2';
           } catch (e) {
             console.warn('[Interp Mic Error]', e);
           }
@@ -2735,6 +2839,9 @@ function getPhraseStatus(id) {
     let practiceRecognition = null;
     let isPracticeListening = false;
     let userWantsPracticeListening = false;
+    let practiceBaseText = '';
+    let practiceSessionFinal = '';
+    let practiceSessionInterim = '';
 
     function initPracticeSpeechRecognition() {
       const micBtn = document.getElementById('btn-practice-mic');
@@ -2783,22 +2890,27 @@ function getPhraseStatus(id) {
         };
 
         practiceRecognition.onresult = (event) => {
-          let finalStr = '';
-          let interimStr = '';
+          let curFinal = '';
+          let curInterim = '';
           for (let i = event.resultIndex; i < event.results.length; ++i) {
-            if (event.results[i].isFinal) {
-              finalStr += event.results[i][0].transcript + ' ';
+            const res = event.results[i];
+            if (res.isFinal) {
+              curFinal += res[0].transcript + ' ';
             } else {
-              interimStr += event.results[i][0].transcript;
+              curInterim += res[0].transcript;
             }
           }
 
+          if (curFinal) {
+            practiceSessionFinal += curFinal;
+          }
+          practiceSessionInterim = curInterim;
+
           const textarea = document.getElementById('practice-user-input');
           if (textarea) {
-            if (finalStr) {
-              textarea.value += (textarea.value && !textarea.value.endsWith(' ') ? ' ' : '') + finalStr;
-            }
-            triggerAnswerEvaluation(textarea.value + interimStr);
+            const prefix = practiceBaseText ? practiceBaseText + (practiceBaseText.endsWith(' ') || practiceBaseText.endsWith('\n') ? '' : ' ') : '';
+            textarea.value = prefix + (practiceSessionFinal + curInterim).trim();
+            triggerAnswerEvaluation(textarea.value);
           }
         };
 
@@ -2836,6 +2948,10 @@ function getPhraseStatus(id) {
       }
       practiceRecognition.lang = lang;
 
+      const textarea = document.getElementById('practice-user-input');
+      practiceBaseText = textarea ? textarea.value.trim() : '';
+      practiceSessionFinal = '';
+      practiceSessionInterim = '';
       userWantsPracticeListening = true;
       try {
         practiceRecognition.start();
@@ -2849,6 +2965,15 @@ function getPhraseStatus(id) {
       isPracticeListening = false;
       if (practiceRecognition) {
         try { practiceRecognition.stop(); } catch(e){}
+      }
+      const textarea = document.getElementById('practice-user-input');
+      if (textarea) {
+        const fullFinal = (practiceSessionFinal + ' ' + practiceSessionInterim).trim();
+        if (fullFinal) {
+          const prefix = practiceBaseText ? practiceBaseText + (practiceBaseText.endsWith(' ') || practiceBaseText.endsWith('\n') ? '' : ' ') : '';
+          textarea.value = prefix + fullFinal;
+        }
+        triggerAnswerEvaluation(textarea.value);
       }
       updateMicBtnState(false);
     }
