@@ -1,10 +1,10 @@
 window.data = {
   "categories": [
-    "自然山水",
-    "民族风情",
-    "历史文化",
-    "康养长寿",
-    "特色物产"
+    "历史广西",
+    "民族广西",
+    "风物广西",
+    "山水广西",
+    "长寿广西"
   ],
   "resourceCategories": [
     "英文景点与路线导游词",
@@ -14,11 +14,11 @@ window.data = {
   ],
   "speechSubCategories": [
     "景区讲解",
-    "自然山水",
-    "民族风情",
-    "历史文化",
-    "康养长寿",
-    "特色物产"
+    "历史广西",
+    "民族广西",
+    "风物广西",
+    "山水广西",
+    "长寿广西"
   ],
   "speeches": [
     {
@@ -354,7 +354,7 @@ window.data = {
     {
       "id": "广西 奇峰秀水之旅",
       "name": "广西 奇峰秀水之旅",
-      "category": "自然山水",
+      "category": "山水广西",
       "sections": [
         {
           "title": "一、欢迎词（Welcome Speech）",
@@ -406,7 +406,7 @@ window.data = {
     {
       "id": "广西 喀斯特探秘之旅",
       "name": "广西 喀斯特探秘之旅",
-      "category": "自然山水",
+      "category": "山水广西",
       "sections": [
         {
           "title": "一、欢迎词（Welcome Speech）",
@@ -453,7 +453,7 @@ window.data = {
     {
       "id": "广西北部湾滨海之旅",
       "name": "广西北部湾滨海之旅",
-      "category": "自然山水",
+      "category": "山水广西",
       "sections": [
         {
           "title": "一、Welcome Speech 欢迎词",
@@ -515,7 +515,7 @@ window.data = {
     {
       "id": "广西 三月三风情之旅",
       "name": "广西 三月三风情之旅",
-      "category": "民族风情",
+      "category": "民族广西",
       "sections": [
         {
           "title": "一、欢迎词（Welcome Speech）",
@@ -557,7 +557,7 @@ window.data = {
     {
       "id": "广西 桂北民族风情之旅",
       "name": "广西 桂北民族风情之旅",
-      "category": "民族风情",
+      "category": "民族广西",
       "sections": [
         {
           "title": "一、欢迎词（Welcome Speech）",
@@ -599,7 +599,7 @@ window.data = {
     {
       "id": "广西 桂西北民族风情之旅",
       "name": "广西 桂西北民族风情之旅",
-      "category": "民族风情",
+      "category": "民族广西",
       "sections": [
         {
           "title": "一、Welcome Speech/欢迎词",
@@ -641,17 +641,17 @@ window.data = {
     {
       "id": "广西 历史文化名城之旅",
       "name": "广西 历史文化名城之旅",
-      "category": "历史文化",
+      "category": "历史广西",
       "sections": [
         {
           "title": "一、Welcome Speech 欢迎词",
-          "en": "英文： Dear respected tourists, good morning! Welcome to the beautiful Guangxi Zhuang Autonomous Region. I'm Vivian, your guide for this \"Historical and Cultural City Tour\". It's a great honor to accompany you on this journey of historical and cultural exploration covering Guilin, Liuzhou and Beihai. During the upcoming trip, we will wander through the millennium-old royal city, touch the wisdom of the Lingqu Canal, cherish the memory of ancient sages, and trace the glory of the Han Dynasty Silk Road. Please feel free to tell me if you have any needs during the trip. I hope you can feel the profound history and beautiful landscapes in Guangxi and have an unforgettable time!",
-          "cn": "中文： 各位尊敬的游客朋友们，大家早上好！欢迎大家来到美丽的广西壮族自治区，我是大家本次“历史文化名城之旅”的导游Vivian，非常荣幸能陪伴大家开启这段跨越桂林、柳州、北海三市的历史文化探寻之旅。在接下来的行程中，我们将漫步千年王城，触摸灵渠智慧，缅怀先贤遗风，追溯汉代丝路辉煌。旅途中有任何需求，都请随时告诉我，希望大家能在广西感受到历史的厚重与山水的灵秀，度过一段难忘的时光！"
+          "en": "Dear respected tourists, good morning! Welcome to the beautiful Guangxi Zhuang Autonomous Region. I'm Vivian, your guide for this \"Historical and Cultural City Tour\". It's a great honor to accompany you on this journey of historical and cultural exploration covering Guilin, Liuzhou and Beihai. During the upcoming trip, we will wander through the millennium-old royal city, touch the wisdom of the Lingqu Canal, cherish the memory of ancient sages, and trace the glory of the Han Dynasty Silk Road. Please feel free to tell me if you have any needs during the trip. I hope you can feel the profound history and beautiful landscapes in Guangxi and have an unforgettable time!",
+          "cn": "各位尊敬的游客朋友们，大家早上好！欢迎大家来到美丽的广西壮族自治区，我是大家本次“历史文化名城之旅”的导游Vivian，非常荣幸能陪伴大家开启这段跨越桂林、柳州、北海三市的历史文化探寻之旅。在接下来的行程中，我们将漫步千年王城，触摸灵渠智慧，缅怀先贤遗风，追溯汉代丝路辉煌。旅途中有任何需求，都请随时告诉我，希望大家能在广西感受到历史的厚重与山水的灵秀，度过一段难忘的时光！"
         },
         {
           "title": "二、Overview of Guangxi and Cities 广西及行程城市概况",
-          "en": "英文： First, let's briefly introduce the overview of Guangxi and the cities in this itinerary. Located in southern China, Guangxi borders Vietnam, with 14 prefecture-level cities under its jurisdiction and a total population of about 57 million, among which the Zhuang nationality accounts for 31.4%. It has convenient transportation, with an extensive network of high-speed railways, aviation and water transportation. It has a subtropical monsoon climate, with warm seasons and abundant precipitation. Guangxi has a long history: it was set as Guilin Prefecture in the Qin Dynasty and an important node of the Maritime Silk Road in the Han Dynasty. It has diverse folk customs, such as the Zhuang nationality's San Yue San (Third Month Festival) and the Miao nationality's Lusheng Festival. Specialties include Guilin rice noodles, Liuzhou snail noodles and Beihai shell carvings. Its economy is mainly based on industry, agriculture and tourism, and tourism is booming relying on landscape and cultural resources.",
-          "cn": "中文： 首先为大家简要介绍广西及本次行程城市的概况。广西地处中国南部，与越南接壤，下辖14个地级市，总人口约5700万，其中壮族占31.4%。交通便捷，高铁、航空、水运四通八达。属亚热带季风气候，四季温暖，降水充沛。广西历史悠久，秦代设桂林郡，汉代是海上丝路重要节点。民俗多样，壮族三月三歌圩、苗族芦笙节热闹非凡；特产有桂林米粉、柳州螺蛳粉、北海贝雕等。经济以工业、农业和旅游业为主，旅游业依托山水与文化资源蓬勃发展。"
+          "en": "First, let's briefly introduce the overview of Guangxi and the cities in this itinerary. Located in southern China, Guangxi borders Vietnam, with 14 prefecture-level cities under its jurisdiction and a total population of about 57 million, among which the Zhuang nationality accounts for 31.4%. It has convenient transportation, with an extensive network of high-speed railways, aviation and water transportation. It has a subtropical monsoon climate, with warm seasons and abundant precipitation. Guangxi has a long history: it was set as Guilin Prefecture in the Qin Dynasty and an important node of the Maritime Silk Road in the Han Dynasty. It has diverse folk customs, such as the Zhuang nationality's San Yue San (Third Month Festival) and the Miao nationality's Lusheng Festival. Specialties include Guilin rice noodles, Liuzhou snail noodles and Beihai shell carvings. Its economy is mainly based on industry, agriculture and tourism, and tourism is booming relying on landscape and cultural resources.",
+          "cn": "首先为大家简要介绍广西及本次行程城市的概况。广西地处中国南部，与越南接壤，下辖14个地级市，总人口约5700万，其中壮族占31.4%。交通便捷，高铁、航空、水运四通八达。属亚热带季风气候，四季温暖，降水充沛。广西历史悠久，秦代设桂林郡，汉代是海上丝路重要节点。民俗多样，壮族三月三歌圩、苗族芦笙节热闹非凡；特产有桂林米粉、柳州螺蛳粉、北海贝雕等。经济以工业、农业和旅游业为主，旅游业依托山水与文化资源蓬勃发展。"
         },
         {
           "title": "",
@@ -660,8 +660,8 @@ window.data = {
         },
         {
           "title": "1. Solitary Beauty Peak & Royal City Scenic Area, Guilin 桂林独秀峰·王城景区",
-          "en": "英文： Now we come to Solitary Beauty Peak & Royal City Scenic Area in Guilin, a national 5A-level scenic spot located in the center of Guilin, covering a total area of about 200,000 square meters. It is the site of the Jingjiang Prince's Mansion in the Ming Dynasty and the best-preserved remaining Ming Dynasty feudal prince's mansion in China. The scenic area has a history dating back to the Southern Dynasties. In the Sui Dynasty, it became the seat of Guizhou Prefecture. In the Ming Dynasty, Zhu Yuanzhang granted his grandnephew Zhu Shouqian the title of Prince of Jingjiang, who built the mansion here, taking 20 years to complete.",
-          "cn": "中文： 现在我们来到桂林独秀峰·王城景区，它是国家5A级景区，位于桂林市中心，总面积约20万平方米，是明代靖江王府的遗址，也是我国现存保存最完整的明代藩王府。景区历史可追溯至南朝，隋代成为桂州治所，明代朱元璋封侄孙朱守谦为靖江王，在此建王府，历时20年建成。"
+          "en": "Now we come to Solitary Beauty Peak & Royal City Scenic Area in Guilin, a national 5A-level scenic spot located in the center of Guilin, covering a total area of about 200,000 square meters. It is the site of the Jingjiang Prince's Mansion in the Ming Dynasty and the best-preserved remaining Ming Dynasty feudal prince's mansion in China. The scenic area has a history dating back to the Southern Dynasties. In the Sui Dynasty, it became the seat of Guizhou Prefecture. In the Ming Dynasty, Zhu Yuanzhang granted his grandnephew Zhu Shouqian the title of Prince of Jingjiang, who built the mansion here, taking 20 years to complete.",
+          "cn": "现在我们来到桂林独秀峰·王城景区，它是国家5A级景区，位于桂林市中心，总面积约20万平方米，是明代靖江王府的遗址，也是我国现存保存最完整的明代藩王府。景区历史可追溯至南朝，隋代成为桂州治所，明代朱元璋封侄孙朱守谦为靖江王，在此建王府，历时20年建成。"
         },
         {
           "title": "",
@@ -675,8 +675,8 @@ window.data = {
         },
         {
           "title": "2. Xing'an Lingqu Canal Scenic Area 兴安灵渠景区",
-          "en": "英文： Next is the Xing'an Lingqu Canal Scenic Area, located in Xing'an County, Guilin, a national 4A-level scenic spot. As one of the oldest artificial canals in the world, it is known as one of the three major water conservancy projects in ancient China together with Dujiangyan and the Beijing-Hangzhou Grand Canal. With a total length of 37.4 kilometers, it was built in the 33rd year of the First Emperor of Qin (214 BC) under the auspices of Shi Lu, aiming to connect the Xiangjiang River and Lijiang River and solve the problem of grain and grass transportation for the Qin army's southern expedition.",
-          "cn": "中文： 接下来是兴安灵渠景区，它位于桂林兴安县，是国家4A级景区，世界上最古老的人工运河之一，与都江堰、京杭大运河并称中国古代三大水利工程，全长37.4公里，始建于秦始皇三十三年（公元前214年），由史禄主持修建，旨在沟通湘江和漓江，解决秦军南征的粮草运输问题。"
+          "en": "Next is the Xing'an Lingqu Canal Scenic Area, located in Xing'an County, Guilin, a national 4A-level scenic spot. As one of the oldest artificial canals in the world, it is known as one of the three major water conservancy projects in ancient China together with Dujiangyan and the Beijing-Hangzhou Grand Canal. With a total length of 37.4 kilometers, it was built in the 33rd year of the First Emperor of Qin (214 BC) under the auspices of Shi Lu, aiming to connect the Xiangjiang River and Lijiang River and solve the problem of grain and grass transportation for the Qin army's southern expedition.",
+          "cn": "接下来是兴安灵渠景区，它位于桂林兴安县，是国家4A级景区，世界上最古老的人工运河之一，与都江堰、京杭大运河并称中国古代三大水利工程，全长37.4公里，始建于秦始皇三十三年（公元前214年），由史禄主持修建，旨在沟通湘江和漓江，解决秦军南征的粮草运输问题。"
         },
         {
           "title": "",
@@ -690,8 +690,8 @@ window.data = {
         },
         {
           "title": "3. Liuhou Park, Liuzhou 柳州柳侯公园",
-          "en": "英文： Now we are in Liuhou Park in Liuzhou, a commemorative park built to honor Liu Zongyuan, a great litterateur and statesman of the Tang Dynasty. As a national 4A-level scenic spot, it is located in the center of Liuzhou, covering a total area of about 15.52 hectares. It was first built in the second year of Changqing in the Tang Dynasty (822 AD) and has been renovated for thousands of years. Most of the existing buildings were rebuilt in the Qing Dynasty.",
-          "cn": "中文： 现在我们在柳州柳侯公园，它是为纪念唐代大文学家、政治家柳宗元而建的纪念性公园，国家4A级景区，位于柳州市中心，总面积约15.52公顷，始建于唐长庆二年（公元822年），历经千年修缮，现存建筑多为清代重建。"
+          "en": "Now we are in Liuhou Park in Liuzhou, a commemorative park built to honor Liu Zongyuan, a great litterateur and statesman of the Tang Dynasty. As a national 4A-level scenic spot, it is located in the center of Liuzhou, covering a total area of about 15.52 hectares. It was first built in the second year of Changqing in the Tang Dynasty (822 AD) and has been renovated for thousands of years. Most of the existing buildings were rebuilt in the Qing Dynasty.",
+          "cn": "现在我们在柳州柳侯公园，它是为纪念唐代大文学家、政治家柳宗元而建的纪念性公园，国家4A级景区，位于柳州市中心，总面积约15.52公顷，始建于唐长庆二年（公元822年），历经千年修缮，现存建筑多为清代重建。"
         },
         {
           "title": "",
@@ -705,8 +705,8 @@ window.data = {
         },
         {
           "title": "4. Hepu Han Dynasty Cultural Museum, Beihai 北海合浦汉代文化博物馆",
-          "en": "英文： Finally, we come to Hepu Han Dynasty Cultural Museum, located in Hepu County, Beihai, a national 4A-level scenic spot. It is a thematic museum focusing on collecting and displaying cultural relics unearthed from Han Dynasty tombs in Hepu. It has a collection of more than 10,000 cultural relics, including 21 first-class cultural relics. The museum was first built in 1978, and the new museum opened in 2016.",
-          "cn": "中文： 最后我们来到合浦汉代文化博物馆，它位于北海合浦县，是国家4A级景区，以收藏、展示合浦汉代墓葬出土文物为主的专题博物馆，馆藏文物超过1万件，其中一级文物21件，博物馆始建于1978年，新馆于2016年开放。"
+          "en": "Finally, we come to Hepu Han Dynasty Cultural Museum, located in Hepu County, Beihai, a national 4A-level scenic spot. It is a thematic museum focusing on collecting and displaying cultural relics unearthed from Han Dynasty tombs in Hepu. It has a collection of more than 10,000 cultural relics, including 21 first-class cultural relics. The museum was first built in 1978, and the new museum opened in 2016.",
+          "cn": "最后我们来到合浦汉代文化博物馆，它位于北海合浦县，是国家4A级景区，以收藏、展示合浦汉代墓葬出土文物为主的专题博物馆，馆藏文物超过1万件，其中一级文物21件，博物馆始建于1978年，新馆于2016年开放。"
         },
         {
           "title": "",
@@ -720,15 +720,15 @@ window.data = {
         },
         {
           "title": "四、Farewell Speech 欢送词",
-          "en": "英文： Dear tourists, our \"Historical and Cultural City Tour\" is coming to an end. During this journey, we felt the grandeur of the Qin and Han Dynasties from the Royal City and Lingqu Canal in Guilin, cherished the memory of the virtuous officials of the Tang Dynasty in Liuhou Park in Liuzhou, and explored the glory of the Silk Road in Hepu Han Dynasty Cultural Museum in Beihai. I believe that Guangxi's historical heritage, landscape scenery and folk customs have left a deep impression on everyone. Thank you very much for your cooperation and support along the way. Please forgive me if there is any inadequacy in my service. Farewell is not the end. Guangxi's door is always open for you. We look forward to your visit again. Wish you a smooth return journey and all the best!",
-          "cn": "中文： 各位游客朋友们，我们的“历史文化名城之旅”即将结束。在这段旅程中，我们从桂林的王城与灵渠感受秦汉雄风，在柳州的柳侯公园缅怀唐代贤吏，于北海的合浦汉代文化博物馆探寻丝路辉煌。相信广西的历史底蕴、山水风光和民俗风情已经给大家留下了深刻印象。非常感谢大家一路上的配合与支持，如有照顾不周之处，还请多多包涵。离别不是结束，广西的大门永远为大家敞开，期待大家再次光临，祝大家返程顺利，万事如意！"
+          "en": "Dear tourists, our \"Historical and Cultural City Tour\" is coming to an end. During this journey, we felt the grandeur of the Qin and Han Dynasties from the Royal City and Lingqu Canal in Guilin, cherished the memory of the virtuous officials of the Tang Dynasty in Liuhou Park in Liuzhou, and explored the glory of the Silk Road in Hepu Han Dynasty Cultural Museum in Beihai. I believe that Guangxi's historical heritage, landscape scenery and folk customs have left a deep impression on everyone. Thank you very much for your cooperation and support along the way. Please forgive me if there is any inadequacy in my service. Farewell is not the end. Guangxi's door is always open for you. We look forward to your visit again. Wish you a smooth return journey and all the best!",
+          "cn": "各位游客朋友们，我们的“历史文化名城之旅”即将结束。在这段旅程中，我们从桂林的王城与灵渠感受秦汉雄风，在柳州的柳侯公园缅怀唐代贤吏，于北海的合浦汉代文化博物馆探寻丝路辉煌。相信广西的历史底蕴、山水风光和民俗风情已经给大家留下了深刻印象。非常感谢大家一路上的配合与支持，如有照顾不周之处，还请多多包涵。离别不是结束，广西的大门永远为大家敞开，期待大家再次光临，祝大家返程顺利，万事如意！"
         }
       ]
     },
     {
       "id": "广西 岭南文化之旅",
       "name": "广西 岭南文化之旅",
-      "category": "历史文化",
+      "category": "历史广西",
       "sections": [
         {
           "title": "一、Welcome Speech 欢迎词",
@@ -785,7 +785,7 @@ window.data = {
     {
       "id": "广西 骆越文化之旅",
       "name": "广西 骆越文化之旅",
-      "category": "历史文化",
+      "category": "历史广西",
       "sections": [
         {
           "title": "一、Welcome Speech 欢迎词",
@@ -832,7 +832,7 @@ window.data = {
     {
       "id": "广西 长寿休闲之旅",
       "name": "广西 长寿休闲之旅",
-      "category": "康养长寿",
+      "category": "长寿广西",
       "sections": [
         {
           "title": "一、欢迎词（Welcome Speech）",
@@ -879,7 +879,7 @@ window.data = {
     {
       "id": "广西 长寿康养之旅",
       "name": "广西 长寿康养之旅",
-      "category": "康养长寿",
+      "category": "长寿广西",
       "sections": [
         {
           "title": "一、欢迎词（Welcome Speech）",
@@ -936,7 +936,7 @@ window.data = {
     {
       "id": "广西 长寿悦动之旅",
       "name": "广西 长寿悦动之旅",
-      "category": "康养长寿",
+      "category": "长寿广西",
       "sections": [
         {
           "title": "一、欢迎词（Welcome Speech）",
@@ -983,7 +983,7 @@ window.data = {
     {
       "id": "广西 米粉之旅",
       "name": "广西 米粉之旅",
-      "category": "特色物产",
+      "category": "风物广西",
       "sections": [
         {
           "title": "一、Welcome Speech 欢迎词",
@@ -1040,7 +1040,7 @@ window.data = {
     {
       "id": "广西 工艺品之旅",
       "name": "广西 工艺品之旅",
-      "category": "特色物产",
+      "category": "风物广西",
       "sections": [
         {
           "title": "一、Welcome Speech 欢迎词",
@@ -1087,7 +1087,7 @@ window.data = {
     {
       "id": "广西 茶文化之旅",
       "name": "广西 茶文化之旅",
-      "category": "特色物产",
+      "category": "风物广西",
       "sections": [
         {
           "title": "一、欢迎词（Welcome Speech）",
@@ -4607,8 +4607,8 @@ window.data = {
       ]
     },
     {
-      "category": "自然山水",
-      "title": "广西自然山水考点总结",
+      "category": "山水广西",
+      "title": "广西山水考点总结",
       "keywords": [
         {
           "en": "Karst Landscape",
@@ -4625,7 +4625,7 @@ window.data = {
       ]
     },
     {
-      "category": "民族风情",
+      "category": "民族广西",
       "title": "广西民族风情考点总结",
       "keywords": [
         {
@@ -4643,8 +4643,8 @@ window.data = {
       ]
     },
     {
-      "category": "特色物产",
-      "title": "广西特色物产考点总结",
+      "category": "风物广西",
+      "title": "广西风物特产考点总结",
       "keywords": [
         {
           "en": "Guilin Rice Noodles",
@@ -4661,7 +4661,7 @@ window.data = {
       ]
     },
     {
-      "category": "康养长寿",
+      "category": "长寿广西",
       "title": "广西康养长寿考点总结",
       "keywords": [
         {
@@ -4691,7 +4691,7 @@ window.data = {
   ],
   "skillsBySubject": [
     {
-      "subject": "历史文化",
+      "subject": "历史广西",
       "title": "历史文化讲解技巧",
       "tips": [
         "突出历史时间节点与典故",
@@ -4699,7 +4699,7 @@ window.data = {
       ]
     },
     {
-      "subject": "自然山水",
+      "subject": "山水广西",
       "title": "自然山水讲解技巧",
       "tips": [
         "地貌成因与美学特征并重",
@@ -4707,7 +4707,7 @@ window.data = {
       ]
     },
     {
-      "subject": "民族风情",
+      "subject": "民族广西",
       "title": "民族风情讲解技巧",
       "tips": [
         "尊重少数民族风俗习惯",
@@ -4738,7 +4738,7 @@ window.data = {
       "name": "“广西米粉之旅”中英对照讲解词",
       "fullName": "“广西米粉之旅”中英对照讲解词.docx",
       "category": "英文景点与路线导游词",
-      "subCategory": "特色物产"
+      "subCategory": "风物广西"
     },
     {
       "name": "《导游服务能力》英文现场面试600问+英汉互译",
@@ -4774,85 +4774,85 @@ window.data = {
       "name": "广西“三月三风情之旅”中英对照讲解词",
       "fullName": "广西“三月三风情之旅”中英对照讲解词.docx",
       "category": "英文景点与路线导游词",
-      "subCategory": "民族风情"
+      "subCategory": "民族广西"
     },
     {
       "name": "广西“历史文化名城之旅”中英对照讲解词",
       "fullName": "广西“历史文化名城之旅”中英对照讲解词.docx",
       "category": "英文景点与路线导游词",
-      "subCategory": "历史文化"
+      "subCategory": "历史广西"
     },
     {
       "name": "广西“奇峰秀水之旅”导游讲解词",
       "fullName": "广西“奇峰秀水之旅”导游讲解词.docx",
       "category": "英文景点与路线导游词",
-      "subCategory": "自然山水"
+      "subCategory": "山水广西"
     },
     {
       "name": "广西“岭南文化之旅”中英对照讲解词",
       "fullName": "广西“岭南文化之旅”中英对照讲解词.docx",
       "category": "英文景点与路线导游词",
-      "subCategory": "历史文化"
+      "subCategory": "历史广西"
     },
     {
       "name": "广西“桂北民族风情之旅”中英对照讲解词",
       "fullName": "广西“桂北民族风情之旅”中英对照讲解词.docx",
       "category": "英文景点与路线导游词",
-      "subCategory": "民族风情"
+      "subCategory": "民族广西"
     },
     {
       "name": "广西“桂西北民族风情之旅“中英对照讲解词",
       "fullName": "广西“桂西北民族风情之旅“中英对照讲解词.docx",
       "category": "英文景点与路线导游词",
-      "subCategory": "民族风情"
+      "subCategory": "民族广西"
     },
     {
       "name": "广西“长寿休闲之旅”中英对照讲解词",
       "fullName": "广西“长寿休闲之旅”中英对照讲解词.docx",
       "category": "英文景点与路线导游词",
-      "subCategory": "康养长寿"
+      "subCategory": "长寿广西"
     },
     {
       "name": "广西“长寿康养之旅”中英对照讲解词",
       "fullName": "广西“长寿康养之旅”中英对照讲解词.docx",
       "category": "英文景点与路线导游词",
-      "subCategory": "康养长寿"
+      "subCategory": "长寿广西"
     },
     {
       "name": "广西“长寿悦动之旅”（凌云县—乐业县）中英对照讲解词",
       "fullName": "广西“长寿悦动之旅”（凌云县—乐业县）中英对照讲解词.docx",
       "category": "英文景点与路线导游词",
-      "subCategory": "康养长寿"
+      "subCategory": "长寿广西"
     },
     {
       "name": "广西“骆越文化之旅”中英对照讲解词",
       "fullName": "广西“骆越文化之旅”中英对照讲解词.docx",
       "category": "英文景点与路线导游词",
-      "subCategory": "历史文化"
+      "subCategory": "历史广西"
     },
     {
       "name": "广西北部湾滨海之旅中英对照讲解词",
       "fullName": "广西北部湾滨海之旅中英对照讲解词.docx",
       "category": "英文景点与路线导游词",
-      "subCategory": "自然山水"
+      "subCategory": "山水广西"
     },
     {
       "name": "广西喀斯特探秘之旅中英对照讲解词",
       "fullName": "广西喀斯特探秘之旅中英对照讲解词.docx",
       "category": "英文景点与路线导游词",
-      "subCategory": "自然山水"
+      "subCategory": "山水广西"
     },
     {
       "name": "广西工艺品之旅中英对照讲解词",
       "fullName": "广西工艺品之旅中英对照讲解词.docx",
       "category": "英文景点与路线导游词",
-      "subCategory": "特色物产"
+      "subCategory": "风物广西"
     },
     {
       "name": "广西茶文化之旅中英对照讲解词",
       "fullName": "广西茶文化之旅中英对照讲解词.docx",
       "category": "英文景点与路线导游词",
-      "subCategory": "特色物产"
+      "subCategory": "风物广西"
     },
     {
       "name": "柳州市程阳八寨景区中英对照导游讲解词",

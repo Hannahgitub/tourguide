@@ -146,6 +146,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (containerEl) {
           activeSpeechContainer = containerEl;
           activeWordMap = prepareContainerHighlight(containerEl, cleanText);
+          containerEl.classList.add('reading-text-active');
+          const parentCard = containerEl.closest('.card');
+          if (parentCard) parentCard.classList.add('reading-active');
+
           utterance.onboundary = (event) => {
             if (event.name === 'word' || event.charIndex !== undefined) {
               const charIdx = event.charIndex;
@@ -158,6 +162,8 @@ document.addEventListener('DOMContentLoaded', () => {
               if (activeIndex !== -1) {
                 clearSpeechHighlights(containerEl);
                 activeWordMap[activeIndex].el.classList.add('word-active');
+                if (activeIndex > 0) activeWordMap[activeIndex - 1].el.classList.add('word-near');
+                if (activeIndex + 1 < activeWordMap.length) activeWordMap[activeIndex + 1].el.classList.add('word-near');
               }
             }
           };
@@ -166,6 +172,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const handleEnd = () => {
           clearInterval(watchDog);
           clearSpeechHighlights(containerEl);
+          if (containerEl) {
+            containerEl.classList.remove('reading-text-active');
+            const parentCard = containerEl.closest('.card');
+            if (parentCard) parentCard.classList.remove('reading-active');
+          }
           activeSpeechContainer = null;
           activeWordMap = [];
           window._activeUtterance = null;
@@ -233,7 +244,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // State
   let currentMainTab = 'interview';
-  let currentCategory = '自然山水';
+  let currentCategory = '历史广西';
   let currentSkillSubject = '万能句式';
   let currentResourceCategory = '英文景点与路线导游词';
   let currentResourceSubCategory = '景区讲解';
@@ -274,7 +285,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const viewPhrases = document.getElementById('view-phrases');
 
-  // Initial tab display: 背诵导游词
+  // Initial tab display: 专题讲解 (interview)
   subNavWrapper.style.display = 'block';
   viewSpeech.style.display = 'block';
   catFilterContainer.style.display = 'flex';
@@ -289,10 +300,10 @@ document.addEventListener('DOMContentLoaded', () => {
   renderPhrasesView();
   bindEvents();
 
-  // --- CATEGORY FILTERS (For 背诵导游词 5大专题) ---
+  // --- CATEGORY FILTERS (For 专题讲解 5大专题) ---
   function initCategoryFilters() {
     catFilterContainer.innerHTML = '';
-    const cats = data.categories || ["自然山水", "民族风情", "历史文化", "康养长寿", "特色物产"];
+    const cats = data.categories || ["历史广西", "民族广西", "风物广西", "山水广西", "长寿广西"];
     cats.forEach(cat => {
       const btn = document.createElement('button');
       btn.className = `cat-btn ${cat === currentCategory ? 'active' : ''}`;
@@ -916,20 +927,13 @@ document.addEventListener('DOMContentLoaded', () => {
       if (state === 'playing') {
         if (playBtnIcon) playBtnIcon.textContent = '⏸';
         if (playBtnText) playBtnText.textContent = '暂停讲解';
-        playAllBtn.style.background = '#dc2626';
-        playAllBtn.style.borderColor = '#b91c1c';
-      } else if (state === 'paused') {
-        if (playBtnIcon) playBtnIcon.textContent = '▶';
-        if (playBtnText) playBtnText.textContent = '继续讲解';
-        playAllBtn.style.background = '#2563eb';
-        playAllBtn.style.borderColor = '#1d4ed8';
       } else {
-        // idle
+        // idle 或 paused 均显示 "全篇讲解"，全程颜色不改变（保持原绿色键）
         if (playBtnIcon) playBtnIcon.textContent = '🎧';
         if (playBtnText) playBtnText.textContent = '全篇讲解';
-        playAllBtn.style.background = '';
-        playAllBtn.style.borderColor = '';
       }
+      playAllBtn.style.background = '';
+      playAllBtn.style.borderColor = '';
     }
 
     activeTourController = {
@@ -937,6 +941,11 @@ document.addEventListener('DOMContentLoaded', () => {
         tourState = 'idle';
         continuousTourIndex = 0;
         updatePlayAllBtn('idle');
+        container.querySelectorAll('.card').forEach(c => {
+          c.classList.remove('reading-active');
+          const en = c.querySelector('.speech-text-en');
+          if (en) en.classList.remove('reading-text-active');
+        });
       }
     };
 
@@ -946,6 +955,11 @@ document.addEventListener('DOMContentLoaded', () => {
         // 全篇播放完毕
         updatePlayAllBtn('idle');
         continuousTourIndex = 0;
+        container.querySelectorAll('.card').forEach(c => {
+          c.classList.remove('reading-active');
+          const en = c.querySelector('.speech-text-en');
+          if (en) en.classList.remove('reading-text-active');
+        });
         return;
       }
 
@@ -954,6 +968,14 @@ document.addEventListener('DOMContentLoaded', () => {
       if (targetCard) {
         // 平滑滚动至当前正在讲解的卡片
         targetCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        container.querySelectorAll('.card').forEach(c => {
+          c.classList.remove('reading-active');
+          const en = c.querySelector('.speech-text-en');
+          if (en) en.classList.remove('reading-text-active');
+        });
+        targetCard.classList.add('reading-active');
+        const en = targetCard.querySelector('.speech-text-en');
+        if (en) en.classList.add('reading-text-active');
       }
 
       const sec = speech.sections[secIdx];
@@ -961,6 +983,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const enContainer = targetCard ? targetCard.querySelector('.speech-text-en') : null;
 
       const onSectionEnd = () => {
+        if (targetCard) {
+          targetCard.classList.remove('reading-active');
+          const en = targetCard.querySelector('.speech-text-en');
+          if (en) en.classList.remove('reading-text-active');
+        }
         if (tourState !== 'playing') return;
         // 当前段读完，稍作停顿后进入下一段
         setTimeout(() => {
@@ -1066,6 +1093,8 @@ document.addEventListener('DOMContentLoaded', () => {
           if (state === 'playing') {
             stopAllAudio();
             card.dataset.playState = 'idle';
+            card.classList.remove('reading-active');
+            if (enContainer) enContainer.classList.remove('reading-text-active');
             btn.textContent = '示范朗读';
             clearSpeechHighlights(enContainer);
           } else {
@@ -1077,6 +1106,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const resetState = () => {
               card.dataset.playState = 'idle';
+              card.classList.remove('reading-active');
+              if (enContainer) enContainer.classList.remove('reading-text-active');
               if (btn) btn.textContent = '示范朗读';
               clearSpeechHighlights(enContainer);
               currentPlayingCard = null;
@@ -1089,12 +1120,16 @@ document.addEventListener('DOMContentLoaded', () => {
             staticAudioPlayer.onerror = () => {
               // 音频加载失败（如手机脱机或本地无该 MP3），无缝降级为优化后的 Web Speech
               card.dataset.playState = 'playing';
+              card.classList.add('reading-active');
+              if (enContainer) enContainer.classList.add('reading-text-active');
               btn.textContent = '⏸ 暂停';
               speakText(cleanText, enContainer, resetState);
             };
 
             staticAudioPlayer.play().then(() => {
               card.dataset.playState = 'playing';
+              card.classList.add('reading-active');
+              if (enContainer) enContainer.classList.add('reading-text-active');
               btn.textContent = '⏸ 暂停';
             }).catch(err => {
               console.warn('[Audio] 静态音频自动播放失败，触发降级:', err);
