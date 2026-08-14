@@ -97,17 +97,17 @@ header.main-header {
   white-space: nowrap;
 }
 
-/* 第一排按钮穿插浅绿 */
-.tab-btn:nth-child(1) { background: #edf7f0; border-color: #c4e4cd; color: #205c37; }
-.tab-btn:nth-child(2) { background: #f4faf6; border-color: #d1ead9; color: #2d7a4c; }
-.tab-btn:nth-child(3) { background: #edf7f0; border-color: #c4e4cd; color: #205c37; }
-.tab-btn:nth-child(4) { background: #f4faf6; border-color: #d1ead9; color: #2d7a4c; }
+/* 第一排按钮：深绿、白、深绿、白 */
+.tab-btn:nth-child(1) { background: #d8eee0; border-color: #9ed4b2; color: #16532d; }
+.tab-btn:nth-child(2) { background: #ffffff; border-color: #d8dce2; color: #374151; }
+.tab-btn:nth-child(3) { background: #d8eee0; border-color: #9ed4b2; color: #16532d; }
+.tab-btn:nth-child(4) { background: #ffffff; border-color: #d8dce2; color: #374151; }
 
-/* 第二排按钮穿插不同绿调（青葱绿与深草绿交替） */
-.tab-btn:nth-child(5) { background: #e6f4ea; border-color: #bce0c8; color: #1b5331; }
-.tab-btn:nth-child(6) { background: #f0f9f3; border-color: #cbe6d4; color: #276f44; }
-.tab-btn:nth-child(7) { background: #e6f4ea; border-color: #bce0c8; color: #1b5331; }
-.tab-btn:nth-child(8) { background: #f0f9f3; border-color: #cbe6d4; color: #276f44; }
+/* 第二排按钮：白、深绿、白、深绿（错开对齐） */
+.tab-btn:nth-child(5) { background: #ffffff; border-color: #d8dce2; color: #374151; }
+.tab-btn:nth-child(6) { background: #d8eee0; border-color: #9ed4b2; color: #16532d; }
+.tab-btn:nth-child(7) { background: #ffffff; border-color: #d8dce2; color: #374151; }
+.tab-btn:nth-child(8) { background: #d8eee0; border-color: #9ed4b2; color: #16532d; }
 
 .tab-btn:hover {
   background-color: #d8eedf !important;
