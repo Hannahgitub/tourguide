@@ -1077,6 +1077,82 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
     container.appendChild(controlCard);
 
+    // 3. 速记大纲与动线流程图卡片 (Mindflow & Keywords)
+    if (speech.outline) {
+      const outline = speech.outline;
+      const outlineCard = document.createElement('div');
+      outlineCard.className = 'speech-outline-card';
+      
+      let routeHtml = '';
+      if (outline.route && outline.route.length > 0) {
+        routeHtml = `
+          <div class="outline-route-flow">
+            <span class="outline-route-label">🧭 行程动线:</span>
+            ${outline.route.map((step, sIdx) => `
+              <span class="route-step-node"><span class="step-num">${sIdx + 1}</span>${escapeHtml(step)}</span>
+              ${sIdx < outline.route.length - 1 ? '<span class="route-arrow">➔</span>' : ''}
+            `).join('')}
+          </div>
+        `;
+      }
+
+      let nodesHtml = '';
+      if (outline.nodes && outline.nodes.length > 0) {
+        nodesHtml = `
+          <div class="outline-nodes-list">
+            ${outline.nodes.map(node => `
+              <div class="outline-node-card">
+                <div class="outline-node-title-row">
+                  <span class="outline-node-title">${escapeHtml(node.name || '')}</span>
+                  ${node.en ? `<span class="outline-node-en">${escapeHtml(node.en)}</span>` : ''}
+                </div>
+                <div class="outline-kw-tags">
+                  ${(node.kws || []).map(kw => `<span class="outline-kw-pill">🏷️ ${escapeHtml(kw)}</span>`).join('')}
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        `;
+      }
+
+      outlineCard.innerHTML = `
+        <div class="speech-outline-header" id="outline-header-toggle">
+          <div class="outline-header-left">
+            <span class="outline-badge">考纲速记</span>
+            <span class="outline-title-text">📋 导游词动线流程与考点关键词</span>
+            ${outline.theme ? `<span class="outline-theme-tag">${escapeHtml(outline.theme)}</span>` : ''}
+          </div>
+          <button class="outline-toggle-btn" id="btn-outline-collapse">
+            <span id="outline-toggle-icon">▲</span> <span id="outline-toggle-text">收起大纲</span>
+          </button>
+        </div>
+        <div class="speech-outline-body" id="outline-body-content">
+          ${routeHtml}
+          ${nodesHtml}
+        </div>
+      `;
+
+      // 折叠/展开交互
+      const toggleHeader = outlineCard.querySelector('#outline-header-toggle');
+      const toggleBtn = outlineCard.querySelector('#btn-outline-collapse');
+      const bodyContent = outlineCard.querySelector('#outline-body-content');
+      const toggleIcon = outlineCard.querySelector('#outline-toggle-icon');
+      const toggleText = outlineCard.querySelector('#outline-toggle-text');
+
+      const handleToggle = (e) => {
+        if (e.target && e.target.closest('#btn-outline-collapse') && e.currentTarget !== toggleBtn) return;
+        const isCollapsed = bodyContent.style.display === 'none';
+        bodyContent.style.display = isCollapsed ? 'block' : 'none';
+        toggleIcon.textContent = isCollapsed ? '▲' : '▼';
+        toggleText.textContent = isCollapsed ? '收起大纲' : '展开大纲';
+      };
+
+      if (toggleHeader) toggleHeader.addEventListener('click', handleToggle);
+      if (toggleBtn) toggleBtn.addEventListener('click', (e) => { e.stopPropagation(); handleToggle(e); });
+
+      container.appendChild(outlineCard);
+    }
+
     // 绑定"全篇讲解"（简洁模式：全篇讲解 <-> 停止讲解，从头开始）
     let tourState = 'idle'; // 'idle' | 'playing'
     let continuousTourIndex = 0;

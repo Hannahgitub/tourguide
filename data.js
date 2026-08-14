@@ -97,7 +97,56 @@ window.data = {
         "https://images.unsplash.com/photo-1578637387939-43c525550085?auto=format&fit=crop&w=1200&q=80",
         "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=80"
       ],
-      "image": "huashan.jpg"
+      "image": "huashan.jpg",
+      "outline": {
+        "theme": "世界文化遗产 · 千年骆越祭祀圣殿",
+        "route": [
+          "游客中心/游船码头",
+          "左江崖壁水上栈道",
+          "宁明花山核心岩画点",
+          "文化展厅与生态观景区"
+        ],
+        "nodes": [
+          {
+            "name": "起：景区概况与沿革",
+            "en": "Overview & History",
+            "kws": [
+              "World Cultural Heritage 世界文化遗产",
+              "Warring States to Eastern Han 战国至东汉",
+              "6621.6 hectares 总面积",
+              "4050 images 4050幅崖壁岩画"
+            ]
+          },
+          {
+            "name": "承：宁明花山核心岩画",
+            "en": "Ningming Huashan Site",
+            "kws": [
+              "Red-ocher frog figures 赭红正面蛙形人像",
+              "Bronze drums & swords 铜鼓与佩刀",
+              "Cliff height 40m 崖壁高40米/宽170米",
+              "Tribal leaders & priests 部落首领与祭祀"
+            ]
+          },
+          {
+            "name": "转：骆越文化与科学保护",
+            "en": "Luoyue Culture & Preservation",
+            "kws": [
+              "Hematite & animal fat 赤铁矿与动物油脂",
+              "Natural weathering protection 防风化保护",
+              "River & karst integration 山水崖壁天人合一"
+            ]
+          },
+          {
+            "name": "合：游览体验与欢送",
+            "en": "Tour & Farewell",
+            "kws": [
+              "Land & water viewing 陆路与水路双线",
+              "Living epic of Luoyue 骆越鲜活史诗",
+              "Cultural preservation 文明永续"
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "柳州 程阳八寨",
@@ -165,7 +214,56 @@ window.data = {
         "https://images.unsplash.com/photo-1508804185872-d7badad00f7d?auto=format&fit=crop&w=1200&q=80",
         "https://images.unsplash.com/photo-1528164344705-47542687990d?auto=format&fit=crop&w=1200&q=80"
       ],
-      "image": "https://upload.wikimedia.org/wikipedia/commons/a/a2/Chengyangqiao%2C_Guangxi%2C_China.jpg"
+      "image": "https://upload.wikimedia.org/wikipedia/commons/a/a2/Chengyangqiao%2C_Guangxi%2C_China.jpg",
+      "outline": {
+        "theme": "中国侗族村寨典型代表 · 侗族三宝文化圣地",
+        "route": [
+          "程阳风雨桥 (永济桥)",
+          "马鞍寨鼓楼广场",
+          "平寨万寿桥",
+          "百家宴与侗族大歌体验区"
+        ],
+        "nodes": [
+          {
+            "name": "起：景区概况与三宝",
+            "en": "Overview & Three Treasures",
+            "kws": [
+              "National 5A 景区",
+              "8 traditional Dong villages 程阳八寨",
+              "Three Treasures: Drum Tower / Wind-Rain Bridge / Grand Song"
+            ]
+          },
+          {
+            "name": "承：程阳风雨桥",
+            "en": "Chengyang Bridge",
+            "kws": [
+              "Built in 1912 建于1912年",
+              "Mortise and tenon 纯木榫卯无铁钉",
+              "5 pavilions & 3 stone piers 五亭三墩",
+              "World bridge architecture gem 世界桥梁奇迹"
+            ]
+          },
+          {
+            "name": "转：马鞍寨鼓楼与非遗",
+            "en": "Ma'an Drum Tower",
+            "kws": [
+              "Multi-eaved pagoda style 密檐塔式结构",
+              "Gathering & sacrifice 议事聚会圣地",
+              "Grand Song of Dong 侗族大歌 (UNESCO)",
+              "Dong brocade & silverware 侗锦与银饰"
+            ]
+          },
+          {
+            "name": "合：百家宴与欢送",
+            "en": "Grand Banquet & Farewell",
+            "kws": [
+              "Grand Banquet 百家宴热情好客",
+              "Toasting songs 敬酒歌与高山流水",
+              "Warm hospitality 难忘侗乡之夜"
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "桂林 两江四湖象山",
@@ -233,7 +331,56 @@ window.data = {
         "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1200&q=80",
         "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80"
       ],
-      "image": "https://upload.wikimedia.org/wikipedia/commons/a/a7/Elephant_Trunk_Hill.jpg"
+      "image": "https://upload.wikimedia.org/wikipedia/commons/a/a7/Elephant_Trunk_Hill.jpg",
+      "outline": {
+        "theme": "桂林城徽 · 宋代环城水系名胜",
+        "route": [
+          "象鼻山水月洞",
+          "漓江/桃花江/四湖水系",
+          "日月双塔文化公园",
+          "榕湖古南门与玻璃桥"
+        ],
+        "nodes": [
+          {
+            "name": "起：城徽象鼻山",
+            "en": "Elephant Trunk Hill",
+            "kws": [
+              "City emblem of Guilin 桂林市城徽",
+              "Water Moon Cave 象山水月奇观",
+              "Puxian Pagoda 普贤塔 (明代宝剑)",
+              "Cliff inscriptions 历代摩崖石刻"
+            ]
+          },
+          {
+            "name": "承：两江四湖水系",
+            "en": "Two Rivers & Four Lakes",
+            "kws": [
+              "Li & Taohua Rivers 漓江与桃花江",
+              "Rong, Shan, Gui, Tielian Lakes 榕湖杉湖桂湖铁西湖",
+              "Song Dynasty moat 宋代护城河环城水系"
+            ]
+          },
+          {
+            "name": "转：日月双塔与古南门",
+            "en": "Twin Pagodas & Ancient Gate",
+            "kws": [
+              "Sun & Moon Pagodas 日月双塔",
+              "World highest bronze pagoda 世界最高铜塔",
+              "Ancient South Gate 古南门 (唐宋遗迹)",
+              "Crystal Glass Bridge 水晶玻璃桥"
+            ]
+          },
+          {
+            "name": "合：夜游画卷与欢送",
+            "en": "Night Tour & Farewell",
+            "kws": [
+              "Night cruise light show 璀璨夜游灯光",
+              "City in mountains and rivers 城在景中景在城中",
+              "Guilin harmony 桂林山水人文画卷"
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "桂林 漓江",
@@ -301,7 +448,55 @@ window.data = {
         "https://images.unsplash.com/photo-1543097692-fa13c5cd2575?auto=format&fit=crop&w=1200&q=80",
         "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80"
       ],
-      "image": "https://upload.wikimedia.org/wikipedia/commons/9/92/1_li_jiang_guilin_yangshuo_2011.jpg"
+      "image": "https://upload.wikimedia.org/wikipedia/commons/9/92/1_li_jiang_guilin_yangshuo_2011.jpg",
+      "outline": {
+        "theme": "全球最美喀斯特河流 · 百里锦绣画廊",
+        "route": [
+          "竹江/磨盘山码头",
+          "杨堤风光与浪石奇观",
+          "九马画山与黄布倒影",
+          "阳朔西街与兴坪古镇"
+        ],
+        "nodes": [
+          {
+            "name": "起：百里漓江概况",
+            "en": "Overview of Li River",
+            "kws": [
+              "83-kilometer core river 83公里精华水段",
+              "World natural heritage 世界自然遗产",
+              "Peak cluster karst 峰丛喀斯特典型代表",
+              "Green hills & clear waters 山青水秀洞奇石美"
+            ]
+          },
+          {
+            "name": "承：九马画山与神骏",
+            "en": "Nine-Horse Mural Hill",
+            "kws": [
+              "Cliff mural 400m 400米天然五彩石壁",
+              "Nine vivid horses 九匹神骏形态各异",
+              "Scholar praise 状元打马过漓江诗文"
+            ]
+          },
+          {
+            "name": "转：黄布倒影 (20元背景)",
+            "en": "Yellow Cloth Shoal",
+            "kws": [
+              "20-Yuan banknote background 20元人民币背景",
+              "Green bamboo & jade water 碧水青峰倒影如画",
+              "Xingping ancient ferry 兴坪古渡"
+            ]
+          },
+          {
+            "name": "合：阳朔西街与欢送",
+            "en": "Yangshuo West Street",
+            "kws": [
+              "Yangshuo scenery is the best 阳朔山水甲桂林",
+              "Global village West Street 地球村阳朔西街",
+              "Impression Sanjie Liu 印象刘三姐山水实景"
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "南宁 青秀山",
@@ -349,7 +544,56 @@ window.data = {
         "https://images.unsplash.com/photo-1519331379826-f10be5486c6f?auto=format&fit=crop&w=1200&q=80",
         "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=80"
       ],
-      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/%E4%B8%9C%E7%9B%9F%E5%8F%8B%E8%B0%8A%E9%95%BF%E5%BB%8A_1.jpg/960px-%E4%B8%9C%E7%9B%9F%E5%8F%8B%E8%B0%8A%E9%95%BF%E5%BB%8A_1.jpg"
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/%E4%B8%9C%E7%9B%9F%E5%8F%8B%E8%B0%8A%E9%95%BF%E5%BB%8A_1.jpg/960px-%E4%B8%9C%E7%9B%9F%E5%8F%8B%E8%B0%8A%E9%95%BF%E5%BB%8A_1.jpg",
+      "outline": {
+        "theme": "绿城翡翠翡翠明珠 · 壮乡生态植物宝库",
+        "route": [
+          "西大门壮锦广场",
+          "千年苏铁园",
+          "龙象塔与天池",
+          "观音禅寺与热带雨林大观"
+        ],
+        "nodes": [
+          {
+            "name": "起：绿城绿肺概况",
+            "en": "Overview of Qingxiu Mountain",
+            "kws": [
+              "Green lung of Nanning 绿城翡翠绿肺",
+              "National 5A 景区",
+              "Zhuang Brocade Square 铜鼓壮锦广场",
+              "Rich biodiversity 亚热带植物大观"
+            ]
+          },
+          {
+            "name": "承：千年苏铁园",
+            "en": "Millennium Cycad Garden",
+            "kws": [
+              "Over 10,000 cycad plants 万株苏铁名木",
+              "King of Cycads 千年苏铁王",
+              "Living plant fossils 植物界活化石"
+            ]
+          },
+          {
+            "name": "转：龙象塔与天池",
+            "en": "Longxiang Pagoda & Tianchi",
+            "kws": [
+              "Ming Dynasty pagoda 明代万历龙象塔",
+              "Highest pagoda in Guangxi 广西最高古塔",
+              "Panoramic view of Yongjiang 极目远眺邕江两岸",
+              "Tianchi Lake reflections 天池倒影"
+            ]
+          },
+          {
+            "name": "合：雨林禅韵与欢送",
+            "en": "Rainforest & Farewell",
+            "kws": [
+              "Rainforest mist wonderland 雾森热带雨林",
+              "ASEAN Friendship Garden 东盟友谊园",
+              "Eco-friendly Nanning 生态宜居首府"
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "广西 奇峰秀水之旅",
@@ -401,7 +645,45 @@ window.data = {
           "en": "Dear tourists, our \"Journey of Fantastic Peaks and Beautiful Waters\" is coming to an end. I believe the tranquility of Yangshuo Yulong River, the mystery of Tianshu Gorge and the grandeur of Dayao Mountain have been deeply imprinted in everyone's mind. This journey not only allowed us to appreciate the magic of Guangxi's mountains and waters, but also felt the charm of multi-ethnic culture. Thank you very much for your cooperation and support along the way. Please forgive me if there is any inadequacy in my service. Guangxi's mountains and waters are always open to everyone. We look forward to your visit again. Wish you a safe and pleasant journey!",
           "cn": "各位游客朋友们，我们的“奇峰秀水之旅”到这里就要告一段落了。相信阳朔遇龙河的静谧、天书侠谷的神秘、大瑶山的壮美已经深深印在大家的脑海里。这段旅程不仅让我们领略了广西山水的神奇，更感受到了多民族文化的魅力。非常感谢大家一路上的配合与支持，如有照顾不周的地方还请多多包涵。广西的山水永远向大家敞开怀抱，期待大家再次光临，祝大家一路平安，旅途愉快！"
         }
-      ]
+      ],
+      "outline": {
+        "theme": "奇峰秀水 · 灵山秀水与世界瑶都探索",
+        "route": [
+          "阳朔县 (遇龙河)",
+          "蒙山县 (天书侠谷)",
+          "金秀瑶族自治县 (大瑶山盘王界)"
+        ],
+        "nodes": [
+          {
+            "name": "第一站：阳朔县",
+            "en": "Yangshuo County",
+            "kws": [
+              "Yulong River Resort 遇龙河国家级旅游度假区",
+              "Bamboo raft drifting 遇龙水厄竹筏漂流",
+              "Little Li River 小漓江田园风光"
+            ]
+          },
+          {
+            "name": "第二站：蒙山县",
+            "en": "Mengshan County",
+            "kws": [
+              "Tianshu Gorge 天书侠谷景区",
+              "Taiping Heavenly Kingdom culture 太平天国封王地",
+              "Canyon stream & waterfall 峡谷飞瀑流泉"
+            ]
+          },
+          {
+            "name": "第三站：金秀县",
+            "en": "Jinxiu Yao County",
+            "kws": [
+              "Dayao Mountain Panwang Realm 大瑶山盘王界",
+              "World Capital of Yao 世界瑶都",
+              "Shengtang Mountain 圣堂山云海高山杜鹃",
+              "Yao medicine bath 瑶族药浴非遗"
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "广西 喀斯特探秘之旅",
@@ -448,7 +730,34 @@ window.data = {
           "en": "Dear tourists, our \"Karst Exploration Journey\" is coming to an end. From the classic karst landscapes in Guilin to the original ecological secrets in Hechi, I believe everyone has fallen in love with the mountains and waters of Guangxi. During this trip, thank you for your cooperation and support. I also hope that the mountains, waters and culture of Guangxi can leave you good memories. There is no feast that never ends. I wish you a safe journey and look forward to meeting you again!",
           "cn": "各位游客朋友们，我们的“喀斯特探秘之旅”即将结束。从桂林的经典喀斯特景观到河池的原始生态秘境，相信大家已经深深爱上了广西的山水。这段旅程中，感谢大家的配合与支持，也希望广西的山水与文化能给大家留下美好的回忆。天下没有不散的筵席，祝愿大家一路平安，期待与大家再次相逢！"
         }
-      ]
+      ],
+      "outline": {
+        "theme": "地表奇峰与地下溶洞 · 世界自然遗产喀斯特",
+        "route": [
+          "桂林市 (两江四湖/芦笛岩/漓江)",
+          "河池市环江县 (木论喀斯特)"
+        ],
+        "nodes": [
+          {
+            "name": "第一站：桂林市",
+            "en": "Guilin City",
+            "kws": [
+              "Two Rivers & Four Lakes 两江四湖象山",
+              "Reed Flute Cave Palace 芦笛岩大自然艺术之宫",
+              "Li River scenery 漓江奇峰喀斯特"
+            ]
+          },
+          {
+            "name": "第二站：河池市环江县",
+            "en": "Huanjiang County, Hechi",
+            "kws": [
+              "Mulun Karst World Natural Heritage 木论喀斯特世界自然遗产",
+              "Primeval karst forest 喀斯特原生性林区",
+              "Maonan ethnic culture 毛南族风情"
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "广西北部湾滨海之旅",
@@ -510,7 +819,44 @@ window.data = {
           "en": "Dear friends, our \"Beibu Gulf Coastal Tour\" is coming to an end. We've experienced the softness of Silver Beach, the magic of Weizhou Island, the cuteness of dolphins in Sanniang Bay and the passion of Bailang Beach. I hope this journey has left you beautiful memories. Thank you for your cooperation and support. Wish you a safe trip and welcome to Guangxi again!",
           "cn": "各位朋友们，我们的“北部湾滨海之旅”即将结束。我们一同感受了银滩的柔软、涠洲岛的神奇、三娘湾海豚的可爱和白浪滩的激情。希望这段旅程给大家留下了美好的回忆。感谢大家的配合与支持，祝大家一路平安，欢迎再次来到广西！"
         }
-      ]
+      ],
+      "outline": {
+        "theme": "浪漫海滨 · 天下第一滩与火山海岛画卷",
+        "route": [
+          "北海市 (银滩/涠洲岛)",
+          "钦州市 (三娘湾)",
+          "防城港市 (江山半岛白浪滩)"
+        ],
+        "nodes": [
+          {
+            "name": "第一站：北海市",
+            "en": "Beihai City",
+            "kws": [
+              "Beihai Silver Beach 北海银滩 (滩长平/沙细白)",
+              "Weizhou Island 涠洲岛 (中国最大最年轻火山岛)",
+              "Crocodile Peak 鳄鱼山火山地质公园"
+            ]
+          },
+          {
+            "name": "第二站：钦州市",
+            "en": "Qinzhou City",
+            "kws": [
+              "Sanniang Bay 三娘湾景区",
+              "Hometown of Chinese White Dolphins 中华白海豚之乡",
+              "Mangrove wetland 红树林滨海湿地"
+            ]
+          },
+          {
+            "name": "第三站：防城港市",
+            "en": "Fangchenggang City",
+            "kws": [
+              "Bailang Beach, Jiangshan Peninsula 白浪滩",
+              "Shili Golden Beach 十里金滩",
+              "Gateway to ASEAN 中国东盟海上门户"
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "广西 三月三风情之旅",
@@ -552,7 +898,45 @@ window.data = {
           "en": "Dear tourists, our \"March 3rd Folk Custom Tour\" is coming to an end. From the flying folk songs in Nanning to the pastoral poetry in Chongzuo, and then to the deep affection of hydrangeas in Baise, I believe everyone has deeply felt the beauty of Guangxi's mountains and rivers and the charm of ethnic groups. During this journey, thank you for your cooperation and support. The door of Guangxi is always open for you. You are welcome to come back to this vibrant land again. Wish you a safe journey and all the best!",
           "cn": "各位游客朋友们，我们的“三月三风情之旅”即将结束。从南宁的民歌飞扬到崇左的田园诗意，再到百色的绣球情深，相信大家已经深深感受到了广西的山水之美与民族之韵。这段旅程中，感谢大家的配合与支持。广西的大门永远为大家敞开，欢迎大家再次回到这片充满活力的土地，祝愿大家一路平安，万事如意！"
         }
-      ]
+      ],
+      "outline": {
+        "theme": "歌飞三月三 · 壮乡歌海与边关风情",
+        "route": [
+          "南宁市 (民歌湖/伊岭岩)",
+          "崇左市 (明仕田园)",
+          "百色市 (靖西旧州)"
+        ],
+        "nodes": [
+          {
+            "name": "第一站：南宁市",
+            "en": "Nanning City",
+            "kws": [
+              "Folk Song Lake 民歌湖国际音乐小镇",
+              "Yiling Cave 伊岭岩壮乡民俗",
+              "March 3rd Song Festival 壮族三月三歌圩",
+              "Five-color glutinous rice 五色糯米饭"
+            ]
+          },
+          {
+            "name": "第二站：崇左市",
+            "en": "Chongzuo City",
+            "kws": [
+              "Mingshi Pastoral Resort 明仕田园",
+              "Secret border landscape 隐世喀斯特田园",
+              "Zhuang bamboo dance 壮族竹竿舞"
+            ]
+          },
+          {
+            "name": "第三站：百色市",
+            "en": "Baise City (Jingxi)",
+            "kws": [
+              "Old Town of Jiuzhou 靖西旧州古镇",
+              "Hometown of Silk Balls 中国绣球之乡",
+              "E'quan Spring 鹅泉跨国水源地"
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "广西 桂北民族风情之旅",
@@ -594,7 +978,44 @@ window.data = {
           "en": "Dear tourists, the wonderful \"Northern Guangxi Ethnic Style Tour\" is coming to an end. I believe the grandeur of Longji Terraces, the exquisiteness of Dong architecture and the vitality of Miao culture have all become unforgettable memories in your hearts. During this journey, we not only enjoyed the beautiful scenery, but also felt the cultural charm of the harmonious coexistence of multiple ethnic groups in Guangxi. Thank you for your cooperation and support. I look forward to meeting you again in the beautiful Guangxi. Wish you a safe journey and all the best!",
           "cn": "各位游客朋友们，美好的“桂北民族风情之旅”即将结束。相信龙脊梯田的壮阔、侗族建筑的精巧、苗族文化的鲜活，都已成为大家心中难忘的记忆。这段旅程，我们不仅欣赏了美景，更感受了广西多民族和谐共生的文化魅力。感谢大家的配合与支持，期待在美丽的广西与大家再次相逢，祝大家一路平安，万事如意！"
         }
-      ]
+      ],
+      "outline": {
+        "theme": "桂北风情 · 梯田奇观与侗苗建筑大观",
+        "route": [
+          "龙胜各族自治县 (龙脊梯田)",
+          "三江侗族自治县 (程阳八寨/月也侗寨)",
+          "融水苗族自治县 (梦呜苗寨)"
+        ],
+        "nodes": [
+          {
+            "name": "第一站：龙胜各族自治县",
+            "en": "Longsheng County",
+            "kws": [
+              "Longji Rice Terraces 龙脊梯田全球农业文化遗产",
+              "Seven Stars Around the Moon 七星伴月",
+              "Red Yao long hair culture 红瑶长发村"
+            ]
+          },
+          {
+            "name": "第二站：三江侗族自治县",
+            "en": "Sanjiang Dong County",
+            "kws": [
+              "Chengyang Eight Villages 程阳八寨风雨桥",
+              "Yueye Dong Village 月也侗寨坐妹演艺",
+              "Grand Song of Dong 侗族大歌与打油茶"
+            ]
+          },
+          {
+            "name": "第三站：融水苗族自治县",
+            "en": "Rongshui Miao County",
+            "kws": [
+              "Mengwu Miao Village 梦呜苗寨民俗体验园",
+              "Lusheng dance & horse fighting 芦笙踩堂与斗马非遗",
+              "Miao silver ornaments 苗族银饰服饰"
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "广西 桂西北民族风情之旅",
@@ -636,7 +1057,44 @@ window.data = {
           "en": "Dear tourists, this Northwest Guangxi Ethnic Customs Tour is coming to an end. I believe you have not only appreciated the geological wonders of the Cotton Tiankeng but also felt the simple customs and profound culture of the Mulao, Maonan and Bai Ku Yao. This journey is more beautiful because of your company. Thank you for your cooperation and support. The landscapes and ethnic cultures of Guangxi will always welcome you. Looking forward to meeting you again. Wish you a smooth return journey and all the best!",
           "cn": "各位游客，本次桂西北民族风情之旅即将结束。相信大家不仅领略了棉花天坑的地质奇观，更感受到了仫佬族、毛南族、白裤瑶的淳朴风情与深厚文化。这段旅程因大家的陪伴而更加美好，感谢大家的配合与支持。广西的山水与民族文化永远欢迎你们，期待与大家再次相逢，祝大家返程顺利，万事如意！"
         }
-      ]
+      ],
+      "outline": {
+        "theme": "刘三姐歌谣与多民族融合非遗画卷",
+        "route": [
+          "桂林市 (刘三姐大观园/阳朔)",
+          "柳州市 (立鱼峰)",
+          "河池市宜州区 (刘三姐故里)"
+        ],
+        "nodes": [
+          {
+            "name": "第一站：桂林市",
+            "en": "Guilin City",
+            "kws": [
+              "Liu Sanjie Grand View Garden 刘三姐大观园",
+              "Yangshuo Big Banyan Tree 阳朔大榕树抛绣球",
+              "Folk ballad legends 歌仙对歌传情"
+            ]
+          },
+          {
+            "name": "第二站：柳州市",
+            "en": "Liuzhou City",
+            "kws": [
+              "Yufeng Mountain 立鱼峰刘三姐传歌升仙处",
+              "Little Dragon Pool 小龙潭山歌会",
+              "Urban folk custom 柳州歌仙文化"
+            ]
+          },
+          {
+            "name": "第三站：河池市宜州区",
+            "en": "Yizhou District, Hechi",
+            "kws": [
+              "Liu Sanjie Hometown 宜州刘三姐故里",
+              "Zhuangyuan Bridge 状元桥与流河寨",
+              "National intangible heritage 山歌非遗传承地"
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "广西 历史文化名城之旅",
@@ -723,7 +1181,45 @@ window.data = {
           "en": "Dear tourists, our \"Historical and Cultural City Tour\" is coming to an end. During this journey, we felt the grandeur of the Qin and Han Dynasties from the Royal City and Lingqu Canal in Guilin, cherished the memory of the virtuous officials of the Tang Dynasty in Liuhou Park in Liuzhou, and explored the glory of the Silk Road in Hepu Han Dynasty Cultural Museum in Beihai. I believe that Guangxi's historical heritage, landscape scenery and folk customs have left a deep impression on everyone. Thank you very much for your cooperation and support along the way. Please forgive me if there is any inadequacy in my service. Farewell is not the end. Guangxi's door is always open for you. We look forward to your visit again. Wish you a smooth return journey and all the best!",
           "cn": "各位游客朋友们，我们的“历史文化名城之旅”即将结束。在这段旅程中，我们从桂林的王城与灵渠感受秦汉雄风，在柳州的柳侯公园缅怀唐代贤吏，于北海的合浦汉代文化博物馆探寻丝路辉煌。相信广西的历史底蕴、山水风光和民俗风情已经给大家留下了深刻印象。非常感谢大家一路上的配合与支持，如有照顾不周之处，还请多多包涵。离别不是结束，广西的大门永远为大家敞开，期待大家再次光临，祝大家返程顺利，万事如意！"
         }
-      ]
+      ],
+      "outline": {
+        "theme": "名城巡礼 · 千年藩王水利与海丝古港",
+        "route": [
+          "桂林市 (独秀峰王城/兴安灵渠)",
+          "柳州市 (柳侯公园)",
+          "北海市 (合浦汉代文化博物馆)"
+        ],
+        "nodes": [
+          {
+            "name": "第一站：桂林市",
+            "en": "Guilin City",
+            "kws": [
+              "Jingjiang Princes' City 独秀峰·王城 (明代靖江王府)",
+              "Peak with cliffs 阅尽桂林城千山",
+              "Lingqu Canal 兴安灵渠 (世界古代水利奇迹)",
+              "Huazui plow & balance 铧嘴大小天平"
+            ]
+          },
+          {
+            "name": "第二站：柳州市",
+            "en": "Liuzhou City",
+            "kws": [
+              "Liuhou Park 柳侯公园",
+              "Liu Zongyuan Memorial 柳侯祠唐代名相文豪",
+              "Luochi Temple & clothes tomb 罗池庙与衣冠墓"
+            ]
+          },
+          {
+            "name": "第三站：北海市",
+            "en": "Beihai City (Hepu)",
+            "kws": [
+              "Hepu Han Dynasty Cultural Museum 合浦汉代博物馆",
+              "Maritime Silk Road port 海上丝绸之路始发港",
+              "Han Dynasty cultural relics 波斯陶壶/铜凤灯/合浦珍珠"
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "广西 岭南文化之旅",
@@ -780,7 +1276,44 @@ window.data = {
           "en": "Dear friends, our \"Lingnan Culture Tour\" is coming to an end. We've appreciated qilou architecture, listened to Cantonese Opera and Caijia Opera, and felt the profound Lingnan culture in Wuzhou, Yulin and Guigang. Thank you for your cooperation. May the charm of Guangxi stay with you forever! Wish you a safe journey and welcome back again!",
           "cn": "各位朋友，我们的“岭南文化之旅”即将结束。我们欣赏了骑楼建筑，聆听了粤剧与采茶戏，在梧州、玉林、贵港感受了岭南文化的深厚底蕴。感谢大家的配合，愿广西的魅力永远伴随您！祝您一路平安，欢迎再次光临！"
         }
-      ]
+      ],
+      "outline": {
+        "theme": "岭南华彩 · 百年骑楼名刹与古阁茶戏",
+        "route": [
+          "梧州市 (骑楼城/龙母庙/粤剧基地)",
+          "玉林市 (容州古城真武阁)",
+          "贵港市桂平市 (有理村采茶戏)"
+        ],
+        "nodes": [
+          {
+            "name": "第一站：梧州市",
+            "en": "Wuzhou City",
+            "kws": [
+              "Arcade City 梧州百年骑楼城 (中国骑楼博物城)",
+              "Dragon Mother Temple 龙母庙",
+              "Cantonese Opera Base 梧州粤剧非遗传承基地"
+            ]
+          },
+          {
+            "name": "第二站：玉林市",
+            "en": "Yulin City (Rongxian)",
+            "kws": [
+              "Rongzhou Ancient City 容州古城",
+              "Zhenwu Pavilion 真武阁 (杠杆结构无钉古建筑奇迹)",
+              "Noble Consort Yang hometown 杨贵妃故里"
+            ]
+          },
+          {
+            "name": "第三站：贵港市",
+            "en": "Guigang City (Guiping)",
+            "kws": [
+              "Youli Village Tea-picking Opera 桂平有理村采茶戏",
+              "Lingnan folk opera 300年岭南戏曲活化石",
+              "Tea songs and folk wisdom 采茶调与民俗"
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "广西 骆越文化之旅",
@@ -827,7 +1360,33 @@ window.data = {
           "en": "Dear guests, our \"Luoyue Culture Tour\" is coming to an end. We've visited museums and Huashan Rock Art, feeling the charm of Luoyue culture. Thank you for your support and cooperation. May the memories of Guangxi stay with you. Wish you a safe journey and welcome back again!",
           "cn": "各位来宾，我们的“骆越文化之旅”即将落幕。一路走来，我们透过博物馆的文物与花山岩画的印记，深切感受了骆越文化的魅力。感谢大家的支持与配合，愿广西的记忆伴您同行。祝您旅途平安，期待再次相逢！"
         }
-      ]
+      ],
+      "outline": {
+        "theme": "千年根脉 · 骆越青铜文明与世界岩画",
+        "route": [
+          "南宁市 (自治区博物馆/民族博物馆)",
+          "崇左市 (壮族博物馆/花山岩画)"
+        ],
+        "nodes": [
+          {
+            "name": "第一站：南宁市",
+            "en": "Nanning City",
+            "kws": [
+              "Guangxi Museum 广西壮族自治区博物馆 (羽纹铜凤灯/大铜鼓)",
+              "Guangxi Anthropology Museum 广西民族博物馆 (12世居民族民俗)"
+            ]
+          },
+          {
+            "name": "第二站：崇左市",
+            "en": "Chongzuo City",
+            "kws": [
+              "Chongzuo Zhuang Museum 崇左市壮族博物馆",
+              "Zuojiang Huashan Rock Art 左江花山岩画 (世界遗产)",
+              "Bronze drum culture 骆越先民青铜与崖壁丰碑"
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "广西 长寿休闲之旅",
@@ -874,7 +1433,44 @@ window.data = {
           "en": "Dear tourists, our \"Longevity Leisure Tour\" is coming to an end. I believe that the freshness of Gupo Mountain, the warmth of Xixi Hot Spring and the tranquility of Huangyao Ancient Town have made everyone feel the unique charm of Hezhou's longevity culture. The landscapes of Guangxi nourish life, and the humanities of Hezhou warm people's hearts. I hope this trip will leave you good memories, and I wish all friends good health and long life. Looking forward to meeting you again in the beautiful Guangxi, goodbye!",
           "cn": "各位游客朋友们，我们的“长寿休闲之旅”即将结束。相信姑婆山的清新、西溪温泉的暖意和黄姚古镇的静谧，已经让大家感受到了贺州长寿文化的独特魅力。广西的山水滋养生命，贺州的人文温暖人心，希望这段旅程能给大家留下美好的回忆，也祝愿各位朋友身体健康、福寿绵长。期待与大家再次相聚在美丽的广西，再见！"
         }
-      ]
+      ],
+      "outline": {
+        "theme": "养生福地 · 森林温泉与千年古镇慢生活",
+        "route": [
+          "贺州市平桂区 (姑婆山)",
+          "八步区 (西溪森林温泉)",
+          "昭平县 (黄姚古镇)"
+        ],
+        "nodes": [
+          {
+            "name": "第一站：平桂区",
+            "en": "Pinggui District, Hezhou",
+            "kws": [
+              "Gupo Mountain National Forest Park 姑婆山 (天然大氧吧)",
+              "Negative oxygen ions 负氧离子最高超15万个/cm³",
+              "Tea garden & waterfalls 茶园与飞瀑"
+            ]
+          },
+          {
+            "name": "第二站：八步区",
+            "en": "Babu District, Hezhou",
+            "kws": [
+              "Xixi Forest Hot Spring Resort 贺州西溪森林温泉",
+              "Natural hot spring minerals 天然富硒温泉",
+              "Forest wellness 森林康养度假"
+            ]
+          },
+          {
+            "name": "第三站：昭平县",
+            "en": "Zhaoping County",
+            "kws": [
+              "Huangyao Ancient Town 千年黄姚古镇",
+              "Karst ancient town 梦境家园喀斯特古镇",
+              "Doulian slate street 豆豉非遗与石板街"
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "广西 长寿康养之旅",
@@ -931,7 +1527,44 @@ window.data = {
           "en": "There is no feast that never ends. Although the journey is coming to an end, Guangxi's mountains, rivers and enthusiasm will always welcome everyone. I hope this journey will become a good memory in your hearts, and I also hope you can share the longevity secrets and beautiful scenery of Guangxi with your relatives and friends. Finally, I wish you a safe journey, good health and all the best! Looking forward to seeing you next time!",
           "cn": "天下没有不散的筵席，虽然旅程即将结束，但广西的山水和热情永远欢迎大家。希望这次旅程能成为大家心中一段美好的回忆，也希望大家能把广西的长寿秘诀和美景分享给身边的亲朋好友。最后，祝愿大家一路平安，身体健康，万事如意！期待我们下次再会！"
         }
-      ]
+      ],
+      "outline": {
+        "theme": "巴马长寿密码 · 盘阳圣水与地下天窗群",
+        "route": [
+          "巴马瑶族自治县 (盘阳河/水晶宫)",
+          "东兰县 (红水河第一湾)",
+          "凤山县 (三门海)"
+        ],
+        "nodes": [
+          {
+            "name": "第一站：巴马瑶族自治县",
+            "en": "Bama Yao County",
+            "kws": [
+              "Panyang River 盘阳河生态核心",
+              "Baimo Cave 百魔洞高磁场与负氧离子",
+              "Crystal Palace 水晶宫地质奇观",
+              "Longevity village 百岁寿星之乡"
+            ]
+          },
+          {
+            "name": "第二站：东兰县",
+            "en": "Donglan County",
+            "kws": [
+              "Hongshui River First Bay 红水河第一湾 (天下第一U型大峡谷)",
+              "Red tourism & karst canyon 红色东兰与峡谷壮歌"
+            ]
+          },
+          {
+            "name": "第三站：凤山县",
+            "en": "Fengshan County",
+            "kws": [
+              "Sanmenhai World Geopark 凤山三门海天窗群",
+              "World largest karst skylights 世界唯一水上天窗群",
+              "Blue underground river 碧蓝暗河泛舟"
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "广西 长寿悦动之旅",
@@ -978,7 +1611,34 @@ window.data = {
           "en": "Dear tourists, our \"Longevity Dynamic Tour\" is coming to an end. From Haokun Lake and Tea Mountain Pyramid in Lingyun to Dashiwei Sinkhole Group in Leye, I believe you have not only appreciated the magnificent mountains and rivers of Guangxi, but also felt the unique charm of longevity culture. During this trip, thank you for your cooperation and support. I hope the mountains, rivers and humanities of Guangxi can leave a deep impression on you. You are also welcome to come to this longevity blessed land again to explore more wonderful things. Wish you a safe journey and all the best!",
           "cn": "各位游客朋友们，我们的“长寿悦动之旅”到这里就要告一段落了。从凌云的浩坤湖、茶山金字塔，到乐业的大石围天坑群，相信大家不仅领略了广西山水的壮美，更感受到了长寿文化的独特魅力。这段旅程中，感谢大家的配合与支持。希望广西的山水和人文能给大家留下深刻的印象，也欢迎大家再次来到这片长寿福地，探寻更多的精彩。祝大家一路平安，万事如意！"
         }
-      ]
+      ],
+      "outline": {
+        "theme": "悦动山野 · 碧湖金字塔茶山与天坑探险",
+        "route": [
+          "百色市凌云县 (浩坤湖/茶山金字塔)",
+          "百色市乐业县 (大石围天坑群)"
+        ],
+        "nodes": [
+          {
+            "name": "第一站：凌云县",
+            "en": "Lingyun County",
+            "kws": [
+              "Haokun Lake 环浩坤湖山水生态体验区 (水墨浩坤湖)",
+              "Tea Mountain Pyramid 凌云茶山金字塔 (万亩生态高山茶园)",
+              "White tea culture 白毫茶非遗"
+            ]
+          },
+          {
+            "name": "第二站：乐业县",
+            "en": "Leye County",
+            "kws": [
+              "Leye Dashiwei Sinkholes 乐业大石围天坑群",
+              "World Sinkhole Museum 世界天坑博物馆",
+              "Underground primeval forest 原始地下森林与溶洞极限探险"
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "广西 米粉之旅",
@@ -1035,7 +1695,44 @@ window.data = {
           "en": "Dear friends, our \"Guangxi Rice Noodle Tour\" has come to an end. We've tasted the unique flavors of Nanning Old Friend Rice Noodles, Liuzhou Snail Rice Noodles and Guilin Rice Noodles, and appreciated the beautiful scenery of the three cities. I hope this journey has left you with sweet memories. Guangxi's charm is not only in the food but also in the mountains and waters and the enthusiasm of the people. Welcome to visit Guangxi again! Bon voyage!",
           "cn": "各位朋友，我们的“广西米粉之旅”即将结束。我们品尝了南宁老友粉、柳州螺蛳粉、桂林米粉的独特风味，也领略了三座城市的秀丽风光。希望这段旅程给大家留下美好的回忆。广西的魅力，不仅在美食，更在山水和人文。欢迎大家再次来到广西！一路顺风！"
         }
-      ]
+      ],
+      "outline": {
+        "theme": "米粉三绝 · 老友螺蛳桂林米粉风味图谱",
+        "route": [
+          "南宁市 (老友粉/三街两巷)",
+          "柳州市 (螺蛳粉/水上大舞台)",
+          "桂林市 (桂林米粉/正阳步行街)"
+        ],
+        "nodes": [
+          {
+            "name": "第一站：南宁市",
+            "en": "Nanning City",
+            "kws": [
+              "Nanning Laoyou Rice Noodles 南宁老友粉",
+              "Sour & spicy appetizer 酸辣开胃/非遗技艺",
+              "SanJie LiangXiang 三街两巷老南宁底蕴"
+            ]
+          },
+          {
+            "name": "第二站：柳州市",
+            "en": "Liuzhou City",
+            "kws": [
+              "Liuzhou Luosifen 柳州螺蛳粉",
+              "Sour bamboo shoots & snail soup 秘制酸笋与螺蛳浓汤",
+              "Global food internet celebrity 现象级非遗名吃"
+            ]
+          },
+          {
+            "name": "第三站：桂林市",
+            "en": "Guilin City",
+            "kws": [
+              "Guilin Rice Noodles 桂林米粉",
+              "Secret braised gravy 卤水秘方三百年",
+              "Round & flat rice noodles 圆榨扁切/干拌配汤"
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "广西 工艺品之旅",
@@ -1082,7 +1779,52 @@ window.data = {
           "en": "Dear friends, our \"Guangxi Craft Tour\" is coming to an end. We've witnessed the luster of Hepu pearls, the texture of Nixing pottery, the vibrancy of Zhuang brocade and the warmth of silk balls. These crafts are not just artworks, but carriers of Guangxi's history and ethnic wisdom. I hope this journey leaves you with beautiful memories. Wish you a safe trip and welcome back to Guangxi anytime! Thank you!",
           "cn": "亲爱的朋友们，我们的“广西工艺品之旅”即将结束。我们见证了合浦珍珠的光泽、坭兴陶的质感、壮锦的艳丽和绣球的温情。这些工艺品不仅是艺术品，更是广西历史与民族智慧的载体。希望这段旅程给你们留下美好回忆，祝一路平安，随时欢迎再来广西！谢谢大家！"
         }
-      ]
+      ],
+      "outline": {
+        "theme": "南国匠心 · 南珠坭兴陶壮锦与绣球技艺",
+        "route": [
+          "北海市 (合浦珍珠)",
+          "钦州市 (坭兴陶创意园)",
+          "南宁市 (壮锦刺绣馆)",
+          "百色市靖西 (壮族绣球村)"
+        ],
+        "nodes": [
+          {
+            "name": "第一站：北海市",
+            "en": "Beihai City",
+            "kws": [
+              "Hepu South Pearl 合浦南珠 (东珠不如西珠，西珠不如南珠)",
+              "Pearl farming history 汉代采珠与珍珠饰品"
+            ]
+          },
+          {
+            "name": "第二站：钦州市",
+            "en": "Qinzhou City",
+            "kws": [
+              "Qinzhou Nixing Pottery 钦州坭兴陶 (中国四大名陶)",
+              "Kiln transmutation color 窑变艺术与紫砂双绝"
+            ]
+          },
+          {
+            "name": "第三站：南宁市",
+            "en": "Nanning City",
+            "kws": [
+              "Zhuang Brocade 壮锦 (中国四大名锦)",
+              "Jacquard weaving technology 通经断纬与提花技艺",
+              "Geometric ethnic patterns 几何菱形纹样"
+            ]
+          },
+          {
+            "name": "第四站：百色市靖西",
+            "en": "Baise City (Jingxi)",
+            "kws": [
+              "Jingxi Silk Balls 靖西绣球",
+              "Pledge of love 壮族传情定情信物",
+              "Twelve-petal flower embroidery 堆绣与十二瓣飞花"
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "广西 茶文化之旅",
@@ -1134,7 +1876,54 @@ window.data = {
           "en": "Dear tourists, our \"Guangxi Tea Culture Tour\" is coming to an end. From the mellow and aged fragrance of Wuzhou Liubao Tea, to the fresh and sweet aftertaste of Guiping Xishan Tea, from the fragrant and elegant Hengzhou Jasmine Tea, to the rare and unique Fangchenggang Golden Camellia, I believe you have not only tasted the charm of Guangxi's famous teas, but also felt the beauty of Guangxi's mountains and waters and ethnic customs. This journey is more wonderful because of your company. Thank you for your cooperation and support. The tea fragrance of Guangxi will always float for you. Welcome to the beautiful Guangxi again. Wish you a safe and pleasant journey!",
           "cn": "各位游客朋友们，我们的“广西茶文化之旅”即将结束。从梧州六堡茶的醇厚陈香，到桂平西山茶的鲜爽回甘，从横州茉莉花茶的芬芳清雅，到防城港金花茶的珍稀独特，相信大家不仅品尝到了广西名茶的魅力，更感受到了广西的山水之美和民族风情。这段旅程因为有大家的陪伴而更加精彩，感谢大家的配合与支持。广西的茶香永远为大家飘溢，欢迎大家再次来到美丽的广西，祝大家一路平安，旅途愉快！"
         }
-      ]
+      ],
+      "outline": {
+        "theme": "茗香千载 · 六堡西山茉莉花与金花茶韵",
+        "route": [
+          "梧州市 (六堡茶生态茶园)",
+          "贵港市 (桂平西山茶)",
+          "南宁市横州市 (茉莉花茶基地)",
+          "防城港市 (金花茶保护区)"
+        ],
+        "nodes": [
+          {
+            "name": "第一站：梧州市",
+            "en": "Wuzhou City",
+            "kws": [
+              "Wuzhou Liubao Tea 梧州六堡茶 (中国历史名茶)",
+              "Red, thick, aged, mellow 红浓陈醇与槟榔香",
+              "Tea-Boat Ancient Road 茶船古道侨销名茶"
+            ]
+          },
+          {
+            "name": "第二站：贵港市",
+            "en": "Guigang City (Guiping)",
+            "kws": [
+              "Guiping Xishan Tea 桂平西山茶",
+              "Qipan Rock & Ruquan Spring 棋盘石名茶与乳泉甘冽",
+              "Green and fragrant 嫩绿多毫甘爽回味"
+            ]
+          },
+          {
+            "name": "第三站：南宁横州市",
+            "en": "Hengzhou, Nanning",
+            "kws": [
+              "Hengzhou Jasmine Tea 横州茉莉花茶",
+              "World Capital of Jasmine 世界茉莉花之都",
+              "Scenting technique 窨制技艺香溢天下"
+            ]
+          },
+          {
+            "name": "第四站：防城港市",
+            "en": "Fangchenggang City",
+            "kws": [
+              "Fangcheng Golden Camellia 防城金花茶",
+              "Queen of Tea Family 茶族皇后与金色花瓣",
+              "Medicinal & health value 珍稀药用保健养生"
+            ]
+          }
+        ]
+      }
     }
   ],
   "questions": [
