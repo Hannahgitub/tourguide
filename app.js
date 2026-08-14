@@ -19,6 +19,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     window._activeUtterance = null;
     clearSpeechHighlights();
+    const playBtnText = document.getElementById('play-btn-text');
+    const playAllBtn = document.getElementById('btn-play-all');
+    if (playBtnText) playBtnText.textContent = '现场导览 (连续讲解)';
+    if (playAllBtn) playAllBtn.style.background = '';
     if (currentPlayingCard) {
       currentPlayingCard.dataset.playState = 'idle';
       const b = currentPlayingCard.querySelector('.btn-read-sec');
@@ -99,88 +103,103 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function speakText(text, containerEl, onEndCallback) {
-    if ('speechSynthesis' in window) {
-      stopAllAudio();
+    if (!('speechSynthesis' in window)) {
+      alert('您的浏览器暂不支持 SpeechSynthesis 语音合成。');
+      return;
+    }
 
-      const rateElem = document.getElementById('speech-rate-select');
-      const rate = rateElem ? parseFloat(rateElem.value || '1.0') : 1.0;
-      
-      let cleanText = (text || (containerEl ? containerEl.innerText : '')).replace(/<[^>]*>/g, '').replace(/^(English|Chinese)[:：\/\s]*/gi, '').trim();
-      if (!cleanText) return;
+    stopAllAudio();
 
-      const utterance = new SpeechSynthesisUtterance(cleanText);
-      window._activeUtterance = utterance; // 强引用防止 V8 GC 回收销毁对象
+    const rateElem = document.getElementById('speech-rate-select');
+    const rate = rateElem ? parseFloat(rateElem.value || '1.0') : 1.0;
+    let cleanText = (text || (containerEl ? containerEl.innerText : '')).replace(/<[^>]*>/g, '').replace(/^(English|Chinese)[:：\/\s]*/gi, '').trim();
+    if (!cleanText) return;
 
-      utterance.lang = 'en-US';
-      utterance.rate = rate;
-
-      const usVoice = getBestUSVoice();
-      if (usVoice) utterance.voice = usVoice;
-
-      if (containerEl) {
-        activeSpeechContainer = containerEl;
-        activeWordMap = prepareContainerHighlight(containerEl, cleanText);
-
-        utterance.onboundary = (event) => {
-          if ((event.name === 'word' || event.charIndex !== undefined) && activeWordMap.length > 0) {
-            const charIdx = event.charIndex;
-            let activeIndex = -1;
-
-            for (let i = 0; i < activeWordMap.length; i++) {
-              const item = activeWordMap[i];
-              if (charIdx >= item.startChar && charIdx < item.endChar) {
-                activeIndex = i;
-                break;
-              }
-              if (charIdx < item.startChar && activeIndex === -1) {
-                activeIndex = Math.max(0, i - 1);
-                break;
-              }
-            }
-
-            if (activeIndex === -1 && charIdx >= activeWordMap[activeWordMap.length - 1].endChar) {
-              activeIndex = activeWordMap.length - 1;
-            }
-
-            if (activeIndex !== -1) {
-              clearSpeechHighlights(containerEl);
-              const minIdx = Math.max(0, activeIndex - 1);
-              const maxIdx = Math.min(activeWordMap.length - 1, activeIndex + 1);
-
-              for (let i = minIdx; i <= maxIdx; i++) {
-                if (activeWordMap[i] && activeWordMap[i].el) {
-                  if (i === activeIndex) {
-                    activeWordMap[i].el.classList.add('word-active');
-                  } else {
-                    activeWordMap[i].el.classList.add('word-near');
-                  }
-                }
-              }
-            }
-          }
-        };
-      }
-
-      const handleEnd = () => {
-        clearSpeechHighlights(containerEl);
-        activeSpeechContainer = null;
-        activeWordMap = [];
-        window._activeUtterance = null;
-        if (typeof onEndCallback === 'function') onEndCallback();
-      };
-
-      utterance.onend = handleEnd;
-      utterance.onerror = (err) => {
-        console.warn('[TTS Error]', err);
-        handleEnd();
-      };
-
+    // 统一的实际朗读逻辑
+    const performSpeak = () => {
+      // 1. Android Chrome 的 cancel() 时序 Bug：cancel() → 等 80ms → 再 speak()
+      window.speechSynthesis.cancel();
       if (window.speechSynthesis.paused) {
         window.speechSynthesis.resume();
       }
-      window.speechSynthesis.speak(utterance);
+
+      const reqId = Symbol();
+      window._ttsReqId = reqId;
+
+      setTimeout(() => {
+        if (window._ttsReqId !== reqId) return; // 避免新请求并发冲突
+        const utterance = new SpeechSynthesisUtterance(cleanText);
+        window._activeUtterance = utterance; // GC 防回收强引用
+        utterance.lang = 'en-US';
+        utterance.rate = rate;
+
+        const usVoice = getBestUSVoice();
+        if (usVoice) utterance.voice = usVoice;
+
+        // 3. 引擎卡死（paused 状态）看门狗：加 3 秒看门狗，若引擎 paused 则自动 resume()
+        let watchDog = setInterval(() => {
+          if (window.speechSynthesis.paused) {
+            window.speechSynthesis.resume();
+          }
+        }, 3000);
+
+        if (containerEl) {
+          activeSpeechContainer = containerEl;
+          activeWordMap = prepareContainerHighlight(containerEl, cleanText);
+          utterance.onboundary = (event) => {
+            if (event.name === 'word' || event.charIndex !== undefined) {
+              const charIdx = event.charIndex;
+              let activeIndex = -1;
+              for (let i = 0; i < activeWordMap.length; i++) {
+                if (charIdx >= activeWordMap[i].startChar && charIdx < activeWordMap[i].endChar) {
+                  activeIndex = i; break;
+                }
+              }
+              if (activeIndex !== -1) {
+                clearSpeechHighlights(containerEl);
+                activeWordMap[activeIndex].el.classList.add('word-active');
+              }
+            }
+          };
+        }
+
+        const handleEnd = () => {
+          clearInterval(watchDog);
+          clearSpeechHighlights(containerEl);
+          activeSpeechContainer = null;
+          activeWordMap = [];
+          window._activeUtterance = null;
+          if (typeof onEndCallback === 'function') onEndCallback();
+        };
+
+        utterance.onend = handleEnd;
+        utterance.onerror = (err) => {
+          console.warn('[TTS Error]', err);
+          handleEnd();
+        };
+
+        window.speechSynthesis.speak(utterance);
+        if (window.speechSynthesis.paused) {
+          window.speechSynthesis.resume();
+        }
+      }, 80);
+    };
+
+    // 2. Voices 未加载时直接播放失败：检测 getVoices().length === 0 时，等 voiceschanged 事件触发后再播
+    if (window.speechSynthesis.getVoices().length === 0) {
+      window.speechSynthesis.onvoiceschanged = () => {
+        window.speechSynthesis.onvoiceschanged = null;
+        performSpeak();
+      };
+      // 保险兜底：如果系统没触发 voiceschanged，500ms 后依然尝试播放
+      setTimeout(() => {
+        if (window.speechSynthesis.onvoiceschanged) {
+          window.speechSynthesis.onvoiceschanged = null;
+          performSpeak();
+        }
+      }, 500);
     } else {
-      alert('您的浏览器暂不支持 SpeechSynthesis 语音合成。');
+      performSpeak();
     }
   }
 
@@ -411,9 +430,10 @@ document.addEventListener('DOMContentLoaded', () => {
           secCard.style.marginBottom = '14px';
 
           secCard.innerHTML = `
+            ${sec.title ? `
             <div class="section-title" style="font-size: 16px; margin-bottom: 12px;">
               <span>📌</span> ${sec.title}
-            </div>
+            </div>` : ''}
             
             <div class="speech-text-en" style="font-size: 15px; color: #222; line-height: 1.7; margin-bottom: 12px;">
               ${sec.en}
@@ -853,11 +873,66 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
     container.appendChild(controlCard);
 
-    // 绑定"现场导览"按钮
-    controlCard.querySelector('#btn-play-all').addEventListener('click', () => {
-      if (speech && speech.sections) {
-        const fullText = speech.sections.map(s => s.en).join(' ');
-        speakText(fullText);
+    // 绑定"现场导览"（连续导览逐段高亮朗读）
+    let isContinuousTourPlaying = false;
+    let continuousTourIndex = 0;
+    const playAllBtn = controlCard.querySelector('#btn-play-all');
+    const playBtnText = controlCard.querySelector('#play-btn-text');
+
+    function updatePlayAllBtn(playing) {
+      isContinuousTourPlaying = playing;
+      if (playing) {
+        if (playBtnText) playBtnText.textContent = '⏸ 暂停导览';
+        playAllBtn.style.background = '#dc2626';
+      } else {
+        if (playBtnText) playBtnText.textContent = '现场导览 (连续讲解)';
+        playAllBtn.style.background = '';
+      }
+    }
+
+    function playContinuousSection(secIdx) {
+      if (!isContinuousTourPlaying) return;
+      if (!speech || !speech.sections || secIdx >= speech.sections.length) {
+        // 导览结束
+        updatePlayAllBtn(false);
+        continuousTourIndex = 0;
+        return;
+      }
+
+      continuousTourIndex = secIdx;
+      const targetCard = container.querySelector(`.card[data-idx="${secIdx}"]`);
+      if (targetCard) {
+        // 平滑滚动至当前正在讲解的卡片
+        targetCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+
+      const sec = speech.sections[secIdx];
+      const cleanText = sec.en.replace(/<[^>]*>/g, '').replace(/^(English|Chinese)[:：\/\s]*/gi, '').trim();
+      const enContainer = targetCard ? targetCard.querySelector('.speech-text-en') : null;
+
+      const onSectionEnd = () => {
+        if (!isContinuousTourPlaying) return;
+        // 当前段读完，稍作停顿后进入下一段
+        setTimeout(() => {
+          if (isContinuousTourPlaying) {
+            playContinuousSection(secIdx + 1);
+          }
+        }, 500);
+      };
+
+      // 调用带容器高亮的 speakText 进行朗读
+      speakText(cleanText, enContainer, onSectionEnd);
+    }
+
+    playAllBtn.addEventListener('click', () => {
+      if (isContinuousTourPlaying) {
+        // 暂停/停止连续导览
+        stopAllAudio();
+        updatePlayAllBtn(false);
+      } else {
+        stopAllAudio();
+        updatePlayAllBtn(true);
+        playContinuousSection(continuousTourIndex || 0);
       }
     });
 
@@ -985,7 +1060,7 @@ document.addEventListener('DOMContentLoaded', () => {
                        : '示范朗读';
 
         card.innerHTML = `
-          <div class="section-title"><span>${sec.title}</span></div>
+          ${sec.title ? `<div class="section-title"><span>${sec.title}</span></div>` : ''}
           <div class="speech-text-en">${enText}</div>
           ${sec.cn ? `<div class="speech-text-cn">${sec.cn}</div>` : ''}
           <div class="card-actions">
@@ -1442,7 +1517,8 @@ document.addEventListener('DOMContentLoaded', () => {
             speakText(item.answer, ansEl);
           } else {
             const qEl = document.getElementById('practice-en-question');
-            speakText(item.question, qEl);
+            const qText = item.enQuestion || item.question || (qEl ? qEl.textContent : '');
+            speakText(qText, qEl);
           }
         } else {
           const qEl = document.getElementById('practice-en-question');
@@ -1925,226 +2001,242 @@ function getPhraseStatus(id) {
 
     bindPhraseEvents();
     initPracticeSpeechRecognition();
+
+    let practiceRecognition = null;
+    let isPracticeListening = false;
+    let userWantsPracticeListening = false;
+
+    function initPracticeSpeechRecognition() {
+      const micBtn = document.getElementById('btn-practice-mic');
+      const textarea = document.getElementById('practice-user-input');
+      if (!micBtn || !textarea) return;
+
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SpeechRecognition) {
+        micBtn.title = '当前浏览器不支持原生语音识别，建议使用 Chrome 或 Edge 浏览器';
+        micBtn.style.opacity = '0.6';
+        micBtn.addEventListener('click', () => {
+          alert('当前浏览器未检测到原生语音识别支持，请使用 Google Chrome 或 Microsoft Edge 浏览器。');
+        });
+        return;
+      }
+
+      micBtn.addEventListener('click', () => {
+        if (userWantsPracticeListening) {
+          stopPracticeSpeech();
+        } else {
+          startPracticeSpeech();
+        }
+      });
+
+      textarea.addEventListener('input', () => {
+        triggerAnswerEvaluation(textarea.value);
+      });
+    }
+
+    async function startPracticeSpeech() {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SpeechRecognition) {
+        alert('当前浏览器不支持语音识别，推荐使用 Chrome 或 Edge。');
+        return;
+      }
+
+      // 请求麦克风权限以确保浏览器捕获到麦克风
+      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+          // 获取权限成功后，停止临时 stream
+          stream.getTracks().forEach(t => t.stop());
+        } catch (err) {
+          console.warn('[Microphone] 麦克风权限申请受阻:', err);
+        }
+      }
+
+      if (!practiceRecognition) {
+        practiceRecognition = new SpeechRecognition();
+        practiceRecognition.continuous = true;
+        practiceRecognition.interimResults = true;
+        practiceRecognition.maxAlternatives = 1;
+
+        practiceRecognition.onstart = () => {
+          isPracticeListening = true;
+          updateMicBtnState(true);
+        };
+
+        practiceRecognition.onresult = (event) => {
+          let finalStr = '';
+          let interimStr = '';
+          for (let i = event.resultIndex; i < event.results.length; ++i) {
+            if (event.results[i].isFinal) {
+              finalStr += event.results[i][0].transcript + ' ';
+            } else {
+              interimStr += event.results[i][0].transcript;
+            }
+          }
+
+          const textarea = document.getElementById('practice-user-input');
+          if (textarea) {
+            if (finalStr) {
+              textarea.value += (textarea.value && !textarea.value.endsWith(' ') ? ' ' : '') + finalStr;
+            }
+            triggerAnswerEvaluation(textarea.value + interimStr);
+          }
+        };
+
+        practiceRecognition.onerror = (event) => {
+          console.warn('Practice speech recognition error:', event.error);
+          if (event.error === 'not-allowed') {
+            alert('未获取到麦克风权限！请在浏览器地址栏左侧勾选“允许使用麦克风”。');
+            userWantsPracticeListening = false;
+            stopPracticeSpeech();
+          }
+        };
+
+        practiceRecognition.onend = () => {
+          isPracticeListening = false;
+          if (userWantsPracticeListening) {
+            setTimeout(() => {
+              if (userWantsPracticeListening && !isPracticeListening) {
+                try { practiceRecognition.start(); } catch(e){}
+              }
+            }, 150);
+          } else {
+            updateMicBtnState(false);
+          }
+        };
+      }
+
+      const list = getFilteredPracticeList();
+      const qItem = list[currentPracticeIndex];
+      let lang = 'en-US';
+      if (qItem && (qItem.type === 'E2C' || qItem.tag === '英译中')) {
+        lang = 'zh-CN';
+      }
+      practiceRecognition.lang = lang;
+
+      userWantsPracticeListening = true;
+      try {
+        practiceRecognition.start();
+      } catch(e) {
+        console.warn("Speech recognition already active:", e);
+      }
+    }
+
+    function stopPracticeSpeech() {
+      userWantsPracticeListening = false;
+      isPracticeListening = false;
+      if (practiceRecognition) {
+        try { practiceRecognition.stop(); } catch(e){}
+      }
+      updateMicBtnState(false);
+    }
+
+    function updateMicBtnState(listening) {
+      const micIcon = document.getElementById('practice-mic-icon');
+      const micLabel = document.getElementById('practice-mic-text');
+      const micBtn = document.getElementById('btn-practice-mic');
+      if (!micBtn) return;
+
+      if (listening) {
+        micBtn.style.background = '#fef2f2';
+        micBtn.style.borderColor = '#fca5a5';
+        micBtn.style.color = '#dc2626';
+        if (micIcon) micIcon.textContent = '🔴';
+        if (micLabel) micLabel.textContent = '正在录音...';
+      } else {
+        micBtn.style.background = '#ebf5ee';
+        micBtn.style.borderColor = '#c6e2ce';
+        micBtn.style.color = '#2d7a4c';
+        if (micIcon) micIcon.textContent = '🎤';
+        if (micLabel) micLabel.textContent = '语音作答';
+      }
+    }
+
+    function triggerAnswerEvaluation(userText) {
+      const evalBox = document.getElementById('practice-eval-result');
+      if (!evalBox) return;
+
+      const list = getFilteredPracticeList();
+      const qItem = list[currentPracticeIndex];
+      if (!qItem || !userText || !userText.trim()) {
+        evalBox.style.display = 'none';
+        return;
+      }
+
+      const refAns = qItem.answer || '';
+      const result = evaluateUserAnswerAgainstRef(userText, refAns);
+      if (!result || result.totalCount === 0) {
+        evalBox.style.display = 'none';
+        return;
+      }
+
+      let color = '#16a34a';
+      if (result.score < 50) color = '#dc2626';
+      else if (result.score < 80) color = '#d97706';
+
+      let html = `
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+          <span style="font-weight: 700; color: #1e293b;">🎯 答案要点匹配度</span>
+          <span style="font-size: 14px; font-weight: 800; color: ${color};">${result.score}分 (命中 ${result.hitCount}/${result.totalCount} 核心要素)</span>
+        </div>
+      `;
+
+      if (result.hitKeywords.length) {
+        html += `<div style="font-size: 12px; margin-bottom: 4px; line-height: 1.6;">✅ <strong>已命中要素:</strong> ${result.hitKeywords.slice(0, 10).map(k => `<span style="display:inline-block; background:#dcfce7; color:#15803d; border:1px solid #86efac; padding:1px 6px; border-radius:4px; margin:2px;">${k}</span>`).join('')}</div>`;
+      }
+      if (result.missKeywords.length) {
+        html += `<div style="font-size: 12px; line-height: 1.6;">💡 <strong>建议补充:</strong> ${result.missKeywords.slice(0, 10).map(k => `<span style="display:inline-block; background:#fee2e2; color:#991b1b; border:1px solid #fca5a5; padding:1px 6px; border-radius:4px; margin:2px;">${k}</span>`).join('')}</div>`;
+      }
+
+      evalBox.innerHTML = html;
+      evalBox.style.display = 'block';
+    }
+
+    function evaluateUserAnswerAgainstRef(userText, targetAnswer) {
+      if (!userText || !targetAnswer) return null;
+
+      const cleanUser = userText.trim().toLowerCase();
+      const cleanAns = targetAnswer.replace(/<[^>]*>/g, '').toLowerCase();
+
+      const isChinese = /[\u4e00-\u9fa5]/.test(cleanAns);
+
+      let keywords = [];
+      if (isChinese) {
+        const matches = cleanAns.match(/[\u4e00-\u9fa5]{2,}/g) || [];
+        keywords = [...new Set(matches)];
+      } else {
+        const stopWords = new Set([
+          'the','a','an','and','or','but','is','are','was','were','be','been','being',
+          'in','on','at','to','for','with','by','about','against','between','into','through',
+          'during','before','after','above','below','from','up','down','of','off','over','under',
+          'this','that','these','those','it','its','they','them','their','you','your','we','our'
+        ]);
+        const words = cleanAns.match(/[a-zA-Z0-9'-]+/g) || [];
+        const filtered = words.filter(w => w.length >= 3 && !stopWords.has(w.toLowerCase()));
+        keywords = [...new Set(filtered.map(w => w.toLowerCase()))];
+      }
+
+      if (keywords.length === 0) return null;
+
+      const hitKeywords = [];
+      const missKeywords = [];
+
+      keywords.forEach(kw => {
+        if (cleanUser.includes(kw)) {
+          hitKeywords.push(kw);
+        } else {
+          missKeywords.push(kw);
+        }
+      });
+
+      const score = Math.round((hitKeywords.length / keywords.length) * 100);
+      return {
+        score,
+        hitCount: hitKeywords.length,
+        totalCount: keywords.length,
+        hitKeywords,
+        missKeywords
+      };
+    }
   }
 });
-
-// --- SPEECH RECOGNITION & KEYWORD EVALUATION FOR QA/INTERPRETATION PRACTICE ---
-let practiceRecognition = null;
-let isPracticeListening = false;
-let userWantsPracticeListening = false;
-
-function initPracticeSpeechRecognition() {
-  const micBtn = document.getElementById('btn-practice-mic');
-  const textarea = document.getElementById('practice-user-input');
-  if (!micBtn || !textarea) return;
-
-  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-  if (!SpeechRecognition) {
-    micBtn.title = '当前浏览器不支持原生语音识别，建议使用 Chrome 或 Edge 浏览器';
-    micBtn.style.opacity = '0.6';
-    return;
-  }
-
-  micBtn.addEventListener('click', () => {
-    if (userWantsPracticeListening) {
-      stopPracticeSpeech();
-    } else {
-      startPracticeSpeech();
-    }
-  });
-
-  textarea.addEventListener('input', () => {
-    triggerAnswerEvaluation(textarea.value);
-  });
-}
-
-function startPracticeSpeech() {
-  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-  if (!SpeechRecognition) return;
-
-  if (!practiceRecognition) {
-    practiceRecognition = new SpeechRecognition();
-    practiceRecognition.continuous = true;
-    practiceRecognition.interimResults = true;
-    practiceRecognition.maxAlternatives = 1;
-
-    practiceRecognition.onstart = () => {
-      isPracticeListening = true;
-      updateMicBtnState(true);
-    };
-
-    practiceRecognition.onresult = (event) => {
-      let finalStr = '';
-      let interimStr = '';
-      for (let i = event.resultIndex; i < event.results.length; ++i) {
-        if (event.results[i].isFinal) {
-          finalStr += event.results[i][0].transcript + ' ';
-        } else {
-          interimStr += event.results[i][0].transcript;
-        }
-      }
-
-      const textarea = document.getElementById('practice-user-input');
-      if (textarea) {
-        if (finalStr) {
-          textarea.value += (textarea.value && !textarea.value.endsWith(' ') ? ' ' : '') + finalStr;
-        }
-        triggerAnswerEvaluation(textarea.value + interimStr);
-      }
-    };
-
-    practiceRecognition.onerror = (event) => {
-      console.warn('Practice speech error:', event.error);
-      if (event.error === 'not-allowed') {
-        alert('未获取到麦克风权限！请在浏览器地址栏左侧勾选“允许麦克风”。');
-        userWantsPracticeListening = false;
-        stopPracticeSpeech();
-      }
-    };
-
-    practiceRecognition.onend = () => {
-      isPracticeListening = false;
-      if (userWantsPracticeListening) {
-        setTimeout(() => {
-          if (userWantsPracticeListening && !isPracticeListening) {
-            try { practiceRecognition.start(); } catch(e){}
-          }
-        }, 150);
-      } else {
-        updateMicBtnState(false);
-      }
-    };
-  }
-
-  const list = typeof getFilteredPracticeList === 'function' ? getFilteredPracticeList() : [];
-  const qItem = list[currentPracticeIndex];
-  let lang = 'en-US';
-  if (qItem && (qItem.type === 'E2C' || qItem.tag === '英译中')) {
-    lang = 'zh-CN';
-  }
-  practiceRecognition.lang = lang;
-
-  userWantsPracticeListening = true;
-  try {
-    practiceRecognition.start();
-  } catch(e) {
-    console.warn("Speech recognition already running", e);
-  }
-}
-
-function stopPracticeSpeech() {
-  userWantsPracticeListening = false;
-  isPracticeListening = false;
-  if (practiceRecognition) {
-    try { practiceRecognition.stop(); } catch(e){}
-  }
-  updateMicBtnState(false);
-}
-
-function updateMicBtnState(listening) {
-  const micIcon = document.getElementById('practice-mic-icon');
-  const micLabel = document.getElementById('practice-mic-text');
-  const micBtn = document.getElementById('btn-practice-mic');
-  if (!micBtn) return;
-
-  if (listening) {
-    micBtn.style.background = '#fef2f2';
-    micBtn.style.borderColor = '#fca5a5';
-    micBtn.style.color = '#dc2626';
-    if (micIcon) micIcon.textContent = '🔴';
-    if (micLabel) micLabel.textContent = '正在录音...';
-  } else {
-    micBtn.style.background = '#ebf5ee';
-    micBtn.style.borderColor = '#c6e2ce';
-    micBtn.style.color = '#2d7a4c';
-    if (micIcon) micIcon.textContent = '🎤';
-    if (micLabel) micLabel.textContent = '语音作答';
-  }
-}
-
-function triggerAnswerEvaluation(userText) {
-  const evalBox = document.getElementById('practice-eval-result');
-  if (!evalBox) return;
-
-  const list = typeof getFilteredPracticeList === 'function' ? getFilteredPracticeList() : [];
-  const qItem = list[currentPracticeIndex];
-  if (!qItem || !userText || !userText.trim()) {
-    evalBox.style.display = 'none';
-    return;
-  }
-
-  const refAns = qItem.answer || '';
-  const result = evaluateUserAnswerAgainstRef(userText, refAns);
-  if (!result || result.totalCount === 0) {
-    evalBox.style.display = 'none';
-    return;
-  }
-
-  let color = '#16a34a';
-  if (result.score < 50) color = '#dc2626';
-  else if (result.score < 80) color = '#d97706';
-
-  let html = `
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-      <span style="font-weight: 700; color: #1e293b;">🎯 答案要点匹配度</span>
-      <span style="font-size: 14px; font-weight: 800; color: ${color};">${result.score}分 (命中 ${result.hitCount}/${result.totalCount} 核心要素)</span>
-    </div>
-  `;
-
-  if (result.hitKeywords.length) {
-    html += `<div style="font-size: 12px; margin-bottom: 4px; line-height: 1.6;">✅ <strong>已命中要素:</strong> ${result.hitKeywords.slice(0, 10).map(k => `<span style="display:inline-block; background:#dcfce7; color:#15803d; border:1px solid #86efac; padding:1px 6px; border-radius:4px; margin:2px;">${k}</span>`).join('')}</div>`;
-  }
-  if (result.missKeywords.length) {
-    html += `<div style="font-size: 12px; line-height: 1.6;">💡 <strong>建议补充:</strong> ${result.missKeywords.slice(0, 10).map(k => `<span style="display:inline-block; background:#fee2e2; color:#991b1b; border:1px solid #fca5a5; padding:1px 6px; border-radius:4px; margin:2px;">${k}</span>`).join('')}</div>`;
-  }
-
-  evalBox.innerHTML = html;
-  evalBox.style.display = 'block';
-}
-
-function evaluateUserAnswerAgainstRef(userText, targetAnswer) {
-  if (!userText || !targetAnswer) return null;
-
-  const cleanUser = userText.trim().toLowerCase();
-  const cleanAns = targetAnswer.replace(/<[^>]*>/g, '').toLowerCase();
-
-  const isChinese = /[\u4e00-\u9fa5]/.test(cleanAns);
-
-  let keywords = [];
-  if (isChinese) {
-    const matches = cleanAns.match(/[\u4e00-\u9fa5]{2,}/g) || [];
-    keywords = [...new Set(matches)];
-  } else {
-    const stopWords = new Set([
-      'the','a','an','and','or','but','is','are','was','were','be','been','being',
-      'in','on','at','to','for','with','by','about','against','between','into','through',
-      'during','before','after','above','below','from','up','down','of','off','over','under',
-      'this','that','these','those','it','its','they','them','their','you','your','we','our'
-    ]);
-    const words = cleanAns.match(/[a-zA-Z0-9'-]+/g) || [];
-    const filtered = words.filter(w => w.length >= 3 && !stopWords.has(w.toLowerCase()));
-    keywords = [...new Set(filtered.map(w => w.toLowerCase()))];
-  }
-
-  if (keywords.length === 0) return null;
-
-  const hitKeywords = [];
-  const missKeywords = [];
-
-  keywords.forEach(kw => {
-    if (cleanUser.includes(kw)) {
-      hitKeywords.push(kw);
-    } else {
-      missKeywords.push(kw);
-    }
-  });
-
-  const score = Math.round((hitKeywords.length / keywords.length) * 100);
-  return {
-    score,
-    hitCount: hitKeywords.length,
-    totalCount: keywords.length,
-    hitKeywords,
-    missKeywords
-  };
-}

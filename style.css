@@ -351,6 +351,7 @@ header.main-header {
   border-radius: 4px;
   margin-bottom: 16px;
   line-height: 1.6;
+  white-space: pre-line;
 }
 
 /* Masked Mode Blur Effect */

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>广西导考宝典</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=20260815_v1">
 </head>
 <body>
   <div class="app-container">
@@ -73,8 +73,14 @@
           </div>
 
           <div class="ai-dialog-box">
-            <div class="ai-dialog-title">✍️ 考场作答训练</div>
-            <textarea class="user-input-textarea" id="practice-user-input" placeholder="在此输入你的英文回答或作答要点..."></textarea>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <div class="ai-dialog-title" style="margin-bottom: 0;">✍️ 考场作答训练</div>
+              <button id="btn-practice-mic" title="点击开始/停止语音输入" style="background: #ebf5ee; border: 1px solid #c6e2ce; color: #2d7a4c; padding: 4px 12px; border-radius: 16px; font-size: 13px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; transition: all 0.2s;">
+                <span id="practice-mic-icon">🎤</span> <span id="practice-mic-text">语音作答</span>
+              </button>
+            </div>
+            <textarea class="user-input-textarea" id="practice-user-input" placeholder="在此输入你的英文回答或作答要点，或点击右上方 🎤 进行语音作答..."></textarea>
+            <div id="practice-eval-result" class="ai-eval-result" style="display: none; margin-top: 10px;"></div>
           </div>
 
           <div class="page-nav-bar" style="margin-top: 20px;">
@@ -205,7 +211,7 @@
   <!-- 隐藏全局兜底语速节点 (防止 JavaScript 空指针异常) -->
   <select id="speech-rate-select" style="display: none;"><option value="1.0" selected>1.0</option></select>
 
-  <script src="data.js?v=20260814_v32" charset="UTF-8"></script>
-  <script src="app.js?v=20260814_v32" charset="UTF-8"></script>
+  <script src="data.js?v=20260815_v1" charset="UTF-8"></script>
+  <script src="app.js?v=20260815_v1" charset="UTF-8"></script>
 </body>
 </html>
