@@ -1,6 +1,5 @@
 window.data = {
   "categories": [
-    "城市名胜",
     "自然山水",
     "民族风情",
     "历史文化",
@@ -14,7 +13,7 @@ window.data = {
     "备考技巧与词汇讲义"
   ],
   "speechSubCategories": [
-    "城市名胜",
+    "景区讲解",
     "自然山水",
     "民族风情",
     "历史文化",
@@ -25,12 +24,12 @@ window.data = {
     {
       "id": "崇左 花山岩画",
       "name": "崇左 花山岩画",
-      "category": "城市名胜",
+      "category": "景区讲解",
       "sections": [
         {
           "title": "一、欢迎词（Welcome Speech）",
-          "en": "Dear distinguished tourists, good morning/afternoon! I'm Vivian, your tour guide for today's visit to the Huashan Rock Art Scenic Area. It's a great honor to walk into this cultural sanctuary carrying the millennial Luoyue civilization with you on such a beautiful day. In the following time, I will lead you to appreciate the stunning wonders of Huashan Rock Art and interpret the historical codes behind it. If you have any questions or needs during the trip, please feel free to let me know, and I will try my best to provide you with thoughtful service. Now, let's start this wonderful cultural exploration journey!",
-          "cn": "各位尊敬的游客朋友们，大家上午/下午好！我是今天陪伴大家游览花山岩画景区的导游，我叫Vivian。非常荣幸能在这风和日丽的日子里，与各位一同走进这座承载着千年骆越文明的文化圣殿。接下来的时间里，我将带领大家领略花山岩画的震撼奇观，解读其背后的历史密码。旅途中若有任何疑问或需求，敬请随时告诉我，我会尽力为大家提供周到的服务。现在，就让我们开启这段奇妙的文化探索之旅吧！"
+          "en": "Dear distinguished tourists, good morning! I'm Vivian, your tour guide for today's visit to the Huashan Rock Art Scenic Area. It's a great honor to walk into this cultural sanctuary carrying the millennial Luoyue civilization with you on such a beautiful day. In the following time, I will lead you to appreciate the stunning wonders of Huashan Rock Art and interpret the historical codes behind it. If you have any questions or needs during the trip, please feel free to let me know, and I will try my best to provide you with thoughtful service. Now, let's start this wonderful cultural exploration journey!",
+          "cn": "各位尊敬的游客朋友们，大家早上好！我是今天陪伴大家游览花山岩画景区的导游，我叫Vivian。非常荣幸能在这风和日丽的日子里，与各位一同走进这座承载着千年骆越文明的文化圣殿。接下来的时间里，我将带领大家领略花山岩画的震撼奇观，解读其背后的历史密码。旅途中若有任何疑问或需求，敬请随时告诉我，我会尽力为大家提供周到的服务。现在，就让我们开启这段奇妙的文化探索之旅吧！"
         },
         {
           "title": "二、广西壮族自治区及崇左市概况（Overview of Guangxi Zhuang Autonomous Region and Chongzuo City）",
@@ -103,12 +102,12 @@ window.data = {
     {
       "id": "柳州 程阳八寨",
       "name": "柳州 程阳八寨",
-      "category": "城市名胜",
+      "category": "景区讲解",
       "sections": [
         {
           "title": "一、欢迎词（Welcome Speech）",
-          "en": "Dear distinguished tourists, good morning/afternoon! I'm Vivian, your guide for today's trip to Chengyang Eight Villages. It's a great honor to have the opportunity to accompany you to appreciate the unique charm of this Dong ethnic ancient village. During the following journey, I will introduce you in detail the historical culture, characteristic landscapes and folk customs of the Dong ethnic group. If you have any questions or needs, please feel free to let me know, and I will try my best to solve them for you. Now, let's start today's wonderful journey!",
-          "cn": "各位尊敬的游客朋友们，大家早上好/下午好！我是大家今天程阳八寨之行的导游，我叫Vivian。非常荣幸能有机会陪伴大家一同领略这座侗族古村落的独特魅力。在接下来的行程中，我会为大家详细介绍景区的历史文化、特色景观以及侗族的民俗风情。如果大家有任何问题或需求，请随时向我提出，我会尽力为大家解决。现在，就让我们开启今天的美好旅程吧！"
+          "en": "Dear distinguished tourists, good morning! I'm Vivian, your guide for today's trip to Chengyang Eight Villages. It's a great honor to have the opportunity to accompany you to appreciate the unique charm of this Dong ethnic ancient village. During the following journey, I will introduce you in detail the historical culture, characteristic landscapes and folk customs of the Dong ethnic group. If you have any questions or needs, please feel free to let me know, and I will try my best to solve them for you. Now, let's start today's wonderful journey!",
+          "cn": "各位尊敬的游客朋友们，大家早上好！我是大家今天程阳八寨之行的导游，我叫Vivian。非常荣幸能有机会陪伴大家一同领略这座侗族古村落的独特魅力。在接下来的行程中，我会为大家详细介绍景区的历史文化、特色景观以及侗族的民俗风情。如果大家有任何问题或需求，请随时向我提出，我会尽力为大家解决。现在，就让我们开启今天的美好旅程吧！"
         },
         {
           "title": "二、广西壮族自治区区情和柳州市情概况（Overview of Guangxi Zhuang Autonomous Region and Liuzhou City）",
@@ -171,7 +170,7 @@ window.data = {
     {
       "id": "桂林 两江四湖象山",
       "name": "桂林 两江四湖象山",
-      "category": "城市名胜",
+      "category": "景区讲解",
       "sections": [
         {
           "title": "一、欢迎词（Welcome Speech）",
@@ -180,7 +179,7 @@ window.data = {
         },
         {
           "title": "二、广西壮族自治区区情和桂林市情概况（Overview of Guangxi Zhuang Autonomous Region and Guilin City）",
-          "en": "Guangxi, abbreviated as \"Gui\" with Nanning as its capital, is located in southern China, bordering the Beibu Gulf in the south and Vietnam in the southwest. It is the only ethnic autonomous region in China with coastal, border and riverfront advantages, covering a land area of 237,600 square kilometers. The region administers 14 prefecture-level cities, with a permanent population of 50.27 million by the end of 2023, among which the Zhuang ethnic group accounts for 31.39%. Twelve indigenous ethnic groups have nurtured unique folk customs such as the March 3rd Song Festival and bronze drum culture. It has a subtropical monsoon climate with warm weather and abundant rainfall. With a three-dimensional transportation network consisting of high-speed railways, airports and ports, it is a major transportation hub for southwest China to access the sea. Economically, non-ferrous metals industry and trade with ASEAN are booming, and the integration of culture and tourism has achieved remarkable results.",
+          "en": "Guangxi, abbreviated as \"Gui\" with Nanning as its capital, is located in southern China, bordering the Beibu Gulf in the south and Vietnam in the southwest. It is the only ethnic autonomous region in China with coastal, border and riverfront advantages, covering a land area of 237,600 square kilometers. The region administers 14 prefecture-level cities, with a permanent population of 50.27 million by the end of 2023, among which the Zhuang ethnic group accounts for 31.39%. Twelve indigenous ethnic groups have nurtured unique folk customs such as the March 3rd Song Festival and bronze drum culture. It has a subtropical monsoon climate with warm weather and abundant rainfall. With a three-dimensional transportation network micro-network consisting of high-speed railways, airports and ports, it is a major transportation hub for southwest China to access the sea. Economically, non-ferrous metals industry and trade with ASEAN are booming, and the integration of culture and tourism has achieved remarkable results.",
           "cn": "广西简称“桂”，首府南宁，地处中国南部，南临北部湾，西南与越南接壤，是全国唯一沿海、沿边、沿江的少数民族自治区，陆地面积23.76万平方公里。全区辖14个设区市，2023年末常住人口5027万，其中壮族人口占31.39%，12个世居民族孕育了三月三歌圩、铜鼓文化等独特民俗。这里属亚热带季风气候，温暖多雨，交通便捷，高铁、机场、港口构成立体网络，是西南出海大通道。经济上，有色金属、东盟贸易蓬勃发展，文旅融合成效显著。"
         },
         {
@@ -239,12 +238,12 @@ window.data = {
     {
       "id": "桂林 漓江",
       "name": "桂林 漓江",
-      "category": "城市名胜",
+      "category": "景区讲解",
       "sections": [
         {
           "title": "一、欢迎词（Welcome Speech）",
-          "en": "Dear distinguished tourists, good morning/afternoon! I'm Vivian, your tour guide who will accompany you to explore the Lijiang River today. First of all, on behalf of the travel agency and all staff, please allow me to extend our warmest welcome to your arrival! In the following time, we will appreciate the beautiful scenery of the Lijiang River which is described as \"the river like a green silk ribbon, the mountains like jade hairpins\", and feel the unique charm of Guangxi Zhuang Autonomous Region and Guilin City. If you have any needs during the trip, such as adjusting the tour rhythm or consulting about scenic spots, please feel free to tell me at any time, and I will try my best to serve you. Now, let's start this unforgettable journey of mountains and rivers!",
-          "cn": "各位尊敬的游客朋友们，大家上午/下午好！我是今天陪伴大家畅游漓江的导游，我叫Vivian。首先，请允许我代表旅行社和全体工作人员，对大家的到来表示最热烈的欢迎！接下来的时间里，我们将一同领略“江作青罗带，山如碧玉簪”的漓江美景，感受广西壮族自治区和桂林市的独特魅力。旅途中有任何需求，比如调整游览节奏、咨询景点细节，都请随时告诉我，我会尽全力为大家服务。现在，就让我们开启这段难忘的山水之旅吧！"
+          "en": "Dear distinguished tourists, good morning! I'm Vivian, your tour guide who will accompany you to explore the Lijiang River today. First of all, on behalf of the travel agency and all staff, please allow me to extend our warmest welcome to your arrival! In the following time, we will appreciate the beautiful scenery of the Lijiang River which is described as \"the river like a green silk ribbon, the mountains like jade hairpins\", and feel the unique charm of Guangxi Zhuang Autonomous Region and Guilin City. If you have any needs during the trip, such as adjusting the tour rhythm or consulting about scenic spots, please feel free to tell me at any time, and I will try my best to serve you. Now, let's start this unforgettable journey of mountains and rivers!",
+          "cn": "各位尊敬的游客朋友们，大家早上好！我是今天陪伴大家畅游漓江的导游，我叫Vivian。首先，请允许我代表旅行社和全体工作人员，对大家的到来表示最热烈的欢迎！接下来的时间里，我们将一同领略“江作青罗带，山如碧玉簪”的漓江美景，感受广西壮族自治区和桂林市的独特魅力。旅途中有任何需求，比如调整游览节奏、咨询景点细节，都请随时告诉我，我会尽全力为大家服务。现在，就让我们开启这段难忘的山水之旅吧！"
         },
         {
           "title": "二、广西壮族自治区及桂林市概况（Overview of Guangxi Zhuang Autonomous Region and Guilin City）",
@@ -307,12 +306,12 @@ window.data = {
     {
       "id": "南宁 青秀山",
       "name": "南宁 青秀山",
-      "category": "城市名胜",
+      "category": "景区讲解",
       "sections": [
         {
           "title": "一、欢迎词（Welcome Speech）",
-          "en": "Dear tourists, good morning/afternoon! Welcome to Qingxiu Mountain Scenic Area, the business card of Nanning, known as the \"Green City of China\"! I'm Vivian, your tour guide today. It's a great honor to explore the unique charm of this \"rainforest mountain\" and \"cultural vein mountain\" with you. During the following tour, I will introduce the general situation of Guangxi and Nanning, as well as the natural and humanistic landscapes of Qingxiu Mountain in detail. Please pay attention to your step safety, take good care of your personal belongings, and also protect the plants in the scenic area. Now, let's start today's wonderful journey!",
-          "cn": "尊敬的各位游客，大家上午/下午好！欢迎来到“中国绿城”南宁的城市名片——青秀山旅游区！我是今天陪伴大家游览的导游Vivian，非常荣幸能与各位一同探寻这座“雨林之山”“文脉之山”的独特魅力。在接下来的游览中，我会为大家详细介绍广西、南宁的概况以及青秀山的自然与人文景观。游览期间请大家注意脚下安全，保管好个人物品，也请爱护景区的一草一木。现在，就让我们开启今天的美好旅程吧！"
+          "en": "Dear tourists, good morning! Welcome to Qingxiu Mountain Scenic Area, the business card of Nanning, known as the \"Green City of China\"! I'm Vivian, your tour guide today. It's a great honor to explore the unique charm of this \"rainforest mountain\" and \"cultural vein mountain\" with you. During the following tour, I will introduce the general situation of Guangxi and Nanning, as well as the natural and humanistic landscapes of Qingxiu Mountain in detail. Please pay attention to your step safety, take good care of your personal belongings, and also protect the plants in the scenic area. Now, let's start today's wonderful journey!",
+          "cn": "尊敬的各位游客，大家早上好！欢迎来到“中国绿城”南宁的城市名片——青秀山旅游区！我是今天陪伴大家游览的导游Vivian，非常荣幸能与各位一同探寻这座“雨林之山”“文脉之山”的独特魅力。在接下来的游览中，我会为大家详细介绍广西、南宁的概况以及青秀山的自然与人文景观。游览期间请大家注意脚下安全，保管好个人物品，也请爱护景区的一草一木。现在，就让我们开启今天的美好旅程吧！"
         },
         {
           "title": "二、广西壮族自治区及南宁市概况（Overview of Guangxi Zhuang Autonomous Region and Nanning City）",
@@ -4676,7 +4675,7 @@ window.data = {
       ]
     },
     {
-      "category": "城市名胜",
+      "category": "景区讲解",
       "title": "广西北部湾与城市名胜考点总结",
       "keywords": [
         {
@@ -4721,19 +4720,19 @@ window.data = {
       "name": "24广西英导词",
       "fullName": "24广西英导词.doc",
       "category": "备考技巧与词汇讲义",
-      "subCategory": "城市名胜"
+      "subCategory": "景区讲解"
     },
     {
       "name": "4-英语导游英汉互译179题",
       "fullName": "4-英语导游英汉互译179题.pdf",
       "category": "英汉双向口译题库",
-      "subCategory": "城市名胜"
+      "subCategory": "景区讲解"
     },
     {
       "name": "5-导游服务-英语200问",
       "fullName": "5-导游服务-英语200问.pdf",
       "category": "现场问答题库",
-      "subCategory": "城市名胜"
+      "subCategory": "景区讲解"
     },
     {
       "name": "“广西米粉之旅”中英对照讲解词",
@@ -4745,19 +4744,19 @@ window.data = {
       "name": "《导游服务能力》英文现场面试600问+英汉互译",
       "fullName": "《导游服务能力》英文现场面试600问+英汉互译.pdf",
       "category": "英汉双向口译题库",
-      "subCategory": "城市名胜"
+      "subCategory": "景区讲解"
     },
     {
       "name": "【2025最新】广西英文导游资格证综合能力测试问答题200问",
       "fullName": "【2025最新】广西英文导游资格证综合能力测试问答题200问.docx",
       "category": "现场问答题库",
-      "subCategory": "城市名胜"
+      "subCategory": "景区讲解"
     },
     {
       "name": "【赵一文导游课】英文问答题",
       "fullName": "【赵一文导游课】英文问答题.pdf",
       "category": "备考技巧与词汇讲义",
-      "subCategory": "城市名胜"
+      "subCategory": "景区讲解"
     },
     {
       "name": "导游服务能力（导游词技巧）讲义",
@@ -4769,7 +4768,7 @@ window.data = {
       "name": "崇左市花山岩画景区中英对照导游讲解词",
       "fullName": "崇左市花山岩画景区中英对照导游讲解词.docx",
       "category": "英文景点与路线导游词",
-      "subCategory": "城市名胜"
+      "subCategory": "景区讲解"
     },
     {
       "name": "广西“三月三风情之旅”中英对照讲解词",
@@ -4859,37 +4858,37 @@ window.data = {
       "name": "柳州市程阳八寨景区中英对照导游讲解词",
       "fullName": "柳州市程阳八寨景区中英对照导游讲解词.docx",
       "category": "英文景点与路线导游词",
-      "subCategory": "城市名胜"
+      "subCategory": "景区讲解"
     },
     {
       "name": "桂林市两江四湖象山景区中英对照导游讲解词",
       "fullName": "桂林市两江四湖象山景区中英对照导游讲解词.docx",
       "category": "英文景点与路线导游词",
-      "subCategory": "城市名胜"
+      "subCategory": "景区讲解"
     },
     {
       "name": "桂林漓江景区中英对照导游讲解词",
       "fullName": "桂林漓江景区中英对照导游讲解词.docx",
       "category": "英文景点与路线导游词",
-      "subCategory": "城市名胜"
+      "subCategory": "景区讲解"
     },
     {
       "name": "英语导游带团素材集锦",
       "fullName": "英语导游带团素材集锦.pdf",
       "category": "备考技巧与词汇讲义",
-      "subCategory": "城市名胜"
+      "subCategory": "景区讲解"
     },
     {
       "name": "英语导游服务能力(现场问答题120道 )",
       "fullName": "英语导游服务能力(现场问答题120道 ).docx",
       "category": "现场问答题库",
-      "subCategory": "城市名胜"
+      "subCategory": "景区讲解"
     },
     {
       "name": "青秀山旅游区中英对照导游讲解词",
       "fullName": "青秀山旅游区中英对照导游讲解词.docx",
       "category": "英文景点与路线导游词",
-      "subCategory": "城市名胜"
+      "subCategory": "景区讲解"
     }
   ],
   "phrasesCategories": [
