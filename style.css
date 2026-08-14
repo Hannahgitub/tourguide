@@ -71,49 +71,67 @@ header.main-header {
   font-weight: 500;
 }
 
-/* Nav Tabs */
+/* Nav Tabs: 4 + 4 对齐两排网格布局与穿插绿配色 */
 .nav-tabs {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: 10px;
-  align-items: center;
+  align-items: stretch;
 }
 
 .tab-btn {
   background-color: var(--pill-bg);
   border: 1px solid var(--pill-border);
   color: var(--text-main);
-  padding: 7px 18px;
+  padding: 8px 6px;
   border-radius: var(--radius-pill);
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
   user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  white-space: nowrap;
 }
+
+/* 第一排按钮穿插浅绿 */
+.tab-btn:nth-child(1) { background: #edf7f0; border-color: #c4e4cd; color: #205c37; }
+.tab-btn:nth-child(2) { background: #f4faf6; border-color: #d1ead9; color: #2d7a4c; }
+.tab-btn:nth-child(3) { background: #edf7f0; border-color: #c4e4cd; color: #205c37; }
+.tab-btn:nth-child(4) { background: #f4faf6; border-color: #d1ead9; color: #2d7a4c; }
+
+/* 第二排按钮穿插不同绿调（青葱绿与深草绿交替） */
+.tab-btn:nth-child(5) { background: #e6f4ea; border-color: #bce0c8; color: #1b5331; }
+.tab-btn:nth-child(6) { background: #f0f9f3; border-color: #cbe6d4; color: #276f44; }
+.tab-btn:nth-child(7) { background: #e6f4ea; border-color: #bce0c8; color: #1b5331; }
+.tab-btn:nth-child(8) { background: #f0f9f3; border-color: #cbe6d4; color: #276f44; }
 
 .tab-btn:hover {
-  border-color: #a8caaf;
-  background-color: #f6faf7;
-}
-
-.tab-btn.cheatsheet-btn {
-  background: #ebf5ee;
-  color: #2d7a4c;
-  border-color: #c6e2ce;
-  font-weight: 700;
-}
-
-.tab-btn.cheatsheet-btn:hover {
-  background: #dcefdc;
-  border-color: #2d7a4c;
+  background-color: #d8eedf !important;
+  border-color: #2d7a4c !important;
+  color: #1b5331 !important;
+  transform: translateY(-1px);
 }
 
 .tab-btn.active {
-  background-color: var(--pill-active-bg);
-  color: var(--pill-active-text);
-  border-color: var(--pill-active-bg);
-  box-shadow: 0 2px 6px rgba(45, 122, 76, 0.25);
+  background: linear-gradient(135deg, #2d7a4c, #1e5a36) !important;
+  color: #ffffff !important;
+  border-color: #1e5a36 !important;
+  box-shadow: 0 3px 8px rgba(45, 122, 76, 0.35) !important;
+  font-weight: 700;
+}
+
+@media (max-width: 600px) {
+  .nav-tabs {
+    gap: 6px;
+  }
+  .tab-btn {
+    font-size: 12.5px;
+    padding: 7px 2px;
+  }
 }
 
 /* Secondary & Tertiary Nav Bar */

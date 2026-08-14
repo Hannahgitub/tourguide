@@ -451,8 +451,8 @@
     if (!speech || hintLevel === 0) return '';
 
     let html = '';
-    // 提示 Level 1: 考纲速记
-    if (hintLevel >= 1 && speech.outline) {
+    // 提示 Level 1: 考纲速记 (仅在 hintLevel === 1 时显示，第二次提示时被遮挡版替换)
+    if (hintLevel === 1 && speech.outline) {
       html += `
         <div class="hint-tier-card hint-tier-outline">
           <div class="hint-tier-header" style="color: #92400e;">
