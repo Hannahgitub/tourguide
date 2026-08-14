@@ -915,8 +915,8 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
     container.appendChild(controlCard);
 
-    // 绑定"全篇讲解"（支持：全篇讲解 -> 暂停讲解 -> 继续讲解）
-    let tourState = 'idle'; // 'idle' | 'playing' | 'paused'
+    // 绑定"全篇讲解"（简洁模式：全篇讲解 <-> 停止讲解，从头开始）
+    let tourState = 'idle'; // 'idle' | 'playing'
     let continuousTourIndex = 0;
     const playAllBtn = controlCard.querySelector('#btn-play-all');
     const playBtnText = controlCard.querySelector('#play-btn-text');
@@ -925,10 +925,9 @@ document.addEventListener('DOMContentLoaded', () => {
     function updatePlayAllBtn(state) {
       tourState = state;
       if (state === 'playing') {
-        if (playBtnIcon) playBtnIcon.textContent = '⏸';
-        if (playBtnText) playBtnText.textContent = '暂停讲解';
+        if (playBtnIcon) playBtnIcon.textContent = '⏹';
+        if (playBtnText) playBtnText.textContent = '停止讲解';
       } else {
-        // idle 或 paused 均显示 "全篇讲解"，全程颜色不改变（保持原绿色键）
         if (playBtnIcon) playBtnIcon.textContent = '🎧';
         if (playBtnText) playBtnText.textContent = '全篇讲解';
       }
@@ -953,21 +952,15 @@ document.addEventListener('DOMContentLoaded', () => {
       if (tourState !== 'playing') return;
       if (!speech || !speech.sections || secIdx >= speech.sections.length) {
         // 全篇播放完毕
-        updatePlayAllBtn('idle');
-        continuousTourIndex = 0;
-        container.querySelectorAll('.card').forEach(c => {
-          c.classList.remove('reading-active');
-          const en = c.querySelector('.speech-text-en');
-          if (en) en.classList.remove('reading-text-active');
-        });
+        stopAllAudio();
         return;
       }
 
       continuousTourIndex = secIdx;
       const targetCard = container.querySelector(`.card[data-idx="${secIdx}"]`);
       if (targetCard) {
-        // 平滑滚动至当前正在讲解的卡片
-        targetCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        // 平滑滚动至当前正在讲解的卡片（使用 nearest 避免剧烈跳动）
+        targetCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         container.querySelectorAll('.card').forEach(c => {
           c.classList.remove('reading-active');
           const en = c.querySelector('.speech-text-en');
@@ -983,42 +976,27 @@ document.addEventListener('DOMContentLoaded', () => {
       const enContainer = targetCard ? targetCard.querySelector('.speech-text-en') : null;
 
       const onSectionEnd = () => {
-        if (targetCard) {
-          targetCard.classList.remove('reading-active');
-          const en = targetCard.querySelector('.speech-text-en');
-          if (en) en.classList.remove('reading-text-active');
-        }
         if (tourState !== 'playing') return;
-        // 当前段读完，稍作停顿后进入下一段
+        // 当前段读完，稍作停顿 300ms 后进入下一段
         setTimeout(() => {
           if (tourState === 'playing') {
             playContinuousSection(secIdx + 1);
           }
-        }, 500);
+        }, 300);
       };
 
-      // 关键：传入 isFromTour = true 保持导览状态不变
+      // 传入 isFromTour = true 保持导览状态
       speakText(cleanText, enContainer, onSectionEnd, true);
     }
 
     playAllBtn.addEventListener('click', () => {
       if (tourState === 'playing') {
-        // 正在播放中，点击暂停
-        if ('speechSynthesis' in window) {
-          window.speechSynthesis.cancel();
-        }
-        if (staticAudioPlayer) {
-          staticAudioPlayer.pause();
-        }
-        clearSpeechHighlights();
-        updatePlayAllBtn('paused');
-      } else if (tourState === 'paused') {
-        // 处于暂停状态，点击继续讲解
-        updatePlayAllBtn('playing');
-        playContinuousSection(continuousTourIndex);
+        // 正在播放中，点击直接彻底停止播放并复位
+        stopAllAudio();
       } else {
         // 初始状态，从第0段开始全篇讲解
-        stopAllAudio({ resetTour: false });
+        stopAllAudio();
+        tourState = 'playing';
         updatePlayAllBtn('playing');
         continuousTourIndex = 0;
         playContinuousSection(0);
@@ -1076,7 +1054,7 @@ document.addEventListener('DOMContentLoaded', () => {
       card.className = 'card';
       card.dataset.idx = idx;
       card.dataset.masked = 'false';
-      card.dataset.playState = 'idle'; // idle | playing | paused
+      card.dataset.playState = 'idle'; // idle | playing
 
       function bindReadBtn() {
         const btn = card.querySelector('.btn-read-sec');
@@ -1092,14 +1070,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
           if (state === 'playing') {
             stopAllAudio();
-            card.dataset.playState = 'idle';
-            card.classList.remove('reading-active');
-            if (enContainer) enContainer.classList.remove('reading-text-active');
-            btn.textContent = '示范朗读';
-            clearSpeechHighlights(enContainer);
           } else {
             stopAllAudio();
             currentPlayingCard = card;
+            card.dataset.playState = 'playing';
+            card.classList.add('reading-active');
+            if (enContainer) enContainer.classList.add('reading-text-active');
+            btn.textContent = '⏹ 停止朗读';
 
             const rateElem = document.getElementById('speech-rate-select');
             const rate = rateElem ? parseFloat(rateElem.value || '1.0') : 1.0;
@@ -1122,7 +1099,7 @@ document.addEventListener('DOMContentLoaded', () => {
               card.dataset.playState = 'playing';
               card.classList.add('reading-active');
               if (enContainer) enContainer.classList.add('reading-text-active');
-              btn.textContent = '⏸ 暂停';
+              btn.textContent = '⏹ 停止朗读';
               speakText(cleanText, enContainer, resetState);
             };
 
@@ -1130,7 +1107,7 @@ document.addEventListener('DOMContentLoaded', () => {
               card.dataset.playState = 'playing';
               card.classList.add('reading-active');
               if (enContainer) enContainer.classList.add('reading-text-active');
-              btn.textContent = '⏸ 暂停';
+              btn.textContent = '⏹ 停止朗读';
             }).catch(err => {
               console.warn('[Audio] 静态音频自动播放失败，触发降级:', err);
               staticAudioPlayer.onerror();
@@ -1152,9 +1129,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // 按钮文字根据当前播放状态恢复
-        const btnLabel = card.dataset.playState === 'playing' ? '⏸ 暂停'
-                       : card.dataset.playState === 'paused'  ? '▶ 重播'
-                       : '示范朗读';
+        const btnLabel = card.dataset.playState === 'playing' ? '⏹ 停止朗读' : '示范朗读';
 
         card.innerHTML = `
           ${sec.title ? `<div class="section-title"><span>${sec.title}</span></div>` : ''}
@@ -1327,41 +1302,413 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // --- CHEATSHEET SUBNAV TOGGLE ---
-    let currentCheatSubtab = 'topic';
+    let currentCheatSubtab = 'outline';
+    const btnCheatOutline = document.getElementById('btn-cheat-outline');
     const btnCheatTopic = document.getElementById('btn-cheat-topic');
     const btnCheatSpot = document.getElementById('btn-cheat-spot');
     const btnCheatEmergency = document.getElementById('btn-cheat-emergency');
-    if (btnCheatTopic && btnCheatSpot && btnCheatEmergency) {
-      btnCheatTopic.addEventListener('click', () => {
-        currentCheatSubtab = 'topic';
-        btnCheatTopic.classList.add('active');
-        btnCheatSpot.classList.remove('active');
-        btnCheatEmergency.classList.remove('active');
-        renderCheatsheetView();
-      });
-      btnCheatSpot.addEventListener('click', () => {
-        currentCheatSubtab = 'spot';
-        btnCheatSpot.classList.add('active');
-        btnCheatTopic.classList.remove('active');
-        btnCheatEmergency.classList.remove('active');
-        renderCheatsheetView();
-      });
-      btnCheatEmergency.addEventListener('click', () => {
-        currentCheatSubtab = 'emergency';
-        btnCheatEmergency.classList.add('active');
-        btnCheatTopic.classList.remove('active');
-        btnCheatSpot.classList.remove('active');
-        renderCheatsheetView();
-      });
-      renderCheatsheetView();
-    }
+    const cheatBtns = [
+      { btn: btnCheatOutline, key: 'outline' },
+      { btn: btnCheatTopic, key: 'topic' },
+      { btn: btnCheatSpot, key: 'spot' },
+      { btn: btnCheatEmergency, key: 'emergency' }
+    ];
+
+    cheatBtns.forEach(item => {
+      if (item.btn) {
+        item.btn.addEventListener('click', () => {
+          currentCheatSubtab = item.key;
+          cheatBtns.forEach(b => { if (b.btn) b.btn.classList.remove('active'); });
+          item.btn.classList.add('active');
+          renderCheatsheetView();
+        });
+      }
+    });
+
+    renderCheatsheetView();
 
     function renderCheatsheetView() {
       const container = document.getElementById('cheatsheet-content-container');
       if (!container) return;
       container.innerHTML = '';
 
-      if (currentCheatSubtab === 'topic') {
+      if (currentCheatSubtab === 'outline') {
+        // 官方考纲与考法 (完整权威版)
+        container.innerHTML = `
+          <!-- 1. 考试方式与时长概览 -->
+          <div class="card" style="border-left: 5px solid #2d7a4c; margin-bottom: 20px; padding: 22px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 14px; flex-wrap:wrap; gap:8px;">
+              <h3 style="font-size: 18px; font-weight: 800; color: #2d7a4c;">📋 二、考试方式与时长 (Exam Method & Duration)</h3>
+              <span class="qa-tag-badge" style="background:#ebf5ee; color:#2d7a4c; border:1px solid #c6e2ce; font-weight:700;">现场面试 · 室内模拟讲解与知识问答</span>
+            </div>
+            
+            <p style="font-size: 14px; color: #374151; line-height: 1.7; margin-bottom: 14px;">
+              现场考试采取<strong>室内模拟讲解</strong>与<strong>知识问答</strong>的形式。考生须在规定时间内完成全部考核环节，考试结束后考评员根据考生现场综合表现独立评分。
+            </p>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px;">
+              <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 14px 16px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 8px;">
+                  <strong style="color: #1e293b; font-size: 15px;">🇨🇳 中文类考生</strong>
+                  <span style="background: #dbeafe; color: #1e40af; font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 4px;">总时长 15 分钟</span>
+                </div>
+                <div style="font-size: 13px; color: #475569; line-height: 1.6;">
+                  包含：① 专题线路讲解（5分钟） + ② 旅游景区讲解（5分钟） + ③ 知识问答（服务规范/应变能力/综合知识 5分钟）。
+                </div>
+              </div>
+
+              <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; padding: 14px 16px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 8px;">
+                  <strong style="color: #166534; font-size: 15px;">🌐 外语类考生 (英语)</strong>
+                  <span style="background: #2d7a4c; color: #ffffff; font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 4px;">总时长 20 分钟</span>
+                </div>
+                <div style="font-size: 13px; color: #166534; line-height: 1.6;">
+                  包含：① 英文专题线路讲解（5分钟） + ② 英文旅游景区讲解（5分钟） + ③ 英文知识问答（5分钟） + ④ 口译测试（英汉互译 5分钟）。
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. 考试内容与四大考核板块 -->
+          <div class="card" style="margin-bottom: 20px; padding: 22px;">
+            <h3 style="font-size: 18px; font-weight: 800; color: #1a1a1a; margin-bottom: 14px;">🎯 三、现场考试考核内容与考查重点</h3>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px;">
+              <div style="background: #fafaf9; border: 1px solid #e7e5e4; border-radius: 8px; padding: 12px 14px;">
+                <div style="font-weight: 700; color: #2d7a4c; font-size: 14px; margin-bottom: 4px;">1. 专题线路讲解 (5分钟)</div>
+                <div style="font-size: 12.5px; color: #57534e;">系统机考随机抽取1个专题，考生自选1条线路。考查宏观总结概括、行程安排与主要景点元素。</div>
+              </div>
+              <div style="background: #fafaf9; border: 1px solid #e7e5e4; border-radius: 8px; padding: 12px 14px;">
+                <div style="font-weight: 700; color: #2d7a4c; font-size: 14px; margin-bottom: 4px;">2. 旅游景区讲解 (5分钟)</div>
+                <div style="font-size: 12.5px; color: #57534e;">系统机考随机抽取1个国家AAAAA级景区。考查景区概况、特色、游览动线、代表性景观与讲解礼仪。</div>
+              </div>
+              <div style="background: #fafaf9; border: 1px solid #e7e5e4; border-radius: 8px; padding: 12px 14px;">
+                <div style="font-weight: 700; color: #2d7a4c; font-size: 14px; margin-bottom: 4px;">3. 知识问答 (3道题 / 5分钟)</div>
+                <div style="font-size: 12.5px; color: #57534e;">考评员现场提问：① 服务规范问答 + ② 应变能力问答（常见问题/突发事件） + ③ 综合知识问答。</div>
+              </div>
+              <div style="background: #fafaf9; border: 1px solid #e7e5e4; border-radius: 8px; padding: 12px 14px;">
+                <div style="font-weight: 700; color: #2d7a4c; font-size: 14px; margin-bottom: 4px;">4. 口译测试 (外语类专有)</div>
+                <div style="font-size: 12.5px; color: #57534e;">考官即时播报/提问，包含英译汉与汉译英双向现场口译，考查双语即时转换与听辨应用能力。</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. 专题线路讲解考核规则与全景范围详表 -->
+          <div class="card" style="margin-bottom: 20px; padding: 22px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 12px; flex-wrap:wrap; gap:8px;">
+              <h3 style="font-size: 18px; font-weight: 800; color: #1a1a1a;">🗺️ 1. 专题线路讲解·官方考纲全景对照 (6大专题 · 18条线路)</h3>
+              <span class="qa-tag-badge" style="background:#fef3c7; color:#92400e; border:1px solid #fde68a;">抽取1个专题 · 自选1条线路 · 5分钟</span>
+            </div>
+            
+            <div style="background: #fefce8; border: 1px solid #fef08a; border-radius: 8px; padding: 10px 14px; margin-bottom: 16px; font-size: 13px; color: #854d0e; line-height: 1.6;">
+              💡 <strong>讲解要求：</strong>考生应紧扣专题进行总结概括，并根据所选线路的<strong>行程安排</strong>和<strong>主要景点（元素）</strong>进行讲解，要求内容准确、结构完整、条理清晰、表达流畅（讲解时长 5 分钟）。
+            </div>
+
+            <!-- (1) 历史广西 -->
+            <div style="border: 1px solid #e5e7eb; border-radius: 10px; margin-bottom: 16px; overflow: hidden;">
+              <div style="background: #ebf5ee; padding: 10px 16px; border-bottom: 1px solid #d1fae5; display:flex; justify-content:space-between; align-items:center;">
+                <strong style="color: #25663e; font-size: 15px;">（1）历史广西</strong>
+                <span style="font-size: 12px; color: #2d7a4c;">考查历史沿革、重大事件、历史人物、发展格局与成就</span>
+              </div>
+              <div style="padding: 14px 16px; display: grid; gap: 10px; background: #fff; font-size: 13.5px;">
+                <div style="background: #f8fafc; padding: 10px 12px; border-radius: 6px; border-left: 3px solid #3b82f6;">
+                  <strong style="color: #1e3a8a;">线路一：历史文化名城之旅</strong><br>
+                  <span style="color: #4b5563;">• <strong>行程安排：</strong>桂林市 ➔ 柳州市 ➔ 北海市</span><br>
+                  <span style="color: #4b5563;">• <strong>主要景点：</strong>桂林市独秀峰·王城景区、兴安灵渠景区、柳州市柳侯公园、合浦汉代文化博物馆等。</span>
+                </div>
+                <div style="background: #f8fafc; padding: 10px 12px; border-radius: 6px; border-left: 3px solid #3b82f6;">
+                  <strong style="color: #1e3a8a;">线路二：骆越文化之旅</strong><br>
+                  <span style="color: #4b5563;">• <strong>行程安排：</strong>南宁市 ➔ 崇左市</span><br>
+                  <span style="color: #4b5563;">• <strong>主要景点：</strong>广西壮族自治区博物馆、广西民族博物馆、崇左市壮族博物馆、崇左市花山岩画景区等。</span>
+                </div>
+                <div style="background: #f8fafc; padding: 10px 12px; border-radius: 6px; border-left: 3px solid #3b82f6;">
+                  <strong style="color: #1e3a8a;">线路三：岭南文化之旅</strong><br>
+                  <span style="color: #4b5563;">• <strong>行程安排：</strong>梧州市 ➔ 玉林市 ➔ 贵港市</span><br>
+                  <span style="color: #4b5563;">• <strong>主要景点：</strong>梧州骑楼城—龙母庙景区、梧州粤剧保护与传承基地、容州古城、桂平有理村采茶戏等。</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- (2) 民族广西 -->
+            <div style="border: 1px solid #e5e7eb; border-radius: 10px; margin-bottom: 16px; overflow: hidden;">
+              <div style="background: #ebf5ee; padding: 10px 16px; border-bottom: 1px solid #d1fae5; display:flex; justify-content:space-between; align-items:center;">
+                <strong style="color: #25663e; font-size: 15px;">（2）民族广西</strong>
+                <span style="font-size: 12px; color: #2d7a4c;">考查12个世居民族分布及文学/文艺/工艺/体育/建筑/民俗/饮食/非遗</span>
+              </div>
+              <div style="padding: 14px 16px; display: grid; gap: 10px; background: #fff; font-size: 13.5px;">
+                <div style="background: #f8fafc; padding: 10px 12px; border-radius: 6px; border-left: 3px solid #10b981;">
+                  <strong style="color: #065f46;">线路一：三月三风情之旅</strong><br>
+                  <span style="color: #4b5563;">• <strong>行程安排：</strong>南宁市 ➔ 崇左市 ➔ 百色市</span><br>
+                  <span style="color: #4b5563;">• <strong>主要景点：</strong>南宁市民歌湖国际音乐小镇、伊岭岩风景区、崇左市明仕旅游度假区、靖西旧州景区等。</span>
+                </div>
+                <div style="background: #f8fafc; padding: 10px 12px; border-radius: 6px; border-left: 3px solid #10b981;">
+                  <strong style="color: #065f46;">线路二：桂北民族风情之旅</strong><br>
+                  <span style="color: #4b5563;">• <strong>行程安排：</strong>龙胜各族自治县 ➔ 三江侗族自治县 ➔ 融水苗族自治县</span><br>
+                  <span style="color: #4b5563;">• <strong>主要景点：</strong>龙胜龙脊梯田景区、程阳八寨景区、三江月也侗寨景区、梦呜苗寨民俗文化体验园等。</span>
+                </div>
+                <div style="background: #f8fafc; padding: 10px 12px; border-radius: 6px; border-left: 3px solid #10b981;">
+                  <strong style="color: #065f46;">线路三：刘三姐歌谣文化之旅</strong><br>
+                  <span style="color: #4b5563;">• <strong>行程安排：</strong>桂林市 ➔ 柳州市 ➔ 河池市</span><br>
+                  <span style="color: #4b5563;">• <strong>主要景点：</strong>桂林经典刘三姐大观园景区、桂林阳朔大榕树景区、柳州市立鱼峰风景区、河池市宜州刘三姐故里旅游区等。</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- (3) 风物广西 -->
+            <div style="border: 1px solid #e5e7eb; border-radius: 10px; margin-bottom: 16px; overflow: hidden;">
+              <div style="background: #ebf5ee; padding: 10px 16px; border-bottom: 1px solid #d1fae5; display:flex; justify-content:space-between; align-items:center;">
+                <strong style="color: #25663e; font-size: 15px;">（3）风物广西</strong>
+                <span style="font-size: 12px; color: #2d7a4c;">考查工艺品、土特产、名茶名酒、中药材/中成药、特色美食水果</span>
+              </div>
+              <div style="padding: 14px 16px; display: grid; gap: 10px; background: #fff; font-size: 13.5px;">
+                <div style="background: #f8fafc; padding: 10px 12px; border-radius: 6px; border-left: 3px solid #f59e0b;">
+                  <strong style="color: #92400e;">线路一：广西米粉之旅</strong><br>
+                  <span style="color: #4b5563;">• <strong>行程安排：</strong>南宁市 ➔ 柳州市 ➔ 桂林市</span><br>
+                  <span style="color: #4b5563;">• <strong>主要元素：</strong>南宁老友粉、柳州螺蛳粉、桂林米粉等。</span>
+                </div>
+                <div style="background: #f8fafc; padding: 10px 12px; border-radius: 6px; border-left: 3px solid #f59e0b;">
+                  <strong style="color: #92400e;">线路二：广西茶文化之旅</strong><br>
+                  <span style="color: #4b5563;">• <strong>行程安排：</strong>梧州市 ➔ 贵港市 ➔ 南宁市 ➔ 防城港市</span><br>
+                  <span style="color: #4b5563;">• <strong>主要元素：</strong>梧州六堡茶、桂平西山茶、横州茉莉花茶、防城金花茶等。</span>
+                </div>
+                <div style="background: #f8fafc; padding: 10px 12px; border-radius: 6px; border-left: 3px solid #f59e0b;">
+                  <strong style="color: #92400e;">线路三：广西工艺品之旅</strong><br>
+                  <span style="color: #4b5563;">• <strong>行程安排：</strong>北海市 ➔ 钦州市 ➔ 南宁市 ➔ 百色市</span><br>
+                  <span style="color: #4b5563;">• <strong>主要元素：</strong>合浦珍珠、钦州坭兴陶、壮锦、绣球等。</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- (4) 山水广西 -->
+            <div style="border: 1px solid #e5e7eb; border-radius: 10px; margin-bottom: 16px; overflow: hidden;">
+              <div style="background: #ebf5ee; padding: 10px 16px; border-bottom: 1px solid #d1fae5; display:flex; justify-content:space-between; align-items:center;">
+                <strong style="color: #25663e; font-size: 15px;">（4）山水广西</strong>
+                <span style="font-size: 12px; color: #2d7a4c;">考查喀斯特/丹霞地貌、江河与滨海景观及历史文化价值</span>
+              </div>
+              <div style="padding: 14px 16px; display: grid; gap: 10px; background: #fff; font-size: 13.5px;">
+                <div style="background: #f8fafc; padding: 10px 12px; border-radius: 6px; border-left: 3px solid #06b6d4;">
+                  <strong style="color: #0e7490;">线路一：喀斯特探秘之旅</strong><br>
+                  <span style="color: #4b5563;">• <strong>行程安排：</strong>桂林市 ➔ 河池市</span><br>
+                  <span style="color: #4b5563;">• <strong>主要景点：</strong>桂林两江四湖·象山景区、桂林芦笛景区、桂林漓江景区、环江木论喀斯特生态旅游景区等。</span>
+                </div>
+                <div style="background: #f8fafc; padding: 10px 12px; border-radius: 6px; border-left: 3px solid #06b6d4;">
+                  <strong style="color: #0e7490;">线路二：北部湾滨海之旅</strong><br>
+                  <span style="color: #4b5563;">• <strong>行程安排：</strong>北海市 ➔ 钦州市 ➔ 防城港市</span><br>
+                  <span style="color: #4b5563;">• <strong>主要景点：</strong>北海银滩景区、北海涠洲岛、钦州三娘湾景区、江山半岛白浪滩旅游景区等。</span>
+                </div>
+                <div style="background: #f8fafc; padding: 10px 12px; border-radius: 6px; border-left: 3px solid #06b6d4;">
+                  <strong style="color: #0e7490;">线路三：奇峰秀水之旅</strong><br>
+                  <span style="color: #4b5563;">• <strong>行程安排：</strong>阳朔县 ➔ 蒙山县 ➔ 金秀瑶族自治县</span><br>
+                  <span style="color: #4b5563;">• <strong>主要景点：</strong>阳朔遇龙河国家旅游度假区、天书侠谷景区、大瑶山盘王界景区等。</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- (5) 长寿广西 -->
+            <div style="border: 1px solid #e5e7eb; border-radius: 10px; overflow: hidden;">
+              <div style="background: #ebf5ee; padding: 10px 16px; border-bottom: 1px solid #d1fae5; display:flex; justify-content:space-between; align-items:center;">
+                <strong style="color: #25663e; font-size: 15px;">（5）长寿广西</strong>
+                <span style="font-size: 12px; color: #2d7a4c;">考查广西长寿之乡分布、生态环境密码与长寿养生文化</span>
+              </div>
+              <div style="padding: 14px 16px; display: grid; gap: 10px; background: #fff; font-size: 13.5px;">
+                <div style="background: #f8fafc; padding: 10px 12px; border-radius: 6px; border-left: 3px solid #8b5cf6;">
+                  <strong style="color: #5b21b6;">线路一：长寿康养之旅</strong><br>
+                  <span style="color: #4b5563;">• <strong>行程安排：</strong>巴马瑶族自治县 ➔ 东兰县 ➔ 凤山县</span><br>
+                  <span style="color: #4b5563;">• <strong>主要景点：</strong>巴马盘阳河景区（包括百魔洞景区、百鸟岩景区、赐福湖）、巴马水晶宫景区、东兰红水河第一湾景区、凤山县三门海景区等。</span>
+                </div>
+                <div style="background: #f8fafc; padding: 10px 12px; border-radius: 6px; border-left: 3px solid #8b5cf6;">
+                  <strong style="color: #5b21b6;">线路二：长寿悦动之旅</strong><br>
+                  <span style="color: #4b5563;">• <strong>行程安排：</strong>凌云县 ➔ 乐业县</span><br>
+                  <span style="color: #4b5563;">• <strong>主要景点：</strong>凌云环浩坤湖山水生态体验区、凌云茶山金字塔景区、乐业大石围天坑群景区等。</span>
+                </div>
+                <div style="background: #f8fafc; padding: 10px 12px; border-radius: 6px; border-left: 3px solid #8b5cf6;">
+                  <strong style="color: #5b21b6;">线路三：长寿休闲之旅</strong><br>
+                  <span style="color: #4b5563;">• <strong>行程安排：</strong>平桂区 ➔ 八步区 ➔ 昭平县</span><br>
+                  <span style="color: #4b5563;">• <strong>主要景点：</strong>贺州姑婆山景区、贺州西溪森林温泉度假村、黄姚古镇景区等。</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4. 旅游景区讲解考核规则与5大5A景区 -->
+          <div class="card" style="margin-bottom: 20px; padding: 22px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 12px; flex-wrap:wrap; gap:8px;">
+              <h3 style="font-size: 18px; font-weight: 800; color: #1a1a1a;">🏛️ 2. 旅游景区讲解·官方考纲范围 (国家 AAAAA 级旅游景区)</h3>
+              <span class="qa-tag-badge" style="background:#ebf5ee; color:#2d7a4c; border:1px solid #c6e2ce; font-weight:700;">随机抽取1个 · 时长5分钟</span>
+            </div>
+            
+            <p style="font-size: 13.5px; color: #374151; line-height: 1.7; margin-bottom: 14px;">
+              主要考查考生对广西国家 AAAAA 级旅游景区的知识储备与应用。考生在考试系统中<strong>随机抽取下列 5 个旅游景区中的 1 个</strong>，根据景区的<strong>概况、特色、游览线路、代表性景观</strong>等，自行组织讲解词进行现场模拟导游讲解（讲解时长 5 分钟，要求内容准确、结构完整、条理清晰、表达流畅）。
+            </p>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px;">
+              <div style="background: #f6faf7; border: 1.5px solid #c6e2ce; border-radius: 8px; padding: 14px 16px; text-align: center;">
+                <div style="font-size: 20px; margin-bottom: 4px;">🏞️</div>
+                <strong style="color: #25663e; font-size: 14.5px;">南宁市青秀山旅游区</strong>
+                <div style="font-size: 12px; color: #666; margin-top: 4px;">壮锦广场 · 千年苏铁园 · 龙象塔</div>
+              </div>
+
+              <div style="background: #f6faf7; border: 1.5px solid #c6e2ce; border-radius: 8px; padding: 14px 16px; text-align: center;">
+                <div style="font-size: 20px; margin-bottom: 4px;">🏮</div>
+                <strong style="color: #25663e; font-size: 14.5px;">柳州市程阳八寨景区</strong>
+                <div style="font-size: 12px; color: #666; margin-top: 4px;">程阳风雨桥 · 马鞍寨鼓楼 · 百家宴</div>
+              </div>
+
+              <div style="background: #f6faf7; border: 1.5px solid #c6e2ce; border-radius: 8px; padding: 14px 16px; text-align: center;">
+                <div style="font-size: 20px; margin-bottom: 4px;">🚣</div>
+                <strong style="color: #25663e; font-size: 14.5px;">桂林漓江景区</strong>
+                <div style="font-size: 12px; color: #666; margin-top: 4px;">象鼻山 · 九马画山 · 黄布倒影</div>
+              </div>
+
+              <div style="background: #f6faf7; border: 1.5px solid #c6e2ce; border-radius: 8px; padding: 14px 16px; text-align: center;">
+                <div style="font-size: 20px; margin-bottom: 4px;">🌙</div>
+                <strong style="color: #25663e; font-size: 14.5px;">桂林市两江四湖·象山景区</strong>
+                <div style="font-size: 12px; color: #666; margin-top: 4px;">日月双塔 · 榕湖古南门 · 象山水月</div>
+              </div>
+
+              <div style="background: #f6faf7; border: 1.5px solid #c6e2ce; border-radius: 8px; padding: 14px 16px; text-align: center;">
+                <div style="font-size: 20px; margin-bottom: 4px;">🎨</div>
+                <strong style="color: #25663e; font-size: 14.5px;">崇左市花山岩画景区</strong>
+                <div style="font-size: 12px; color: #666; margin-top: 4px;">世界文化遗产 · 赭红蛙形岩画 · 骆越祭祀</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 5. 知识问答考核大纲与国家规范 -->
+          <div class="card" style="margin-bottom: 20px; padding: 22px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 12px; flex-wrap:wrap; gap:8px;">
+              <h3 style="font-size: 18px; font-weight: 800; color: #1a1a1a;">💡 3. 知识问答·考查规范与考核类别 (考评员现场提问 3 题 / 5分钟)</h3>
+              <span class="qa-tag-badge" style="background:#dbeafe; color:#1e40af; border:1px solid #bfdbfe; font-weight:700;">现场提问 · 当场回答 · 5分钟</span>
+            </div>
+            <p style="font-size: 13.5px; color: #374151; line-height: 1.7; margin-bottom: 12px;">
+              知识问答主要考查考生对<strong>导游服务规范、应变能力和综合知识</strong>的掌握程度及应用能力。考评员现场提问 3 个问题，考生当场回答，时间为 5 分钟（外语类考生内容与中文类相同，考评员现场提问）。
+            </p>
+            
+            <div style="display: grid; gap: 14px;">
+              <div style="border: 1px solid #e5e7eb; border-radius: 8px; padding: 14px 16px; background: #fff;">
+                <div style="font-weight: 700; color: #1e3a8a; font-size: 14.5px; margin-bottom: 6px;">（1）服务规范问答 (Service Standards)</div>
+                <div style="font-size: 13px; color: #4b5563; line-height: 1.7;">
+                  主要考查考生对国家及行业标准规范的掌握程度与实际运用能力：<br>
+                  • 《导游服务规范》（GB/T 15971—2023）<br>
+                  • 《旅行社出境旅游服务规范》（GB/T 31386—2015）<br>
+                  • 《导游领队引导文明旅游规范》（LB/T 039—2015）<br>
+                  • 《旅行社老年旅游服务要求》（GB/T 47540—2026）<br>
+                  <span style="color: #25663e; font-weight: 600;">核心考查点：</span>关于导游服务要求、入境游导游特别要求、出境游领队服务特别要求、导游领队引导文明旅游规范、老年旅游者服务要求的掌握程度与运用能力。
+                </div>
+              </div>
+
+              <div style="border: 1px solid #e5e7eb; border-radius: 8px; padding: 14px 16px; background: #fff;">
+                <div style="font-weight: 700; color: #065f46; font-size: 14.5px; margin-bottom: 6px;">（2）应变能力问答 (Emergency Response)</div>
+                <div style="font-size: 13px; color: #4b5563; line-height: 1.7;">
+                  主要考查考生对《导游服务规范》（GB/T 15971—2023）的<strong>突发事件和常见问题</strong>的应对能力（如游客走失、突发疾病、交通事故、火灾、治安事件、证件与行李丢失、天气突变、游客投诉与矛盾化解等）。
+                </div>
+              </div>
+
+              <div style="border: 1px solid #e5e7eb; border-radius: 8px; padding: 14px 16px; background: #fff;">
+                <div style="font-weight: 700; color: #92400e; font-size: 14.5px; margin-bottom: 6px;">（3）综合知识问答 (Comprehensive Knowledge)</div>
+                <div style="font-size: 13px; color: #4b5563; line-height: 1.7;">
+                  主要考查考生对<strong>国际、国内时政热点以及经济、社会、文化旅游</strong>等方面知识的掌握程度；对<strong>广西壮族自治区地理、历史、文化、经济、交通、物产和旅游</strong>等方面知识的掌握程度。
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 6. 口译测试 (外语类考生专有) -->
+          <div class="card" style="margin-bottom: 20px; padding: 22px; border-left: 5px solid #3b82f6;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 12px; flex-wrap:wrap; gap:8px;">
+              <h3 style="font-size: 18px; font-weight: 800; color: #1e3a8a;">🌐 4. 口译测试 (外语类考生专有环节)</h3>
+              <span class="qa-tag-badge" style="background:#dbeafe; color:#1e40af; border:1px solid #bfdbfe; font-weight:700;">抽题 2 题 · 5分钟 · 20分</span>
+            </div>
+            
+            <p style="font-size: 13.5px; color: #374151; line-height: 1.7; margin-bottom: 12px;">
+              口译测试主要考查外语类考生在<strong>中文与外语之间的口头互译能力</strong>。考生在考试系统中随机抽取<strong>“中译外”</strong>和<strong>“外译中”</strong>试题各 1 题，考评员现场提问，考生当场回答，时间为 5 分钟。
+            </p>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px;">
+              <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; padding: 12px 14px;">
+                <strong style="color: #1e40af; font-size: 14px;">🇨🇳➔🌐 中译外 (1 题 · 10分)</strong>
+                <div style="font-size: 12.5px; color: #64748b; margin-top: 4px;">考官朗读中文导游短句/段落，考生即时口译为地道英文。</div>
+              </div>
+              <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; padding: 12px 14px;">
+                <strong style="color: #1e40af; font-size: 14px;">🌐➔🇨🇳 外译中 (1 题 · 10分)</strong>
+                <div style="font-size: 12.5px; color: #64748b; margin-top: 4px;">考官朗读英文导游语段/景点介绍，考生即时口译为规范中文。</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 7. 四、分值比例 (100分制权威对照) -->
+          <div class="card" style="padding: 22px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 14px; flex-wrap:wrap; gap:8px;">
+              <h3 style="font-size: 18px; font-weight: 800; color: #1a1a1a;">📊 四、现场考试分值比例 (100 分制)</h3>
+              <span class="qa-tag-badge" style="background:#ebf5ee; color:#2d7a4c; border:1px solid #c6e2ce; font-weight:700;">满分 100 分 · 评分细则</span>
+            </div>
+
+            <div style="overflow-x: auto;">
+              <table style="width: 100%; border-collapse: collapse; font-size: 13.5px; text-align: left;">
+                <thead>
+                  <tr style="background: #ebf5ee; border-bottom: 2px solid #c6e2ce; color: #2d7a4c;">
+                    <th style="padding: 12px 14px; width: 35%;">考核项目 / 环节</th>
+                    <th style="padding: 12px 14px; width: 32%; text-align: center;">🇨🇳 中文类考生 (100分)</th>
+                    <th style="padding: 12px 14px; width: 33%; text-align: center;">🌐 外语类考生 (100分)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr style="border-bottom: 1px solid #f0eae1;">
+                    <td style="padding: 10px 14px; font-weight: 600;">1. 礼貌仪态</td>
+                    <td style="padding: 10px 14px; text-align: center; color: #2d7a4c; font-weight: 700;">5 分</td>
+                    <td style="padding: 10px 14px; text-align: center; color: #2d7a4c; font-weight: 700;">5 分</td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid #f0eae1; background: #fafaf9;">
+                    <td style="padding: 10px 14px; font-weight: 600;">2. 语言表达 / 语言表达及语法</td>
+                    <td style="padding: 10px 14px; text-align: center; color: #2d7a4c; font-weight: 700;">15 分</td>
+                    <td style="padding: 10px 14px; text-align: center; color: #e11d48; font-weight: 800;">25 分 (重点)</td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid #f0eae1;">
+                    <td style="padding: 10px 14px; font-weight: 600;">3. 专题线路讲解 (1 题)</td>
+                    <td style="padding: 10px 14px; text-align: center; color: #2d7a4c; font-weight: 700;">25 分</td>
+                    <td style="padding: 10px 14px; text-align: center; color: #2d7a4c; font-weight: 700;">15 分</td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid #f0eae1; background: #fafaf9;">
+                    <td style="padding: 10px 14px; font-weight: 600;">4. 旅游景区讲解 (1 题)</td>
+                    <td style="padding: 10px 14px; text-align: center; color: #2d7a4c; font-weight: 700;">25 分</td>
+                    <td style="padding: 10px 14px; text-align: center; color: #2d7a4c; font-weight: 700;">15 分</td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid #f0eae1;">
+                    <td style="padding: 10px 14px; font-weight: 600;">5. 服务规范问答题 (1 题)</td>
+                    <td style="padding: 10px 14px; text-align: center; color: #2d7a4c; font-weight: 700;">10 分</td>
+                    <td style="padding: 10px 14px; text-align: center; color: #2d7a4c; font-weight: 700;">10 分</td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid #f0eae1; background: #fafaf9;">
+                    <td style="padding: 10px 14px; font-weight: 600;">6. 应变能力问答题 (1 题)</td>
+                    <td style="padding: 10px 14px; text-align: center; color: #2d7a4c; font-weight: 700;">10 分</td>
+                    <td style="padding: 10px 14px; text-align: center; color: #2d7a4c; font-weight: 700;">5 分</td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid #f0eae1;">
+                    <td style="padding: 10px 14px; font-weight: 600;">7. 综合知识问答题 (1 题)</td>
+                    <td style="padding: 10px 14px; text-align: center; color: #2d7a4c; font-weight: 700;">10 分</td>
+                    <td style="padding: 10px 14px; text-align: center; color: #2d7a4c; font-weight: 700;">5 分</td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid #f0eae1; background: #f0fdf4;">
+                    <td style="padding: 10px 14px; font-weight: 600; color: #166534;">8. 中译外 (1 题)</td>
+                    <td style="padding: 10px 14px; text-align: center; color: #9ca3af;">—</td>
+                    <td style="padding: 10px 14px; text-align: center; color: #166534; font-weight: 700;">10 分</td>
+                  </tr>
+                  <tr style="border-bottom: 2px solid #c6e2ce; background: #f0fdf4;">
+                    <td style="padding: 10px 14px; font-weight: 600; color: #166534;">9. 外译中 (1 题)</td>
+                    <td style="padding: 10px 14px; text-align: center; color: #9ca3af;">—</td>
+                    <td style="padding: 10px 14px; text-align: center; color: #166534; font-weight: 700;">10 分</td>
+                  </tr>
+                  <tr style="background: #ebf5ee; font-weight: 800;">
+                    <td style="padding: 12px 14px; color: #1e3a8a;">总分合计</td>
+                    <td style="padding: 12px 14px; text-align: center; color: #1e3a8a; font-size: 15px;">100 分</td>
+                    <td style="padding: 12px 14px; text-align: center; color: #1e3a8a; font-size: 15px;">100 分</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        `;
+      } else if (currentCheatSubtab === 'topic') {
         // 专题讲解万用模板卡片
         container.innerHTML = `
           <!-- 1. Universal 5-Step Block -->

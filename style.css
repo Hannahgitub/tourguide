@@ -398,6 +398,20 @@ header.main-header {
   border-color: #a8caaf;
 }
 
+.action-btn.active {
+  background-color: var(--primary-green);
+  color: #ffffff;
+  border-color: var(--primary-green);
+  font-weight: 700;
+  box-shadow: 0 2px 6px rgba(45, 122, 76, 0.25);
+}
+
+.action-btn.active:hover {
+  background-color: var(--primary-green-hover);
+  border-color: var(--primary-green-hover);
+  color: #ffffff;
+}
+
 /* Strategy Step Cards */
 /* ===== STRATEGY PAGE - PREMIUM REDESIGN ===== */
 
@@ -958,3 +972,22 @@ header.main-header {
   border-radius: 3px;
   box-shadow: 0 2px 6px rgba(45, 122, 76, 0.3);
 }
+
+/* 朗读卡片激活态（无布局位移，仅颜色与阴影） */
+.card.reading-active {
+  box-shadow: 0 0 0 2px #2d7a4c, 0 4px 18px rgba(45, 122, 76, 0.15) !important;
+  background: #fbfdfc !important;
+  transition: box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+/* 正在朗读的英文段落区域背景柔和高亮（固定内边距，杜绝高度抖动） */
+.speech-text-en {
+  padding: 4px 6px;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+}
+
+.speech-text-en.reading-text-active {
+  background: rgba(209, 250, 229, 0.35);
+}
+
