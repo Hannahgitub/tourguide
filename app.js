@@ -8,8 +8,9 @@ document.addEventListener('DOMContentLoaded', () => {
   window._activeUtterance = null; // 全局强引用防止 V8 GC 强制干掉 utterance
   const staticAudioPlayer = new Audio();
   let currentPlayingCard = null;
+  let activeTourController = null; // 记录当前活跃的连续导览控制器
 
-  function stopAllAudio() {
+  function stopAllAudio(options = { resetTour: true }) {
     if (staticAudioPlayer) {
       staticAudioPlayer.pause();
       staticAudioPlayer.currentTime = 0;
@@ -19,16 +20,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     window._activeUtterance = null;
     clearSpeechHighlights();
-    const playBtnText = document.getElementById('play-btn-text');
-    const playAllBtn = document.getElementById('btn-play-all');
-    if (playBtnText) playBtnText.textContent = '全篇讲解';
-    if (playAllBtn) {
-      playAllBtn.style.background = '';
-      const icon = playAllBtn.querySelector('span:first-child');
-      if (icon) icon.textContent = '🎧';
+
+    if (options && options.resetTour && activeTourController) {
+      activeTourController.reset();
     }
+
     if (currentPlayingCard) {
       currentPlayingCard.dataset.playState = 'idle';
+      currentPlayingCard.classList.remove('reading-active');
+      const en = currentPlayingCard.querySelector('.speech-text-en');
+      if (en) en.classList.remove('reading-text-active');
       const b = currentPlayingCard.querySelector('.btn-read-sec');
       if (b) b.textContent = '示范朗读';
       currentPlayingCard = null;
@@ -75,44 +76,39 @@ document.addEventListener('DOMContentLoaded', () => {
     let htmlStr = '';
     let wordIdx = 0;
 
-    const hasChildNodes = containerEl.children.length > 0;
-    if (!hasChildNodes) {
-      while ((match = regex.exec(textToTokenize)) !== null) {
-        const textToken = match[0];
-        const startChar = match.index;
-        const endChar = startChar + textToken.length;
+    while ((match = regex.exec(textToTokenize)) !== null) {
+      const textToken = match[0];
+      const startChar = match.index;
+      const endChar = startChar + textToken.length;
 
-        if (match[1]) {
-          const spanId = 'wt-' + Math.random().toString(36).substring(2, 7) + '-' + wordIdx;
-          htmlStr += `<span class="word-token" id="${spanId}" data-start-char="${startChar}" data-end-char="${endChar}">${escapeHtml(textToken)}</span>`;
-          wordIdx++;
-        } else {
-          htmlStr += escapeHtml(textToken);
-        }
+      if (match[1]) {
+        const spanId = 'wt-' + Math.random().toString(36).substring(2, 7) + '-' + wordIdx;
+        htmlStr += `<span class="word-token" id="${spanId}" data-start-char="${startChar}" data-end-char="${endChar}">${escapeHtml(textToken)}</span>`;
+        wordIdx++;
+      } else {
+        htmlStr += escapeHtml(textToken);
       }
-      containerEl.innerHTML = htmlStr;
-      containerEl.dataset.tokenized = 'true';
-
-      const map = [];
-      const spans = containerEl.querySelectorAll('.word-token');
-      spans.forEach((span, idx) => {
-        const start = parseInt(span.dataset.startChar || '0', 10);
-        const end = parseInt(span.dataset.endChar || '0', 10);
-        map.push({ index: idx, el: span, startChar: start, endChar: end });
-      });
-      return map;
     }
+    containerEl.innerHTML = htmlStr;
+    containerEl.dataset.tokenized = 'true';
 
-    return [];
+    const map = [];
+    const spans = containerEl.querySelectorAll('.word-token');
+    spans.forEach((span, idx) => {
+      const start = parseInt(span.dataset.startChar || '0', 10);
+      const end = parseInt(span.dataset.endChar || '0', 10);
+      map.push({ index: idx, el: span, startChar: start, endChar: end });
+    });
+    return map;
   }
 
-  function speakText(text, containerEl, onEndCallback) {
+  function speakText(text, containerEl, onEndCallback, isFromTour = false) {
     if (!('speechSynthesis' in window)) {
       alert('您的浏览器暂不支持 SpeechSynthesis 语音合成。');
       return;
     }
 
-    stopAllAudio();
+    stopAllAudio({ resetTour: !isFromTour });
 
     const rateElem = document.getElementById('speech-rate-select');
     const rate = rateElem ? parseFloat(rateElem.value || '1.0') : 1.0;
@@ -921,17 +917,28 @@ document.addEventListener('DOMContentLoaded', () => {
         if (playBtnIcon) playBtnIcon.textContent = '⏸';
         if (playBtnText) playBtnText.textContent = '暂停讲解';
         playAllBtn.style.background = '#dc2626';
+        playAllBtn.style.borderColor = '#b91c1c';
       } else if (state === 'paused') {
         if (playBtnIcon) playBtnIcon.textContent = '▶';
         if (playBtnText) playBtnText.textContent = '继续讲解';
         playAllBtn.style.background = '#2563eb';
+        playAllBtn.style.borderColor = '#1d4ed8';
       } else {
         // idle
         if (playBtnIcon) playBtnIcon.textContent = '🎧';
         if (playBtnText) playBtnText.textContent = '全篇讲解';
         playAllBtn.style.background = '';
+        playAllBtn.style.borderColor = '';
       }
     }
+
+    activeTourController = {
+      reset: () => {
+        tourState = 'idle';
+        continuousTourIndex = 0;
+        updatePlayAllBtn('idle');
+      }
+    };
 
     function playContinuousSection(secIdx) {
       if (tourState !== 'playing') return;
@@ -963,8 +970,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 500);
       };
 
-      // 调用带容器高亮的 speakText 进行朗读
-      speakText(cleanText, enContainer, onSectionEnd);
+      // 关键：传入 isFromTour = true 保持导览状态不变
+      speakText(cleanText, enContainer, onSectionEnd, true);
     }
 
     playAllBtn.addEventListener('click', () => {
@@ -984,7 +991,7 @@ document.addEventListener('DOMContentLoaded', () => {
         playContinuousSection(continuousTourIndex);
       } else {
         // 初始状态，从第0段开始全篇讲解
-        stopAllAudio();
+        stopAllAudio({ resetTour: false });
         updatePlayAllBtn('playing');
         continuousTourIndex = 0;
         playContinuousSection(0);
@@ -2099,22 +2106,11 @@ function getPhraseStatus(id) {
       });
     }
 
-    async function startPracticeSpeech() {
+    function startPracticeSpeech() {
       const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
       if (!SpeechRecognition) {
-        alert('当前浏览器不支持语音识别，推荐使用 Chrome 或 Edge。');
+        alert('当前浏览器不支持语音识别，推荐使用 Google Chrome 或 Microsoft Edge。');
         return;
-      }
-
-      // 请求麦克风权限以确保浏览器捕获到麦克风
-      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        try {
-          const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-          // 获取权限成功后，停止临时 stream
-          stream.getTracks().forEach(t => t.stop());
-        } catch (err) {
-          console.warn('[Microphone] 麦克风权限申请受阻:', err);
-        }
       }
 
       if (!practiceRecognition) {
@@ -2151,7 +2147,10 @@ function getPhraseStatus(id) {
         practiceRecognition.onerror = (event) => {
           console.warn('Practice speech recognition error:', event.error);
           if (event.error === 'not-allowed') {
-            alert('未获取到麦克风权限！请在浏览器地址栏左侧勾选“允许使用麦克风”。');
+            const micBtn = document.getElementById('btn-practice-mic');
+            if (micBtn) {
+              micBtn.title = '麦克风权限未开启，请在浏览器地址栏左侧勾选“允许麦克风”';
+            }
             userWantsPracticeListening = false;
             stopPracticeSpeech();
           }
