@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>广西导考宝典</title>
   <link rel="stylesheet" href="style.css?v=20260815_full">
+  <link rel="stylesheet" href="mock_exam.css?v=20260815_hint3_cloze">
 </head>
 <body>
   <div class="app-container">
@@ -20,8 +21,9 @@
         <button class="tab-btn" data-tab="practice">知识问答</button>
         <button class="tab-btn" data-tab="interpreting">口译测试</button>
         <button class="tab-btn" data-tab="phrases">短语速记</button>
-        <button class="tab-btn cheatsheet-btn" data-tab="cheatsheet">💡 应试锦囊</button>
+        <button class="tab-btn" data-tab="cheatsheet">应试锦囊</button>
         <button class="tab-btn" data-tab="resources">资料下载</button>
+        <button class="tab-btn" data-tab="mock-exam">模拟考场</button>
       </nav>
     </header>
 
@@ -265,13 +267,17 @@
         <!-- 模式 B: 短语全量列表 -->
         <div id="phrase-list-container" style="display: none;"></div>
       </section>
+
+      <!-- 7. 全真模拟考场 VIEW -->
+      <section id="view-mock-exam" class="view-section" style="display: none;"></section>
     </main>
   </div>
 
   <!-- 隐藏全局兜底语速节点 (防止 JavaScript 空指针异常) -->
   <select id="speech-rate-select" style="display: none;"><option value="1.0" selected>1.0</option></select>
 
-  <script src="data.js?v=20260815_full" charset="UTF-8"></script>
-  <script src="app.js?v=20260815_full" charset="UTF-8"></script>
+  <script src="data.js?v=20260815_fix_audio_v2" charset="UTF-8"></script>
+  <script src="app.js?v=20260815_fix_audio_v2" charset="UTF-8"></script>
+  <script src="mock_exam.js?v=20260815_hint3_cloze" charset="UTF-8"></script>
 </body>
 </html>
