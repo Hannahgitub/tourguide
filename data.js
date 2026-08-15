@@ -214,7 +214,7 @@ window.data = {
         "https://images.unsplash.com/photo-1508804185872-d7badad00f7d?auto=format&fit=crop&w=1200&q=80",
         "https://images.unsplash.com/photo-1528164344705-47542687990d?auto=format&fit=crop&w=1200&q=80"
       ],
-      "image": "https://upload.wikimedia.org/wikipedia/commons/a/a2/Chengyangqiao%2C_Guangxi%2C_China.jpg",
+      "image": "bazhai.png",
       "outline": {
         "theme": "中国侗族村寨典型代表 · 侗族三宝文化圣地",
         "route": [
@@ -331,7 +331,7 @@ window.data = {
         "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1200&q=80",
         "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80"
       ],
-      "image": "https://upload.wikimedia.org/wikipedia/commons/a/a7/Elephant_Trunk_Hill.jpg",
+      "image": "xiangshan.png",
       "outline": {
         "theme": "桂林城徽 · 宋代环城水系名胜",
         "route": [
@@ -448,7 +448,7 @@ window.data = {
         "https://images.unsplash.com/photo-1543097692-fa13c5cd2575?auto=format&fit=crop&w=1200&q=80",
         "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80"
       ],
-      "image": "https://upload.wikimedia.org/wikipedia/commons/9/92/1_li_jiang_guilin_yangshuo_2011.jpg",
+      "image": "lijiang.png",
       "outline": {
         "theme": "全球最美喀斯特河流 · 百里锦绣画廊",
         "route": [
@@ -544,7 +544,7 @@ window.data = {
         "https://images.unsplash.com/photo-1519331379826-f10be5486c6f?auto=format&fit=crop&w=1200&q=80",
         "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=80"
       ],
-      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/%E4%B8%9C%E7%9B%9F%E5%8F%8B%E8%B0%8A%E9%95%BF%E5%BB%8A_1.jpg/960px-%E4%B8%9C%E7%9B%9F%E5%8F%8B%E8%B0%8A%E9%95%BF%E5%BB%8A_1.jpg",
+      "image": "qingxiushan.png",
       "outline": {
         "theme": "绿城翡翠翡翠明珠 · 壮乡生态植物宝库",
         "route": [
