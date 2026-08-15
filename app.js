@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (staticAudioPlayer) {
       staticAudioPlayer.pause();
       staticAudioPlayer.currentTime = 0;
+      staticAudioPlayer.ontimeupdate = null;
       staticAudioPlayer.muted = false;
       staticAudioPlayer.volume = 1.0;
     }
@@ -327,6 +328,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const handleEnd = () => {
       if (hasFinished) return;
       hasFinished = true;
+      if (staticAudioPlayer) {
+        staticAudioPlayer.ontimeupdate = null;
+      }
       clearSpeechHighlights(containerEl);
       if (containerEl) {
         const parentCard = containerEl.closest('.card');
@@ -336,12 +340,34 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     if (containerEl) {
+      activeSpeechContainer = containerEl;
+      activeWordMap = prepareContainerHighlight(containerEl, fallbackText);
       const parentCard = containerEl.closest('.card');
       if (parentCard) parentCard.classList.add('reading-active');
+
+      // 实时计算时间进度，在原音频基础上驱动高光跟随
+      staticAudioPlayer.ontimeupdate = () => {
+        if (!activeWordMap || activeWordMap.length === 0 || !staticAudioPlayer.duration) return;
+        const progress = Math.max(0, Math.min(1, staticAudioPlayer.currentTime / staticAudioPlayer.duration));
+        const activeIndex = Math.min(
+          Math.floor(progress * activeWordMap.length),
+          activeWordMap.length - 1
+        );
+        if (activeIndex >= 0 && activeIndex < activeWordMap.length) {
+          clearSpeechHighlights(containerEl);
+          activeWordMap[activeIndex].el.classList.add('word-active');
+          if (activeIndex > 0 && activeWordMap[activeIndex - 1]) {
+            activeWordMap[activeIndex - 1].el.classList.add('word-near');
+          }
+          if (activeIndex + 1 < activeWordMap.length && activeWordMap[activeIndex + 1]) {
+            activeWordMap[activeIndex + 1].el.classList.add('word-near');
+          }
+        }
+      };
     }
 
     staticAudioPlayer.src = audioUrl;
-    staticAudioPlayer.playbackRate = rate;
+    staticAudioPlayer.playbackRate = rate; // 在原音频基础上倍速播放
     staticAudioPlayer.onended = handleEnd;
     staticAudioPlayer.onerror = triggerFallback;
 
@@ -478,11 +504,12 @@ document.addEventListener('DOMContentLoaded', () => {
     return name;
   }
 
-  // 获取导游词分段音频绝对/相对路径（优先匹配已同步的干净文件夹）
-  function getSpeechAudioUrl(sp, secIdx) {
+  // 获取导游词分段音频绝对/相对路径（优先匹配对应性别的高清 Neural 播音级音频）
+  function getSpeechAudioUrl(sp, secIdx, gender = null) {
+    const activeGender = gender || getAudioSettings().voiceGender || 'male';
     const rawName = (typeof sp === 'string' ? sp : (sp.name || sp.id || '')).replace(/[\\/:*?"<>|]/g, '_').trim();
     const cleanName = rawName.replace(/^广西\s*/, '').replace(/^广西/, '').trim();
-    return `audio/${encodeURIComponent(cleanName)}/section_${secIdx}.mp3`;
+    return `audio/${activeGender}/${encodeURIComponent(cleanName)}/section_${secIdx}.mp3`;
   }
 
   // DOM elements
@@ -1467,9 +1494,33 @@ document.addEventListener('DOMContentLoaded', () => {
     const voiceSelectEl = controlCard.querySelector('#speech-voice-select');
     if (voiceSelectEl) {
       voiceSelectEl.addEventListener('change', (e) => {
+        const val = e.target.value;
         try {
-          localStorage.setItem('tour_speech_voice', e.target.value);
+          localStorage.setItem('tour_speech_voice', val);
         } catch (_) {}
+
+        if (tourState === 'playing') {
+          playContinuousSection(continuousTourIndex, globalTourSessionId);
+        } else if (currentPlayingCard) {
+          const btn = currentPlayingCard.querySelector('.btn-read-sec');
+          if (btn && currentPlayingCard.dataset.playState === 'playing') {
+            const idx = parseInt(currentPlayingCard.dataset.idx || '0', 10);
+            const sec = speech.sections[idx];
+            if (sec) {
+              const cleanText = sec.en.replace(/<[^>]*>/g, '').replace(/^(English|Chinese)[:：/\s]*/gi, '').trim();
+              const enContainer = currentPlayingCard.querySelector('.speech-text-en');
+              const audioUrl = getSpeechAudioUrl(speech, idx, val);
+              const resetState = () => {
+                currentPlayingCard.dataset.playState = 'idle';
+                currentPlayingCard.classList.remove('reading-active');
+                if (btn) btn.textContent = '示范朗读';
+                clearSpeechHighlights(enContainer);
+                currentPlayingCard = null;
+              };
+              playAudioOrTTS(audioUrl, cleanText, enContainer, resetState, true);
+            }
+          }
+        }
       });
     }
 
@@ -1482,7 +1533,7 @@ document.addEventListener('DOMContentLoaded', () => {
           localStorage.setItem('tour_speech_rate', val);
         } catch (_) {}
         if (staticAudioPlayer) {
-          staticAudioPlayer.playbackRate = rateNum;
+          staticAudioPlayer.playbackRate = rateNum; // 在原音频基础上倍速播放
         }
       });
     }
@@ -1627,7 +1678,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 400);
       };
 
-      speakText(cleanText, enContainer, onSectionEnd, true);
+      const audioUrl = getSpeechAudioUrl(speech, secIdx);
+      playAudioOrTTS(audioUrl, cleanText, enContainer, onSectionEnd, true);
     }
 
     playAllBtn.addEventListener('click', () => {
@@ -1724,7 +1776,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
           };
 
-          speakText(cleanText, enContainer, resetState, true);
+          const audioUrl = getSpeechAudioUrl(speech, idx);
+          playAudioOrTTS(audioUrl, cleanText, enContainer, resetState, true);
         });
       }
 
