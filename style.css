@@ -71,10 +71,10 @@ header.main-header {
   font-weight: 500;
 }
 
-/* Nav Tabs: 4 + 4 对齐两排网格布局与穿插绿配色 */
+/* Nav Tabs: 3 x 3 对齐三排网格布局与穿插绿配色 */
 .nav-tabs {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 10px;
   align-items: stretch;
 }
@@ -83,7 +83,7 @@ header.main-header {
   background-color: var(--pill-bg);
   border: 1px solid var(--pill-border);
   color: var(--text-main);
-  padding: 8px 6px;
+  padding: 9px 8px;
   border-radius: var(--radius-pill);
   font-size: 14px;
   font-weight: 600;
@@ -97,34 +97,18 @@ header.main-header {
   white-space: nowrap;
 }
 
-/* 第一排按钮：深绿、白、深绿、白 */
-.tab-btn:nth-child(1) { background: #d8eee0; border-color: #9ed4b2; color: #16532d; }
-.tab-btn:nth-child(2) { background: #ffffff; border-color: #d8dce2; color: #374151; }
-.tab-btn:nth-child(3) { background: #d8eee0; border-color: #9ed4b2; color: #16532d; }
-.tab-btn:nth-child(4) { background: #ffffff; border-color: #d8dce2; color: #374151; }
+/* 3x3 交错清新配色 */
+.tab-btn:nth-child(odd) { background: #d8eee0; border-color: #9ed4b2; color: #16532d; }
+.tab-btn:nth-child(even) { background: #ffffff; border-color: #d8dce2; color: #374151; }
 
-/* 第二排按钮：白、深绿、白、深绿（错开对齐） */
-.tab-btn:nth-child(5) { background: #ffffff; border-color: #d8dce2; color: #374151; }
-.tab-btn:nth-child(6) { background: #d8eee0; border-color: #9ed4b2; color: #16532d; }
-.tab-btn:nth-child(7) { background: #ffffff; border-color: #d8dce2; color: #374151; }
-.tab-btn:nth-child(8) { background: #d8eee0; border-color: #9ed4b2; color: #16532d; }
-
-/* 深绿按钮 hover 态（保持深绿微亮） */
-.tab-btn:nth-child(1):hover,
-.tab-btn:nth-child(3):hover,
-.tab-btn:nth-child(6):hover,
-.tab-btn:nth-child(8):hover {
+.tab-btn:nth-child(odd):hover {
   background-color: #cee8d8;
   border-color: #2d7a4c;
   color: #16532d;
   transform: translateY(-1px);
 }
 
-/* 纯白浅色按钮 hover 态（保持纯白底色，边框与字色微亮，绝不变深绿底） */
-.tab-btn:nth-child(2):hover,
-.tab-btn:nth-child(4):hover,
-.tab-btn:nth-child(5):hover,
-.tab-btn:nth-child(7):hover {
+.tab-btn:nth-child(even):hover {
   background-color: #ffffff;
   border-color: #2d7a4c;
   color: #2d7a4c;
@@ -145,9 +129,110 @@ header.main-header {
     gap: 6px;
   }
   .tab-btn {
-    font-size: 12.5px;
+    font-size: 12px;
     padding: 7px 2px;
   }
+}
+
+/* --- 专题自选模块专属样式 --- */
+.custom-picker-card {
+  background: #ffffff;
+  border: 1px solid #dce7de;
+  border-radius: 12px;
+  padding: 14px 18px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow-sm);
+}
+
+.custom-picker-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.custom-picker-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.custom-topic-item {
+  background: #f8faf8;
+  border: 1px solid #d4e5d8;
+  border-radius: 10px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.custom-topic-cat-badge {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #2d7a4c;
+  background: #e2f0e6;
+  padding: 2px 8px;
+  border-radius: 4px;
+  align-self: flex-start;
+}
+
+.custom-topic-select {
+  width: 100%;
+  padding: 5px 8px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 12.5px;
+  color: #1e293b;
+  background: #fff;
+  outline: none;
+  cursor: pointer;
+}
+
+.custom-topic-select:focus {
+  border-color: #2d7a4c;
+}
+
+.btn-mark-custom {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.btn-mark-custom.is-selected {
+  background: #fef3c7;
+  color: #b45309;
+  border-color: #fde68a;
+}
+
+.btn-mark-custom.is-selected:hover {
+  background: #fde68a;
+}
+
+.btn-mark-custom.not-selected {
+  background: #f3f4f6;
+  color: #4b5563;
+  border-color: #e5e7eb;
+}
+
+.btn-mark-custom.not-selected:hover {
+  background: #e5e7eb;
+  color: #1f2937;
+}
+
+.spot-chip .chip-star-icon {
+  margin-left: 4px;
+  font-size: 12px;
+  color: #f59e0b;
 }
 
 /* Secondary & Tertiary Nav Bar */

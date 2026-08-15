@@ -305,13 +305,74 @@ document.addEventListener('DOMContentLoaded', () => {
   let interpHistory = [];
   let interpViewMode = 'card'; // 'card' or 'list'
 
-  let currentSpotIndex = 0;   // 专题导游词当前索引
-  let currentScenicIndex = 0; // 景区讲解当前索引
+  let currentSpotIndex = 0;        // 专题导游词当前索引
+  let currentScenicIndex = 0;      // 景区讲解当前索引
+  let currentCustomTopicIndex = 0;  // 专题自选当前索引
   let isMaskedMode = false;
+
+  // --- 专题自选配置与持久化存储 ---
+  const TOPIC_CATEGORIES = ["历史广西", "民族广西", "风物广西", "山水广西", "长寿广西"];
+  const STORAGE_KEY_CUSTOM_TOPICS = 'gx_custom_selected_topics_v1';
+  let customSelectedTopics = {}; // 结构: { "历史广西": "广西 历史文化名城之旅", ... }
+
+  function loadCustomSelectedTopics() {
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY_CUSTOM_TOPICS);
+      if (stored) {
+        customSelectedTopics = JSON.parse(stored);
+      }
+    } catch (e) {
+      console.warn('Failed to parse custom selected topics', e);
+      customSelectedTopics = {};
+    }
+
+    // 默认兜底：每个大专题默认选中第一篇
+    TOPIC_CATEGORIES.forEach(cat => {
+      const available = (data.speeches || []).filter(sp => sp.category === cat);
+      if (available.length > 0) {
+        if (!customSelectedTopics[cat] || !available.some(sp => (sp.id || sp.name) === customSelectedTopics[cat])) {
+          customSelectedTopics[cat] = available[0].id || available[0].name;
+        }
+      }
+    });
+  }
+
+  function saveCustomSelectedTopics() {
+    try {
+      localStorage.setItem(STORAGE_KEY_CUSTOM_TOPICS, JSON.stringify(customSelectedTopics));
+    } catch (e) {
+      console.warn('Failed to save custom selected topics', e);
+    }
+  }
+
+  function setTopicSelected(cat, speechIdentifier) {
+    customSelectedTopics[cat] = speechIdentifier;
+    saveCustomSelectedTopics();
+  }
+
+  function isTopicSelected(cat, speechIdentifier) {
+    return customSelectedTopics[cat] === speechIdentifier;
+  }
+
+  function getCustomSpeechList() {
+    const list = [];
+    TOPIC_CATEGORIES.forEach(cat => {
+      const selectedId = customSelectedTopics[cat];
+      const found = (data.speeches || []).find(sp => sp.category === cat && ((sp.id || sp.name) === selectedId));
+      if (found) {
+        list.push(found);
+      } else {
+        const fallback = (data.speeches || []).find(sp => sp.category === cat);
+        if (fallback) list.push(fallback);
+      }
+    });
+    return list;
+  }
 
   // DOM elements
   const mainNavBtns = document.querySelectorAll('#main-nav-tabs .tab-btn');
   const subNavWrapper = document.getElementById('sub-nav-wrapper');
+  const customTopicHeaderContainer = document.getElementById('custom-topic-header-container');
   const catFilterContainer = document.getElementById('cat-filter-container');
   const spotChipsContainer = document.getElementById('spot-chips-container');
 
@@ -325,6 +386,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const viewCheatsheet = document.getElementById('view-cheatsheet');
 
   // --- INITIALIZATION ---
+  loadCustomSelectedTopics();
   initCategoryFilters();
   renderSpotChips();
   renderPracticeView();
@@ -339,6 +401,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initial tab display: 专题讲解 (interview)
   subNavWrapper.style.display = 'block';
   viewSpeech.style.display = 'block';
+  if (customTopicHeaderContainer) customTopicHeaderContainer.style.display = 'none';
   catFilterContainer.style.display = 'flex';
   spotChipsContainer.style.display = 'flex';
   
@@ -354,6 +417,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- CATEGORY FILTERS (For 专题讲解 5大专题) ---
   function initCategoryFilters() {
     catFilterContainer.innerHTML = '';
+    catFilterContainer.style.display = 'flex';
     const cats = data.categories || ["历史广西", "民族广西", "风物广西", "山水广西", "长寿广西"];
     cats.forEach(cat => {
       const btn = document.createElement('button');
@@ -370,14 +434,89 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // --- SPOT CHIPS (支持 景区讲解 与 背诵导游词) ---
+  // --- 渲染「专题自选」顶部的 5 篇组合管理卡片 (在纯净无底色容器中) ---
+  function renderCustomTopicPicker() {
+    if (!customTopicHeaderContainer) return;
+    customTopicHeaderContainer.innerHTML = '';
+    customTopicHeaderContainer.style.display = 'block';
+
+    const pickerCard = document.createElement('div');
+    pickerCard.className = 'custom-picker-card';
+    pickerCard.style.marginBottom = '12px';
+
+    pickerCard.innerHTML = `
+      <div class="custom-picker-header">
+        <div>
+          <span class="qa-tag-badge" style="background:#eef8f1; color:#2d7a4c; border:1px solid #c6e2ce; font-weight:700; margin-bottom:4px; display:inline-block;">🎯 我的 5 篇专题备考组合</span>
+          <div style="font-size:13.5px; color:#556b5c; margin-top:2px;">考纲要求 5 大专题各主备 1 篇 · 您可在此一键调配或在「专题讲解」中点击 ⭐ 替换</div>
+        </div>
+        <button class="action-btn" id="btn-toggle-custom-panel" style="font-size:12.5px; padding:4px 12px; background:#fff; border:1px solid #cee0d2; color:#2d7a4c;">
+          ⚙️ 调整 5 篇组合 <span id="custom-panel-arrow">▼</span>
+        </button>
+      </div>
+      <div class="custom-picker-grid" id="custom-picker-grid" style="display:none;">
+        ${TOPIC_CATEGORIES.map(cat => {
+          const allInCat = (data.speeches || []).filter(sp => sp.category === cat);
+          const curSelected = customSelectedTopics[cat] || (allInCat[0] ? (allInCat[0].id || allInCat[0].name) : '');
+          return `
+            <div class="custom-topic-item">
+              <span class="custom-topic-cat-badge">${cat}</span>
+              <select class="custom-topic-select" data-category="${cat}">
+                ${allInCat.map(sp => {
+                  const idOrName = sp.id || sp.name;
+                  const isSel = idOrName === curSelected;
+                  return `<option value="${escapeHtml(idOrName)}" ${isSel ? 'selected' : ''}>${escapeHtml(sp.name)}</option>`;
+                }).join('')}
+              </select>
+            </div>
+          `;
+        }).join('')}
+      </div>
+    `;
+
+    // 绑定折叠与下拉切换事件
+    const toggleBtn = pickerCard.querySelector('#btn-toggle-custom-panel');
+    const gridEl = pickerCard.querySelector('#custom-picker-grid');
+    const arrowEl = pickerCard.querySelector('#custom-panel-arrow');
+    if (toggleBtn && gridEl) {
+      toggleBtn.addEventListener('click', () => {
+        const isHidden = gridEl.style.display === 'none';
+        gridEl.style.display = isHidden ? 'grid' : 'none';
+        if (arrowEl) arrowEl.textContent = isHidden ? '▲' : '▼';
+      });
+    }
+
+    pickerCard.querySelectorAll('.custom-topic-select').forEach(sel => {
+      sel.addEventListener('change', (e) => {
+        const cat = e.target.getAttribute('data-category');
+        const val = e.target.value;
+        stopAllAudio();
+        setTopicSelected(cat, val);
+        
+        // 若当前查看的正是这个分类的导游词，自动更新 currentCustomTopicIndex
+        const targetGlobalIdx = data.speeches.findIndex(s => (s.id || s.name) === val);
+        if (targetGlobalIdx !== -1) {
+          currentCustomTopicIndex = targetGlobalIdx;
+        }
+        renderSpotChips();
+      });
+    });
+
+    customTopicHeaderContainer.appendChild(pickerCard);
+  }
+
+  // --- SPOT CHIPS (支持 专题自选、景区讲解 与 专题讲解) ---
   function renderSpotChips() {
     spotChipsContainer.innerHTML = '';
     if (!data.speeches || data.speeches.length === 0) return;
 
     if (currentMainTab === 'scenic') {
-      // 景区讲解模式：直接展示 5 大必考景区
-      catFilterContainer.style.display = 'none';
+      // 景区讲解模式：做成和专题一样的分段选择器风格（图一风格）
+      if (customTopicHeaderContainer) customTopicHeaderContainer.style.display = 'none';
+      catFilterContainer.style.display = 'flex';
+      spotChipsContainer.style.display = 'none';
+
+      catFilterContainer.innerHTML = '';
       const scenicSpots = data.speeches.filter(sp => sp.category === "景区讲解");
       const spotList = scenicSpots.length > 0 ? scenicSpots : data.speeches;
 
@@ -391,12 +530,43 @@ document.addEventListener('DOMContentLoaded', () => {
 
       spotList.forEach(sp => {
         const globalIdx = data.speeches.findIndex(s => s.id === sp.id);
-        const chip = document.createElement('div');
-        chip.className = `spot-chip ${globalIdx === currentScenicIndex ? 'active' : ''}`;
-        chip.textContent = sp.name;
-        chip.addEventListener('click', () => {
-        stopAllAudio();
+        const btn = document.createElement('button');
+        btn.className = `cat-btn ${globalIdx === currentScenicIndex ? 'active' : ''}`;
+        btn.textContent = sp.name;
+        btn.addEventListener('click', () => {
+          stopAllAudio();
           currentScenicIndex = globalIdx;
+          document.querySelectorAll('#cat-filter-container .cat-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          renderSpeechView();
+        });
+        catFilterContainer.appendChild(btn);
+      });
+    } else if (currentMainTab === 'custom-interview') {
+      // 专题自选模式：上面展示纯净管理面板，下面展示 5 篇自选 Chips
+      catFilterContainer.style.display = 'none';
+      spotChipsContainer.style.display = 'flex';
+      renderCustomTopicPicker();
+
+      const customList = getCustomSpeechList();
+      
+      const currentInList = customList.some(sp => data.speeches.findIndex(s => s.id === sp.id) === currentCustomTopicIndex);
+      if (!currentInList && customList.length > 0) {
+        currentCustomTopicIndex = data.speeches.findIndex(s => s.id === customList[0].id);
+      }
+      if (currentCustomTopicIndex < 0 || currentCustomTopicIndex >= data.speeches.length) {
+        currentCustomTopicIndex = data.speeches.findIndex(s => s.id === customList[0].id);
+      }
+
+      customList.forEach(sp => {
+        const globalIdx = data.speeches.findIndex(s => s.id === sp.id);
+        const chip = document.createElement('div');
+        chip.className = `spot-chip ${globalIdx === currentCustomTopicIndex ? 'active' : ''}`;
+        const prefix = (sp.category || '').replace('广西', '');
+        chip.innerHTML = `<span>【${prefix}】${sp.name}</span><span class="chip-star-icon">⭐</span>`;
+        chip.addEventListener('click', () => {
+          stopAllAudio();
+          currentCustomTopicIndex = globalIdx;
           document.querySelectorAll('#spot-chips-container .spot-chip').forEach(c => c.classList.remove('active'));
           chip.classList.add('active');
           renderSpeechView();
@@ -404,8 +574,12 @@ document.addEventListener('DOMContentLoaded', () => {
         spotChipsContainer.appendChild(chip);
       });
     } else {
-      // 背诵导游词模式：展示当前专题分类下的 3 条路线
+      // 专题讲解模式：展示当前专题分类下的 3 条路线，并高亮已选入自选库的篇目
+      if (customTopicHeaderContainer) customTopicHeaderContainer.style.display = 'none';
       catFilterContainer.style.display = 'flex';
+      spotChipsContainer.style.display = 'flex';
+      initCategoryFilters();
+
       const matchingSpots = data.speeches.filter(sp => (sp.category || "自然山水") === currentCategory);
       const spotList = matchingSpots.length > 0 ? matchingSpots : data.speeches;
       
@@ -421,9 +595,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const globalIdx = data.speeches.findIndex(s => s.id === sp.id);
         const chip = document.createElement('div');
         chip.className = `spot-chip ${globalIdx === currentSpotIndex ? 'active' : ''}`;
-        chip.textContent = sp.name;
+        const isSelected = isTopicSelected(currentCategory, sp.id || sp.name);
+        chip.innerHTML = `<span>${sp.name}</span>${isSelected ? '<span class="chip-star-icon">⭐</span>' : ''}`;
         chip.addEventListener('click', () => {
-        stopAllAudio();
+          stopAllAudio();
           currentSpotIndex = globalIdx;
           document.querySelectorAll('#spot-chips-container .spot-chip').forEach(c => c.classList.remove('active'));
           chip.classList.add('active');
@@ -1066,13 +1241,19 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    const activeIdx = (currentMainTab === 'scenic') ? currentScenicIndex : currentSpotIndex;
+    const activeIdx = (currentMainTab === 'scenic') 
+      ? currentScenicIndex 
+      : ((currentMainTab === 'custom-interview') ? currentCustomTopicIndex : currentSpotIndex);
+
     let speech = data.speeches[activeIdx];
     if (!speech) {
       speech = data.speeches[0];
     }
 
     // 1. 每篇导游词单独开一栏显示导游词总标题
+    const isTopicSpeech = TOPIC_CATEGORIES.includes(speech.category);
+    const isCurSelected = isTopicSpeech && isTopicSelected(speech.category, speech.id || speech.name);
+
     const headerCard = document.createElement('div');
     headerCard.className = 'card';
     headerCard.style.background = '#f6faf7';
@@ -1081,9 +1262,16 @@ document.addEventListener('DOMContentLoaded', () => {
     headerCard.innerHTML = `
       <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
         <div>
-          <span class="qa-tag-badge" style="background: #ebf5ee; color: #2d7a4c; border: 1px solid #c6e2ce; margin-bottom: 6px; display: inline-block;">
-            ${speech.category || '官方现场导游词'}
-          </span>
+          <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom: 6px;">
+            <span class="qa-tag-badge" style="background: #ebf5ee; color: #2d7a4c; border: 1px solid #c6e2ce; display: inline-block;">
+              ${speech.category || '官方现场导游词'}
+            </span>
+            ${isTopicSpeech ? `
+              <button class="btn-mark-custom ${isCurSelected ? 'is-selected' : 'not-selected'}" id="btn-toggle-custom-mark" title="${isCurSelected ? '当前篇目已是该专题自选' : '点击设为该专题自选篇目'}">
+                ${isCurSelected ? `★ 已设为【${speech.category}】自选背诵` : `☆ 设为【${speech.category}】自选背诵`}
+              </button>
+            ` : ''}
+          </div>
           <h2 style="font-size: 20px; font-weight: 800; color: #1a1a1a; margin-top: 4px;">${speech.name}</h2>
         </div>
         <span style="font-size: 13px; color: #23613c; font-weight: 600; background: #e2ebe3; padding: 4px 12px; border-radius: 20px;">
@@ -1096,6 +1284,17 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
       ` : ''}
     `;
+
+    // 绑定自选标记按钮事件
+    const markBtn = headerCard.querySelector('#btn-toggle-custom-mark');
+    if (markBtn && isTopicSpeech) {
+      markBtn.addEventListener('click', () => {
+        stopAllAudio();
+        setTopicSelected(speech.category, speech.id || speech.name);
+        renderSpotChips();
+      });
+    }
+
     container.appendChild(headerCard);
 
     // 2. 播放控制卡（放在标题下方）
@@ -1257,7 +1456,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 400);
       };
 
-      speakText(cleanText, enContainer, onSectionEnd, true);
+      const spotName = speech.name || speech.id || '';
+      const safeNameWithGuangxi = '广西 ' + spotName.replace(/[\\/:*?"<>|]/g, '_').trim();
+      const audioUrl = `audio/${encodeURIComponent(safeNameWithGuangxi)}/section_${secIdx}.mp3`;
+
+      playAudioOrTTS(audioUrl, cleanText, enContainer, onSectionEnd, true);
     }
 
     playAllBtn.addEventListener('click', () => {
@@ -1530,6 +1733,15 @@ document.addEventListener('DOMContentLoaded', () => {
           spotChipsContainer.style.display = 'flex';
           renderSpotChips();
           renderSpeechView();
+        } else if (tab === 'custom-interview') {
+          // 专题自选 VIEW
+          currentMainTab = 'custom-interview';
+          subNavWrapper.style.display = 'block';
+          viewSpeech.style.display = 'block';
+          catFilterContainer.style.display = 'none';
+          spotChipsContainer.style.display = 'flex';
+          renderSpotChips();
+          renderSpeechView();
         } else if (tab === 'scenic') {
           // 景区讲解 VIEW
           currentMainTab = 'scenic';
@@ -1600,7 +1812,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <!-- 1. 考试方式与时长概览 -->
           <div class="card" style="border-left: 5px solid #2d7a4c; margin-bottom: 20px; padding: 22px;">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 14px; flex-wrap:wrap; gap:8px;">
-              <h3 style="font-size: 18px; font-weight: 800; color: #2d7a4c;">📋 二、考试方式与时长 (Exam Method & Duration)</h3>
+              <h3 style="font-size: 18px; font-weight: 800; color: #2d7a4c;">📋 一、考试方式与时长 (Exam Method & Duration)</h3>
               <span class="qa-tag-badge" style="background:#ebf5ee; color:#2d7a4c; border:1px solid #c6e2ce; font-weight:700;">现场面试 · 室内模拟讲解与知识问答</span>
             </div>
             
@@ -1621,7 +1833,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
           <!-- 2. 考试内容与四大考核板块 (2x2 对齐网格) -->
           <div class="card" style="margin-bottom: 20px; padding: 22px;">
-            <h3 style="font-size: 18px; font-weight: 800; color: #1a1a1a; margin-bottom: 14px;">🎯 三、现场考试考核内容与考查重点</h3>
+            <h3 style="font-size: 18px; font-weight: 800; color: #1a1a1a; margin-bottom: 14px;">🎯 二、现场考试考核内容与考查重点</h3>
             
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px;">
               <!-- 第1行: 专题线路 + 景区讲解 -->
@@ -1889,10 +2101,10 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
           </div>
 
-          <!-- 7. 四、分值比例 (100分制权威对照) -->
+          <!-- 7. 三、分值比例 (100分制权威对照) -->
           <div class="card" style="padding: 22px;">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 14px; flex-wrap:wrap; gap:8px;">
-              <h3 style="font-size: 18px; font-weight: 800; color: #1a1a1a;">📊 四、外语类现场考试分值比例 (100 分制)</h3>
+              <h3 style="font-size: 18px; font-weight: 800; color: #1a1a1a;">📊 三、外语类现场考试分值比例 (100 分制)</h3>
               <span class="qa-tag-badge" style="background:#ebf5ee; color:#2d7a4c; border:1px solid #c6e2ce; font-weight:700;">满分 100 分 · 评分细则</span>
             </div>
 
@@ -2213,25 +2425,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- PRACTICE AUDIO & NAV ---
     const btnPracticeListen = document.getElementById('btn-practice-listen');
-    if (btnPracticeListen) {
       btnPracticeListen.addEventListener('click', () => {
         const list = getFilteredPracticeList();
         if (list.length > 0 && currentPracticeIndex < list.length) {
           const item = list[currentPracticeIndex];
-          if (item.type === 'C2E' || item.tag === '汉译英') {
-            const ansEl = document.getElementById('practice-ref-box');
-            speakText(item.answer, ansEl);
-          } else {
-            const qEl = document.getElementById('practice-en-question');
-            const qText = item.enQuestion || item.question || (qEl ? qEl.textContent : '');
-            speakText(qText, qEl);
-          }
-        } else {
           const qEl = document.getElementById('practice-en-question');
-          speakText(qEl ? qEl.textContent : '', qEl);
+          const qText = item.enQuestion || item.question || (qEl ? qEl.textContent : '');
+          const audioUrl = item.id ? `audio/questions/question_${item.id}.mp3` : '';
+          playAudioOrTTS(audioUrl, qText, qEl);
         }
       });
-    }
 
     document.getElementById('btn-practice-toggle-ans').addEventListener('click', () => {
       const box = document.getElementById('practice-ref-box');

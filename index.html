@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>广西导考宝典</title>
   <link rel="stylesheet" href="style.css?v=20260815_hover_white_fix">
-  <link rel="stylesheet" href="mock_exam.css?v=20260815_force_v4_cloze">
+  <link rel="stylesheet" href="mock_exam.css?v=20260815_single_stage_test">
 </head>
 <body>
   <div class="app-container">
@@ -17,6 +17,7 @@
       </div>
       <nav class="nav-tabs" id="main-nav-tabs">
         <button class="tab-btn active" data-tab="interview">专题讲解</button>
+        <button class="tab-btn" data-tab="custom-interview">专题自选</button>
         <button class="tab-btn" data-tab="scenic">景区讲解</button>
         <button class="tab-btn" data-tab="practice">知识问答</button>
         <button class="tab-btn" data-tab="interpreting">口译测试</button>
@@ -29,7 +30,10 @@
 
     <!-- Sub Navigation Container for 背诵导游词 (Category & Spot Chips) -->
     <div class="sub-nav-container" id="sub-nav-wrapper" style="display: none;">
-      <!-- Category Filter Folding Tabs (For 英文导游词) -->
+      <!-- 专题自选顶层配置卡容器 (独立无底色容器) -->
+      <div id="custom-topic-header-container" style="display: none; margin-bottom: 12px;"></div>
+
+      <!-- Category Filter Folding Tabs (For 英文导游词与景区讲解分段切换) -->
       <div class="cat-filter-tabs" id="cat-filter-container">
         <!-- Injected via JavaScript -->
       </div>
@@ -276,8 +280,8 @@
   <!-- 隐藏全局兜底语速节点 (防止 JavaScript 空指针异常) -->
   <select id="speech-rate-select" style="display: none;"><option value="1.0" selected>1.0</option></select>
 
-  <script src="data.js?v=20260815_fix_audio_v2" charset="UTF-8"></script>
-  <script src="app.js?v=20260815_fix_audio_v2" charset="UTF-8"></script>
-  <script src="mock_exam.js?v=20260815_safe_cloze_fix" charset="UTF-8"></script>
+  <script src="data.js?v=20260815_all_hd_audio_fix" charset="UTF-8"></script>
+  <script src="app.js?v=20260815_all_hd_audio_fix" charset="UTF-8"></script>
+  <script src="mock_exam.js?v=20260815_all_hd_audio_fix" charset="UTF-8"></script>
 </body>
 </html>

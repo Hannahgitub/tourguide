@@ -167,15 +167,21 @@
 
 .stage-preview-card {
   background: var(--exam-green-subtle);
-  border: 1px solid var(--exam-green-border);
+  border: 1.5px solid var(--exam-green-border);
   border-radius: 14px;
-  padding: 18px 16px;
-  transition: transform 0.2s ease;
+  padding: 18px 18px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .stage-preview-card:hover {
-  transform: translateY(-2px);
+  transform: translateY(-3px);
   border-color: var(--exam-green-main);
+  background: #ffffff;
+  box-shadow: 0 6px 18px rgba(45, 122, 76, 0.12);
 }
 
 .stage-preview-title {
@@ -204,6 +210,19 @@
   font-size: 12.5px;
   color: var(--exam-text-muted);
   line-height: 1.5;
+  flex: 1;
+}
+
+.stage-preview-action {
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px dashed var(--exam-green-border);
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--exam-green-main);
 }
 
 .exam-start-btn {

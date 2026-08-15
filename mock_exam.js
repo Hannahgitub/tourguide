@@ -1,6 +1,6 @@
 /**
  * 全真模拟考场模块 (Mock Exam Engine)
- * 自然淡绿风格 · 考官抽专题·考生选路线 · 纯英问答 · 标准答案查看
+ * 自然淡绿风格 · 考官抽专题·考生选路线 · 纯英问答 · 标准答案查看 · 支持整场模考与单科特训
  */
 
 (function () {
@@ -8,6 +8,8 @@
 
   // 模拟考核心状态
   const examState = {
+    mode: 'full', // 'full': 全真4科连考模考, 'single': 单科专项5分钟特训
+    singleStageId: 1, // 当前单科测试对应的科目 ID (1: 专题, 2: 景区, 3: 问答, 4: 口译)
     stage: 0, // 0: 考前准备, 1: Part 1 专题, 2: Part 2 景区, 3: Part 3 问答, 4: Part 4 口译, 5: 考后报告
     timeRemaining: 300, // 每阶段 5 分钟 (300秒)
     timerInterval: null,
@@ -18,7 +20,7 @@
     part1: {
       category: '山水广西', // 抽取的专题类别
       selectedSpeech: null, // 考生从专题里自选的具体篇目/路线
-      hintLevel: 0, // 0: 无, 1: 考纲速记, 2: 原文
+      hintLevel: 0, // 0: 无, 1: 考纲速记, 2: 遮挡版, 3: 完整原文
       timeSpent: 0
     },
     part2: {
@@ -83,25 +85,36 @@
       return;
     }
 
+    const isSingleMode = (examState.mode === 'single');
+
     container.innerHTML = `
       <div class="mock-exam-container">
         <!-- 顶部状态栏: 步骤指示与5分钟倒计时 -->
         <div class="exam-top-bar">
-          <div class="exam-steps-tracker">
-            ${[1, 2, 3, 4].map(s => {
-              const cfg = STAGE_CONFIG[s];
-              let cls = 'exam-step-item';
-              if (s === examState.stage) cls += ' active';
-              else if (s < examState.stage) cls += ' completed';
-              return `
-                <div class="${cls}">
-                  <span>${s < examState.stage ? '✓' : `0${s}`}</span>
-                  <span>${cfg.title}</span>
-                </div>
-                ${s < 4 ? '<span class="exam-step-arrow">➔</span>' : ''}
-              `;
-            }).join('')}
-          </div>
+          ${isSingleMode ? `
+            <div class="exam-steps-tracker" style="gap: 10px;">
+              <div class="exam-step-item active" style="padding: 6px 14px; background: #eef8f1; border-color: #2d7a4c; color: #2d7a4c; font-weight: 800;">
+                <span>🎯</span>
+                <span>单科专项测试 · ${STAGE_CONFIG[examState.stage]?.title || '单科模拟'} (5:00)</span>
+              </div>
+            </div>
+          ` : `
+            <div class="exam-steps-tracker">
+              ${[1, 2, 3, 4].map(s => {
+                const cfg = STAGE_CONFIG[s];
+                let cls = 'exam-step-item';
+                if (s === examState.stage) cls += ' active';
+                else if (s < examState.stage) cls += ' completed';
+                return `
+                  <div class="${cls}">
+                    <span>${s < examState.stage ? '✓' : `0${s}`}</span>
+                    <span>${cfg.title}</span>
+                  </div>
+                  ${s < 4 ? '<span class="exam-step-arrow">➔</span>' : ''}
+                `;
+              }).join('')}
+            </div>
+          `}
 
           <div class="exam-timer-wrapper">
             <div class="exam-timer-box ${examState.timeRemaining <= 60 ? 'warning' : ''}" id="exam-timer-box">
@@ -118,9 +131,9 @@
 
         <!-- 底部流程控制栏 -->
         <div class="exam-footer-bar">
-          <button class="btn-stage-action prev" id="btn-quit-exam">🚪 退出模拟考</button>
+          <button class="btn-stage-action prev" id="btn-quit-exam">🚪 退出${isSingleMode ? '单科测试' : '模拟考'}</button>
           <button class="btn-stage-action next" id="btn-next-stage">
-            ${examState.stage === 4 ? '🏁 完成考核，查看成绩单' : '提前完成，进入下一部分 ➔'}
+            ${isSingleMode ? '🏁 完成单科测试，查看成绩' : (examState.stage === 4 ? '🏁 完成考核，查看成绩单' : '提前完成，进入下一部分 ➔')}
           </button>
         </div>
       </div>
@@ -136,7 +149,7 @@
     return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
   }
 
-  // 1. 考前准备引导页
+  // 1. 考前准备引导页 (支持整场模考或点击卡片进入单科测试)
   function renderWelcomeView() {
     return `
       <div class="mock-exam-container">
@@ -144,45 +157,49 @@
           <span class="exam-welcome-badge">GUANGXI TOUR GUIDE EXAM SIMULATOR</span>
           <h1 class="exam-welcome-title">🎓 外语导游资格考试 · 全真考场模拟</h1>
           <p class="exam-welcome-desc">
-            严格依照全真口试考场流程。全流程包含 4 大环节，各环节独立倒计时 <strong>5 分钟（300秒）</strong>。支持考官抽签、自选线路、两级求助提示及全真智能打分。
+            全真口试考场流程。每环节独立倒计时 <strong>5 分钟（300秒）</strong>。支持<strong>整套 20 分钟全真模考</strong>，或<strong>点击下方卡片单独进行单科专项特训</strong>！
           </p>
 
           <div class="exam-stages-grid">
-            <div class="stage-preview-card">
+            <div class="stage-preview-card" data-stage="1" title="点击直接进入【01. 专题讲解】单科测试 (5分钟)">
               <div class="stage-preview-title">
                 <span>01. 专题讲解</span>
                 <span class="stage-preview-time">5:00</span>
               </div>
               <div class="stage-preview-desc">考官随机抽取五大专题之一，考生自选该专题下的一条线路或篇目进行讲解。</div>
+              <div class="stage-preview-action"><span>🎯 单科特训</span> <span>➔</span></div>
             </div>
 
-            <div class="stage-preview-card">
+            <div class="stage-preview-card" data-stage="2" title="点击直接进入【02. 景区讲解】单科测试 (5分钟)">
               <div class="stage-preview-title">
                 <span>02. 景区讲解</span>
                 <span class="stage-preview-time">5:00</span>
               </div>
-              <div class="stage-preview-desc">抽取代表性景区进行现场英文讲解。支持考纲速记与双语原文两级提示。</div>
+              <div class="stage-preview-desc">抽取代表性景区进行现场英文讲解。支持考纲速记、遮挡自测与双语原文三级提示。</div>
+              <div class="stage-preview-action"><span>🎯 单科特训</span> <span>➔</span></div>
             </div>
 
-            <div class="stage-preview-card">
+            <div class="stage-preview-card" data-stage="3" title="点击直接进入【03. 知识问答】单科测试 (5分钟)">
               <div class="stage-preview-title">
                 <span>03. 知识问答</span>
                 <span class="stage-preview-time">5:00</span>
               </div>
-              <div class="stage-preview-desc">纯英文考官真题提问 3 题。支持语音/文字作答，即时打分并可查阅官方标准答案。</div>
+              <div class="stage-preview-desc">纯英文考官真题提问 3 题。支持语音/文字作答，即时打分并可查阅官方标准答案与题目翻译。</div>
+              <div class="stage-preview-action"><span>🎯 单科特训</span> <span>➔</span></div>
             </div>
 
-            <div class="stage-preview-card">
+            <div class="stage-preview-card" data-stage="4" title="点击直接进入【04. 口译测试】单科测试 (5分钟)">
               <div class="stage-preview-title">
                 <span>04. 口译测试</span>
                 <span class="stage-preview-time">5:00</span>
               </div>
-              <div class="stage-preview-desc">英汉双向口译测试，支持原句标准发音听题，即时评测并可查看参考译文。</div>
+              <div class="stage-preview-desc">英汉双向口译测试，支持考生语音/文本录入译文，即时评测并可查看参考译文。</div>
+              <div class="stage-preview-action"><span>🎯 单科特训</span> <span>➔</span></div>
             </div>
           </div>
 
           <button class="exam-start-btn" id="btn-start-simulation">
-            🚀 准备就绪，开始模拟考试
+            🚀 准备就绪，开始全套模拟考试 (4科 20分钟)
           </button>
         </div>
       </div>
@@ -190,16 +207,52 @@
   }
 
   function bindWelcomeEvents() {
+    // 整套考试启动
     const startBtn = document.getElementById('btn-start-simulation');
     if (startBtn) {
       startBtn.addEventListener('click', () => {
         startSimulation();
       });
     }
+
+    // 单科特训卡片点击直接启动
+    const stageCards = document.querySelectorAll('.stage-preview-card');
+    stageCards.forEach(card => {
+      card.addEventListener('click', () => {
+        const stageId = parseInt(card.getAttribute('data-stage'), 10);
+        if (stageId >= 1 && stageId <= 4) {
+          startSingleStage(stageId);
+        }
+      });
+    });
   }
 
-  // 开始全流程模拟
+  // 开始单科专项 5 分钟测试
+  function startSingleStage(stageId) {
+    examState.mode = 'single';
+    examState.singleStageId = stageId;
+    examState.stage = stageId;
+
+    if (stageId === 1) {
+      examState.part1 = { category: '山水广西', selectedSpeech: null, hintLevel: 0, timeSpent: 0 };
+      drawPart1Category();
+    } else if (stageId === 2) {
+      examState.part2 = { scenic: null, hintLevel: 0, timeSpent: 0 };
+      drawPart2Scenic();
+    } else if (stageId === 3) {
+      examState.part3 = { questions: [], answers: {}, scores: {}, showAnswer: {}, timeSpent: 0 };
+      drawPart3Questions();
+    } else if (stageId === 4) {
+      examState.part4 = { translations: [], answers: {}, scores: {}, showAnswer: {}, timeSpent: 0 };
+      drawPart4Translations();
+    }
+
+    startStage(stageId);
+  }
+
+  // 开始全流程模拟 (4 科连考)
   function startSimulation() {
+    examState.mode = 'full';
     examState.stage = 1;
     examState.part1 = { category: '山水广西', selectedSpeech: null, hintLevel: 0, timeSpent: 0 };
     examState.part2 = { scenic: null, hintLevel: 0, timeSpent: 0 };
@@ -216,7 +269,7 @@
     startStage(1);
   }
 
-  // 启动某阶段计时
+  // 启动某阶段计时 (5分钟)
   function startStage(stageNumber) {
     examState.stage = stageNumber;
     examState.timeRemaining = 300; // 5分钟
@@ -252,12 +305,17 @@
 
   function handleStageTimeout() {
     recordCurrentStageTime();
-    if (examState.stage < 4) {
-      alert(`⏰ 本阶段 5 分钟时间已到，系统自动进入下一阶段！`);
-      startStage(examState.stage + 1);
-    } else {
-      alert(`⏰ 模拟考试全部结束！正在生成您的考生成绩单...`);
+    if (examState.mode === 'single') {
+      alert(`⏰ 单科测试 5 分钟时间已到！正在生成您的专项评估报告...`);
       finishExam();
+    } else {
+      if (examState.stage < 4) {
+        alert(`⏰ 本阶段 5 分钟时间已到，系统自动进入下一阶段！`);
+        startStage(examState.stage + 1);
+      } else {
+        alert(`⏰ 模拟考试全部结束！正在生成您的考生成绩单...`);
+        finishExam();
+      }
     }
   }
 
@@ -269,16 +327,34 @@
     else if (examState.stage === 4) examState.part4.timeSpent = elapsed;
   }
 
+  function finishExam() {
+    if (examState.timerInterval) {
+      clearInterval(examState.timerInterval);
+    }
+    examState.stage = 5;
+    renderExamLayout();
+  }
+
   // 抽题逻辑
   function drawPart1Category() {
     const idx = Math.floor(Math.random() * TOPIC_CATEGORIES.length);
     const cat = TOPIC_CATEGORIES[idx];
     examState.part1.category = cat;
 
-    // 默认自选该专题下的第一个景点线路
+    // 优先联动用户在「专题自选」模块中所标记的备考篇目，无则默认自选该专题第1篇
     if (window.data && window.data.speeches) {
+      let customTopics = {};
+      try {
+        const stored = localStorage.getItem('gx_custom_selected_topics_v1');
+        if (stored) customTopics = JSON.parse(stored);
+      } catch (e) {}
+
       const candidates = window.data.speeches.filter(s => s.category === cat);
-      examState.part1.selectedSpeech = candidates.length > 0 ? candidates[0] : null;
+      let targetSpeech = null;
+      if (customTopics[cat]) {
+        targetSpeech = candidates.find(s => (s.id || s.name) === customTopics[cat]);
+      }
+      examState.part1.selectedSpeech = targetSpeech || (candidates.length > 0 ? candidates[0] : null);
     }
   }
 
@@ -639,14 +715,23 @@
                 ${scoreInfo ? renderEvalResult(scoreInfo) : ''}
               </div>
 
-              <!-- 官方标准答案展示 -->
+              <!-- 官方标准答案展示 (包含题目翻译与参考答案) -->
               <div class="qa-standard-answer-box" id="qa-std-ans-${q.id}" style="${isShowAnswer ? 'display:block;' : 'display:none;'}">
                 <div class="qa-standard-title">
-                  <span>📋 官方参考标准答案</span>
-                  <span style="font-size: 11px; font-weight: normal; color: #166534;">Standard Answer</span>
+                  <span>📋 题目翻译与官方标准答案</span>
+                  <span style="font-size: 11px; font-weight: normal; color: #166534;">Question & Answer</span>
                 </div>
+                ${q.cnQuestion ? `
+                  <div style="font-size: 13px; color: #166534; font-weight: 700; margin-bottom: 8px; padding-bottom: 6px; border-bottom: 1px dashed #bbf7d0;">
+                    ❓ 题目中文翻译：<span style="font-weight: normal; color: #374151;">${escapeHtml(q.cnQuestion)}</span>
+                  </div>
+                ` : ''}
+                <div style="font-size: 12px; font-weight: 700; color: #166534; margin-bottom: 4px;">✅ 英文参考答案：</div>
                 <div class="qa-standard-text-en">${escapeHtml(q.enAnswer || q.answer || '')}</div>
-                ${q.cnAnswer ? `<div class="qa-standard-text-cn">${escapeHtml(q.cnAnswer)}</div>` : ''}
+                ${q.cnAnswer ? `
+                  <div style="font-size: 12px; font-weight: 700; color: #166534; margin-top: 8px; margin-bottom: 4px;">🇨🇳 中文答案要点：</div>
+                  <div class="qa-standard-text-cn">${escapeHtml(q.cnAnswer)}</div>
+                ` : ''}
               </div>
             </div>
           `;
@@ -664,7 +749,7 @@
         <div>
           <span class="exam-section-tag">第四部分 · 占分 25%</span>
           <div class="exam-section-title">🗣️ 口译测试 (Interpretation)</div>
-          <div class="exam-section-subtitle">双向现场口译测试。点击喇叭听题并录入译文，支持智能要点打分与参考译文查看。</div>
+          <div class="exam-section-subtitle">双向现场口译测试。请直接阅读源句并录入您的译文，支持智能要点打分与参考译文查看。</div>
         </div>
       </div>
 
@@ -683,11 +768,8 @@
                   ${isC2E ? '🇨🇳 汉译英' : '🇬🇧 英译中'}
                 </span>
               </div>
-              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
-                <div style="font-size: 16px; font-weight: 800; color: var(--exam-text-dark);">${escapeHtml(t.src || '')}</div>
-                <button class="action-btn" style="padding: 4px 10px; font-size: 12px;" onclick="window.MockExam.playTts('${escapeHtml(t.src || '')}', '${isC2E ? 'zh-CN' : 'en-US'}')">
-                  🔊 朗读原句
-                </button>
+              <div style="margin-bottom: 8px;">
+                <div style="font-size: 16px; font-weight: 800; color: var(--exam-text-dark); line-height: 1.5;">${escapeHtml(t.src || '')}</div>
               </div>
 
               <div class="qa-exam-input-area">
@@ -727,8 +809,110 @@
     `;
   }
 
-  // 阶段 5: 考生成绩单报告
+  // 阶段 5: 考生成绩单报告 (支持全套模考成绩单 & 单科特训成绩报告)
   function renderReportView() {
+    const isSingle = (examState.mode === 'single');
+
+    if (isSingle) {
+      const sId = examState.singleStageId;
+      const sTitle = STAGE_CONFIG[sId]?.title || '单科专项';
+      let singleScore = 0;
+      let detailHtml = '';
+      const timeSpent = (sId === 1) ? examState.part1.timeSpent :
+                        (sId === 2) ? examState.part2.timeSpent :
+                        (sId === 3) ? examState.part3.timeSpent : examState.part4.timeSpent;
+
+      if (sId === 1) {
+        singleScore = Math.max(60, 100 - (examState.part1.hintLevel * 15));
+        detailHtml = `
+          <div class="report-item-box">
+            <div class="report-item-title">🎙️ 抽选专题与自选线路</div>
+            <div class="report-item-val" style="font-size: 15px;">
+              ${escapeHtml(examState.part1.category)} · ${escapeHtml(examState.part1.selectedSpeech?.name || '')}
+              <div style="font-size: 12px; color: var(--exam-text-muted); font-weight: normal; margin-top: 4px;">求助提示: ${examState.part1.hintLevel}次 (满级3次)</div>
+            </div>
+          </div>
+        `;
+      } else if (sId === 2) {
+        singleScore = Math.max(60, 100 - (examState.part2.hintLevel * 15));
+        detailHtml = `
+          <div class="report-item-box">
+            <div class="report-item-title">🏞️ 抽签讲解景区</div>
+            <div class="report-item-val" style="font-size: 15px;">
+              ${escapeHtml(examState.part2.scenic?.name || '')}
+              <div style="font-size: 12px; color: var(--exam-text-muted); font-weight: normal; margin-top: 4px;">求助提示: ${examState.part2.hintLevel}次 (满级3次)</div>
+            </div>
+          </div>
+        `;
+      } else if (sId === 3) {
+        const p3Scores = Object.values(examState.part3.scores || {});
+        singleScore = p3Scores.length ? Math.round(p3Scores.reduce((a, b) => a + (b.score || 0), 0) / p3Scores.length) : 0;
+        detailHtml = `
+          <div class="report-item-box">
+            <div class="report-item-title">📝 知识问答 3 题评测</div>
+            <div class="report-item-val" style="font-size: 15px;">
+              均分 ${singleScore}分 / 100分
+              <div style="font-size: 12px; color: var(--exam-text-muted); font-weight: normal; margin-top: 4px;">作答题数: ${Object.keys(examState.part3.answers || {}).length}/3 题</div>
+            </div>
+          </div>
+        `;
+      } else if (sId === 4) {
+        const p4Scores = Object.values(examState.part4.scores || {});
+        singleScore = p4Scores.length ? Math.round(p4Scores.reduce((a, b) => a + (b.score || 0), 0) / p4Scores.length) : 0;
+        detailHtml = `
+          <div class="report-item-box">
+            <div class="report-item-title">🗣️ 双向口译 2 题评测</div>
+            <div class="report-item-val" style="font-size: 15px;">
+              均分 ${singleScore}分 / 100分
+              <div style="font-size: 12px; color: var(--exam-text-muted); font-weight: normal; margin-top: 4px;">完成口译: ${Object.keys(examState.part4.answers || {}).length}/2 题</div>
+            </div>
+          </div>
+        `;
+      }
+
+      let rankTag = '表现良好 (Good)';
+      let rankColor = 'var(--exam-green-main)';
+      if (singleScore >= 85) { rankTag = '优秀 (Excellent)'; rankColor = '#16a34a'; }
+      else if (singleScore < 60) { rankTag = '待加强 (Need Practice)'; rankColor = '#dc2626'; }
+
+      return `
+        <div class="mock-exam-container">
+          <div class="exam-report-card">
+            <div class="report-header">
+              <span class="exam-welcome-badge">SINGLE STAGE TEST REPORT</span>
+              <h1 class="report-title">🎯 ${sTitle} · 单科专项测试报告</h1>
+              <div class="report-score-badge" style="color: ${rankColor};">
+                ${singleScore} <span style="font-size: 16px; font-weight: normal; color: var(--exam-text-muted);">/ 100分</span>
+              </div>
+              <div style="margin-top: 8px; font-weight: 700; color: ${rankColor}; font-size: 15px;">单科评定：${rankTag}</div>
+            </div>
+
+            <div class="report-grid">
+              <div class="report-item-box">
+                <div class="report-item-title">⏱️ 本科测试用时</div>
+                <div class="report-item-val">${Math.floor(timeSpent / 60)}分${timeSpent % 60}秒 <span style="font-size:12px; color:var(--exam-text-muted); font-weight:normal;">(限时 5:00)</span></div>
+              </div>
+              ${detailHtml}
+            </div>
+
+            <div style="background: var(--exam-green-subtle); border-radius: 12px; padding: 18px; border: 1px solid var(--exam-green-border); margin-bottom: 24px;">
+              <div style="font-weight: 800; font-size: 14px; color: var(--exam-text-dark); margin-bottom: 8px;">💡 单科备考提升锦囊：</div>
+              <p style="font-size: 13px; color: var(--exam-text-muted); line-height: 1.7; margin: 0;">
+                建议结合「考纲速记」理顺解说动线，利用「遮挡填空」进行核心考点词复述记忆。多练快练，培养考场 5 分钟脱稿时间感！
+              </p>
+            </div>
+
+            <div style="text-align: center; display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;">
+              <button class="exam-start-btn" id="btn-retry-single-stage">🔄 重新抽题，再测一次本单科</button>
+              <button class="action-btn" id="btn-start-full-simulation" style="padding: 12px 22px; font-size: 14px; background: #ebf5ee; color: #2d7a4c; border: 1.5px solid #c6e2ce; border-radius: 25px; font-weight: 700; cursor: pointer;">🚀 开始全套4科模考 (20分钟)</button>
+              <button class="btn-stage-action prev" id="btn-back-to-home" style="padding: 12px 22px; font-size: 14px;">返回考前准备</button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // 全真 4 科模考综合成绩单
     const p3Scores = Object.values(examState.part3.scores || {});
     const avgP3 = p3Scores.length ? Math.round(p3Scores.reduce((a, b) => a + (b.score || 0), 0) / p3Scores.length) : 0;
 
@@ -820,6 +1004,20 @@
       });
     }
 
+    const retrySingleBtn = document.getElementById('btn-retry-single-stage');
+    if (retrySingleBtn) {
+      retrySingleBtn.addEventListener('click', () => {
+        startSingleStage(examState.singleStageId);
+      });
+    }
+
+    const startFullBtn = document.getElementById('btn-start-full-simulation');
+    if (startFullBtn) {
+      startFullBtn.addEventListener('click', () => {
+        startSimulation();
+      });
+    }
+
     const homeBtn = document.getElementById('btn-back-to-home');
     if (homeBtn) {
       homeBtn.addEventListener('click', () => {
@@ -831,15 +1029,19 @@
 
   // 绑定各阶段内的交互事件
   function bindStageEvents() {
-    // 提前进入下一阶段
+    // 提前进入下一阶段 / 完成单科测试
     const nextBtn = document.getElementById('btn-next-stage');
     if (nextBtn) {
       nextBtn.addEventListener('click', () => {
         recordCurrentStageTime();
-        if (examState.stage < 4) {
-          startStage(examState.stage + 1);
-        } else {
+        if (examState.mode === 'single') {
           finishExam();
+        } else {
+          if (examState.stage < 4) {
+            startStage(examState.stage + 1);
+          } else {
+            finishExam();
+          }
         }
       });
     }
