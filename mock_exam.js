@@ -980,7 +980,7 @@
         singleScore = Math.max(60, 100 - (examState.part1.hintLevel * 15));
         detailHtml = `
           <div class="report-item-box report-item-clickable" data-review-stage="1" title="点击进入考后复盘回顾与提示研读">
-            <div class="report-item-title">🎙️ 抽选专题与自选线路 (点击回顾)</div>
+            <div class="report-item-title">🎙️ 抽选专题与自选线路</div>
             <div class="report-item-val" style="font-size: 15px;">
               ${escapeHtml(examState.part1.category)} · ${escapeHtml(formatSpeechDisplayName(examState.part1.selectedSpeech))}
               <div style="font-size: 12px; color: var(--exam-text-muted); font-weight: normal; margin-top: 4px;">求助提示: ${examState.part1.hintLevel}次 (满级3次)</div>
@@ -998,7 +998,7 @@
         singleScore = Math.max(60, 100 - (examState.part2.hintLevel * 15));
         detailHtml = `
           <div class="report-item-box report-item-clickable" data-review-stage="2" title="点击进入考后复盘回顾与提示研读">
-            <div class="report-item-title">🏞️ 抽签讲解景区 (点击回顾)</div>
+            <div class="report-item-title">🏞️ 抽签讲解景区</div>
             <div class="report-item-val" style="font-size: 15px;">
               ${escapeHtml(examState.part2.scenic?.name || '')}
               <div style="font-size: 12px; color: var(--exam-text-muted); font-weight: normal; margin-top: 4px;">求助提示: ${examState.part2.hintLevel}次 (满级3次)</div>
@@ -1017,7 +1017,7 @@
         singleScore = p3Scores.length ? Math.round(p3Scores.reduce((a, b) => a + (b.score || 0), 0) / p3Scores.length) : 0;
         detailHtml = `
           <div class="report-item-box report-item-clickable" data-review-stage="3" title="点击进入考后复盘回顾与标准答案解析">
-            <div class="report-item-title">📝 知识问答 3 题评测 (点击回顾)</div>
+            <div class="report-item-title">📝 知识问答 3 题评测</div>
             <div class="report-item-val" style="font-size: 15px;">
               均分 ${singleScore}分 / 100分
               <div style="font-size: 12px; color: var(--exam-text-muted); font-weight: normal; margin-top: 4px;">作答题数: ${Object.keys(examState.part3.answers || {}).length}/3 题</div>
@@ -1030,7 +1030,7 @@
         singleScore = p4Scores.length ? Math.round(p4Scores.reduce((a, b) => a + (b.score || 0), 0) / p4Scores.length) : 0;
         detailHtml = `
           <div class="report-item-box report-item-clickable" data-review-stage="4" title="点击进入考后复盘回顾与参考译文解析">
-            <div class="report-item-title">🗣️ 双向口译 2 题评测 (点击回顾)</div>
+            <div class="report-item-title">🗣️ 双向口译 2 题评测</div>
             <div class="report-item-val" style="font-size: 15px;">
               均分 ${singleScore}分 / 100分
               <div style="font-size: 12px; color: var(--exam-text-muted); font-weight: normal; margin-top: 4px;">完成口译: ${Object.keys(examState.part4.answers || {}).length}/2 题</div>
@@ -1073,8 +1073,7 @@
             </div>
 
             <div style="text-align: center; display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;">
-              <button class="exam-start-btn" id="btn-review-single-stage">🔍 回顾本科答卷与解析</button>
-              <button class="exam-start-btn" id="btn-retry-single-stage" style="background: #2d7a4c;">🔄 重新抽题，再测一次本单科</button>
+              <button class="exam-start-btn" id="btn-retry-single-stage">🔄 重新抽题，再测一次本单科</button>
               <button class="action-btn" id="btn-start-full-simulation" style="padding: 12px 22px; font-size: 14px; background: #ebf5ee; color: #2d7a4c; border: 1.5px solid #c6e2ce; border-radius: 25px; font-weight: 700; cursor: pointer;">🚀 开始全真模拟考试</button>
               <button class="btn-stage-action prev" id="btn-back-to-home" style="padding: 12px 22px; font-size: 14px;">返回考前准备</button>
             </div>
@@ -1123,7 +1122,7 @@
             </div>
 
             <div class="report-item-box report-item-clickable" data-review-stage="1" title="点击进入 Part 1 专题答卷复盘回顾">
-              <div class="report-item-title">🎙️ Part 1 专题讲解 (点击回顾)</div>
+              <div class="report-item-title">🎙️ Part 1 专题讲解</div>
               <div class="report-item-val" style="font-size: 14.5px;">
                 ${escapeHtml(examState.part1.category)} · ${escapeHtml(formatSpeechDisplayName(examState.part1.selectedSpeech))}
                 <div style="font-size: 11.5px; color: var(--exam-text-muted); font-weight: normal; margin-top: 2px;">求助提示: ${examState.part1.hintLevel}次</div>
@@ -1137,7 +1136,7 @@
             </div>
 
             <div class="report-item-box report-item-clickable" data-review-stage="2" title="点击进入 Part 2 景区答卷复盘回顾">
-              <div class="report-item-title">🏞️ Part 2 景区讲解 (点击回顾)</div>
+              <div class="report-item-title">🏞️ Part 2 景区讲解</div>
               <div class="report-item-val" style="font-size: 14.5px;">
                 ${escapeHtml(examState.part2.scenic?.name || '')}
                 <div style="font-size: 11.5px; color: var(--exam-text-muted); font-weight: normal; margin-top: 2px;">求助提示: ${examState.part2.hintLevel}次</div>
@@ -1151,7 +1150,7 @@
             </div>
 
             <div class="report-item-box report-item-clickable" data-review-stage="3" title="点击进入 Part 3 问答答卷复盘回顾">
-              <div class="report-item-title">📝 Part 3 知识问答得分 (点击回顾)</div>
+              <div class="report-item-title">📝 Part 3 知识问答得分</div>
               <div class="report-item-val">
                 ${avgP3}分 <span style="font-size: 12px; color: var(--exam-text-muted); font-weight: normal;">(折合 ${p3Base}/25分)</span>
                 <div class="review-indicator-badge">🔍 点击查看标准答案与解析 ➔</div>
@@ -1159,7 +1158,7 @@
             </div>
 
             <div class="report-item-box report-item-clickable" data-review-stage="4" title="点击进入 Part 4 口译答卷复盘回顾">
-              <div class="report-item-title">🗣️ Part 4 口译测试得分 (点击回顾)</div>
+              <div class="report-item-title">🗣️ Part 4 口译测试得分</div>
               <div class="report-item-val">
                 ${avgP4}分 <span style="font-size: 12px; color: var(--exam-text-muted); font-weight: normal;">(折合 ${p4Base}/25分)</span>
                 <div class="review-indicator-badge">🔍 点击查看官方参考译文 ➔</div>
@@ -1177,8 +1176,7 @@
           </div>
 
           <div style="text-align: center; display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
-            <button class="exam-start-btn" id="btn-review-full-exam">🔍 逐题回顾本次答卷与标准解析</button>
-            <button class="exam-start-btn" id="btn-restart-exam" style="background: #2d7a4c;">🔄 再来一套真题模拟</button>
+            <button class="exam-start-btn" id="btn-restart-exam">🔄 再来一套真题模拟</button>
             <button class="btn-stage-action prev" id="btn-back-to-home" style="padding: 13px 28px; font-size: 15px;">返回考前准备</button>
           </div>
         </div>
@@ -1205,20 +1203,6 @@
         }
       });
     });
-
-    const reviewSingleBtn = document.getElementById('btn-review-single-stage');
-    if (reviewSingleBtn) {
-      reviewSingleBtn.addEventListener('click', () => {
-        enterReviewStage(examState.singleStageId);
-      });
-    }
-
-    const reviewFullBtn = document.getElementById('btn-review-full-exam');
-    if (reviewFullBtn) {
-      reviewFullBtn.addEventListener('click', () => {
-        enterReviewStage(1);
-      });
-    }
 
     const restartBtn = document.getElementById('btn-restart-exam');
     if (restartBtn) {

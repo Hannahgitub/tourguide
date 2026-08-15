@@ -1125,15 +1125,19 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (listenQBtn) {
-      // 题目朗读：若原句是英文则朗读英文原句；若原句是中文则朗读英文译文辅助
-      listenQBtn.style.display = 'inline-flex';
-      listenQBtn.title = isC2E ? '听英文参考译文' : '听英文原句';
+      // 中文源句绝不播放音频；只有英译中（英文原题）才显示播放按钮
+      if (isC2E) {
+        listenQBtn.style.display = 'none';
+      } else {
+        listenQBtn.style.display = 'inline-flex';
+        listenQBtn.title = '听英文原题发音';
+      }
     }
 
     let refContentHTML = `
       <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 10px;">
         <div style="white-space: pre-line; font-size: 15px; font-weight: 700; color: #1e3a8a; line-height: 1.6; flex: 1;">${ansText}</div>
-        ${isC2E ? `<button class="action-btn" id="btn-interp-listen-ans" title="听英文译文" style="padding: 4px 10px; font-size: 15px; background: #ebf5ee; border: 1px solid #c6e2ce; color: #2d7a4c; border-radius: 50%; width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0;">🔊</button>` : ''}
+        ${isC2E ? `<button class="action-btn" id="btn-interp-listen-ans" title="听英文参考译文发音" style="padding: 4px 10px; font-size: 15px; background: #ebf5ee; border: 1px solid #c6e2ce; color: #2d7a4c; border-radius: 50%; width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0;">🔊</button>` : ''}
       </div>
     `;
     if (refTextEl) refTextEl.innerHTML = refContentHTML;
@@ -1141,9 +1145,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (userInput) userInput.value = '';
 
     const btnListenAns = document.getElementById('btn-interp-listen-ans');
-    if (btnListenAns) {
+    if (btnListenAns && isC2E) {
       btnListenAns.addEventListener('click', () => {
-        const audioUrl = item.id ? `audio/translations/trans_${item.id}.mp3` : ''; playAudioOrTTS(audioUrl, ansText, refTextEl);
+        const audioUrl = item.id ? `audio/translations/trans_${item.id}.mp3` : '';
+        playAudioOrTTS(audioUrl, ansText, refTextEl);
       });
     }
   }
@@ -1209,7 +1214,7 @@ document.addEventListener('DOMContentLoaded', () => {
           
           <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 6px;">
             <h3 class="qa-question-title" style="font-size: 16.5px; margin-bottom: 0; color: #1a1a1a; font-weight: 700; line-height: 1.5; flex: 1;">${qText}</h3>
-            ${!isC2E ? `<button class="action-btn btn-interp-list-read" data-idx="${idx}" title="听英文原句" style="padding: 4px 10px; font-size: 15px; background: #ebf5ee; border: 1px solid #c6e2ce; color: #2d7a4c; border-radius: 50%; width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0;">🔊</button>` : ''}
+            ${!isC2E ? `<button class="action-btn btn-interp-list-read" data-idx="${idx}" title="听英文原题" style="padding: 4px 10px; font-size: 15px; background: #ebf5ee; border: 1px solid #c6e2ce; color: #2d7a4c; border-radius: 50%; width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0;">🔊</button>` : ''}
           </div>
           
           <div style="display: flex; gap: 10px; margin-bottom: 8px; margin-top: 10px;">
@@ -1220,7 +1225,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="ref-answer-text">
               <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 10px;">
                 <div style="white-space: pre-line; font-size: 15px; font-weight: 700; color: #1e3a8a; line-height: 1.6; flex: 1;">${ansText}</div>
-                ${isC2E ? `<button class="action-btn btn-interp-list-read-ans" data-idx="${idx}" title="听英文译文" style="padding: 4px 10px; font-size: 15px; background: #ebf5ee; border: 1px solid #c6e2ce; color: #2d7a4c; border-radius: 50%; width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0;">🔊</button>` : ''}
+                ${isC2E ? `<button class="action-btn btn-interp-list-read-ans" data-idx="${idx}" title="听英文参考译文" style="padding: 4px 10px; font-size: 15px; background: #ebf5ee; border: 1px solid #c6e2ce; color: #2d7a4c; border-radius: 50%; width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0;">🔊</button>` : ''}
               </div>
             </div>
           </div>
@@ -1231,14 +1236,22 @@ document.addEventListener('DOMContentLoaded', () => {
       listContainer.querySelectorAll('.btn-interp-list-read').forEach(btn => {
         btn.addEventListener('click', e => {
           const i = e.currentTarget.getAttribute('data-idx');
-          speakText(list[i].src || list[i].question || list[i].en || '');
+          const curItem = list[i];
+          const audioUrl = curItem.id ? `audio/translations/trans_${curItem.id}.mp3` : '';
+          const cardEl = btn.closest('.card');
+          const titleEl = cardEl ? cardEl.querySelector('.qa-question-title') : null;
+          playAudioOrTTS(audioUrl, curItem.src || curItem.question || curItem.en || '', titleEl);
         });
       });
 
       listContainer.querySelectorAll('.btn-interp-list-read-ans').forEach(btn => {
         btn.addEventListener('click', e => {
           const i = e.currentTarget.getAttribute('data-idx');
-          speakText(list[i].ref || list[i].answer || list[i].cn || '');
+          const curItem = list[i];
+          const audioUrl = curItem.id ? `audio/translations/trans_${curItem.id}.mp3` : '';
+          const cardEl = btn.closest('.card');
+          const ansEl = cardEl ? cardEl.querySelector('.ref-answer-text') : null;
+          playAudioOrTTS(audioUrl, curItem.ref || curItem.answer || curItem.cn || '', ansEl);
         });
       });
 
@@ -2648,14 +2661,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (list.length === 0 || currentInterpIndex >= list.length) return;
         const item = list[currentInterpIndex];
         const isC2E = item.type === 'C2E' || item.tag === '汉译英';
-        if (isC2E) {
-          // 汉译英时，朗读参考英文译文
-          const ansEl = document.getElementById('interp-ref-text');
-          speakText(item.ref || item.answer || item.cn || '', ansEl);
-        } else {
-          // 英译中时，朗读英文题目原句
+        if (!isC2E) {
+          // 英译中时，播放生成的英文原题高清音频
+          const audioUrl = item.id ? `audio/translations/trans_${item.id}.mp3` : '';
           const qEl = document.getElementById('interp-question-text');
-          speakText(item.src || item.question || item.en || '', qEl);
+          playAudioOrTTS(audioUrl, item.src || item.question || item.en || '', qEl);
         }
       });
     }
