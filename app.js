@@ -1456,9 +1456,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 400);
       };
 
-      const spotName = speech.name || speech.id || '';
-      const safeNameWithGuangxi = '广西 ' + spotName.replace(/[\\/:*?"<>|]/g, '_').trim();
-      const audioUrl = `audio/${encodeURIComponent(safeNameWithGuangxi)}/section_${secIdx}.mp3`;
+      const spotName = (speech.name || speech.id || '').replace(/[\\/:*?"<>|]/g, '_').trim();
+      const audioUrl = `audio/${encodeURIComponent(spotName)}/section_${secIdx}.mp3`;
 
       playAudioOrTTS(audioUrl, cleanText, enContainer, onSectionEnd, true);
     }
@@ -1547,10 +1546,8 @@ document.addEventListener('DOMContentLoaded', () => {
           const cleanText = sec.en.replace(/<[^>]*>/g, '').replace(/^(English|Chinese)[:：/\s]*/gi, '').trim();
           const enContainer = card.querySelector('.speech-text-en');
 
-          const spotName = speech.name || speech.id || '';
-          const safeNameWithGuangxi = '广西 ' + spotName.replace(/[\\/:*?"<>|]/g, '_').trim();
-          const safeNameDirect = spotName.replace(/[\\/:*?"<>|]/g, '_').trim();
-          const audioUrl = `audio/${encodeURIComponent(safeNameWithGuangxi)}/section_${idx}.mp3`;
+          const spotName = (speech.name || speech.id || '').replace(/[\\/:*?"<>|]/g, '_').trim();
+          const audioUrl = `audio/${encodeURIComponent(spotName)}/section_${idx}.mp3`;
 
           const resetState = () => {
             card.dataset.playState = 'idle';
