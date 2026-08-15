@@ -1074,14 +1074,22 @@ document.addEventListener('DOMContentLoaded', () => {
       listContainer.querySelectorAll('.btn-qa-read').forEach(btn => {
         btn.addEventListener('click', e => {
           const i = e.currentTarget.getAttribute('data-idx');
-          const audioUrl = list[i].id ? `audio/questions/question_${list[i].id}.mp3` : ''; playAudioOrTTS(audioUrl, list[i].question);
+          const qText = list[i].enQuestion || list[i].question || '';
+          const audioUrl = list[i].id ? `audio/questions/question_${list[i].id}.mp3` : '';
+          const cardEl = btn.closest('.card');
+          const qEl = cardEl ? cardEl.querySelector('.qa-question-title') : null;
+          playAudioOrTTS(audioUrl, qText, qEl);
         });
       });
 
       listContainer.querySelectorAll('.btn-qa-read-ans').forEach(btn => {
         btn.addEventListener('click', e => {
           const i = e.currentTarget.getAttribute('data-idx');
-          const audioUrl = list[i].id ? `audio/questions/answer_${list[i].id}.mp3` : ''; playAudioOrTTS(audioUrl, list[i].answer);
+          const cleanAnsText = (list[i].enAnswer || list[i].answer || '').replace(/<[^>]*>/g, '');
+          const audioUrl = list[i].id ? `audio/questions/answer_${list[i].id}.mp3` : '';
+          const cardEl = btn.closest('.card');
+          const ansEl = cardEl ? cardEl.querySelector('.ref-answer-text') : null;
+          playAudioOrTTS(audioUrl, cleanAnsText, ansEl);
         });
       });
 
