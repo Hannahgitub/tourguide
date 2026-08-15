@@ -51,11 +51,72 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  function getBestUSVoice() {
+  function getBestVoiceByGender(preferredGender = 'female') {
     if (!('speechSynthesis' in window)) return null;
-    const voices = window.speechSynthesis.getVoices();
-    return voices.find(v => v.lang === 'en-US' || v.lang.includes('US') || v.name.includes('US')) ||
-           voices.find(v => v.lang.startsWith('en')) || null;
+    const voices = window.speechSynthesis.getVoices() || [];
+    if (!voices.length) return null;
+
+    const enVoices = voices.filter(v => v.lang && v.lang.toLowerCase().startsWith('en'));
+    const candidateVoices = enVoices.length ? enVoices : voices;
+
+    const isFemalePreferred = (preferredGender || 'female').toLowerCase() === 'female';
+
+    // 女性音色常见关键词与人名（覆盖 Windows Edge, Chrome, macOS, iOS 等）
+    const femaleKeywords = [
+      'female', 'jenny', 'zira', 'samantha', 'victoria', 'karen', 'eva', 'cathy',
+      'susan', 'ana', 'aria', 'hazel', 'stephanie', 'sonia', 'julie', 'alva'
+    ];
+    // 男性音色常见关键词与人名
+    const maleKeywords = [
+      'male', 'guy', 'david', 'alex', 'daniel', 'fred', 'george', 'richard',
+      'mark', 'tom', 'ryan', 'oliver', 'rishi', 'thomas', 'steffan'
+    ];
+
+    const targetKeywords = isFemalePreferred ? femaleKeywords : maleKeywords;
+    const oppositeKeywords = isFemalePreferred ? maleKeywords : femaleKeywords;
+
+    // 1. 查找包含目标性别关键词且为美音 en-US 的声音
+    let matched = candidateVoices.find(v => {
+      const name = (v.name || '').toLowerCase();
+      const lang = (v.lang || '').toLowerCase();
+      const isUS = lang === 'en-us' || lang.includes('us') || name.includes('us') || name.includes('united states');
+      return isUS && targetKeywords.some(kw => name.includes(kw));
+    });
+    if (matched) return matched;
+
+    // 2. 查找包含目标性别关键词的任何英文声音
+    matched = candidateVoices.find(v => {
+      const name = (v.name || '').toLowerCase();
+      return targetKeywords.some(kw => name.includes(kw));
+    });
+    if (matched) return matched;
+
+    // 3. 排除对方性别关键词的声音，优先取美音
+    matched = candidateVoices.find(v => {
+      const name = (v.name || '').toLowerCase();
+      const lang = (v.lang || '').toLowerCase();
+      const isUS = lang === 'en-us' || lang.includes('us') || name.includes('us');
+      return isUS && !oppositeKeywords.some(kw => name.includes(kw));
+    });
+    if (matched) return matched;
+
+    // 4. 回退到任意美音或英文声音
+    return candidateVoices.find(v => {
+      const lang = (v.lang || '').toLowerCase();
+      const name = (v.name || '').toLowerCase();
+      return lang === 'en-us' || lang.includes('us') || name.includes('us');
+    }) || candidateVoices[0] || null;
+  }
+
+  function getAudioSettings() {
+    const voiceElem = document.getElementById('speech-voice-select');
+    const rateElem = document.getElementById('speech-rate-select');
+
+    let voiceGender = voiceElem ? voiceElem.value : (localStorage.getItem('tour_speech_voice') || 'female');
+    let rate = rateElem ? parseFloat(rateElem.value || '1.0') : parseFloat(localStorage.getItem('tour_speech_rate') || '1.0');
+
+    if (isNaN(rate) || rate <= 0) rate = 1.0;
+    return { voiceGender, rate };
   }
 
   function escapeHtml(str) {
@@ -65,10 +126,11 @@ document.addEventListener('DOMContentLoaded', () => {
   function prepareContainerHighlight(containerEl, rawText) {
     if (!containerEl) return [];
     
-    if (containerEl.dataset.tokenized === 'true') {
+    // 如果已经 tokenized 并且包含有效 span 则直接复用
+    const existingSpans = containerEl.querySelectorAll('.word-token');
+    if (containerEl.dataset.tokenized === 'true' && existingSpans.length > 0) {
       const map = [];
-      const spans = containerEl.querySelectorAll('.word-token');
-      spans.forEach((span, idx) => {
+      existingSpans.forEach((span, idx) => {
         const start = parseInt(span.dataset.startChar || '0', 10);
         const end = parseInt(span.dataset.endChar || '0', 10);
         map.push({ index: idx, el: span, startChar: start, endChar: end });
@@ -130,19 +192,18 @@ document.addEventListener('DOMContentLoaded', () => {
         window.speechSynthesis.resume();
       }
 
-      const rateElem = document.getElementById('speech-rate-select');
-      const rate = rateElem ? parseFloat(rateElem.value || '1.0') : 1.0;
+      const audioSettings = getAudioSettings();
+      const rate = audioSettings.rate;
+      const voiceGender = audioSettings.voiceGender;
 
       const utterance = new SpeechSynthesisUtterance(cleanText);
       window._activeUtterance = utterance;
 
-      const voices = window.speechSynthesis.getVoices() || [];
-      const usVoice = voices.find(v => v.lang === 'en-US' || v.lang.includes('US') || v.name.includes('US')) ||
-                      voices.find(v => v.lang.startsWith('en')) || null;
-      if (usVoice) {
-        utterance.voice = usVoice;
+      const targetVoice = getBestVoiceByGender(voiceGender);
+      if (targetVoice) {
+        utterance.voice = targetVoice;
       }
-      utterance.lang = 'en-US';
+      utterance.lang = targetVoice ? targetVoice.lang : 'en-US';
       utterance.rate = rate;
 
       let isFinished = false;
@@ -181,14 +242,26 @@ document.addEventListener('DOMContentLoaded', () => {
             let activeIndex = -1;
             for (let i = 0; i < activeWordMap.length; i++) {
               if (charIdx >= activeWordMap[i].startChar && charIdx < activeWordMap[i].endChar) {
-                activeIndex = i; break;
+                activeIndex = i;
+                break;
+              }
+              if (charIdx < activeWordMap[i].startChar && activeIndex === -1) {
+                activeIndex = Math.max(0, i - 1);
+                break;
               }
             }
-            if (activeIndex !== -1) {
+            if (activeIndex === -1 && activeWordMap.length > 0) {
+              activeIndex = activeWordMap.length - 1;
+            }
+            if (activeIndex !== -1 && activeWordMap[activeIndex]) {
               clearSpeechHighlights(containerEl);
               activeWordMap[activeIndex].el.classList.add('word-active');
-              if (activeIndex > 0) activeWordMap[activeIndex - 1].el.classList.add('word-near');
-              if (activeIndex + 1 < activeWordMap.length) activeWordMap[activeIndex + 1].el.classList.add('word-near');
+              if (activeIndex > 0 && activeWordMap[activeIndex - 1]) {
+                activeWordMap[activeIndex - 1].el.classList.add('word-near');
+              }
+              if (activeIndex + 1 < activeWordMap.length && activeWordMap[activeIndex + 1]) {
+                activeWordMap[activeIndex + 1].el.classList.add('word-near');
+              }
             }
           }
         };
@@ -214,8 +287,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    const rateElem = document.getElementById('speech-rate-select');
-    const rate = rateElem ? parseFloat(rateElem.value || '1.0') : 1.0;
+    const rate = getAudioSettings().rate;
 
     let hasFallbackHandled = false;
     const triggerFallback = () => {
@@ -257,8 +329,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function playSmartAudio(audioUrl, fallbackText, containerEl, onEndCallback) {
     stopAllAudio();
-    const rateElem = document.getElementById('speech-rate-select');
-    const rate = rateElem ? parseFloat(rateElem.value || '1.0') : 1.0;
+    const rate = getAudioSettings().rate;
 
     const handleEnd = () => {
       clearSpeechHighlights(containerEl);
@@ -369,6 +440,24 @@ document.addEventListener('DOMContentLoaded', () => {
     return list;
   }
 
+  // 净化专题导游词名称（去除多余的“广西”前缀）
+  function formatSpeechDisplayName(sp) {
+    if (!sp) return '';
+    let name = typeof sp === 'string' ? sp : (sp.name || sp.id || '');
+    const cat = typeof sp === 'object' ? sp.category : '';
+    if (cat !== '景区讲解') {
+      name = name.replace(/^广西\s*/, '').replace(/^广西/, '').trim();
+    }
+    return name;
+  }
+
+  // 获取导游词分段音频绝对/相对路径（优先匹配已同步的干净文件夹）
+  function getSpeechAudioUrl(sp, secIdx) {
+    const rawName = (typeof sp === 'string' ? sp : (sp.name || sp.id || '')).replace(/[\\/:*?"<>|]/g, '_').trim();
+    const cleanName = rawName.replace(/^广西\s*/, '').replace(/^广西/, '').trim();
+    return `audio/${encodeURIComponent(cleanName)}/section_${secIdx}.mp3`;
+  }
+
   // DOM elements
   const mainNavBtns = document.querySelectorAll('#main-nav-tabs .tab-btn');
   const subNavWrapper = document.getElementById('sub-nav-wrapper');
@@ -465,7 +554,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 ${allInCat.map(sp => {
                   const idOrName = sp.id || sp.name;
                   const isSel = idOrName === curSelected;
-                  return `<option value="${escapeHtml(idOrName)}" ${isSel ? 'selected' : ''}>${escapeHtml(sp.name)}</option>`;
+                  const displayName = formatSpeechDisplayName(sp);
+                  return `<option value="${escapeHtml(idOrName)}" ${isSel ? 'selected' : ''}>${escapeHtml(displayName)}</option>`;
                 }).join('')}
               </select>
             </div>
@@ -543,7 +633,7 @@ document.addEventListener('DOMContentLoaded', () => {
         catFilterContainer.appendChild(btn);
       });
     } else if (currentMainTab === 'custom-interview') {
-      // 专题自选模式：上面展示纯净管理面板，下面展示 5 篇自选 Chips
+      // 专题自选模式：上面展示纯净管理面板，下面展示 5 篇自选 Chips（无多余广西前缀）
       catFilterContainer.style.display = 'none';
       spotChipsContainer.style.display = 'flex';
       renderCustomTopicPicker();
@@ -563,7 +653,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const chip = document.createElement('div');
         chip.className = `spot-chip ${globalIdx === currentCustomTopicIndex ? 'active' : ''}`;
         const prefix = (sp.category || '').replace('广西', '');
-        chip.innerHTML = `<span>【${prefix}】${sp.name}</span><span class="chip-star-icon">⭐</span>`;
+        const cleanName = formatSpeechDisplayName(sp);
+        chip.innerHTML = `<span>【${prefix}】${cleanName}</span><span class="chip-star-icon">⭐</span>`;
         chip.addEventListener('click', () => {
           stopAllAudio();
           currentCustomTopicIndex = globalIdx;
@@ -574,7 +665,7 @@ document.addEventListener('DOMContentLoaded', () => {
         spotChipsContainer.appendChild(chip);
       });
     } else {
-      // 专题讲解模式：展示当前专题分类下的 3 条路线，并高亮已选入自选库的篇目
+      // 专题讲解模式：展示当前专题分类下的 3 条路线，并高亮已选入自选库的篇目（无多余广西前缀）
       if (customTopicHeaderContainer) customTopicHeaderContainer.style.display = 'none';
       catFilterContainer.style.display = 'flex';
       spotChipsContainer.style.display = 'flex';
@@ -596,7 +687,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const chip = document.createElement('div');
         chip.className = `spot-chip ${globalIdx === currentSpotIndex ? 'active' : ''}`;
         const isSelected = isTopicSelected(currentCategory, sp.id || sp.name);
-        chip.innerHTML = `<span>${sp.name}</span>${isSelected ? '<span class="chip-star-icon">⭐</span>' : ''}`;
+        const cleanName = formatSpeechDisplayName(sp);
+        chip.innerHTML = `<span>${cleanName}</span>${isSelected ? '<span class="chip-star-icon">⭐</span>' : ''}`;
         chip.addEventListener('click', () => {
           stopAllAudio();
           currentSpotIndex = globalIdx;
@@ -1272,7 +1364,7 @@ document.addEventListener('DOMContentLoaded', () => {
               </button>
             ` : ''}
           </div>
-          <h2 style="font-size: 20px; font-weight: 800; color: #1a1a1a; margin-top: 4px;">${speech.name}</h2>
+          <h2 style="font-size: 20px; font-weight: 800; color: #1a1a1a; margin-top: 4px;">${formatSpeechDisplayName(speech)}</h2>
         </div>
         <span style="font-size: 13px; color: #23613c; font-weight: 600; background: #e2ebe3; padding: 4px 12px; border-radius: 20px;">
           📖 共 ${speech.sections.length} 个讲解段落
@@ -1298,6 +1390,9 @@ document.addEventListener('DOMContentLoaded', () => {
     container.appendChild(headerCard);
 
     // 2. 播放控制卡（放在标题下方）
+    const savedVoice = localStorage.getItem('tour_speech_voice') || 'female';
+    const savedRate = localStorage.getItem('tour_speech_rate') || '1.0';
+
     const controlCard = document.createElement('div');
     controlCard.className = 'audio-control-card';
     controlCard.style.marginBottom = '16px';
@@ -1308,14 +1403,50 @@ document.addEventListener('DOMContentLoaded', () => {
         </button>
       </div>
       <div class="audio-controls">
-        <label style="font-size: 13px; color: #555;">语速:</label>
-        <select class="speed-select" id="speech-rate-select">
-          <option value="0.8">慢</option>
-          <option value="1.0" selected>中</option>
-          <option value="1.2">快</option>
-        </select>
+        <div class="audio-control-item">
+          <label style="font-size: 13px; color: #555;">音色:</label>
+          <select class="voice-select" id="speech-voice-select" title="选择朗读音色">
+            <option value="female"${savedVoice === 'female' ? ' selected' : ''}>女声 (Female)</option>
+            <option value="male"${savedVoice === 'male' ? ' selected' : ''}>男声 (Male)</option>
+          </select>
+        </div>
+        <div class="audio-control-item">
+          <label style="font-size: 13px; color: #555;">语速:</label>
+          <select class="speed-select" id="speech-rate-select" title="选择朗读倍速">
+            <option value="0.75"${savedRate === '0.75' ? ' selected' : ''}>0.75x</option>
+            <option value="0.9"${savedRate === '0.9' ? ' selected' : ''}>0.9x</option>
+            <option value="1.0"${savedRate === '1.0' ? ' selected' : ''}>1.0x</option>
+            <option value="1.1"${savedRate === '1.1' ? ' selected' : ''}>1.1x</option>
+            <option value="1.2"${savedRate === '1.2' ? ' selected' : ''}>1.2x</option>
+            <option value="1.5"${savedRate === '1.5' ? ' selected' : ''}>1.5x</option>
+          </select>
+        </div>
       </div>
     `;
+
+    const voiceSelectEl = controlCard.querySelector('#speech-voice-select');
+    if (voiceSelectEl) {
+      voiceSelectEl.addEventListener('change', (e) => {
+        try {
+          localStorage.setItem('tour_speech_voice', e.target.value);
+        } catch (_) {}
+      });
+    }
+
+    const rateSelectEl = controlCard.querySelector('#speech-rate-select');
+    if (rateSelectEl) {
+      rateSelectEl.addEventListener('change', (e) => {
+        const val = e.target.value;
+        const rateNum = parseFloat(val) || 1.0;
+        try {
+          localStorage.setItem('tour_speech_rate', val);
+        } catch (_) {}
+        if (staticAudioPlayer) {
+          staticAudioPlayer.playbackRate = rateNum;
+        }
+      });
+    }
+
     container.appendChild(controlCard);
 
     // 3. 速记大纲与动线流程图卡片 (Mindflow & Keywords)
@@ -1456,10 +1587,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 400);
       };
 
-      const spotName = (speech.name || speech.id || '').replace(/[\\/:*?"<>|]/g, '_').trim();
-      const audioUrl = `audio/${encodeURIComponent(spotName)}/section_${secIdx}.mp3`;
-
-      playAudioOrTTS(audioUrl, cleanText, enContainer, onSectionEnd, true);
+      speakText(cleanText, enContainer, onSectionEnd, true);
     }
 
     playAllBtn.addEventListener('click', () => {
@@ -1546,9 +1674,6 @@ document.addEventListener('DOMContentLoaded', () => {
           const cleanText = sec.en.replace(/<[^>]*>/g, '').replace(/^(English|Chinese)[:：/\s]*/gi, '').trim();
           const enContainer = card.querySelector('.speech-text-en');
 
-          const spotName = (speech.name || speech.id || '').replace(/[\\/:*?"<>|]/g, '_').trim();
-          const audioUrl = `audio/${encodeURIComponent(spotName)}/section_${idx}.mp3`;
-
           const resetState = () => {
             card.dataset.playState = 'idle';
             card.classList.remove('reading-active');
@@ -1559,7 +1684,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
           };
 
-          playAudioOrTTS(audioUrl, cleanText, enContainer, resetState, true);
+          speakText(cleanText, enContainer, resetState, true);
         });
       }
 

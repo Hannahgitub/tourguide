@@ -384,16 +384,45 @@ header.main-header {
 .audio-controls {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 12px;
 }
 
-.speed-select {
-  padding: 6px 12px;
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--pill-border);
+.audio-control-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.audio-control-item label {
+  font-size: 13px;
+  color: var(--text-muted, #555);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.speed-select,
+.voice-select {
+  padding: 5px 10px;
+  border-radius: var(--radius-sm, 6px);
+  border: 1px solid var(--pill-border, #d9d9d9);
   background: #fff;
   font-size: 13px;
+  color: #333;
   cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.speed-select:hover,
+.voice-select:hover {
+  border-color: var(--primary-green, #2d7a4c);
+}
+
+.speed-select:focus,
+.voice-select:focus {
+  border-color: var(--primary-green, #2d7a4c);
+  box-shadow: 0 0 0 2px rgba(45, 122, 76, 0.15);
 }
 
 .btn-secondary {

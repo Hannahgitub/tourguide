@@ -95,7 +95,7 @@
             <div class="exam-steps-tracker" style="gap: 10px;">
               <div class="exam-step-item active" style="padding: 6px 14px; background: #eef8f1; border-color: #2d7a4c; color: #2d7a4c; font-weight: 800;">
                 <span>🎯</span>
-                <span>单科专项测试 · ${STAGE_CONFIG[examState.stage]?.title || '单科模拟'} (5:00)</span>
+                <span>单科专项测试 · ${STAGE_CONFIG[examState.stage]?.title || '单科模拟'}</span>
               </div>
             </div>
           ` : `
@@ -149,6 +149,17 @@
     return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
   }
 
+  // 净化专题导游词名称（去除多余的“广西”前缀）
+  function formatSpeechDisplayName(sp) {
+    if (!sp) return '';
+    let name = typeof sp === 'string' ? sp : (sp.name || sp.id || '');
+    const cat = typeof sp === 'object' ? sp.category : '';
+    if (cat !== '景区讲解') {
+      name = name.replace(/^广西\s*/, '').replace(/^广西/, '').trim();
+    }
+    return name;
+  }
+
   // 1. 考前准备引导页 (支持整场模考或点击卡片进入单科测试)
   function renderWelcomeView() {
     return `
@@ -157,49 +168,49 @@
           <span class="exam-welcome-badge">GUANGXI TOUR GUIDE EXAM SIMULATOR</span>
           <h1 class="exam-welcome-title">🎓 外语导游资格考试 · 全真考场模拟</h1>
           <p class="exam-welcome-desc">
-            全真口试考场流程。每环节独立倒计时 <strong>5 分钟（300秒）</strong>。支持<strong>整套 20 分钟全真模考</strong>，或<strong>点击下方卡片单独进行单科专项特训</strong>！
+            严格依照全真口试考场流程。各环节独立倒计时 5 分钟，支持完整模拟考核或点击下方卡片进入单科专项测试。
           </p>
 
           <div class="exam-stages-grid">
-            <div class="stage-preview-card" data-stage="1" title="点击直接进入【01. 专题讲解】单科测试 (5分钟)">
+            <div class="stage-preview-card" data-stage="1" title="点击进入【01. 专题讲解】单科测试">
               <div class="stage-preview-title">
                 <span>01. 专题讲解</span>
                 <span class="stage-preview-time">5:00</span>
               </div>
               <div class="stage-preview-desc">考官随机抽取五大专题之一，考生自选该专题下的一条线路或篇目进行讲解。</div>
-              <div class="stage-preview-action"><span>🎯 单科特训</span> <span>➔</span></div>
+              <div class="stage-preview-action"><span>单科测试</span> <span>➔</span></div>
             </div>
 
-            <div class="stage-preview-card" data-stage="2" title="点击直接进入【02. 景区讲解】单科测试 (5分钟)">
+            <div class="stage-preview-card" data-stage="2" title="点击进入【02. 景区讲解】单科测试">
               <div class="stage-preview-title">
                 <span>02. 景区讲解</span>
                 <span class="stage-preview-time">5:00</span>
               </div>
               <div class="stage-preview-desc">抽取代表性景区进行现场英文讲解。支持考纲速记、遮挡自测与双语原文三级提示。</div>
-              <div class="stage-preview-action"><span>🎯 单科特训</span> <span>➔</span></div>
+              <div class="stage-preview-action"><span>单科测试</span> <span>➔</span></div>
             </div>
 
-            <div class="stage-preview-card" data-stage="3" title="点击直接进入【03. 知识问答】单科测试 (5分钟)">
+            <div class="stage-preview-card" data-stage="3" title="点击进入【03. 知识问答】单科测试">
               <div class="stage-preview-title">
                 <span>03. 知识问答</span>
                 <span class="stage-preview-time">5:00</span>
               </div>
               <div class="stage-preview-desc">纯英文考官真题提问 3 题。支持语音/文字作答，即时打分并可查阅官方标准答案与题目翻译。</div>
-              <div class="stage-preview-action"><span>🎯 单科特训</span> <span>➔</span></div>
+              <div class="stage-preview-action"><span>单科测试</span> <span>➔</span></div>
             </div>
 
-            <div class="stage-preview-card" data-stage="4" title="点击直接进入【04. 口译测试】单科测试 (5分钟)">
+            <div class="stage-preview-card" data-stage="4" title="点击进入【04. 口译测试】单科测试">
               <div class="stage-preview-title">
                 <span>04. 口译测试</span>
                 <span class="stage-preview-time">5:00</span>
               </div>
               <div class="stage-preview-desc">英汉双向口译测试，支持考生语音/文本录入译文，即时评测并可查看参考译文。</div>
-              <div class="stage-preview-action"><span>🎯 单科特训</span> <span>➔</span></div>
+              <div class="stage-preview-action"><span>单科测试</span> <span>➔</span></div>
             </div>
           </div>
 
           <button class="exam-start-btn" id="btn-start-simulation">
-            🚀 准备就绪，开始全套模拟考试 (4科 20分钟)
+            🚀 准备就绪，开始模拟考试
           </button>
         </div>
       </div>
@@ -412,6 +423,9 @@
       : [];
     const selected = examState.part1.selectedSpeech || availableSpeeches[0];
 
+    const isRecording = (examState.part1.recordingState === 'recording');
+    const hasAudio = !!examState.part1.audioBlobUrl;
+
     return `
       <div class="exam-section-header">
         <div>
@@ -443,13 +457,38 @@
             return `
               <div class="topic-route-card ${isSelected ? 'selected' : ''}" data-speech-id="${escapeHtml(s.id || s.name)}">
                 <div class="topic-route-name">
-                  <span>🚩 ${escapeHtml(s.name || s.id)}</span>
+                  <span>🚩 ${escapeHtml(formatSpeechDisplayName(s))}</span>
                   ${isSelected ? '<span style="color: var(--exam-green-main); font-size: 12px; font-weight: 800;">✓ 已选</span>' : ''}
                 </div>
                 ${theme ? `<div class="topic-route-theme">💡 ${escapeHtml(theme)}</div>` : ''}
               </div>
             `;
           }).join('')}
+        </div>
+      </div>
+
+      <!-- 考生现场模拟讲解录音与回放答题区 -->
+      <div class="speech-recording-area">
+        <div class="speech-recording-header">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 16px;">🎙️</span>
+            <strong style="color: var(--exam-text-dark); font-size: 14.5px;">现场模拟解说录音区</strong>
+            <span style="font-size: 11px; color: #166534; background: #dcfce7; padding: 2px 8px; border-radius: 10px; font-weight: 700;">支持录音与回放试听</span>
+          </div>
+          <div id="speech-rec-timer-part1" class="speech-rec-timer" style="${isRecording ? 'display:flex;' : 'display:none;'}">
+            <span class="rec-dot"></span> 正在录音：<span id="speech-rec-duration-part1">${formatTime(examState.part1.recordingDuration || 0)}</span>
+          </div>
+        </div>
+
+        <div class="speech-recording-controls">
+          <button class="speech-rec-btn ${isRecording ? 'recording' : ''}" id="btn-toggle-speech-rec-part1">
+            ${isRecording ? '⏹️ 停止解说录音' : (hasAudio ? '🔄 重新录制解说' : '🎙️ 开始现场模拟录音')}
+          </button>
+
+          <div class="speech-rec-player-wrapper" id="speech-rec-player-wrapper-part1" style="${hasAudio ? 'display:flex;' : 'display:none;'}">
+            <audio id="speech-rec-audio-part1" src="${examState.part1.audioBlobUrl || ''}" controls></audio>
+            <span style="font-size: 12px; color: #2d7a4c; font-weight: 700;">✅ 录音已保存，支持回放复盘</span>
+          </div>
         </div>
       </div>
 
@@ -476,10 +515,13 @@
     `;
   }
 
-  // 阶段 2: 景区讲解
+  // 阶段 2: 景区讲解 (考官抽景区)
   function renderPart2Content() {
     const scenic = examState.part2.scenic;
     if (!scenic) return '<div>正在抽取景区...</div>';
+
+    const isRecording = (examState.part2.recordingState === 'recording');
+    const hasAudio = !!examState.part2.audioBlobUrl;
 
     return `
       <div class="exam-section-header">
@@ -497,6 +539,31 @@
           <span>${escapeHtml(scenic.name || scenic.id)}</span>
         </div>
         <button class="lottery-spin-btn" id="btn-redraw-part2">🔄 重新抽签景区</button>
+      </div>
+
+      <!-- 考生现场模拟讲解录音与回放答题区 -->
+      <div class="speech-recording-area">
+        <div class="speech-recording-header">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 16px;">🎙️</span>
+            <strong style="color: var(--exam-text-dark); font-size: 14.5px;">现场模拟解说录音区</strong>
+            <span style="font-size: 11px; color: #166534; background: #dcfce7; padding: 2px 8px; border-radius: 10px; font-weight: 700;">支持录音与回放试听</span>
+          </div>
+          <div id="speech-rec-timer-part2" class="speech-rec-timer" style="${isRecording ? 'display:flex;' : 'display:none;'}">
+            <span class="rec-dot"></span> 正在录音：<span id="speech-rec-duration-part2">${formatTime(examState.part2.recordingDuration || 0)}</span>
+          </div>
+        </div>
+
+        <div class="speech-recording-controls">
+          <button class="speech-rec-btn ${isRecording ? 'recording' : ''}" id="btn-toggle-speech-rec-part2">
+            ${isRecording ? '⏹️ 停止解说录音' : (hasAudio ? '🔄 重新录制解说' : '🎙️ 开始现场模拟录音')}
+          </button>
+
+          <div class="speech-rec-player-wrapper" id="speech-rec-player-wrapper-part2" style="${hasAudio ? 'display:flex;' : 'display:none;'}">
+            <audio id="speech-rec-audio-part2" src="${examState.part2.audioBlobUrl || ''}" controls></audio>
+            <span style="font-size: 12px; color: #2d7a4c; font-weight: 700;">✅ 录音已保存，支持回放复盘</span>
+          </div>
+        </div>
       </div>
 
       <!-- 三级提示控制区 -->
@@ -828,8 +895,14 @@
           <div class="report-item-box">
             <div class="report-item-title">🎙️ 抽选专题与自选线路</div>
             <div class="report-item-val" style="font-size: 15px;">
-              ${escapeHtml(examState.part1.category)} · ${escapeHtml(examState.part1.selectedSpeech?.name || '')}
+              ${escapeHtml(examState.part1.category)} · ${escapeHtml(formatSpeechDisplayName(examState.part1.selectedSpeech))}
               <div style="font-size: 12px; color: var(--exam-text-muted); font-weight: normal; margin-top: 4px;">求助提示: ${examState.part1.hintLevel}次 (满级3次)</div>
+              ${examState.part1.audioBlobUrl ? `
+                <div style="margin-top: 8px;">
+                  <div style="font-size: 12px; color: #2d7a4c; font-weight: 700; margin-bottom: 4px;">🎧 您的现场解说录音：</div>
+                  <audio src="${examState.part1.audioBlobUrl}" controls style="height: 32px; width: 100%; max-width: 280px;"></audio>
+                </div>
+              ` : ''}
             </div>
           </div>
         `;
@@ -841,6 +914,12 @@
             <div class="report-item-val" style="font-size: 15px;">
               ${escapeHtml(examState.part2.scenic?.name || '')}
               <div style="font-size: 12px; color: var(--exam-text-muted); font-weight: normal; margin-top: 4px;">求助提示: ${examState.part2.hintLevel}次 (满级3次)</div>
+              ${examState.part2.audioBlobUrl ? `
+                <div style="margin-top: 8px;">
+                  <div style="font-size: 12px; color: #2d7a4c; font-weight: 700; margin-bottom: 4px;">🎧 您的现场解说录音：</div>
+                  <audio src="${examState.part2.audioBlobUrl}" controls style="height: 32px; width: 100%; max-width: 280px;"></audio>
+                </div>
+              ` : ''}
             </div>
           </div>
         `;
@@ -890,7 +969,7 @@
             <div class="report-grid">
               <div class="report-item-box">
                 <div class="report-item-title">⏱️ 本科测试用时</div>
-                <div class="report-item-val">${Math.floor(timeSpent / 60)}分${timeSpent % 60}秒 <span style="font-size:12px; color:var(--exam-text-muted); font-weight:normal;">(限时 5:00)</span></div>
+                <div class="report-item-val">${Math.floor(timeSpent / 60)}分${timeSpent % 60}秒</div>
               </div>
               ${detailHtml}
             </div>
@@ -904,7 +983,7 @@
 
             <div style="text-align: center; display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;">
               <button class="exam-start-btn" id="btn-retry-single-stage">🔄 重新抽题，再测一次本单科</button>
-              <button class="action-btn" id="btn-start-full-simulation" style="padding: 12px 22px; font-size: 14px; background: #ebf5ee; color: #2d7a4c; border: 1.5px solid #c6e2ce; border-radius: 25px; font-weight: 700; cursor: pointer;">🚀 开始全套4科模考 (20分钟)</button>
+              <button class="action-btn" id="btn-start-full-simulation" style="padding: 12px 22px; font-size: 14px; background: #ebf5ee; color: #2d7a4c; border: 1.5px solid #c6e2ce; border-radius: 25px; font-weight: 700; cursor: pointer;">🚀 开始全真模拟考试</button>
               <button class="btn-stage-action prev" id="btn-back-to-home" style="padding: 12px 22px; font-size: 14px;">返回考前准备</button>
             </div>
           </div>
@@ -954,8 +1033,13 @@
             <div class="report-item-box">
               <div class="report-item-title">🎙️ Part 1 专题讲解</div>
               <div class="report-item-val" style="font-size: 14.5px;">
-                ${escapeHtml(examState.part1.category)} · ${escapeHtml(examState.part1.selectedSpeech?.name || '')}
+                ${escapeHtml(examState.part1.category)} · ${escapeHtml(formatSpeechDisplayName(examState.part1.selectedSpeech))}
                 <div style="font-size: 11.5px; color: var(--exam-text-muted); font-weight: normal; margin-top: 2px;">求助提示: ${examState.part1.hintLevel}次</div>
+                ${examState.part1.audioBlobUrl ? `
+                  <div style="margin-top: 6px;">
+                    <audio src="${examState.part1.audioBlobUrl}" controls style="height: 30px; width: 100%;"></audio>
+                  </div>
+                ` : ''}
               </div>
             </div>
 
@@ -964,6 +1048,11 @@
               <div class="report-item-val" style="font-size: 14.5px;">
                 ${escapeHtml(examState.part2.scenic?.name || '')}
                 <div style="font-size: 11.5px; color: var(--exam-text-muted); font-weight: normal; margin-top: 2px;">求助提示: ${examState.part2.hintLevel}次</div>
+                ${examState.part2.audioBlobUrl ? `
+                  <div style="margin-top: 6px;">
+                    <audio src="${examState.part2.audioBlobUrl}" controls style="height: 30px; width: 100%;"></audio>
+                  </div>
+                ` : ''}
               </div>
             </div>
 
@@ -1027,12 +1116,95 @@
     }
   }
 
+  // 停止并清理当前正在进行的录音
+  function stopActiveSpeechRecording(partKey) {
+    const pData = examState[partKey];
+    if (!pData) return;
+    if (pData.recTimerInterval) {
+      clearInterval(pData.recTimerInterval);
+      pData.recTimerInterval = null;
+    }
+    if (pData.mediaRecorder && pData.mediaRecorder.state === 'recording') {
+      try {
+        pData.mediaRecorder.stop();
+      } catch (_) {}
+    } else {
+      pData.recordingState = pData.audioBlobUrl ? 'recorded' : 'idle';
+    }
+  }
+
+  // 切换录音开启/停止
+  function toggleSpeechRecording(partKey) {
+    const pData = examState[partKey];
+    if (!pData) return;
+
+    if (pData.recordingState === 'recording') {
+      // 停止录音
+      stopActiveSpeechRecording(partKey);
+    } else {
+      // 开始录音
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        alert('抱歉，您的浏览器暂不支持音频录制功能，请使用 Chrome 或 Edge 浏览器并允许麦克风权限。');
+        return;
+      }
+
+      navigator.mediaDevices.getUserMedia({ audio: true })
+        .then(stream => {
+          pData.audioChunks = [];
+          pData.recordingDuration = 0;
+          const mediaRecorder = new MediaRecorder(stream);
+          pData.mediaRecorder = mediaRecorder;
+
+          mediaRecorder.ondataavailable = e => {
+            if (e.data && e.data.size > 0) {
+              pData.audioChunks.push(e.data);
+            }
+          };
+
+          mediaRecorder.onstop = () => {
+            const blob = new Blob(pData.audioChunks, { type: 'audio/webm' });
+            if (pData.audioBlobUrl) {
+              URL.revokeObjectURL(pData.audioBlobUrl);
+            }
+            pData.audioBlobUrl = URL.createObjectURL(blob);
+            pData.recordingState = 'recorded';
+            if (pData.recTimerInterval) {
+              clearInterval(pData.recTimerInterval);
+              pData.recTimerInterval = null;
+            }
+            // 停止所有录音音轨
+            stream.getTracks().forEach(track => track.stop());
+            renderExamLayout();
+          };
+
+          mediaRecorder.start(250);
+          pData.recordingState = 'recording';
+
+          // 录音计时器
+          if (pData.recTimerInterval) clearInterval(pData.recTimerInterval);
+          pData.recTimerInterval = setInterval(() => {
+            pData.recordingDuration++;
+            const durEl = document.getElementById(`speech-rec-duration-${partKey}`);
+            if (durEl) durEl.textContent = formatTime(pData.recordingDuration);
+          }, 1000);
+
+          renderExamLayout();
+        })
+        .catch(err => {
+          console.warn('[Microphone Access Error]', err);
+          alert('无法访问麦克风，请检查浏览器权限设置并允许使用麦克风！');
+        });
+    }
+  }
+
   // 绑定各阶段内的交互事件
   function bindStageEvents() {
     // 提前进入下一阶段 / 完成单科测试
     const nextBtn = document.getElementById('btn-next-stage');
     if (nextBtn) {
       nextBtn.addEventListener('click', () => {
+        stopActiveSpeechRecording('part1');
+        stopActiveSpeechRecording('part2');
         recordCurrentStageTime();
         if (examState.mode === 'single') {
           finishExam();
@@ -1051,10 +1223,28 @@
     if (quitBtn) {
       quitBtn.addEventListener('click', () => {
         if (confirm('确认退出本次模拟考试吗？当前作答进度将不会保存。')) {
+          stopActiveSpeechRecording('part1');
+          stopActiveSpeechRecording('part2');
           if (examState.timerInterval) clearInterval(examState.timerInterval);
           examState.stage = 0;
           renderExamLayout();
         }
+      });
+    }
+
+    // Part 1: 录音切换按钮
+    const recBtnP1 = document.getElementById('btn-toggle-speech-rec-part1');
+    if (recBtnP1) {
+      recBtnP1.addEventListener('click', () => {
+        toggleSpeechRecording('part1');
+      });
+    }
+
+    // Part 2: 录音切换按钮
+    const recBtnP2 = document.getElementById('btn-toggle-speech-rec-part2');
+    if (recBtnP2) {
+      recBtnP2.addEventListener('click', () => {
+        toggleSpeechRecording('part2');
       });
     }
 

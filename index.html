@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>广西导考宝典</title>
   <link rel="stylesheet" href="style.css?v=20260815_hover_white_fix">
-  <link rel="stylesheet" href="mock_exam.css?v=20260815_single_stage_test">
+  <link rel="stylesheet" href="mock_exam.css?v=20260815_speech_recorder_v1">
 </head>
 <body>
   <div class="app-container">
@@ -277,11 +277,12 @@
     </main>
   </div>
 
-  <!-- 隐藏全局兜底语速节点 (防止 JavaScript 空指针异常) -->
+  <!-- 隐藏全局兜底音频节点 (防止 JavaScript 空指针异常) -->
+  <select id="speech-voice-select" style="display: none;"><option value="female" selected>female</option></select>
   <select id="speech-rate-select" style="display: none;"><option value="1.0" selected>1.0</option></select>
 
   <script src="data.js?v=20260815_all_hd_audio_fix" charset="UTF-8"></script>
   <script src="app.js?v=20260815_all_hd_audio_fix" charset="UTF-8"></script>
-  <script src="mock_exam.js?v=20260815_all_hd_audio_fix" charset="UTF-8"></script>
+  <script src="mock_exam.js?v=20260815_speech_recorder_v1" charset="UTF-8"></script>
 </body>
 </html>
