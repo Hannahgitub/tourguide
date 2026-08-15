@@ -1163,7 +1163,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let refContentHTML = `
       <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 10px;">
-        <div style="white-space: pre-line; font-size: 15px; font-weight: 700; color: #1e3a8a; line-height: 1.6; flex: 1;">${ansText}</div>
+        <div class="interp-ans-text-content" style="white-space: pre-line; font-size: 15px; font-weight: 700; color: #1e3a8a; line-height: 1.6; flex: 1;">${escapeHtml(ansText)}</div>
         ${isC2E ? `<button class="action-btn" id="btn-interp-listen-ans" title="听英文参考译文发音" style="padding: 4px 10px; font-size: 15px; background: #ebf5ee; border: 1px solid #c6e2ce; color: #2d7a4c; border-radius: 50%; width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0;">🔊</button>` : ''}
       </div>
     `;
@@ -1175,7 +1175,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btnListenAns && isC2E) {
       btnListenAns.addEventListener('click', () => {
         const audioUrl = item.id ? `audio/translations/trans_${item.id}.mp3` : '';
-        playAudioOrTTS(audioUrl, ansText, refTextEl);
+        const targetTextEl = refTextEl ? refTextEl.querySelector('.interp-ans-text-content') : null;
+        playAudioOrTTS(audioUrl, ansText, targetTextEl);
       });
     }
   }
@@ -1240,7 +1241,7 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
           
           <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 6px;">
-            <h3 class="qa-question-title" style="font-size: 16.5px; margin-bottom: 0; color: #1a1a1a; font-weight: 700; line-height: 1.5; flex: 1;">${qText}</h3>
+            <h3 class="qa-question-title" style="font-size: 16.5px; margin-bottom: 0; color: #1a1a1a; font-weight: 700; line-height: 1.5; flex: 1;">${escapeHtml(qText)}</h3>
             ${!isC2E ? `<button class="action-btn btn-interp-list-read" data-idx="${idx}" title="听英文原题" style="padding: 4px 10px; font-size: 15px; background: #ebf5ee; border: 1px solid #c6e2ce; color: #2d7a4c; border-radius: 50%; width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0;">🔊</button>` : ''}
           </div>
           
@@ -1251,7 +1252,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="ref-answer-box" id="interp-ref-box-${idx}" style="display: none; margin-top: 12px;">
             <div class="ref-answer-text">
               <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 10px;">
-                <div style="white-space: pre-line; font-size: 15px; font-weight: 700; color: #1e3a8a; line-height: 1.6; flex: 1;">${ansText}</div>
+                <div class="interp-list-ans-text" style="white-space: pre-line; font-size: 15px; font-weight: 700; color: #1e3a8a; line-height: 1.6; flex: 1;">${escapeHtml(ansText)}</div>
                 ${isC2E ? `<button class="action-btn btn-interp-list-read-ans" data-idx="${idx}" title="听英文参考译文" style="padding: 4px 10px; font-size: 15px; background: #ebf5ee; border: 1px solid #c6e2ce; color: #2d7a4c; border-radius: 50%; width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0;">🔊</button>` : ''}
               </div>
             </div>
@@ -1277,7 +1278,7 @@ document.addEventListener('DOMContentLoaded', () => {
           const curItem = list[i];
           const audioUrl = curItem.id ? `audio/translations/trans_${curItem.id}.mp3` : '';
           const cardEl = btn.closest('.card');
-          const ansEl = cardEl ? cardEl.querySelector('.ref-answer-text') : null;
+          const ansEl = cardEl ? cardEl.querySelector('.interp-list-ans-text') : null;
           playAudioOrTTS(audioUrl, curItem.ref || curItem.answer || curItem.cn || '', ansEl);
         });
       });
