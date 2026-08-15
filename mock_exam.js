@@ -1057,11 +1057,15 @@
               <div style="margin-top: 8px; font-weight: 700; color: ${rankColor}; font-size: 15px;">单科评定：${rankTag}</div>
             </div>
 
-            <div class="report-grid">
-              <div class="report-item-box">
-                <div class="report-item-title">⏱️ 本科测试用时</div>
-                <div class="report-item-val">${Math.floor(timeSpent / 60)}分${timeSpent % 60}秒</div>
+            <div class="report-time-bar">
+              <div class="report-time-left">
+                <span>⏱️</span>
+                <span>本科测试用时</span>
               </div>
+              <div class="report-time-val">${Math.floor(timeSpent / 60)}分${timeSpent % 60}秒</div>
+            </div>
+
+            <div style="margin-bottom: 24px;">
               ${detailHtml}
             </div>
 
@@ -1115,12 +1119,17 @@
             <div style="margin-top: 8px; font-weight: 700; color: ${rankColor}; font-size: 15px;">综合评定：${rankTag}</div>
           </div>
 
-          <div class="report-grid">
-            <div class="report-item-box">
-              <div class="report-item-title">⏱️ 考试总耗时</div>
-              <div class="report-item-val">${Math.floor(totalSeconds / 60)}分${totalSeconds % 60}秒</div>
+          <!-- 1. 第一行：扁平全宽总耗时横条 -->
+          <div class="report-time-bar">
+            <div class="report-time-left">
+              <span>⏱️</span>
+              <span>考试总耗时</span>
             </div>
+            <div class="report-time-val">${Math.floor(totalSeconds / 60)}分${totalSeconds % 60}秒</div>
+          </div>
 
+          <!-- 2. 剩下的 4 个科目 2x2 对齐整齐 -->
+          <div class="report-grid-4">
             <div class="report-item-box report-item-clickable" data-review-stage="1" title="点击进入 Part 1 专题答卷复盘回顾">
               <div class="report-item-title">🎙️ Part 1 专题讲解</div>
               <div class="report-item-val" style="font-size: 14.5px;">

@@ -758,7 +758,50 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 16px;
-  margin-bottom: 28px;
+  margin-bottom: 24px;
+}
+
+/* 扁平通栏总耗时横条 */
+.report-time-bar {
+  background: var(--exam-green-subtle);
+  border: 1px solid var(--exam-green-border);
+  border-radius: 12px;
+  padding: 12px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  box-shadow: 0 1px 4px rgba(45, 122, 76, 0.04);
+}
+
+.report-time-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--exam-text-dark);
+}
+
+.report-time-val {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--exam-green-main);
+  letter-spacing: 0.5px;
+}
+
+/* 4大环节2x2整齐对称网格 */
+.report-grid-4 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 640px) {
+  .report-grid-4 {
+    grid-template-columns: 1fr;
+  }
 }
 
 .report-item-box {
