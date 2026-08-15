@@ -14,6 +14,41 @@ document.addEventListener('DOMContentLoaded', () => {
   staticAudioPlayer.muted = false;
   staticAudioPlayer.volume = 1.0;
 
+  function clearSpeechHighlights(containerEl) {
+    const target = containerEl || activeSpeechContainer;
+    if (target) {
+      target.querySelectorAll('.word-token').forEach(el => {
+        el.classList.remove('word-active', 'word-near');
+      });
+    } else {
+      document.querySelectorAll('.word-token').forEach(el => {
+        el.classList.remove('word-active', 'word-near');
+      });
+      document.querySelectorAll('.reading-active').forEach(el => {
+        el.classList.remove('reading-active');
+      });
+    }
+  }
+
+  function restoreOriginalHtml(containerEl) {
+    const target = containerEl || activeSpeechContainer;
+    if (target) {
+      if (target.dataset && target.dataset.originalHtml) {
+        target.innerHTML = target.dataset.originalHtml;
+        delete target.dataset.originalHtml;
+        delete target.dataset.tokenized;
+      }
+      clearSpeechHighlights(target);
+    } else {
+      document.querySelectorAll('[data-original-html]').forEach(el => {
+        el.innerHTML = el.dataset.originalHtml;
+        delete el.dataset.originalHtml;
+        delete el.dataset.tokenized;
+      });
+      clearSpeechHighlights();
+    }
+  }
+
   function stopAllAudio(options = { resetTour: true }) {
     globalTourSessionId++;
     if (staticAudioPlayer) {
@@ -27,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
       window.speechSynthesis.cancel();
     }
     window._activeUtterance = null;
-    clearSpeechHighlights();
+    restoreOriginalHtml();
 
     if (options && options.resetTour && activeTourController) {
       activeTourController.reset();
@@ -40,15 +75,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const b = currentPlayingCard.querySelector('.btn-read-sec');
       if (b) b.textContent = '示范朗读';
       currentPlayingCard = null;
-    }
-  }
-
-  function clearSpeechHighlights(containerEl) {
-    const target = containerEl || activeSpeechContainer;
-    if (target) {
-      target.querySelectorAll('.word-token').forEach(el => {
-        el.classList.remove('word-active', 'word-near');
-      });
     }
   }
 
@@ -154,6 +180,11 @@ document.addEventListener('DOMContentLoaded', () => {
   function prepareContainerHighlight(containerEl, rawText) {
     if (!containerEl) return [];
     
+    // 如果容器包含特殊的格式化标签（如 mark, strong, em, br 等），保存原始 HTML 便于在播放结束时完整恢复原样
+    if (!containerEl.dataset.originalHtml && (containerEl.querySelector('mark') || containerEl.querySelector('strong') || containerEl.querySelector('em') || containerEl.querySelector('br'))) {
+      containerEl.dataset.originalHtml = containerEl.innerHTML;
+    }
+
     // 如果已经 tokenized 并且包含有效 span 则直接复用
     const existingSpans = containerEl.querySelectorAll('.word-token');
     if (containerEl.dataset.tokenized === 'true' && existingSpans.length > 0) {
@@ -235,10 +266,13 @@ document.addEventListener('DOMContentLoaded', () => {
       utterance.rate = rate;
 
       let isFinished = false;
+      let watchdogTimer = null;
+
       const handleEnd = () => {
         if (isFinished) return;
         isFinished = true;
-        clearSpeechHighlights(containerEl);
+        if (watchdogTimer) clearTimeout(watchdogTimer);
+        restoreOriginalHtml(containerEl);
         if (containerEl) {
           const parentCard = containerEl.closest('.card');
           if (parentCard) parentCard.classList.remove('reading-active');
@@ -249,6 +283,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (typeof onEndCallback === 'function') onEndCallback();
       };
 
+      utterance.onend = handleEnd;
+
       utterance.onerror = (err) => {
         console.warn('[TTS Error]', err);
         if (isFromTour && err && err.error !== 'interrupted') {
@@ -257,6 +293,15 @@ document.addEventListener('DOMContentLoaded', () => {
           handleEnd();
         }
       };
+
+      // 保底超时机制，防止部分浏览器在合成结束时漏掉 onend 事件
+      const wordCount = cleanText.split(/\s+/).length;
+      const estimatedMs = Math.max(3000, ((wordCount / (120 * rate / 60)) * 1000) + 3000);
+      watchdogTimer = setTimeout(() => {
+        if (!isFinished && window._activeUtterance === utterance) {
+          handleEnd();
+        }
+      }, estimatedMs);
 
       if (containerEl) {
         activeSpeechContainer = containerEl;
@@ -331,7 +376,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (staticAudioPlayer) {
         staticAudioPlayer.ontimeupdate = null;
       }
-      clearSpeechHighlights(containerEl);
+      restoreOriginalHtml(containerEl);
       if (containerEl) {
         const parentCard = containerEl.closest('.card');
         if (parentCard) parentCard.classList.remove('reading-active');
@@ -385,7 +430,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const rate = getAudioSettings().rate;
 
     const handleEnd = () => {
-      clearSpeechHighlights(containerEl);
+      restoreOriginalHtml(containerEl);
       if (typeof onEndCallback === 'function') onEndCallback();
     };
 
@@ -1349,20 +1394,33 @@ document.addEventListener('DOMContentLoaded', () => {
       if (itemList.length === 0) return;
 
       if (selectedSub.subject === "万能句式") {
-        itemList.forEach(item => {
+        itemList.forEach((item, idx) => {
           const itemCard = document.createElement('div');
           itemCard.className = 'card';
           itemCard.style.marginBottom = '14px';
           if (typeof item === 'string') {
             itemCard.innerHTML = `<div style="font-size: 14px; color: #333;">${item}</div>`;
           } else {
+            const enText = item.en || '';
             itemCard.innerHTML = `
-              <div style="font-weight: 700; font-size: 15.5px; color: #1a1a1a; margin-bottom: 10px;">• ${item.subtitle || ''}</div>
-              <div style="font-size: 14.5px; color: #2d7a4c; background: #ebf5ee; border-left: 4px solid #2d7a4c; padding: 12px 16px; border-radius: 6px; font-weight: 500; font-family: monospace; margin-bottom: 10px; line-height: 1.6;">"${item.en || ''}"</div>
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 10px;">
+                <div style="font-weight: 700; font-size: 15.5px; color: #1a1a1a;">• ${item.subtitle || ''}</div>
+                <button class="cheat-play-btn btn-skill-play" data-text="${escapeHtml(enText)}" title="听发音">🔊</button>
+              </div>
+              <div class="cheat-en-block skill-en-text" style="font-size: 14.5px; color: #2d7a4c; background: #ebf5ee; border-left: 4px solid #2d7a4c; padding: 12px 16px; border-radius: 6px; font-weight: 500; margin-bottom: 10px; line-height: 1.6;">"${enText}"</div>
               <div style="font-size: 13.5px; color: #444; line-height: 1.6;">${item.cn || ''}</div>
             `;
           }
           cardsContainer.appendChild(itemCard);
+        });
+
+        cardsContainer.querySelectorAll('.btn-skill-play').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const text = btn.getAttribute('data-text');
+            const cardEl = btn.closest('.card');
+            const targetEl = cardEl ? cardEl.querySelector('.skill-en-text') : null;
+            playSmartAudio('', text, targetEl || btn);
+          });
         });
         return;
       }
@@ -1382,8 +1440,9 @@ document.addEventListener('DOMContentLoaded', () => {
           formattedText = formattedText.replace(/章节指南与核心要点/g, '');
 
           formattedText = formattedText.replace(/"([^"]+)"/g, `
-            <div style="font-size: 14.5px; color: #2d7a4c; background: #ebf5ee; border-left: 4px solid #2d7a4c; padding: 12px 16px; border-radius: 6px; font-weight: 500; font-family: monospace; margin: 10px 0; line-height: 1.6;">
-              "$1"
+            <div class="cheat-en-block skill-en-text" style="font-size: 14.5px; color: #2d7a4c; background: #ebf5ee; border-left: 4px solid #2d7a4c; padding: 12px 16px; border-radius: 6px; font-weight: 500; margin: 10px 0; line-height: 1.6; display: flex; justify-content: space-between; align-items: flex-start; gap: 10px;">
+              <span style="flex:1;">"$1"</span>
+              <button class="cheat-mini-play-btn btn-skill-play" data-text="$1" title="听发音">🔊</button>
             </div>
           `);
           
@@ -1393,6 +1452,15 @@ document.addEventListener('DOMContentLoaded', () => {
             <h4 style="font-size: 16px; font-weight: 700; color: #1a1a1a; margin-bottom: 10px; border-bottom: 2px solid #dce7de; padding-bottom: 6px;">${item.subtitle || '核心要点'}</h4>
             <div style="font-size: 14.5px; color: #333; line-height: 1.8;">${formattedText}</div>
           `;
+
+          itemCard.querySelectorAll('.btn-skill-play').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+              e.stopPropagation();
+              const text = btn.getAttribute('data-text');
+              const blockEl = btn.closest('.skill-en-text');
+              playSmartAudio('', text, blockEl || btn);
+            });
+          });
         }
         cardsContainer.appendChild(itemCard);
       });
@@ -2401,38 +2469,53 @@ document.addEventListener('DOMContentLoaded', () => {
         container.innerHTML = `
           <!-- 1. Universal 5-Step Block -->
           <div class="card" style="border-left: 5px solid #2d7a4c; margin-bottom: 20px; padding: 22px;">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 12px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 12px; flex-wrap:wrap; gap:8px;">
               <h3 style="font-size: 18px; font-weight: 800; color: #2d7a4c;">🎯 专题讲解Universal 5步积木法 (Universal 5-Step Block)</h3>
               <span class="qa-tag-badge" style="background:#ebf5ee; color:#2d7a4c; border:1px solid #c6e2ce;">时长 4~5 分钟 · 逻辑定型</span>
             </div>
             
-            <div style="display: grid; gap: 12px; margin-top: 14px;">
-              <div style="background: #f6faf7; border: 1px solid #d4e8da; border-radius: 8px; padding: 12px 16px;">
-                <div style="font-weight: 700; color: #2d7a4c; font-size: 14px; margin-bottom: 4px;">Step 1: Hook & Welcome (破冰开场 - 30秒)</div>
-                <div style="font-size: 13.5px; color: #222; font-family: monospace;">"Dear tourists and friends, hello everyone! Welcome to beautiful Guangxi. Today, it’s my absolute pleasure to take you on a journey to explore <mark style="background:#fef08a; padding:1px 4px;">[the rich ethnic culture / longevity secrets]</mark> of this magical land."</div>
+            <div style="display: grid; gap: 14px; margin-top: 14px;">
+              <div class="cheat-step-card" style="background: #f6faf7; border: 1px solid #d4e8da; border-radius: 8px; padding: 12px 16px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 6px;">
+                  <div style="font-weight: 700; color: #2d7a4c; font-size: 14.5px;">Step 1: Hook & Welcome (破冰开场 - 30秒)</div>
+                  <button class="cheat-play-btn" data-text="Dear tourists and friends, hello everyone! Welcome to beautiful Guangxi. Today, it’s my absolute pleasure to take you on a journey to explore the rich ethnic culture and longevity secrets of this magical land." title="听破冰开场发音">🔊</button>
+                </div>
+                <div class="cheat-en-block">"Dear tourists and friends, hello everyone! Welcome to beautiful Guangxi. Today, it’s my absolute pleasure to take you on a journey to explore <mark style="background:#fef08a; padding:1px 4px;">[the rich ethnic culture / longevity secrets]</mark> of this magical land."</div>
               </div>
 
-              <div style="background: #f6faf7; border: 1px solid #d4e8da; border-radius: 8px; padding: 12px 16px;">
-                <div style="font-weight: 700; color: #2d7a4c; font-size: 14px; margin-bottom: 4px;">Step 2: Macro Overview & Significance (宏观定调与地位 - 60秒)</div>
-                <div style="font-size: 13.5px; color: #222; font-family: monospace;">"Guangxi, located in southern China, is blessed with <mark style="background:#fef08a; padding:1px 4px;">[ancient history / breath-taking karst landscapes]</mark>. What you are about to discover is not just scenery, but a living picture of human harmony with nature and culture."</div>
+              <div class="cheat-step-card" style="background: #f6faf7; border: 1px solid #d4e8da; border-radius: 8px; padding: 12px 16px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 6px;">
+                  <div style="font-weight: 700; color: #2d7a4c; font-size: 14.5px;">Step 2: Macro Overview & Significance (宏观定调与地位 - 60秒)</div>
+                  <button class="cheat-play-btn" data-text="Guangxi, located in southern China, is blessed with ancient history and breath-taking karst landscapes. What you are about to discover is not just scenery, but a living picture of human harmony with nature and culture." title="听宏观定调发音">🔊</button>
+                </div>
+                <div class="cheat-en-block">"Guangxi, located in southern China, is blessed with <mark style="background:#fef08a; padding:1px 4px;">[ancient history / breath-taking karst landscapes]</mark>. What you are about to discover is not just scenery, but a living picture of human harmony with nature and culture."</div>
               </div>
 
-              <div style="background: #ebf5ee; border: 1.5px dashed #a3d9b1; border-radius: 8px; padding: 12px 16px;">
-                <div style="font-weight: 700; color: #25663e; font-size: 14px; margin-bottom: 4px;">Step 3: Core Highlights Breakdown (三大核心亮点拆解 - 120~150秒) ⚡重点套用词库</div>
-                <div style="font-size: 13.5px; color: #222; font-family: monospace;">"When speaking of <mark style="background:#fef08a; padding:1px 4px;">[专题名称]</mark>, there are 3 key highlights you cannot miss:<br>
+              <div class="cheat-step-card" style="background: #ebf5ee; border: 1.5px dashed #a3d9b1; border-radius: 8px; padding: 12px 16px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 6px;">
+                  <div style="font-weight: 700; color: #25663e; font-size: 14.5px;">Step 3: Core Highlights Breakdown (三大核心亮点拆解 - 120~150秒) ⚡重点套用词库</div>
+                  <button class="cheat-play-btn" data-text="When speaking of our theme, there are 3 key highlights you cannot miss: First of all, the ancient historical origin and cultural heritage. Secondly, the distinctive ethnic customs and local delicacies. Last but not least, the harmonious natural ecology and hospitable people." title="听核心亮点发音">🔊</button>
+                </div>
+                <div class="cheat-en-block">"When speaking of <mark style="background:#fef08a; padding:1px 4px;">[专题名称]</mark>, there are 3 key highlights you cannot miss:<br>
                 First of all, <mark style="background:#dbeafe; color:#1e40af; padding:1px 4px;">[亮点一: 历史沿革 / 12世居民族 / 喀斯特地貌]</mark>...<br>
                 Secondly, <mark style="background:#dbeafe; color:#1e40af; padding:1px 4px;">[亮点二: 代表文化 / 名特风物 / 宜居环境]</mark>...<br>
                 Last but not least, <mark style="background:#dbeafe; color:#1e40af; padding:1px 4px;">[亮点三: 现代发展 / 风味美食 / 乐观心态]</mark>..."</div>
               </div>
 
-              <div style="background: #f6faf7; border: 1px solid #d4e8da; border-radius: 8px; padding: 12px 16px;">
-                <div style="font-weight: 700; color: #2d7a4c; font-size: 14px; margin-bottom: 4px;">Step 4: Interactive Guidance (现场互动与体验 - 30秒)</div>
-                <div style="font-size: 13.5px; color: #222; font-family: monospace;">"As we walk along this journey, please feel free to take photos or immerse yourselves in local music. Can you feel the unique warmth and hospitality of Guangxi people?"</div>
+              <div class="cheat-step-card" style="background: #f6faf7; border: 1px solid #d4e8da; border-radius: 8px; padding: 12px 16px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 6px;">
+                  <div style="font-weight: 700; color: #2d7a4c; font-size: 14.5px;">Step 4: Interactive Guidance (现场互动与体验 - 30秒)</div>
+                  <button class="cheat-play-btn" data-text="As we walk along this journey, please feel free to take photos or immerse yourselves in local music. Can you feel the unique warmth and hospitality of Guangxi people?" title="听现场互动发音">🔊</button>
+                </div>
+                <div class="cheat-en-block">"As we walk along this journey, please feel free to take photos or immerse yourselves in local music. Can you feel the unique warmth and hospitality of Guangxi people?"</div>
               </div>
 
-              <div style="background: #f6faf7; border: 1px solid #d4e8da; border-radius: 8px; padding: 12px 16px;">
-                <div style="font-weight: 700; color: #2d7a4c; font-size: 14px; margin-bottom: 4px;">Step 5: Theme Elevation & Closing (主题升华与结语 - 30秒)</div>
-                <div style="font-size: 13.5px; color: #222; font-family: monospace;">"More than just a tourist destination, Guangxi's heritage is a silent historian. I hope this visit adds a brilliant highlight to your journey. Thank you all!"</div>
+              <div class="cheat-step-card" style="background: #f6faf7; border: 1px solid #d4e8da; border-radius: 8px; padding: 12px 16px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 6px;">
+                  <div style="font-weight: 700; color: #2d7a4c; font-size: 14.5px;">Step 5: Theme Elevation & Closing (主题升华与结语 - 30秒)</div>
+                  <button class="cheat-play-btn" data-text="More than just a tourist destination, Guangxi's heritage is a silent historian. I hope this visit adds a brilliant highlight to your journey. Thank you all!" title="听升华结语发音">🔊</button>
+                </div>
+                <div class="cheat-en-block">"More than just a tourist destination, Guangxi's heritage is a silent historian. I hope this visit adds a brilliant highlight to your journey. Thank you all!"</div>
               </div>
             </div>
           </div>
@@ -2444,42 +2527,102 @@ document.addEventListener('DOMContentLoaded', () => {
               <table style="width: 100%; border-collapse: collapse; font-size: 13.5px; text-align: left;">
                 <thead>
                   <tr style="background: #ebf5ee; border-bottom: 2px solid #c6e2ce; color: #2d7a4c;">
-                    <th style="padding: 10px; width: 15%;">抽中专题</th>
+                    <th style="padding: 10px; width: 14%;">抽中专题</th>
                     <th style="padding: 10px; width: 28%;">亮点一 (First of all...)</th>
-                    <th style="padding: 10px; width: 28%;">亮点二 (Secondly...)</th>
+                    <th style="padding: 10px; width: 29%;">亮点二 (Secondly...)</th>
                     <th style="padding: 10px; width: 29%;">亮点三 (Last but not least...)</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr style="border-bottom: 1px solid #f0eae1;">
                     <td style="padding: 12px 10px; font-weight: 700; color: #1a1a1a;">(1) 历史广西</td>
-                    <td style="padding: 12px 10px;"><strong>古今沿革与管辖</strong><br><span style="color:#555;">Since Qin Dynasty set up Guilin & Xiang Prefectures, formally part of China.</span></td>
-                    <td style="padding: 12px 10px;"><strong>重大事件与英烈</strong><br><span style="color:#555;">Taiping Rebellion, Zhennan Pass Victory (Feng Zicai), Baise Uprising (Deng Xiaoping).</span></td>
-                    <td style="padding: 12px 10px;"><strong>现代成就与枢纽</strong><br><span style="color:#555;">Frontier for China-ASEAN open cooperation and the Belt & Road Initiative.</span></td>
+                    <td class="cheat-step-card" style="padding: 12px 10px;">
+                      <strong>古今沿革与管辖</strong>
+                      <button class="cheat-mini-play-btn" data-text="Since Qin Dynasty set up Guilin and Xiang Prefectures, it has formally become part of China." title="听发音">🔊</button><br>
+                      <span class="cheat-en-block" style="font-size: 13px; color:#555;">Since Qin Dynasty set up Guilin & Xiang Prefectures, formally part of China.</span>
+                    </td>
+                    <td class="cheat-step-card" style="padding: 12px 10px;">
+                      <strong>重大事件与英烈</strong>
+                      <button class="cheat-mini-play-btn" data-text="Taiping Rebellion, Zhennan Pass Victory by Feng Zicai, Baise Uprising led by Deng Xiaoping." title="听发音">🔊</button><br>
+                      <span class="cheat-en-block" style="font-size: 13px; color:#555;">Taiping Rebellion, Zhennan Pass Victory (Feng Zicai), Baise Uprising (Deng Xiaoping).</span>
+                    </td>
+                    <td class="cheat-step-card" style="padding: 12px 10px;">
+                      <strong>现代成就与枢纽</strong>
+                      <button class="cheat-mini-play-btn" data-text="Frontier for China-ASEAN open cooperation and the Belt and Road Initiative." title="听发音">🔊</button><br>
+                      <span class="cheat-en-block" style="font-size: 13px; color:#555;">Frontier for China-ASEAN open cooperation and the Belt & Road Initiative.</span>
+                    </td>
                   </tr>
                   <tr style="border-bottom: 1px solid #dce7de; background: #f6faf7;">
                     <td style="padding: 12px 10px; font-weight: 700; color: #1a1a1a;">(2) 民族广西</td>
-                    <td style="padding: 12px 10px;"><strong>12世居民族共处</strong><br><span style="color:#555;">Home to 12 indigenous ethnic groups (Zhuang, Yao, Miao, Dong, etc.) in harmony.</span></td>
-                    <td style="padding: 12px 10px;"><strong>建筑与民俗工艺</strong><br><span style="color:#555;">Zhuang stilted buildings, Dong Wind & Rain Bridges, Yao Long Drum Dance, Zhuang Brocade.</span></td>
-                    <td style="padding: 12px 10px;"><strong>节日与非遗艺术</strong><br><span style="color:#555;">Zhuang March 3rd Song Fair, Dong Grand Songs (unaccompanied chorus), Panwang Festival.</span></td>
+                    <td class="cheat-step-card" style="padding: 12px 10px;">
+                      <strong>12世居民族共处</strong>
+                      <button class="cheat-mini-play-btn" data-text="Home to 12 indigenous ethnic groups including Zhuang, Yao, Miao, and Dong in harmony." title="听发音">🔊</button><br>
+                      <span class="cheat-en-block" style="font-size: 13px; color:#555;">Home to 12 indigenous ethnic groups (Zhuang, Yao, Miao, Dong, etc.) in harmony.</span>
+                    </td>
+                    <td class="cheat-step-card" style="padding: 12px 10px;">
+                      <strong>建筑与民俗工艺</strong>
+                      <button class="cheat-mini-play-btn" data-text="Zhuang stilted buildings, Dong Wind and Rain Bridges, Yao Long Drum Dance, Zhuang Brocade." title="听发音">🔊</button><br>
+                      <span class="cheat-en-block" style="font-size: 13px; color:#555;">Zhuang stilted buildings, Dong Wind & Rain Bridges, Yao Long Drum Dance, Zhuang Brocade.</span>
+                    </td>
+                    <td class="cheat-step-card" style="padding: 12px 10px;">
+                      <strong>节日与非遗艺术</strong>
+                      <button class="cheat-mini-play-btn" data-text="Zhuang March 3rd Song Fair, Dong Grand Songs with unaccompanied chorus, Panwang Festival." title="听发音">🔊</button><br>
+                      <span class="cheat-en-block" style="font-size: 13px; color:#555;">Zhuang March 3rd Song Fair, Dong Grand Songs (unaccompanied chorus), Panwang Festival.</span>
+                    </td>
                   </tr>
                   <tr style="border-bottom: 1px solid #f0eae1;">
                     <td style="padding: 12px 10px; font-weight: 700; color: #1a1a1a;">(3) 风物广西</td>
-                    <td style="padding: 12px 10px;"><strong>特色工艺美术</strong><br><span style="color:#555;">Handwoven Zhuang Brocade, embroidered balls, Hepu Horn Carvings, Yangshuo painted fans.</span></td>
-                    <td style="padding: 12px 10px;"><strong>名特优产与名茶名酒</strong><br><span style="color:#555;">Yongfu Luohanguo, Wuzhou Liubao Tea, Guilin Sanhua Wine (rice-flavor liquor).</span></td>
-                    <td style="padding: 12px 10px;"><strong>特色美食小吃</strong><br><span style="color:#555;">Guilin Rice Noodles, Liuzhou River Snail Noodles (螺蛳粉), Nanning Laoyou Noodles.</span></td>
+                    <td class="cheat-step-card" style="padding: 12px 10px;">
+                      <strong>特色工艺美术</strong>
+                      <button class="cheat-mini-play-btn" data-text="Handwoven Zhuang Brocade, embroidered balls, Hepu Horn Carvings, Yangshuo painted fans." title="听发音">🔊</button><br>
+                      <span class="cheat-en-block" style="font-size: 13px; color:#555;">Handwoven Zhuang Brocade, embroidered balls, Hepu Horn Carvings, Yangshuo painted fans.</span>
+                    </td>
+                    <td class="cheat-step-card" style="padding: 12px 10px;">
+                      <strong>名特优产与名茶名酒</strong>
+                      <button class="cheat-mini-play-btn" data-text="Yongfu Luohanguo, Wuzhou Liubao Tea, Guilin Sanhua Wine rice-flavor liquor." title="听发音">🔊</button><br>
+                      <span class="cheat-en-block" style="font-size: 13px; color:#555;">Yongfu Luohanguo, Wuzhou Liubao Tea, Guilin Sanhua Wine (rice-flavor liquor).</span>
+                    </td>
+                    <td class="cheat-step-card" style="padding: 12px 10px;">
+                      <strong>特色美食小吃</strong>
+                      <button class="cheat-mini-play-btn" data-text="Guilin Rice Noodles, Liuzhou River Snail Noodles, Nanning Laoyou Noodles." title="听发音">🔊</button><br>
+                      <span class="cheat-en-block" style="font-size: 13px; color:#555;">Guilin Rice Noodles, Liuzhou River Snail Noodles (螺蛳粉), Nanning Laoyou Noodles.</span>
+                    </td>
                   </tr>
                   <tr style="border-bottom: 1px solid #dce7de; background: #f6faf7;">
                     <td style="padding: 12px 10px; font-weight: 700; color: #1a1a1a;">(4) 山水广西</td>
-                    <td style="padding: 12px 10px;"><strong>喀斯特/丹霞奇观</strong><br><span style="color:#555;">World-class Karst peak forests & caves (Guilin), Danxia cliffs (Bajiao Village).</span></td>
-                    <td style="padding: 12px 10px;"><strong>江河与滨海风光</strong><br><span style="color:#555;">Meandering Lijiang River, Yongjiang, Beihai Silver Beach & Weizhou Volcanic Island.</span></td>
-                    <td style="padding: 12px 10px;"><strong>诗意文化内涵</strong><br><span style="color:#555;">"The river is like a green silk ribbon, and the mountains are like jade hairpins."</span></td>
+                    <td class="cheat-step-card" style="padding: 12px 10px;">
+                      <strong>喀斯特/丹霞奇观</strong>
+                      <button class="cheat-mini-play-btn" data-text="World-class Karst peak forests and caves in Guilin, Danxia cliffs in Bajiao Village." title="听发音">🔊</button><br>
+                      <span class="cheat-en-block" style="font-size: 13px; color:#555;">World-class Karst peak forests & caves (Guilin), Danxia cliffs (Bajiao Village).</span>
+                    </td>
+                    <td class="cheat-step-card" style="padding: 12px 10px;">
+                      <strong>江河与滨海风光</strong>
+                      <button class="cheat-mini-play-btn" data-text="Meandering Lijiang River, Yongjiang, Beihai Silver Beach and Weizhou Volcanic Island." title="听发音">🔊</button><br>
+                      <span class="cheat-en-block" style="font-size: 13px; color:#555;">Meandering Lijiang River, Yongjiang, Beihai Silver Beach & Weizhou Volcanic Island.</span>
+                    </td>
+                    <td class="cheat-step-card" style="padding: 12px 10px;">
+                      <strong>诗意文化内涵</strong>
+                      <button class="cheat-mini-play-btn" data-text="The river is like a green silk ribbon, and the mountains are like jade hairpins." title="听发音">🔊</button><br>
+                      <span class="cheat-en-block" style="font-size: 13px; color:#555;">"The river is like a green silk ribbon, and the mountains are like jade hairpins."</span>
+                    </td>
                   </tr>
                   <tr>
                     <td style="padding: 12px 10px; font-weight: 700; color: #1a1a1a;">(5) 长寿广西</td>
-                    <td style="padding: 12px 10px;"><strong>长寿之乡分布</strong><br><span style="color:#555;">World & Chinese Longevity Hometowns, led by Bama Yao Autonomous County.</span></td>
-                    <td style="padding: 12px 10px;"><strong>生态环境奥秘</strong><br><span style="color:#555;">Pure air rich in negative oxygen ions, clear mineral water, pleasant mild climate.</span></td>
-                    <td style="padding: 12px 10px;"><strong>饮食与生活心态</strong><br><span style="color:#555;">Light seasonal diet with coarse grains (sweet potatoes), peaceful & cheerful mindset.</span></td>
+                    <td class="cheat-step-card" style="padding: 12px 10px;">
+                      <strong>长寿之乡分布</strong>
+                      <button class="cheat-mini-play-btn" data-text="World and Chinese Longevity Hometowns, led by Bama Yao Autonomous County." title="听发音">🔊</button><br>
+                      <span class="cheat-en-block" style="font-size: 13px; color:#555;">World & Chinese Longevity Hometowns, led by Bama Yao Autonomous County.</span>
+                    </td>
+                    <td class="cheat-step-card" style="padding: 12px 10px;">
+                      <strong>生态环境奥秘</strong>
+                      <button class="cheat-mini-play-btn" data-text="Pure air rich in negative oxygen ions, clear mineral water, pleasant mild climate." title="听发音">🔊</button><br>
+                      <span class="cheat-en-block" style="font-size: 13px; color:#555;">Pure air rich in negative oxygen ions, clear mineral water, pleasant mild climate.</span>
+                    </td>
+                    <td class="cheat-step-card" style="padding: 12px 10px;">
+                      <strong>饮食与生活心态</strong>
+                      <button class="cheat-mini-play-btn" data-text="Light seasonal diet with coarse grains like sweet potatoes, peaceful and cheerful mindset." title="听发音">🔊</button><br>
+                      <span class="cheat-en-block" style="font-size: 13px; color:#555;">Light seasonal diet with coarse grains (sweet potatoes), peaceful & cheerful mindset.</span>
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -2491,38 +2634,53 @@ document.addEventListener('DOMContentLoaded', () => {
         container.innerHTML = `
           <!-- 1. Spot 5-Step Block -->
           <div class="card" style="border-left: 5px solid #2d7a4c; margin-bottom: 20px; padding: 22px;">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 12px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 12px; flex-wrap:wrap; gap:8px;">
               <h3 style="font-size: 18px; font-weight: 800; color: #2d7a4c;">🗺️ 景点讲解移步换景法 (Scenic Spot 5-Step Block)</h3>
               <span class="qa-tag-badge" style="background:#ebf5ee; color:#2d7a4c; border:1px solid #c6e2ce;">时长 4~5 分钟 · 动线导览</span>
             </div>
 
-            <div style="display: grid; gap: 12px; margin-top: 14px;">
-              <div style="background: #f6faf7; border: 1px solid #d4e8da; border-radius: 8px; padding: 12px 16px;">
-                <div style="font-weight: 700; color: #2d7a4c; font-size: 14px; margin-bottom: 4px;">Step 1: Welcome & Spot Overview (欢迎与景点定位 - 30秒)</div>
-                <div style="font-size: 13.5px; color: #222; font-family: monospace;">"Dear tourists, welcome to <mark style="background:#fef08a; padding:1px 4px;">[景点名称]</mark>! Located in <mark style="background:#fef08a; padding:1px 4px;">[Guilin/Nanning/Liuzhou]</mark>, this site is a national 5A-level scenic area, combining stunning natural beauty with deep cultural heritage."</div>
+            <div style="display: grid; gap: 14px; margin-top: 14px;">
+              <div class="cheat-step-card" style="background: #f6faf7; border: 1px solid #d4e8da; border-radius: 8px; padding: 12px 16px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 6px;">
+                  <div style="font-weight: 700; color: #2d7a4c; font-size: 14.5px;">Step 1: Welcome & Spot Overview (欢迎与景点定位 - 30秒)</div>
+                  <button class="cheat-play-btn" data-text="Dear tourists, welcome to our scenic area! Located in Guangxi, this site is a national 5A-level scenic area, combining stunning natural beauty with deep cultural heritage." title="听欢迎与定位发音">🔊</button>
+                </div>
+                <div class="cheat-en-block">"Dear tourists, welcome to <mark style="background:#fef08a; padding:1px 4px;">[景点名称]</mark>! Located in <mark style="background:#fef08a; padding:1px 4px;">[Guilin/Nanning/Liuzhou]</mark>, this site is a national 5A-level scenic area, combining stunning natural beauty with deep cultural heritage."</div>
               </div>
 
-              <div style="background: #f6faf7; border: 1px solid #d4e8da; border-radius: 8px; padding: 12px 16px;">
-                <div style="font-weight: 700; color: #2d7a4c; font-size: 14px; margin-bottom: 4px;">Step 2: Features & Layout (景点特色与游览线索 - 45秒)</div>
-                <div style="font-size: 13.5px; color: #222; font-family: monospace;">"What makes <mark style="background:#fef08a; padding:1px 4px;">[景点名称]</mark> unique is its <mark style="background:#fef08a; padding:1px 4px;">[Karst mountains / authentic Dong villages]</mark>. The scenic area is laid out along <mark style="background:#fef08a; padding:1px 4px;">[the river / lush hills]</mark>, offering a breathtaking view at every turn."</div>
+              <div class="cheat-step-card" style="background: #f6faf7; border: 1px solid #d4e8da; border-radius: 8px; padding: 12px 16px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 6px;">
+                  <div style="font-weight: 700; color: #2d7a4c; font-size: 14.5px;">Step 2: Features & Layout (景点特色与游览线索 - 45秒)</div>
+                  <button class="cheat-play-btn" data-text="What makes this site unique is its karst mountains and authentic Dong villages. The scenic area is laid out along the river and lush hills, offering a breathtaking view at every turn." title="听特色线索发音">🔊</button>
+                </div>
+                <div class="cheat-en-block">"What makes <mark style="background:#fef08a; padding:1px 4px;">[景点名称]</mark> unique is its <mark style="background:#fef08a; padding:1px 4px;">[Karst mountains / authentic Dong villages]</mark>. The scenic area is laid out along <mark style="background:#fef08a; padding:1px 4px;">[the river / lush hills]</mark>, offering a breathtaking view at every turn."</div>
               </div>
 
-              <div style="background: #ebf5ee; border: 1.5px dashed #a3d9b1; border-radius: 8px; padding: 12px 16px;">
-                <div style="font-weight: 700; color: #25663e; font-size: 14px; margin-bottom: 4px;">Step 3: Route & Core Landmarks (三大核心地标套用 - 120~150秒) ⚡重点套用路线</div>
-                <div style="font-size: 13.5px; color: #222; font-family: monospace;">"Today, our tour route will take us downstream/along the path to explore 3 highlights:<br>
+              <div class="cheat-step-card" style="background: #ebf5ee; border: 1.5px dashed #a3d9b1; border-radius: 8px; padding: 12px 16px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 6px;">
+                  <div style="font-weight: 700; color: #25663e; font-size: 14.5px;">Step 3: Route & Core Landmarks (三大核心地标套用 - 120~150秒) ⚡重点套用路线</div>
+                  <button class="cheat-play-btn" data-text="Today, our tour route will take us along the path to explore 3 highlights: First, we see Elephant Trunk Hill, which gets its name because it resembles an elephant drinking water. Next, we reach Nine-Horse Painting Hill, famous for stone wall patterns. Finally, we arrive at Huangbu Reflection, printed on the 20-yuan RMB note." title="听地标路线发音">🔊</button>
+                </div>
+                <div class="cheat-en-block">"Today, our tour route will take us downstream/along the path to explore 3 highlights:<br>
                 First, we see <mark style="background:#dbeafe; color:#1e40af; padding:1px 4px;">[地标一, 如: Elephant Trunk Hill]</mark>, which gets its name because it resembles an elephant drinking water.<br>
                 Next, we reach <mark style="background:#dbeafe; color:#1e40af; padding:1px 4px;">[地标二, 如: Nine-Horse Painting Hill]</mark>, famous for stone wall patterns.<br>
                 Finally, we arrive at <mark style="background:#dbeafe; color:#1e40af; padding:1px 4px;">[地标三, 如: Huangbu Reflection]</mark>, printed on the 20-yuan RMB note."</div>
               </div>
 
-              <div style="background: #f6faf7; border: 1px solid #d4e8da; border-radius: 8px; padding: 12px 16px;">
-                <div style="font-weight: 700; color: #2d7a4c; font-size: 14px; margin-bottom: 4px;">Step 4: History & Interactive Guidance (历史诗句与照料互动 - 30秒)</div>
-                <div style="font-size: 13.5px; color: #222; font-family: monospace;">"Famous Tang poet Han Yu once praised this view: 'The river is like a green silk ribbon, and the mountains are like jade hairpins.' By the way, this is the best photo spot! Would you like me to take a photo of you? Please watch your step."</div>
+              <div class="cheat-step-card" style="background: #f6faf7; border: 1px solid #d4e8da; border-radius: 8px; padding: 12px 16px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 6px;">
+                  <div style="font-weight: 700; color: #2d7a4c; font-size: 14.5px;">Step 4: History & Interactive Guidance (历史诗句与照料互动 - 30秒)</div>
+                  <button class="cheat-play-btn" data-text="Famous Tang poet Han Yu once praised this view: 'The river is like a green silk ribbon, and the mountains are like jade hairpins.' By the way, this is the best photo spot! Would you like me to take a photo of you? Please watch your step." title="听历史互动发音">🔊</button>
+                </div>
+                <div class="cheat-en-block">"Famous Tang poet Han Yu once praised this view: 'The river is like a green silk ribbon, and the mountains are like jade hairpins.' By the way, this is the best photo spot! Would you like me to take a photo of you? Please watch your step."</div>
               </div>
 
-              <div style="background: #f6faf7; border: 1px solid #d4e8da; border-radius: 8px; padding: 12px 16px;">
-                <div style="font-weight: 700; color: #2d7a4c; font-size: 14px; margin-bottom: 4px;">Step 5: Closing & Farewell (总结与致谢告别 - 30秒)</div>
-                <div style="font-size: 13.5px; color: #222; font-family: monospace;">"This scenic area is not only a visual feast but a cradle of local culture. I hope today's tour leaves you with wonderful memories. Thank you and wish you a pleasant journey!"</div>
+              <div class="cheat-step-card" style="background: #f6faf7; border: 1px solid #d4e8da; border-radius: 8px; padding: 12px 16px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 6px;">
+                  <div style="font-weight: 700; color: #2d7a4c; font-size: 14.5px;">Step 5: Closing & Farewell (总结与致谢告别 - 30秒)</div>
+                  <button class="cheat-play-btn" data-text="This scenic area is not only a visual feast but a cradle of local culture. I hope today's tour leaves you with wonderful memories. Thank you and wish you a pleasant journey!" title="听总结致谢发音">🔊</button>
+                </div>
+                <div class="cheat-en-block">"This scenic area is not only a visual feast but a cradle of local culture. I hope today's tour leaves you with wonderful memories. Thank you and wish you a pleasant journey!"</div>
               </div>
             </div>
           </div>
@@ -2534,42 +2692,87 @@ document.addEventListener('DOMContentLoaded', () => {
               <table style="width: 100%; border-collapse: collapse; font-size: 13.5px; text-align: left;">
                 <thead>
                   <tr style="background: #ebf5ee; border-bottom: 2px solid #c6e2ce; color: #2d7a4c;">
-                    <th style="padding: 10px; width: 18%;">抽中景点</th>
-                    <th style="padding: 10px; width: 22%;">概况特征 (Step 1&2)</th>
-                    <th style="padding: 10px; width: 38%;">三大地标动线 (Step 3)</th>
-                    <th style="padding: 10px; width: 22%;">诗句/历史/卡点 (Step 4)</th>
+                    <th style="padding: 10px; width: 17%;">抽中景点</th>
+                    <th style="padding: 10px; width: 23%;">概况特征 (Step 1&2)</th>
+                    <th style="padding: 10px; width: 37%;">三大地标动线 (Step 3)</th>
+                    <th style="padding: 10px; width: 23%;">诗句/历史/卡点 (Step 4)</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr style="border-bottom: 1px solid #f0eae1;">
                     <td style="padding: 12px 10px; font-weight: 700; color: #1a1a1a;">(1) 桂林漓江景区</td>
-                    <td style="padding: 12px 10px;">Origin: Mao'er Mtn, 164 km. Clear water like green silk ribbon.</td>
-                    <td style="padding: 12px 10px;">1. <strong>象鼻山</strong>: Elephant drinking water.<br>2. <strong>九马画山</strong>: Wall patterns.<br>3. <strong>黄布倒影</strong>: 20-yuan RMB background.</td>
-                    <td style="padding: 12px 10px;">Han Yu's poem: <em>"Green silk ribbon & jade hairpins"</em>. Xu Xiake traveled here.</td>
+                    <td class="cheat-step-card" style="padding: 12px 10px;">
+                      <button class="cheat-mini-play-btn" data-text="Origin from Mao'er Mountain, 164 kilometers long. Clear water like a green silk ribbon." title="听发音">🔊</button>
+                      <span class="cheat-en-block" style="font-size: 13px; color:#555;">Origin: Mao'er Mtn, 164 km. Clear water like green silk ribbon.</span>
+                    </td>
+                    <td class="cheat-step-card" style="padding: 12px 10px;">
+                      <button class="cheat-mini-play-btn" data-text="First, Elephant Trunk Hill resembling an elephant drinking water. Second, Nine-Horse Painting Hill with rock wall patterns. Third, Huangbu Reflection on 20-yuan RMB background." title="听发音">🔊</button>
+                      <span class="cheat-en-block" style="font-size: 13px; color:#555;">1. <strong>象鼻山</strong>: Elephant drinking water.<br>2. <strong>九马画山</strong>: Wall patterns.<br>3. <strong>黄布倒影</strong>: 20-yuan RMB background.</span>
+                    </td>
+                    <td class="cheat-step-card" style="padding: 12px 10px;">
+                      <button class="cheat-mini-play-btn" data-text="Han Yu's poem: The river is like a green silk ribbon, and the mountains are like jade hairpins. Great traveler Xu Xiake traveled here." title="听发音">🔊</button>
+                      <span class="cheat-en-block" style="font-size: 13px; color:#555;">Han Yu's poem: <em>"Green silk ribbon & jade hairpins"</em>. Xu Xiake traveled here.</span>
+                    </td>
                   </tr>
                   <tr style="border-bottom: 1px solid #dce7de; background: #f6faf7;">
                     <td style="padding: 12px 10px; font-weight: 700; color: #1a1a1a;">(2) 南宁青秀山</td>
-                    <td style="padding: 12px 10px;">City green lung by Yongjiang River, 13.54 sq km, oxygen bar.</td>
-                    <td style="padding: 12px 10px;">1. <strong>壮锦广场</strong>: Zhuang sculptures.<br>2. <strong>千年苏铁园</strong>: Relocation base.<br>3. <strong>龙象塔</strong>: Ming tower with skyline view.</td>
-                    <td style="padding: 12px 10px;">Summer resort since Sui & Tang. Guanyin Temple; Folk Song Festival.</td>
+                    <td class="cheat-step-card" style="padding: 12px 10px;">
+                      <button class="cheat-mini-play-btn" data-text="City green lung by Yongjiang River, 13.54 square kilometers, natural oxygen bar." title="听发音">🔊</button>
+                      <span class="cheat-en-block" style="font-size: 13px; color:#555;">City green lung by Yongjiang River, 13.54 sq km, oxygen bar.</span>
+                    </td>
+                    <td class="cheat-step-card" style="padding: 12px 10px;">
+                      <button class="cheat-mini-play-btn" data-text="First, Zhuang Brocade Square with Zhuang sculptures. Second, Thousand-Year Cycad Garden relocation base. Third, Longxiang Tower with skyline views." title="听发音">🔊</button>
+                      <span class="cheat-en-block" style="font-size: 13px; color:#555;">1. <strong>壮锦广场</strong>: Zhuang sculptures.<br>2. <strong>千年苏铁园</strong>: Relocation base.<br>3. <strong>龙象塔</strong>: Ming tower with skyline view.</span>
+                    </td>
+                    <td class="cheat-step-card" style="padding: 12px 10px;">
+                      <button class="cheat-mini-play-btn" data-text="Summer resort since Sui and Tang Dynasties. Guanyin Temple and Folk Song Festival venue." title="听发音">🔊</button>
+                      <span class="cheat-en-block" style="font-size: 13px; color:#555;">Summer resort since Sui & Tang. Guanyin Temple; Folk Song Festival.</span>
+                    </td>
                   </tr>
                   <tr style="border-bottom: 1px solid #f0eae1;">
                     <td style="padding: 12px 10px; font-weight: 700; color: #1a1a1a;">(3) 两江四湖·象山</td>
-                    <td style="padding: 12px 10px;">City-center water system: Lijiang/Taohua + 4 lakes + Xiangshan.</td>
-                    <td style="padding: 12px 10px;">1. <strong>日月双塔</strong>: Copper Sun & Glazed Moon.<br>2. <strong>榕湖古南门</strong>: Historic city gate.<br>3. <strong>木龙湖宋城</strong>: Song Dynasty architecture.</td>
-                    <td style="padding: 12px 10px;">Water system built in Song Dynasty. Brilliant romantic LED night views.</td>
+                    <td class="cheat-step-card" style="padding: 12px 10px;">
+                      <button class="cheat-mini-play-btn" data-text="City-center water system: Lijiang and Taohua rivers, four lakes, and Xiangshan." title="听发音">🔊</button>
+                      <span class="cheat-en-block" style="font-size: 13px; color:#555;">City-center water system: Lijiang/Taohua + 4 lakes + Xiangshan.</span>
+                    </td>
+                    <td class="cheat-step-card" style="padding: 12px 10px;">
+                      <button class="cheat-mini-play-btn" data-text="First, Sun and Moon Twin Towers with Copper Sun and Glazed Moon. Second, Ancient South Gate at Ronghu Lake. Third, Song City at Mulong Lake." title="听发音">🔊</button>
+                      <span class="cheat-en-block" style="font-size: 13px; color:#555;">1. <strong>日月双塔</strong>: Copper Sun & Glazed Moon.<br>2. <strong>榕湖古南门</strong>: Historic city gate.<br>3. <strong>木龙湖宋城</strong>: Song Dynasty architecture.</span>
+                    </td>
+                    <td style="padding: 12px 10px;">
+                      <button class="cheat-mini-play-btn" data-text="Water system built in Song Dynasty, featuring brilliant romantic LED night views." title="听发音">🔊</button>
+                      <span class="cheat-en-block" style="font-size: 13px; color:#555;">Water system built in Song Dynasty. Brilliant romantic LED night views.</span>
+                    </td>
                   </tr>
                   <tr style="border-bottom: 1px solid #dce7de; background: #f6faf7;">
                     <td style="padding: 12px 10px; font-weight: 700; color: #1a1a1a;">(4) 柳州程阳八寨</td>
-                    <td style="padding: 12px 10px;">8 Dong villages in Sanjiang. Wooden architectural marvels.</td>
-                    <td style="padding: 12px 10px;">1. <strong>马鞍寨鼓楼</strong>: Village assembly landmark.<br>2. <strong>程阳风雨桥</strong>: Mortise & tenon (no nails).<br>3. <strong>百家宴</strong>: Sharing ethnic delicacies.</td>
-                    <td style="padding: 12px 10px;">Dong Grand Song (unaccompanied chorus). Offer local Oil Tea to guests.</td>
+                    <td style="padding: 12px 10px;">
+                      <button class="cheat-mini-play-btn" data-text="Eight Dong villages in Sanjiang, famous for wooden architectural marvels without nails." title="听发音">🔊</button>
+                      <span class="cheat-en-block" style="font-size: 13px; color:#555;">8 Dong villages in Sanjiang. Wooden architectural marvels.</span>
+                    </td>
+                    <td style="padding: 12px 10px;">
+                      <button class="cheat-mini-play-btn" data-text="First, Ma'an Drum Tower for village assemblies. Second, Chengyang Wind and Rain Bridge with mortise and tenon. Third, Grand Banquet sharing ethnic delicacies." title="听发音">🔊</button>
+                      <span class="cheat-en-block" style="font-size: 13px; color:#555;">1. <strong>马鞍寨鼓楼</strong>: Village assembly landmark.<br>2. <strong>程阳风雨桥</strong>: Mortise & tenon (no nails).<br>3. <strong>百家宴</strong>: Sharing ethnic delicacies.</span>
+                    </td>
+                    <td style="padding: 12px 10px;">
+                      <button class="cheat-mini-play-btn" data-text="Dong Grand Song with unaccompanied chorus. Offering traditional local Oil Tea to guests." title="听发音">🔊</button>
+                      <span class="cheat-en-block" style="font-size: 13px; color:#555;">Dong Grand Song (unaccompanied chorus). Offer local Oil Tea to guests.</span>
+                    </td>
                   </tr>
                   <tr>
                     <td style="padding: 12px 10px; font-weight: 700; color: #1a1a1a;">(5) 崇左花山岩画</td>
-                    <td style="padding: 12px 10px;">UNESCO World Cultural Heritage Site along Zuo River.</td>
-                    <td style="padding: 12px 10px;">1. <strong>明江游船</strong>: Scenic cruise along cliffs.<br>2. <strong>壁画岩面</strong>: Ochre frog dance & drums.<br>3. <strong>解密中心</strong>: Pigment technique center.</td>
-                    <td style="padding: 12px 10px;">Ancient Luoyue ritual for rain. Red hematite pigment lasting 2,000+ yrs.</td>
+                    <td style="padding: 12px 10px;">
+                      <button class="cheat-mini-play-btn" data-text="UNESCO World Cultural Heritage Site along Zuo River with ancient rock art." title="听发音">🔊</button>
+                      <span class="cheat-en-block" style="font-size: 13px; color:#555;">UNESCO World Cultural Heritage Site along Zuo River.</span>
+                    </td>
+                    <td style="padding: 12px 10px;">
+                      <button class="cheat-mini-play-btn" data-text="First, Mingjiang Cruise along cliffs. Second, cliff face paintings with ochre frog dance and drums. Third, pigment research and deciphering center." title="听发音">🔊</button>
+                      <span class="cheat-en-block" style="font-size: 13px; color:#555;">1. <strong>明江游船</strong>: Scenic cruise along cliffs.<br>2. <strong>壁画岩面</strong>: Ochre frog dance & drums.<br>3. <strong>解密中心</strong>: Pigment technique center.</span>
+                    </td>
+                    <td style="padding: 12px 10px;">
+                      <button class="cheat-mini-play-btn" data-text="Ancient Luoyue ritual for rain and harvest. Red hematite pigment lasting over 2000 years." title="听发音">🔊</button>
+                      <span class="cheat-en-block" style="font-size: 13px; color:#555;">Ancient Luoyue ritual for rain. Red hematite pigment lasting 2,000+ yrs.</span>
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -2580,42 +2783,54 @@ document.addEventListener('DOMContentLoaded', () => {
         // 突发事件应答三步法卡片
         container.innerHTML = `
           <div class="card" style="border-left: 5px solid #16a34a; padding: 22px;">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 14px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 14px; flex-wrap:wrap; gap:8px;">
               <h3 style="font-size: 18px; font-weight: 800; color: #16a34a;">⚡ 现场突发问答“黄金三步法则” (Emergency Answering Model)</h3>
               <span class="qa-tag-badge" style="background:#f0fdf4; color:#16a34a; border:1px solid #bbf7d0;">考场问答救命急救包</span>
             </div>
 
             <!-- 公式卡片 -->
-            <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; padding: 16px; margin-bottom: 20px; text-align: center;">
-              <div style="font-size: 16px; font-weight: 800; color: #15803d;">突发事件英文万能公式</div>
-              <div style="font-size: 15px; color: #166534; font-family: monospace; margin-top: 6px;">
+            <div class="cheat-step-card" style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; padding: 16px; margin-bottom: 20px;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 6px;">
+                <div style="font-size: 16px; font-weight: 800; color: #15803d;">突发事件英文万能公式</div>
+                <button class="cheat-play-btn" data-text="Answer equals: 1. Calm Down and Reassure. 2. Immediate Action. 3. Follow-up and Record." title="听万能公式发音">🔊</button>
+              </div>
+              <div class="cheat-en-block" style="font-size: 15px; color: #166534; font-weight: 600; text-align: center; margin-top: 6px;">
                 Answer = 1. Calm Down & Reassure (镇定安抚) + 2. Immediate Action (紧急处置) + 3. Follow-up & Record (跟进上报)
               </div>
             </div>
 
             <!-- 3大场景模板卡 -->
             <div style="display: grid; gap: 14px;">
-              <div style="border: 1px solid #e5e7eb; border-radius: 8px; padding: 14px; background: #fff;">
-                <div style="font-weight: 700; color: #1a1a1a; font-size: 14.5px; margin-bottom: 6px;">场景 1: 游客中暑或突发疾病 (Medical Emergency)</div>
-                <div style="font-size: 13.5px; color: #374151; font-family: monospace; line-height: 1.6;">
+              <div class="cheat-step-card" style="border: 1px solid #e5e7eb; border-radius: 8px; padding: 14px 16px; background: #fff;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 6px;">
+                  <div style="font-weight: 700; color: #1a1a1a; font-size: 14.5px;">场景 1: 游客中暑或突发疾病 (Medical Emergency)</div>
+                  <button class="cheat-play-btn" data-text="First, I will stay calm and reassure the tourists to prevent panic. Then, I will immediately move the sick tourist to a shady, well-ventilated area, provide basic first aid, and call 120 for medical assistance. Finally, I will keep a detailed record of the incident and report to my travel agency." title="听场景1英文回答">🔊</button>
+                </div>
+                <div class="cheat-en-block">
                   "<strong>First</strong>, I will stay calm and reassure the tourists to prevent panic.<br>
                   <strong>Then</strong>, I will immediately move the sick tourist to a shady, well-ventilated area, provide basic first aid, and call 120 for medical assistance.<br>
                   <strong>Finally</strong>, I will keep a detailed record of the incident and report to my travel agency."
                 </div>
               </div>
 
-              <div style="border: 1px solid #e5e7eb; border-radius: 8px; padding: 14px; background: #fff;">
-                <div style="font-weight: 700; color: #1a1a1a; font-size: 14.5px; margin-bottom: 6px;">场景 2: 游客在景区走失 (Lost Tourist)</div>
-                <div style="font-size: 13.5px; color: #374151; font-family: monospace; line-height: 1.6;">
+              <div class="cheat-step-card" style="border: 1px solid #e5e7eb; border-radius: 8px; padding: 14px 16px; background: #fff;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 6px;">
+                  <div style="font-weight: 700; color: #1a1a1a; font-size: 14.5px;">场景 2: 游客在景区走失 (Lost Tourist)</div>
+                  <button class="cheat-play-btn" data-text="First, I will count the group and confirm the missing person's physical features. Then, I will contact scenic security to broadcast a search message and inform local police if necessary. Afterwards, once found, I will check their condition and report to the agency." title="听场景2英文回答">🔊</button>
+                </div>
+                <div class="cheat-en-block">
                   "<strong>First</strong>, I will count the group and confirm the missing person's physical features.<br>
                   <strong>Then</strong>, I will contact scenic security to broadcast a search message and inform local police if necessary.<br>
                   <strong>Afterwards</strong>, once found, I will check their condition and report to the agency."
                 </div>
               </div>
 
-              <div style="border: 1px solid #e5e7eb; border-radius: 8px; padding: 14px; background: #fff;">
-                <div style="font-weight: 700; color: #1a1a1a; font-size: 14.5px; margin-bottom: 6px;">场景 3: 景区临时关闭或天气恶劣 (Attraction Closure)</div>
-                <div style="font-size: 13.5px; color: #374151; font-family: monospace; line-height: 1.6;">
+              <div class="cheat-step-card" style="border: 1px solid #e5e7eb; border-radius: 8px; padding: 14px 16px; background: #fff;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 6px;">
+                  <div style="font-weight: 700; color: #1a1a1a; font-size: 14.5px;">场景 3: 景区临时关闭或天气恶劣 (Attraction Closure)</div>
+                  <button class="cheat-play-btn" data-text="First, I will obtain official notices immediately and explain the situation to tourists to win their understanding. Then, I will quickly adjust the itinerary and provide an exciting alternative tour. Finally, I will make sure everyone is satisfied and update the agency." title="听场景3英文回答">🔊</button>
+                </div>
+                <div class="cheat-en-block">
                   "<strong>First</strong>, I will obtain official notices immediately and explain the situation to tourists to win their understanding.<br>
                   <strong>Then</strong>, I will quickly adjust the itinerary and provide an exciting alternative tour.<br>
                   <strong>Finally</strong>, I will make sure everyone is satisfied and update the agency."
@@ -2625,6 +2840,19 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
         `;
       }
+
+      // Bind all cheatsheet audio play buttons
+      container.querySelectorAll('.cheat-play-btn, .cheat-mini-play-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const text = btn.getAttribute('data-text');
+          if (text) {
+            const stepCard = btn.closest('.cheat-step-card') || btn.closest('td') || btn.closest('div[style*="border"]') || btn.parentElement;
+            const blockEl = stepCard ? stepCard.querySelector('.cheat-en-block') : null;
+            playSmartAudio('', text, blockEl || btn);
+          }
+        });
+      });
     }
 
     // --- PRACTICE MODE TOGGLE (卡片翻页 VS 全量题库列表) ---
