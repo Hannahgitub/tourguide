@@ -768,16 +768,49 @@
   border: 1px solid var(--exam-green-border);
 }
 
-.report-item-title {
-  font-size: 13px;
-  color: var(--exam-text-muted);
-  margin-bottom: 6px;
+.report-item-clickable {
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
 }
 
-.report-item-val {
-  font-size: 17px;
-  font-weight: 800;
-  color: var(--exam-text-dark);
+.report-item-clickable:hover {
+  transform: translateY(-2px);
+  border-color: var(--exam-green-main);
+  background: #ffffff;
+  box-shadow: 0 4px 16px rgba(45, 122, 76, 0.12);
+}
+
+.review-indicator-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--exam-green-main);
+  margin-top: 6px;
+}
+
+.qa-exam-textarea[readonly] {
+  background: #fafaf9;
+  border-color: #d1d5db;
+  color: #1e293b;
+  cursor: default;
+}
+
+.exam-steps-tracker .exam-step-item.review-nav {
+  cursor: pointer;
+}
+
+.exam-steps-tracker .exam-step-item.review-nav:hover {
+  border-color: var(--exam-green-main);
+  background: #ffffff;
+}
+
+.exam-timer-box.review-mode {
+  background: #eef8f1;
+  border-color: #2d7a4c;
+  color: #2d7a4c;
 }
 
 /* 导游词演讲现场录音与回放答题区 */

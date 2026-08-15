@@ -11,6 +11,7 @@
     mode: 'full', // 'full': 全真4科连考模考, 'single': 单科专项5分钟特训
     singleStageId: 1, // 当前单科测试对应的科目 ID (1: 专题, 2: 景区, 3: 问答, 4: 口译)
     stage: 0, // 0: 考前准备, 1: Part 1 专题, 2: Part 2 景区, 3: Part 3 问答, 4: Part 4 口译, 5: 考后报告
+    isReviewMode: false, // 是否处于考后回顾只读模式 (不计时、不可改答案、可点击提示与挖空)
     timeRemaining: 300, // 每阶段 5 分钟 (300秒)
     timerInterval: null,
     stageStartTime: 0,
@@ -21,12 +22,24 @@
       category: '山水广西', // 抽取的专题类别
       selectedSpeech: null, // 考生从专题里自选的具体篇目/路线
       hintLevel: 0, // 0: 无, 1: 考纲速记, 2: 遮挡版, 3: 完整原文
-      timeSpent: 0
+      timeSpent: 0,
+      recordingState: 'idle',
+      audioBlobUrl: null,
+      recordingDuration: 0,
+      mediaRecorder: null,
+      audioChunks: [],
+      recTimerInterval: null
     },
     part2: {
       scenic: null,
       hintLevel: 0,
-      timeSpent: 0
+      timeSpent: 0,
+      recordingState: 'idle',
+      audioBlobUrl: null,
+      recordingDuration: 0,
+      mediaRecorder: null,
+      audioChunks: [],
+      recTimerInterval: null
     },
     part3: {
       questions: [],
@@ -74,6 +87,7 @@
     if (!container) return;
 
     if (examState.stage === 0) {
+      examState.isReviewMode = false;
       container.innerHTML = renderWelcomeView();
       bindWelcomeEvents();
       return;
@@ -86,16 +100,17 @@
     }
 
     const isSingleMode = (examState.mode === 'single');
+    const isReview = !!examState.isReviewMode;
 
     container.innerHTML = `
       <div class="mock-exam-container">
-        <!-- 顶部状态栏: 步骤指示与5分钟倒计时 -->
+        <!-- 顶部状态栏: 步骤指示与倒计时/回顾标记 -->
         <div class="exam-top-bar">
           ${isSingleMode ? `
             <div class="exam-steps-tracker" style="gap: 10px;">
               <div class="exam-step-item active" style="padding: 6px 14px; background: #eef8f1; border-color: #2d7a4c; color: #2d7a4c; font-weight: 800;">
-                <span>🎯</span>
-                <span>单科专项测试 · ${STAGE_CONFIG[examState.stage]?.title || '单科模拟'}</span>
+                <span>${isReview ? '🔍' : '🎯'}</span>
+                <span>${isReview ? '考后复盘回顾' : '单科专项测试'} · ${STAGE_CONFIG[examState.stage]?.title || '单科'}</span>
               </div>
             </div>
           ` : `
@@ -103,11 +118,16 @@
               ${[1, 2, 3, 4].map(s => {
                 const cfg = STAGE_CONFIG[s];
                 let cls = 'exam-step-item';
-                if (s === examState.stage) cls += ' active';
-                else if (s < examState.stage) cls += ' completed';
+                if (isReview) {
+                  cls += ' review-nav';
+                  if (s === examState.stage) cls += ' active';
+                } else {
+                  if (s === examState.stage) cls += ' active';
+                  else if (s < examState.stage) cls += ' completed';
+                }
                 return `
-                  <div class="${cls}">
-                    <span>${s < examState.stage ? '✓' : `0${s}`}</span>
+                  <div class="${cls}" data-review-nav="${s}" title="${isReview ? `点击查看【0${s}. ${cfg.title}】答卷回顾` : ''}">
+                    <span>${!isReview && s < examState.stage ? '✓' : `0${s}`}</span>
                     <span>${cfg.title}</span>
                   </div>
                   ${s < 4 ? '<span class="exam-step-arrow">➔</span>' : ''}
@@ -117,10 +137,17 @@
           `}
 
           <div class="exam-timer-wrapper">
-            <div class="exam-timer-box ${examState.timeRemaining <= 60 ? 'warning' : ''}" id="exam-timer-box">
-              <span class="exam-timer-icon">⏳</span>
-              <span class="exam-timer-clock" id="exam-clock-text">${formatTime(examState.timeRemaining)}</span>
-            </div>
+            ${isReview ? `
+              <div class="exam-timer-box review-mode" id="exam-timer-box">
+                <span class="exam-timer-icon">📋</span>
+                <span style="font-size: 13px; font-weight: 700;">考后回顾 (不计时)</span>
+              </div>
+            ` : `
+              <div class="exam-timer-box ${examState.timeRemaining <= 60 ? 'warning' : ''}" id="exam-timer-box">
+                <span class="exam-timer-icon">⏳</span>
+                <span class="exam-timer-clock" id="exam-clock-text">${formatTime(examState.timeRemaining)}</span>
+              </div>
+            `}
           </div>
         </div>
 
@@ -131,10 +158,23 @@
 
         <!-- 底部流程控制栏 -->
         <div class="exam-footer-bar">
-          <button class="btn-stage-action prev" id="btn-quit-exam">🚪 退出${isSingleMode ? '单科测试' : '模拟考'}</button>
-          <button class="btn-stage-action next" id="btn-next-stage">
-            ${isSingleMode ? '🏁 完成单科测试，查看成绩' : (examState.stage === 4 ? '🏁 完成考核，查看成绩单' : '提前完成，进入下一部分 ➔')}
-          </button>
+          ${isReview ? `
+            <button class="btn-stage-action prev" id="btn-back-to-report">⬅️ 返回成绩报告单</button>
+            ${(!isSingleMode && examState.stage < 4) ? `
+              <button class="btn-stage-action next" id="btn-review-next-stage">
+                回顾下一环节 (${STAGE_CONFIG[examState.stage + 1].title}) ➔
+              </button>
+            ` : `
+              <button class="btn-stage-action next" id="btn-back-to-report-right">
+                🏁 回顾完成，返回成绩单
+              </button>
+            `}
+          ` : `
+            <button class="btn-stage-action prev" id="btn-quit-exam">🚪 退出${isSingleMode ? '单科测试' : '模拟考'}</button>
+            <button class="btn-stage-action next" id="btn-next-stage">
+              ${isSingleMode ? '🏁 完成单科测试，查看成绩' : (examState.stage === 4 ? '🏁 完成考核，查看成绩单' : '提前完成，进入下一部分 ➔')}
+            </button>
+          `}
         </div>
       </div>
     `;
@@ -423,15 +463,16 @@
       : [];
     const selected = examState.part1.selectedSpeech || availableSpeeches[0];
 
-    const isRecording = (examState.part1.recordingState === 'recording');
+    const isReview = !!examState.isReviewMode;
+    const isRecording = !isReview && (examState.part1.recordingState === 'recording');
     const hasAudio = !!examState.part1.audioBlobUrl;
 
     return `
       <div class="exam-section-header">
         <div>
-          <span class="exam-section-tag">第一部分 · 占分 20%</span>
+          <span class="exam-section-tag">${isReview ? '考后复盘回顾 · 占分 20%' : '第一部分 · 占分 20%'}</span>
           <div class="exam-section-title">🎙️ 专题讲解 (Topic Presentation)</div>
-          <div class="exam-section-subtitle">考官抽签指定专题，请在下方自选一条线路/篇目，并在5分钟内完成现场英文专题讲解。</div>
+          <div class="exam-section-subtitle">${isReview ? '本环节已锁定。考生可在此查阅当时抽取的专题、所选线路与录音，并自由研读考纲速记与全文提示。' : '考官抽签指定专题，请在下方自选一条线路/篇目，并在5分钟内完成现场英文专题讲解。'}</div>
         </div>
       </div>
 
@@ -442,20 +483,27 @@
           <span>🌿</span>
           <span>${escapeHtml(category)}</span>
         </div>
-        <button class="lottery-spin-btn" id="btn-redraw-part1-category">🔄 重新抽签专题</button>
+        ${isReview ? `
+          <span style="font-size: 12px; color: var(--exam-text-muted); background: #f1f5f9; padding: 4px 12px; border-radius: 12px; font-weight: 600;">🔒 考场抽签已锁定</span>
+        ` : `
+          <button class="lottery-spin-btn" id="btn-redraw-part1-category">🔄 重新抽签专题</button>
+        `}
       </div>
 
       <!-- 考生自选线路/篇目 -->
       <div>
         <div style="font-size: 14.5px; font-weight: 700; color: var(--exam-text-dark); margin-bottom: 8px;">
-          👉 请考生从【${escapeHtml(category)}】中自选本次讲解的线路/篇目：
+          ${isReview ? '🚩 考生本场选定的讲解线路/篇目：' : `👉 请考生从【${escapeHtml(category)}】中自选本次讲解的线路/篇目：`}
         </div>
         <div class="topic-routes-grid">
           ${availableSpeeches.map(s => {
             const isSelected = selected && (selected.id === s.id || selected.name === s.name);
             const theme = s.outline?.theme || (s.sections && s.sections[0] ? s.sections[0].title : '');
+            if (isReview && !isSelected) {
+              return ''; // 回顾模式下只高亮展示考生已选定的该条路线，聚焦复盘
+            }
             return `
-              <div class="topic-route-card ${isSelected ? 'selected' : ''}" data-speech-id="${escapeHtml(s.id || s.name)}">
+              <div class="topic-route-card ${isSelected ? 'selected' : ''}" data-speech-id="${escapeHtml(s.id || s.name)}" style="${isReview ? 'cursor: default;' : ''}">
                 <div class="topic-route-name">
                   <span>🚩 ${escapeHtml(formatSpeechDisplayName(s))}</span>
                   ${isSelected ? '<span style="color: var(--exam-green-main); font-size: 12px; font-weight: 800;">✓ 已选</span>' : ''}
@@ -481,21 +529,32 @@
         </div>
 
         <div class="speech-recording-controls">
-          <button class="speech-rec-btn ${isRecording ? 'recording' : ''}" id="btn-toggle-speech-rec-part1">
-            ${isRecording ? '⏹️ 停止解说录音' : (hasAudio ? '🔄 重新录制解说' : '🎙️ 开始现场模拟录音')}
-          </button>
+          ${isReview ? `
+            ${hasAudio ? `
+              <div class="speech-rec-player-wrapper" style="display:flex;">
+                <audio src="${examState.part1.audioBlobUrl}" controls></audio>
+                <span style="font-size: 12.5px; color: #2d7a4c; font-weight: 700;">🎧 考生现场演讲录音记录</span>
+              </div>
+            ` : `
+              <span style="font-size: 12.5px; color: var(--exam-text-muted);">ℹ️ 考生在本部分未录制语音</span>
+            `}
+          ` : `
+            <button class="speech-rec-btn ${isRecording ? 'recording' : ''}" id="btn-toggle-speech-rec-part1">
+              ${isRecording ? '⏹️ 停止解说录音' : (hasAudio ? '🔄 重新录制解说' : '🎙️ 开始现场模拟录音')}
+            </button>
 
-          <div class="speech-rec-player-wrapper" id="speech-rec-player-wrapper-part1" style="${hasAudio ? 'display:flex;' : 'display:none;'}">
-            <audio id="speech-rec-audio-part1" src="${examState.part1.audioBlobUrl || ''}" controls></audio>
-            <span style="font-size: 12px; color: #2d7a4c; font-weight: 700;">✅ 录音已保存，支持回放复盘</span>
-          </div>
+            <div class="speech-rec-player-wrapper" id="speech-rec-player-wrapper-part1" style="${hasAudio ? 'display:flex;' : 'display:none;'}">
+              <audio id="speech-rec-audio-part1" src="${examState.part1.audioBlobUrl || ''}" controls></audio>
+              <span style="font-size: 12px; color: #2d7a4c; font-weight: 700;">✅ 录音已保存，支持回放复盘</span>
+            </div>
+          `}
         </div>
       </div>
 
-      <!-- 三级提示控制区 -->
+      <!-- 三级提示控制区 (回顾模式下完全开放自由点击翻阅) -->
       <div class="hint-control-bar">
         <div class="hint-status-badge">
-          ${examState.part1.hintLevel === 0 ? '🔒 当前状态：模拟闭卷现场演讲' :
+          ${examState.part1.hintLevel === 0 ? '🔒 当前状态：模拟闭卷状态' :
             examState.part1.hintLevel === 1 ? '💡 已开启 (1/3)：考纲速记与考点提示' :
             examState.part1.hintLevel === 2 ? '🧩 已开启 (2/3)：关键词遮挡填空版原文' :
             '📖 已开启 (3/3)：中英双语完整原文'}
@@ -520,15 +579,16 @@
     const scenic = examState.part2.scenic;
     if (!scenic) return '<div>正在抽取景区...</div>';
 
-    const isRecording = (examState.part2.recordingState === 'recording');
+    const isReview = !!examState.isReviewMode;
+    const isRecording = !isReview && (examState.part2.recordingState === 'recording');
     const hasAudio = !!examState.part2.audioBlobUrl;
 
     return `
       <div class="exam-section-header">
         <div>
-          <span class="exam-section-tag">第二部分 · 占分 30%</span>
+          <span class="exam-section-tag">${isReview ? '考后复盘回顾 · 占分 30%' : '第二部分 · 占分 30%'}</span>
           <div class="exam-section-title">🏞️ 景区讲解 (Scenic Presentation)</div>
-          <div class="exam-section-subtitle">抽取代表性景区，模拟现场带领游客游览并进行中英文景点讲解。</div>
+          <div class="exam-section-subtitle">${isReview ? '本环节已锁定。考生可回听当时现场讲解录音，并自由研读考纲速记与全篇导游词。' : '抽取代表性景区，模拟现场带领游客游览并进行中英文景点讲解。'}</div>
         </div>
       </div>
 
@@ -538,7 +598,11 @@
           <span>📍</span>
           <span>${escapeHtml(scenic.name || scenic.id)}</span>
         </div>
-        <button class="lottery-spin-btn" id="btn-redraw-part2">🔄 重新抽签景区</button>
+        ${isReview ? `
+          <span style="font-size: 12px; color: var(--exam-text-muted); background: #f1f5f9; padding: 4px 12px; border-radius: 12px; font-weight: 600;">🔒 考场抽签已锁定</span>
+        ` : `
+          <button class="lottery-spin-btn" id="btn-redraw-part2">🔄 重新抽签景区</button>
+        `}
       </div>
 
       <!-- 考生现场模拟讲解录音与回放答题区 -->
@@ -555,21 +619,32 @@
         </div>
 
         <div class="speech-recording-controls">
-          <button class="speech-rec-btn ${isRecording ? 'recording' : ''}" id="btn-toggle-speech-rec-part2">
-            ${isRecording ? '⏹️ 停止解说录音' : (hasAudio ? '🔄 重新录制解说' : '🎙️ 开始现场模拟录音')}
-          </button>
+          ${isReview ? `
+            ${hasAudio ? `
+              <div class="speech-rec-player-wrapper" style="display:flex;">
+                <audio src="${examState.part2.audioBlobUrl}" controls></audio>
+                <span style="font-size: 12.5px; color: #2d7a4c; font-weight: 700;">🎧 考生现场演讲录音记录</span>
+              </div>
+            ` : `
+              <span style="font-size: 12.5px; color: var(--exam-text-muted);">ℹ️ 考生在本部分未录制语音</span>
+            `}
+          ` : `
+            <button class="speech-rec-btn ${isRecording ? 'recording' : ''}" id="btn-toggle-speech-rec-part2">
+              ${isRecording ? '⏹️ 停止解说录音' : (hasAudio ? '🔄 重新录制解说' : '🎙️ 开始现场模拟录音')}
+            </button>
 
-          <div class="speech-rec-player-wrapper" id="speech-rec-player-wrapper-part2" style="${hasAudio ? 'display:flex;' : 'display:none;'}">
-            <audio id="speech-rec-audio-part2" src="${examState.part2.audioBlobUrl || ''}" controls></audio>
-            <span style="font-size: 12px; color: #2d7a4c; font-weight: 700;">✅ 录音已保存，支持回放复盘</span>
-          </div>
+            <div class="speech-rec-player-wrapper" id="speech-rec-player-wrapper-part2" style="${hasAudio ? 'display:flex;' : 'display:none;'}">
+              <audio id="speech-rec-audio-part2" src="${examState.part2.audioBlobUrl || ''}" controls></audio>
+              <span style="font-size: 12px; color: #2d7a4c; font-weight: 700;">✅ 录音已保存，支持回放复盘</span>
+            </div>
+          `}
         </div>
       </div>
 
-      <!-- 三级提示控制区 -->
+      <!-- 三级提示控制区 (回顾模式下完全开放自由点击翻阅) -->
       <div class="hint-control-bar">
         <div class="hint-status-badge">
-          ${examState.part2.hintLevel === 0 ? '🔒 当前状态：模拟闭卷现场演讲' :
+          ${examState.part2.hintLevel === 0 ? '🔒 当前状态：模拟闭卷状态' :
             examState.part2.hintLevel === 1 ? '💡 已开启 (1/3)：考纲速记与动线考点' :
             examState.part2.hintLevel === 2 ? '🧩 已开启 (2/3)：关键词遮挡填空版原文' :
             '📖 已开启 (3/3)：中英双语完整原文'}
@@ -729,16 +804,17 @@
     return safeHtml;
   }
 
-  // 阶段 3: 知识问答 (纯英文题目，提供查看标准答案)
+  // 阶段 3: 知识问答 (纯英文题目，提供查看标准答案，支持回顾只读)
   function renderPart3Content() {
     const questions = examState.part3.questions || [];
+    const isReview = !!examState.isReviewMode;
 
     return `
       <div class="exam-section-header">
         <div>
-          <span class="exam-section-tag">第三部分 · 占分 25%</span>
+          <span class="exam-section-tag">${isReview ? '考后复盘回顾 · 占分 25%' : '第三部分 · 占分 25%'}</span>
           <div class="exam-section-title">📝 知识问答考核 (Q&A Interview)</div>
-          <div class="exam-section-subtitle">考官现场全英文提问 3 题。请录音或打字作答，系统将实时打分，作答后可查阅标准答案。</div>
+          <div class="exam-section-subtitle">${isReview ? '答卷已锁定。系统已展开题目中文翻译、官方标准答案与您的作答评测反馈。' : '考官现场全英文提问 3 题。请录音或打字作答，系统将实时打分，作答后可查阅标准答案。'}</div>
         </div>
       </div>
 
@@ -746,7 +822,7 @@
         ${questions.map((q, idx) => {
           const userAns = examState.part3.answers[q.id] || '';
           const scoreInfo = examState.part3.scores[q.id];
-          const isShowAnswer = !!examState.part3.showAnswer[q.id];
+          const isShowAnswer = isReview || !!examState.part3.showAnswer[q.id];
 
           return `
             <div class="qa-exam-card" data-qid="${q.id}">
@@ -757,24 +833,29 @@
                 </span>
               </div>
 
-              <!-- 纯英文题目展示 (无中文干扰) -->
+              <!-- 纯英文题目展示 -->
               <div class="qa-exam-q-text-en">${escapeHtml(q.enQuestion || q.question || '')}</div>
 
               <div class="qa-exam-input-area">
-                <textarea class="qa-exam-textarea" id="qa-input-${q.id}" placeholder="请点击下方麦克风录音作答或直接打字输入您的答案...">${escapeHtml(userAns)}</textarea>
-                <div class="qa-exam-ctrls">
-                  <div style="display: flex; gap: 8px; align-items: center;">
-                    <button class="qa-voice-btn" id="qa-voice-${q.id}" data-qid="${q.id}">
-                      <span>🎙️</span> <span>语音输入</span>
-                    </button>
-                    <button class="btn-qa-eval" id="qa-eval-btn-${q.id}" data-qid="${q.id}">
-                      🎯 实时打分评测
+                ${isReview ? `
+                  <div style="font-size: 12.5px; font-weight: 700; color: #475569; margin-bottom: 6px;">✏️ 考生作答记录：</div>
+                  <textarea class="qa-exam-textarea" readonly title="考后回顾状态，不可修改答卷" style="background:#f8fafc; color:#1e293b;">${escapeHtml(userAns || '（本题未作答）')}</textarea>
+                ` : `
+                  <textarea class="qa-exam-textarea" id="qa-input-${q.id}" placeholder="请点击下方麦克风录音作答或直接打字输入您的答案...">${escapeHtml(userAns)}</textarea>
+                  <div class="qa-exam-ctrls">
+                    <div style="display: flex; gap: 8px; align-items: center;">
+                      <button class="qa-voice-btn" id="qa-voice-${q.id}" data-qid="${q.id}">
+                        <span>🎙️</span> <span>语音输入</span>
+                      </button>
+                      <button class="btn-qa-eval" id="qa-eval-btn-${q.id}" data-qid="${q.id}">
+                        🎯 实时打分评测
+                      </button>
+                    </div>
+                    <button class="btn-toggle-answer" id="qa-toggle-ans-${q.id}" data-qid="${q.id}">
+                      ${isShowAnswer ? '🙈 收起标准答案' : '📖 查看标准答案'}
                     </button>
                   </div>
-                  <button class="btn-toggle-answer" id="qa-toggle-ans-${q.id}" data-qid="${q.id}">
-                    ${isShowAnswer ? '🙈 收起标准答案' : '📖 查看标准答案'}
-                  </button>
-                </div>
+                `}
               </div>
 
               <!-- 打分评测反馈 -->
@@ -807,16 +888,17 @@
     `;
   }
 
-  // 阶段 4: 口译测试 (提供原音播放、打分与参考译文)
+  // 阶段 4: 口译测试 (提供打分与参考译文，支持回顾只读)
   function renderPart4Content() {
     const translations = examState.part4.translations || [];
+    const isReview = !!examState.isReviewMode;
 
     return `
       <div class="exam-section-header">
         <div>
-          <span class="exam-section-tag">第四部分 · 占分 25%</span>
+          <span class="exam-section-tag">${isReview ? '考后复盘回顾 · 占分 25%' : '第四部分 · 占分 25%'}</span>
           <div class="exam-section-title">🗣️ 口译测试 (Interpretation)</div>
-          <div class="exam-section-subtitle">双向现场口译测试。请直接阅读源句并录入您的译文，支持智能要点打分与参考译文查看。</div>
+          <div class="exam-section-subtitle">${isReview ? '答卷已锁定。系统已展示官方标准参考译文与您的翻译评分情况。' : '双向现场口译测试。请直接阅读源句并录入您的译文，支持智能要点打分与参考译文查看。'}</div>
         </div>
       </div>
 
@@ -824,7 +906,7 @@
         ${translations.map((t, idx) => {
           const userAns = examState.part4.answers[t.id] || '';
           const scoreInfo = examState.part4.scores[t.id];
-          const isShowAnswer = !!examState.part4.showAnswer[t.id];
+          const isShowAnswer = isReview || !!examState.part4.showAnswer[t.id];
           const isC2E = (t.type === 'C2E' || t.tag === '汉译英');
 
           return `
@@ -840,20 +922,25 @@
               </div>
 
               <div class="qa-exam-input-area">
-                <textarea class="qa-exam-textarea" id="trans-input-${t.id}" placeholder="请说出或键入您的译文...">${escapeHtml(userAns)}</textarea>
-                <div class="qa-exam-ctrls">
-                  <div style="display: flex; gap: 8px; align-items: center;">
-                    <button class="qa-voice-btn" id="trans-voice-${t.id}" data-tid="${t.id}" data-lang="${isC2E ? 'en-US' : 'zh-CN'}">
-                      <span>🎙️</span> <span>语音输入</span>
-                    </button>
-                    <button class="btn-qa-eval" id="trans-eval-btn-${t.id}" data-tid="${t.id}">
-                      🎯 实时打分评测
+                ${isReview ? `
+                  <div style="font-size: 12.5px; font-weight: 700; color: #475569; margin-bottom: 6px;">✏️ 考生译文记录：</div>
+                  <textarea class="qa-exam-textarea" readonly title="考后回顾状态，不可修改答卷" style="background:#f8fafc; color:#1e293b;">${escapeHtml(userAns || '（本题未作答）')}</textarea>
+                ` : `
+                  <textarea class="qa-exam-textarea" id="trans-input-${t.id}" placeholder="请说出或键入您的译文...">${escapeHtml(userAns)}</textarea>
+                  <div class="qa-exam-ctrls">
+                    <div style="display: flex; gap: 8px; align-items: center;">
+                      <button class="qa-voice-btn" id="trans-voice-${t.id}" data-tid="${t.id}" data-lang="${isC2E ? 'en-US' : 'zh-CN'}">
+                        <span>🎙️</span> <span>语音输入</span>
+                      </button>
+                      <button class="btn-qa-eval" id="trans-eval-btn-${t.id}" data-tid="${t.id}">
+                        🎯 实时打分评测
+                      </button>
+                    </div>
+                    <button class="btn-toggle-answer" id="trans-toggle-ans-${t.id}" data-tid="${t.id}">
+                      ${isShowAnswer ? '🙈 收起参考译文' : '📖 查看参考译文'}
                     </button>
                   </div>
-                  <button class="btn-toggle-answer" id="trans-toggle-ans-${t.id}" data-tid="${t.id}">
-                    ${isShowAnswer ? '🙈 收起参考译文' : '📖 查看参考译文'}
-                  </button>
-                </div>
+                `}
               </div>
 
               <!-- 打分评测反馈 -->
@@ -876,7 +963,7 @@
     `;
   }
 
-  // 阶段 5: 考生成绩单报告 (支持全套模考成绩单 & 单科特训成绩报告)
+  // 阶段 5: 考生成绩单报告 (支持全套模考成绩单 & 单科特训成绩报告，支持点击回顾各科目)
   function renderReportView() {
     const isSingle = (examState.mode === 'single');
 
@@ -892,8 +979,8 @@
       if (sId === 1) {
         singleScore = Math.max(60, 100 - (examState.part1.hintLevel * 15));
         detailHtml = `
-          <div class="report-item-box">
-            <div class="report-item-title">🎙️ 抽选专题与自选线路</div>
+          <div class="report-item-box report-item-clickable" data-review-stage="1" title="点击进入考后复盘回顾与提示研读">
+            <div class="report-item-title">🎙️ 抽选专题与自选线路 (点击回顾)</div>
             <div class="report-item-val" style="font-size: 15px;">
               ${escapeHtml(examState.part1.category)} · ${escapeHtml(formatSpeechDisplayName(examState.part1.selectedSpeech))}
               <div style="font-size: 12px; color: var(--exam-text-muted); font-weight: normal; margin-top: 4px;">求助提示: ${examState.part1.hintLevel}次 (满级3次)</div>
@@ -903,14 +990,15 @@
                   <audio src="${examState.part1.audioBlobUrl}" controls style="height: 32px; width: 100%; max-width: 280px;"></audio>
                 </div>
               ` : ''}
+              <div class="review-indicator-badge">🔍 点击进入本题回顾与考纲速记 ➔</div>
             </div>
           </div>
         `;
       } else if (sId === 2) {
         singleScore = Math.max(60, 100 - (examState.part2.hintLevel * 15));
         detailHtml = `
-          <div class="report-item-box">
-            <div class="report-item-title">🏞️ 抽签讲解景区</div>
+          <div class="report-item-box report-item-clickable" data-review-stage="2" title="点击进入考后复盘回顾与提示研读">
+            <div class="report-item-title">🏞️ 抽签讲解景区 (点击回顾)</div>
             <div class="report-item-val" style="font-size: 15px;">
               ${escapeHtml(examState.part2.scenic?.name || '')}
               <div style="font-size: 12px; color: var(--exam-text-muted); font-weight: normal; margin-top: 4px;">求助提示: ${examState.part2.hintLevel}次 (满级3次)</div>
@@ -920,6 +1008,7 @@
                   <audio src="${examState.part2.audioBlobUrl}" controls style="height: 32px; width: 100%; max-width: 280px;"></audio>
                 </div>
               ` : ''}
+              <div class="review-indicator-badge">🔍 点击进入本题回顾与全篇导游词 ➔</div>
             </div>
           </div>
         `;
@@ -927,11 +1016,12 @@
         const p3Scores = Object.values(examState.part3.scores || {});
         singleScore = p3Scores.length ? Math.round(p3Scores.reduce((a, b) => a + (b.score || 0), 0) / p3Scores.length) : 0;
         detailHtml = `
-          <div class="report-item-box">
-            <div class="report-item-title">📝 知识问答 3 题评测</div>
+          <div class="report-item-box report-item-clickable" data-review-stage="3" title="点击进入考后复盘回顾与标准答案解析">
+            <div class="report-item-title">📝 知识问答 3 题评测 (点击回顾)</div>
             <div class="report-item-val" style="font-size: 15px;">
               均分 ${singleScore}分 / 100分
               <div style="font-size: 12px; color: var(--exam-text-muted); font-weight: normal; margin-top: 4px;">作答题数: ${Object.keys(examState.part3.answers || {}).length}/3 题</div>
+              <div class="review-indicator-badge">🔍 点击查看官方标准答案与题目翻译 ➔</div>
             </div>
           </div>
         `;
@@ -939,11 +1029,12 @@
         const p4Scores = Object.values(examState.part4.scores || {});
         singleScore = p4Scores.length ? Math.round(p4Scores.reduce((a, b) => a + (b.score || 0), 0) / p4Scores.length) : 0;
         detailHtml = `
-          <div class="report-item-box">
-            <div class="report-item-title">🗣️ 双向口译 2 题评测</div>
+          <div class="report-item-box report-item-clickable" data-review-stage="4" title="点击进入考后复盘回顾与参考译文解析">
+            <div class="report-item-title">🗣️ 双向口译 2 题评测 (点击回顾)</div>
             <div class="report-item-val" style="font-size: 15px;">
               均分 ${singleScore}分 / 100分
               <div style="font-size: 12px; color: var(--exam-text-muted); font-weight: normal; margin-top: 4px;">完成口译: ${Object.keys(examState.part4.answers || {}).length}/2 题</div>
+              <div class="review-indicator-badge">🔍 点击查看官方参考译文与评分反馈 ➔</div>
             </div>
           </div>
         `;
@@ -977,12 +1068,13 @@
             <div style="background: var(--exam-green-subtle); border-radius: 12px; padding: 18px; border: 1px solid var(--exam-green-border); margin-bottom: 24px;">
               <div style="font-weight: 800; font-size: 14px; color: var(--exam-text-dark); margin-bottom: 8px;">💡 单科备考提升锦囊：</div>
               <p style="font-size: 13px; color: var(--exam-text-muted); line-height: 1.7; margin: 0;">
-                建议结合「考纲速记」理顺解说动线，利用「遮挡填空」进行核心考点词复述记忆。多练快练，培养考场 5 分钟脱稿时间感！
+                点击上方卡片可随时进入「考后复盘回顾」，不计时且完整保留您的作答记录与官方解析，助您有针对性地查漏补缺！
               </p>
             </div>
 
             <div style="text-align: center; display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;">
-              <button class="exam-start-btn" id="btn-retry-single-stage">🔄 重新抽题，再测一次本单科</button>
+              <button class="exam-start-btn" id="btn-review-single-stage">🔍 回顾本科答卷与解析</button>
+              <button class="exam-start-btn" id="btn-retry-single-stage" style="background: #2d7a4c;">🔄 重新抽题，再测一次本单科</button>
               <button class="action-btn" id="btn-start-full-simulation" style="padding: 12px 22px; font-size: 14px; background: #ebf5ee; color: #2d7a4c; border: 1.5px solid #c6e2ce; border-radius: 25px; font-weight: 700; cursor: pointer;">🚀 开始全真模拟考试</button>
               <button class="btn-stage-action prev" id="btn-back-to-home" style="padding: 12px 22px; font-size: 14px;">返回考前准备</button>
             </div>
@@ -1030,8 +1122,8 @@
               <div class="report-item-val">${Math.floor(totalSeconds / 60)}分${totalSeconds % 60}秒</div>
             </div>
 
-            <div class="report-item-box">
-              <div class="report-item-title">🎙️ Part 1 专题讲解</div>
+            <div class="report-item-box report-item-clickable" data-review-stage="1" title="点击进入 Part 1 专题答卷复盘回顾">
+              <div class="report-item-title">🎙️ Part 1 专题讲解 (点击回顾)</div>
               <div class="report-item-val" style="font-size: 14.5px;">
                 ${escapeHtml(examState.part1.category)} · ${escapeHtml(formatSpeechDisplayName(examState.part1.selectedSpeech))}
                 <div style="font-size: 11.5px; color: var(--exam-text-muted); font-weight: normal; margin-top: 2px;">求助提示: ${examState.part1.hintLevel}次</div>
@@ -1040,11 +1132,12 @@
                     <audio src="${examState.part1.audioBlobUrl}" controls style="height: 30px; width: 100%;"></audio>
                   </div>
                 ` : ''}
+                <div class="review-indicator-badge">🔍 点击回顾本题 ➔</div>
               </div>
             </div>
 
-            <div class="report-item-box">
-              <div class="report-item-title">🏞️ Part 2 景区讲解</div>
+            <div class="report-item-box report-item-clickable" data-review-stage="2" title="点击进入 Part 2 景区答卷复盘回顾">
+              <div class="report-item-title">🏞️ Part 2 景区讲解 (点击回顾)</div>
               <div class="report-item-val" style="font-size: 14.5px;">
                 ${escapeHtml(examState.part2.scenic?.name || '')}
                 <div style="font-size: 11.5px; color: var(--exam-text-muted); font-weight: normal; margin-top: 2px;">求助提示: ${examState.part2.hintLevel}次</div>
@@ -1053,17 +1146,24 @@
                     <audio src="${examState.part2.audioBlobUrl}" controls style="height: 30px; width: 100%;"></audio>
                   </div>
                 ` : ''}
+                <div class="review-indicator-badge">🔍 点击回顾本题 ➔</div>
               </div>
             </div>
 
-            <div class="report-item-box">
-              <div class="report-item-title">📝 Part 3 知识问答得分</div>
-              <div class="report-item-val">${avgP3}分 <span style="font-size: 12px; color: var(--exam-text-muted); font-weight: normal;">(折合 ${p3Base}/25分)</span></div>
+            <div class="report-item-box report-item-clickable" data-review-stage="3" title="点击进入 Part 3 问答答卷复盘回顾">
+              <div class="report-item-title">📝 Part 3 知识问答得分 (点击回顾)</div>
+              <div class="report-item-val">
+                ${avgP3}分 <span style="font-size: 12px; color: var(--exam-text-muted); font-weight: normal;">(折合 ${p3Base}/25分)</span>
+                <div class="review-indicator-badge">🔍 点击查看标准答案与解析 ➔</div>
+              </div>
             </div>
 
-            <div class="report-item-box">
-              <div class="report-item-title">🗣️ Part 4 口译测试得分</div>
-              <div class="report-item-val">${avgP4}分 <span style="font-size: 12px; color: var(--exam-text-muted); font-weight: normal;">(折合 ${p4Base}/25分)</span></div>
+            <div class="report-item-box report-item-clickable" data-review-stage="4" title="点击进入 Part 4 口译答卷复盘回顾">
+              <div class="report-item-title">🗣️ Part 4 口译测试得分 (点击回顾)</div>
+              <div class="report-item-val">
+                ${avgP4}分 <span style="font-size: 12px; color: var(--exam-text-muted); font-weight: normal;">(折合 ${p4Base}/25分)</span>
+                <div class="review-indicator-badge">🔍 点击查看官方参考译文 ➔</div>
+              </div>
             </div>
           </div>
 
@@ -1077,7 +1177,8 @@
           </div>
 
           <div style="text-align: center; display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
-            <button class="exam-start-btn" id="btn-restart-exam">🔄 再来一套真题模拟</button>
+            <button class="exam-start-btn" id="btn-review-full-exam">🔍 逐题回顾本次答卷与标准解析</button>
+            <button class="exam-start-btn" id="btn-restart-exam" style="background: #2d7a4c;">🔄 再来一套真题模拟</button>
             <button class="btn-stage-action prev" id="btn-back-to-home" style="padding: 13px 28px; font-size: 15px;">返回考前准备</button>
           </div>
         </div>
@@ -1085,10 +1186,44 @@
     `;
   }
 
+  // 进入考后复盘回顾模式
+  function enterReviewStage(targetStage) {
+    examState.isReviewMode = true;
+    examState.stage = targetStage;
+    if (examState.timerInterval) clearInterval(examState.timerInterval);
+    renderExamLayout();
+  }
+
   function bindReportEvents() {
+    // 点击各个科目卡片进入该科目回顾
+    const clickables = document.querySelectorAll('.report-item-clickable');
+    clickables.forEach(card => {
+      card.addEventListener('click', () => {
+        const targetStage = parseInt(card.getAttribute('data-review-stage'), 10);
+        if (targetStage >= 1 && targetStage <= 4) {
+          enterReviewStage(targetStage);
+        }
+      });
+    });
+
+    const reviewSingleBtn = document.getElementById('btn-review-single-stage');
+    if (reviewSingleBtn) {
+      reviewSingleBtn.addEventListener('click', () => {
+        enterReviewStage(examState.singleStageId);
+      });
+    }
+
+    const reviewFullBtn = document.getElementById('btn-review-full-exam');
+    if (reviewFullBtn) {
+      reviewFullBtn.addEventListener('click', () => {
+        enterReviewStage(1);
+      });
+    }
+
     const restartBtn = document.getElementById('btn-restart-exam');
     if (restartBtn) {
       restartBtn.addEventListener('click', () => {
+        examState.isReviewMode = false;
         startSimulation();
       });
     }
@@ -1096,6 +1231,7 @@
     const retrySingleBtn = document.getElementById('btn-retry-single-stage');
     if (retrySingleBtn) {
       retrySingleBtn.addEventListener('click', () => {
+        examState.isReviewMode = false;
         startSingleStage(examState.singleStageId);
       });
     }
@@ -1103,6 +1239,7 @@
     const startFullBtn = document.getElementById('btn-start-full-simulation');
     if (startFullBtn) {
       startFullBtn.addEventListener('click', () => {
+        examState.isReviewMode = false;
         startSimulation();
       });
     }
@@ -1110,6 +1247,7 @@
     const homeBtn = document.getElementById('btn-back-to-home');
     if (homeBtn) {
       homeBtn.addEventListener('click', () => {
+        examState.isReviewMode = false;
         examState.stage = 0;
         renderExamLayout();
       });
@@ -1136,7 +1274,7 @@
   // 切换录音开启/停止
   function toggleSpeechRecording(partKey) {
     const pData = examState[partKey];
-    if (!pData) return;
+    if (!pData || examState.isReviewMode) return;
 
     if (pData.recordingState === 'recording') {
       // 停止录音
@@ -1199,7 +1337,43 @@
 
   // 绑定各阶段内的交互事件
   function bindStageEvents() {
-    // 提前进入下一阶段 / 完成单科测试
+    // 回顾模式下的专属事件：返回成绩单 / 导航到下一阶段 / Tracker 点击切换
+    if (examState.isReviewMode) {
+      const backBtns = [document.getElementById('btn-back-to-report'), document.getElementById('btn-back-to-report-right')];
+      backBtns.forEach(btn => {
+        if (btn) {
+          btn.addEventListener('click', () => {
+            examState.stage = 5;
+            renderExamLayout();
+          });
+        }
+      });
+
+      const nextReviewBtn = document.getElementById('btn-review-next-stage');
+      if (nextReviewBtn) {
+        nextReviewBtn.addEventListener('click', () => {
+          if (examState.stage < 4) {
+            enterReviewStage(examState.stage + 1);
+          } else {
+            examState.stage = 5;
+            renderExamLayout();
+          }
+        });
+      }
+
+      // 顶部 Tracker 点击在各环节间无缝穿梭
+      const reviewNavItems = document.querySelectorAll('.exam-step-item.review-nav');
+      reviewNavItems.forEach(item => {
+        item.addEventListener('click', () => {
+          const target = parseInt(item.getAttribute('data-review-nav'), 10);
+          if (target >= 1 && target <= 4) {
+            enterReviewStage(target);
+          }
+        });
+      });
+    }
+
+    // 提前进入下一阶段 / 完成单科测试 (仅在正式考试进行时可用)
     const nextBtn = document.getElementById('btn-next-stage');
     if (nextBtn) {
       nextBtn.addEventListener('click', () => {
