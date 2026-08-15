@@ -51,7 +51,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  function getBestVoiceByGender(preferredGender = 'female') {
+  // 预热 Web Speech API 声音库
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.getVoices();
+    if (window.speechSynthesis.onvoiceschanged !== undefined) {
+      window.speechSynthesis.onvoiceschanged = () => {
+        window.speechSynthesis.getVoices();
+      };
+    }
+  }
+
+  function getBestVoiceByGender(preferredGender = 'male') {
     if (!('speechSynthesis' in window)) return null;
     const voices = window.speechSynthesis.getVoices() || [];
     if (!voices.length) return null;
@@ -59,23 +69,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const enVoices = voices.filter(v => v.lang && v.lang.toLowerCase().startsWith('en'));
     const candidateVoices = enVoices.length ? enVoices : voices;
 
-    const isFemalePreferred = (preferredGender || 'female').toLowerCase() === 'female';
+    const isMalePreferred = (preferredGender || 'male').toLowerCase() === 'male';
 
     // 女性音色常见关键词与人名（覆盖 Windows Edge, Chrome, macOS, iOS 等）
     const femaleKeywords = [
       'female', 'jenny', 'zira', 'samantha', 'victoria', 'karen', 'eva', 'cathy',
-      'susan', 'ana', 'aria', 'hazel', 'stephanie', 'sonia', 'julie', 'alva'
+      'susan', 'ana', 'aria', 'hazel', 'stephanie', 'sonia', 'julie', 'alva', 'steffi'
     ];
     // 男性音色常见关键词与人名
     const maleKeywords = [
-      'male', 'guy', 'david', 'alex', 'daniel', 'fred', 'george', 'richard',
-      'mark', 'tom', 'ryan', 'oliver', 'rishi', 'thomas', 'steffan'
+      'male', 'david', 'guy', 'ryan', 'alex', 'daniel', 'fred', 'george', 'richard',
+      'mark', 'tom', 'oliver', 'rishi', 'thomas', 'steffan', 'james', 'brian'
     ];
 
-    const targetKeywords = isFemalePreferred ? femaleKeywords : maleKeywords;
-    const oppositeKeywords = isFemalePreferred ? maleKeywords : femaleKeywords;
+    const targetKeywords = isMalePreferred ? maleKeywords : femaleKeywords;
+    const oppositeKeywords = isMalePreferred ? femaleKeywords : maleKeywords;
 
-    // 1. 查找包含目标性别关键词且为美音 en-US 的声音
+    // 1. 查找包含目标性别关键词且为美音 en-US 的声音（如 Microsoft David 或 Microsoft Guy）
     let matched = candidateVoices.find(v => {
       const name = (v.name || '').toLowerCase();
       const lang = (v.lang || '').toLowerCase();
@@ -84,14 +94,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     if (matched) return matched;
 
-    // 2. 查找包含目标性别关键词的任何英文声音
+    // 2. 查找包含目标性别关键词的任何英文声音（如 Google UK English Male）
     matched = candidateVoices.find(v => {
       const name = (v.name || '').toLowerCase();
       return targetKeywords.some(kw => name.includes(kw));
     });
     if (matched) return matched;
 
-    // 3. 排除对方性别关键词的声音，优先取美音
+    // 3. 严格排除对方性别关键词的声音，优先取美音
     matched = candidateVoices.find(v => {
       const name = (v.name || '').toLowerCase();
       const lang = (v.lang || '').toLowerCase();
@@ -100,7 +110,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     if (matched) return matched;
 
-    // 4. 回退到任意美音或英文声音
+    // 4. 排除对方性别关键词的任何英文声音
+    matched = candidateVoices.find(v => {
+      const name = (v.name || '').toLowerCase();
+      return !oppositeKeywords.some(kw => name.includes(kw));
+    });
+    if (matched) return matched;
+
+    // 5. 回退到任意美音或英文声音
     return candidateVoices.find(v => {
       const lang = (v.lang || '').toLowerCase();
       const name = (v.name || '').toLowerCase();
@@ -109,12 +126,22 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function getAudioSettings() {
-    const voiceElem = document.getElementById('speech-voice-select');
-    const rateElem = document.getElementById('speech-rate-select');
+    const voiceElem = document.querySelector('.audio-control-card #speech-voice-select') || 
+                      document.getElementById('speech-voice-select');
+    const rateElem = document.querySelector('.audio-control-card #speech-rate-select') || 
+                     document.getElementById('speech-rate-select');
 
-    let voiceGender = voiceElem ? voiceElem.value : (localStorage.getItem('tour_speech_voice') || 'female');
-    let rate = rateElem ? parseFloat(rateElem.value || '1.0') : parseFloat(localStorage.getItem('tour_speech_rate') || '1.0');
+    let voiceGender = (voiceElem && voiceElem.value) 
+      ? voiceElem.value 
+      : (localStorage.getItem('tour_speech_voice') || 'male');
 
+    let rate = (rateElem && rateElem.value) 
+      ? parseFloat(rateElem.value) 
+      : parseFloat(localStorage.getItem('tour_speech_rate') || '1.0');
+
+    if (!voiceGender || (voiceGender !== 'male' && voiceGender !== 'female')) {
+      voiceGender = 'male';
+    }
     if (isNaN(rate) || rate <= 0) rate = 1.0;
     return { voiceGender, rate };
   }
@@ -1390,7 +1417,7 @@ document.addEventListener('DOMContentLoaded', () => {
     container.appendChild(headerCard);
 
     // 2. 播放控制卡（放在标题下方）
-    const savedVoice = localStorage.getItem('tour_speech_voice') || 'female';
+    const savedVoice = localStorage.getItem('tour_speech_voice') || 'male';
     const savedRate = localStorage.getItem('tour_speech_rate') || '1.0';
 
     const controlCard = document.createElement('div');
@@ -1406,8 +1433,8 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="audio-control-item">
           <label style="font-size: 13px; color: #555;">音色:</label>
           <select class="voice-select" id="speech-voice-select" title="选择朗读音色">
-            <option value="female"${savedVoice === 'female' ? ' selected' : ''}>女声 (Female)</option>
             <option value="male"${savedVoice === 'male' ? ' selected' : ''}>男声 (Male)</option>
+            <option value="female"${savedVoice === 'female' ? ' selected' : ''}>女声 (Female)</option>
           </select>
         </div>
         <div class="audio-control-item">
