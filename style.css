@@ -1548,7 +1548,9 @@ header.main-header {
   align-items: center;
 }
 
-.dict-highlight-active {
+span.dict-highlight-active,
+span.word-token.dict-highlight-active,
+span.kw-masked.dict-highlight-active {
   background-color: rgba(45, 122, 76, 0.22) !important;
   border-radius: 3px;
   box-shadow: 0 0 0 2px rgba(45, 122, 76, 0.3);

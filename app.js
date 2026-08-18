@@ -3989,7 +3989,8 @@ function getPhraseStatus(id) {
     async function showWordPopover(word, targetEl, clientX, clientY) {
       removeCurrentPopover();
 
-      if (targetEl && targetEl.classList) {
+      // 仅当 targetEl 是单单词 span 时高亮，绝不给整个段落容器加底色
+      if (targetEl && targetEl.tagName === 'SPAN' && (targetEl.classList.contains('word-token') || targetEl.classList.contains('kw-masked'))) {
         targetEl.classList.add('dict-highlight-active');
         activeHighlightEl = targetEl;
       }
