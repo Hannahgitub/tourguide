@@ -672,7 +672,7 @@ window.BUILTIN_GUIDE_DICT = {
   "explore": {
     "phonetic": "/ɪkˈsplɔː(r)/",
     "pos": "v.",
-    "def": "探索；探寻"
+    "def": "探索；探寻；考察；勘探"
   },
   "expressway": {
     "phonetic": "/ɪkˈspresweɪ/",
@@ -8235,9 +8235,9 @@ window.BUILTIN_GUIDE_DICT = {
     "def": "展览会"
   },
   "exploration": {
-    "phonetic": "",
+    "phonetic": "/ˌekspləˈreɪʃn/",
     "pos": "n.",
-    "def": "勘探，勘察；研究，探究"
+    "def": "探索；探险；深入考察；探究"
   },
   "exploring": {
     "phonetic": "",
@@ -13995,9 +13995,9 @@ window.BUILTIN_GUIDE_DICT = {
     "def": "必需品（necessity 的复数）"
   },
   "need": {
-    "phonetic": "",
-    "pos": "v.",
-    "def": "需要；（表示应该或不得不做）有必要；<古>需要; n. 需要，必须； 特别需要，迫切要求；需要..."
+    "phonetic": "/niːd/",
+    "pos": "v./n.",
+    "def": "需要；必须；需求；要求"
   },
   "nationality": {
     "phonetic": "",
@@ -14050,9 +14050,9 @@ window.BUILTIN_GUIDE_DICT = {
     "def": "[生态]生态位；[建]壁龛（niche 的复数）; v. 把……放置在壁龛中；放在适当的位置（..."
   },
   "needs": {
-    "phonetic": "",
-    "pos": "adv.",
-    "def": "（只与 must 连用）必须地; v. 需要；（表示应该或不得不做）有必要（need 的第..."
+    "phonetic": "/niːdz/",
+    "pos": "n./v.",
+    "def": "需求；需要；要求（need 的复数/第三人称单数形式）"
   },
   "night": {
     "phonetic": "",
