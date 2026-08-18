@@ -3869,8 +3869,335 @@ function getPhraseStatus(id) {
       };
     }
   }
+
+  // ==========================================
+  // --- 单词即点即查释义系统 (WORD DICT SYSTEM) ---
+  // ==========================================
+  function initWordDictionarySystem() {
+    let currentPopoverEl = null;
+    let activeHighlightEl = null;
+
+    function removeCurrentPopover() {
+      if (currentPopoverEl && currentPopoverEl.parentElement) {
+        currentPopoverEl.parentElement.removeChild(currentPopoverEl);
+      }
+      currentPopoverEl = null;
+      if (activeHighlightEl) {
+        activeHighlightEl.classList.remove('dict-highlight-active');
+        activeHighlightEl = null;
+      }
+      document.querySelectorAll('.dict-highlight-active').forEach(el => {
+        el.classList.remove('dict-highlight-active');
+      });
+    }
+
+    // 智能查词核心引擎
+    async function lookupWordInfo(rawWord) {
+      if (!rawWord) return null;
+      const cleanWord = rawWord.toLowerCase().replace(/^[^a-z0-9]+|[^a-z0-9]+$/gi, '').trim();
+      if (!cleanWord || cleanWord.length < 2) return null;
+
+      const dict = window.BUILTIN_GUIDE_DICT || {};
+
+      // 1. 直接命中内置词典
+      if (dict[cleanWord]) {
+        return { word: cleanWord, ...dict[cleanWord], from: 'builtin' };
+      }
+
+      // 2. 词形还原候选
+      const candidates = [];
+      if (cleanWord.endsWith('ies') && cleanWord.length > 4) candidates.push(cleanWord.slice(0, -3) + 'y');
+      if (cleanWord.endsWith('es') && cleanWord.length > 3) {
+        candidates.push(cleanWord.slice(0, -2));
+        candidates.push(cleanWord.slice(0, -1));
+      }
+      if (cleanWord.endsWith('s') && !cleanWord.endsWith('ss') && cleanWord.length > 3) candidates.push(cleanWord.slice(0, -1));
+      if (cleanWord.endsWith('ing') && cleanWord.length > 4) {
+        candidates.push(cleanWord.slice(0, -3));
+        candidates.push(cleanWord.slice(0, -3) + 'e');
+      }
+      if (cleanWord.endsWith('ed') && cleanWord.length > 4) {
+        candidates.push(cleanWord.slice(0, -2));
+        candidates.push(cleanWord.slice(0, -1));
+      }
+      if (cleanWord.endsWith('ly') && cleanWord.length > 4) {
+        candidates.push(cleanWord.slice(0, -2));
+        candidates.push(cleanWord.slice(0, -2) + 'e');
+      }
+
+      for (const form of candidates) {
+        if (dict[form]) {
+          return {
+            word: cleanWord,
+            baseForm: form,
+            phonetic: dict[form].phonetic,
+            pos: dict[form].pos,
+            def: dict[form].def,
+            from: 'builtin_lemma'
+          };
+        }
+      }
+
+      // 3. LocalStorage 缓存
+      try {
+        const cached = localStorage.getItem(`word_def_${cleanWord}`);
+        if (cached) {
+          const parsed = JSON.parse(cached);
+          if (parsed && parsed.def) return parsed;
+        }
+      } catch (_) {}
+
+      // 4. 在线公开 API 异步查词 (有道词典开放 API)
+      try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 2000);
+        const res = await fetch(`https://dict.youdao.com/suggest?q=${encodeURIComponent(cleanWord)}&num=1&doctype=json`, {
+          signal: controller.signal
+        });
+        clearTimeout(timeoutId);
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.data && data.data.entries && data.data.entries.length > 0) {
+            const entry = data.data.entries[0];
+            const defText = entry.explain || '';
+            const result = {
+              word: cleanWord,
+              phonetic: entry.phonetic ? `/${entry.phonetic}/` : '',
+              pos: '',
+              def: defText,
+              from: 'online'
+            };
+            try {
+              localStorage.setItem(`word_def_${cleanWord}`, JSON.stringify(result));
+            } catch (_) {}
+            return result;
+          }
+        }
+      } catch (_) {}
+
+      // 5. 兜底
+      return {
+        word: cleanWord,
+        phonetic: '',
+        pos: 'word',
+        def: '暂无收录释义，点击 🔊 可收听标准发音',
+        from: 'fallback'
+      };
+    }
+
+    // 显示单词释义浮层气泡
+    async function showWordPopover(word, targetEl, clientX, clientY) {
+      removeCurrentPopover();
+
+      if (targetEl && targetEl.classList) {
+        targetEl.classList.add('dict-highlight-active');
+        activeHighlightEl = targetEl;
+      }
+
+      const popover = document.createElement('div');
+      popover.className = 'word-dict-popover';
+      popover.innerHTML = `
+        <div class="word-dict-header">
+          <div class="word-dict-title-group">
+            <span class="word-dict-word">${escapeHtml(word)}</span>
+            <span class="word-dict-phonetic" style="display:none;"></span>
+          </div>
+          <div class="word-dict-actions">
+            <button class="word-dict-speak-btn" title="朗读此单词">🔊</button>
+            <button class="word-dict-close-btn" title="关闭">✕</button>
+          </div>
+        </div>
+        <div class="word-dict-body">
+          <span class="word-dict-pos" style="display:none;"></span>
+          <span class="word-dict-def" style="color: #64748b;">正在查询释义...</span>
+        </div>
+        <div class="word-dict-footer">
+          <span>💡 广西导考英语词典</span>
+          <span style="font-size:10px; color:#cbd5e1;">即点即查</span>
+        </div>
+      `;
+
+      document.body.appendChild(popover);
+      currentPopoverEl = popover;
+
+      // 阻止浮层内部点击冒泡，避免误关闭
+      popover.addEventListener('click', (e) => {
+        e.stopPropagation();
+      });
+
+      // 发音按钮
+      const speakBtn = popover.querySelector('.word-dict-speak-btn');
+      if (speakBtn) {
+        speakBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          speakText(word, null, null, false);
+        });
+      }
+
+      // 关闭按钮
+      const closeBtn = popover.querySelector('.word-dict-close-btn');
+      if (closeBtn) {
+        closeBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          removeCurrentPopover();
+        });
+      }
+
+      // 定位 popover
+      const popoverRect = popover.getBoundingClientRect();
+      const popWidth = popoverRect.width || 280;
+      const popHeight = popoverRect.height || 140;
+
+      let left = clientX - (popWidth / 2);
+      let top = clientY + 12 + window.scrollY;
+
+      // 防止溢出左右屏幕
+      if (left < 16) left = 16;
+      if (left + popWidth > window.innerWidth - 16) {
+        left = window.innerWidth - popWidth - 16;
+      }
+
+      // 如果下方超出视口，改为向上弹出
+      if (clientY + popHeight + 30 > window.innerHeight && clientY - popHeight - 20 > 0) {
+        top = clientY - popHeight - 12 + window.scrollY;
+      }
+
+      popover.style.left = `${left}px`;
+      popover.style.top = `${top}px`;
+
+      // 异步检索完整释义与音标
+      const info = await lookupWordInfo(word);
+      if (currentPopoverEl !== popover) return; // 已被关闭或切换
+
+      if (info) {
+        const phoneticEl = popover.querySelector('.word-dict-phonetic');
+        if (phoneticEl && info.phonetic) {
+          phoneticEl.textContent = info.phonetic;
+          phoneticEl.style.display = 'inline-block';
+        }
+
+        const posEl = popover.querySelector('.word-dict-pos');
+        if (posEl && info.pos) {
+          posEl.textContent = info.pos;
+          posEl.style.display = 'inline-block';
+        }
+
+        const defEl = popover.querySelector('.word-dict-def');
+        if (defEl) {
+          defEl.style.color = '#334155';
+          let defHtml = escapeHtml(info.def);
+          if (info.baseForm && info.baseForm !== info.word) {
+            defHtml = `<span style="color:#64748b; font-size:12px;">[原形: ${escapeHtml(info.baseForm)}]</span> ` + defHtml;
+          }
+          defEl.innerHTML = defHtml;
+        }
+      }
+    }
+
+    // 从光标点击位置提取英文单词
+    function getWordFromClick(e) {
+      const target = e.target;
+      if (!target) return null;
+
+      // 1. 如果点击在 .word-token 上
+      if (target.classList && target.classList.contains('word-token')) {
+        const text = target.textContent.trim().replace(/^[^a-zA-Z0-9]+|[^a-zA-Z0-9]+$/g, '');
+        if (text && text.length >= 2 && /[a-zA-Z]/.test(text)) {
+          return { word: text, element: target };
+        }
+      }
+
+      // 2. 如果点击在 .kw-masked 上
+      if (target.classList && target.classList.contains('kw-masked')) {
+        const text = target.textContent.trim().replace(/^[^a-zA-Z0-9]+|[^a-zA-Z0-9]+$/g, '');
+        if (text && text.length >= 2 && /[a-zA-Z]/.test(text)) {
+          return { word: text, element: target };
+        }
+      }
+
+      // 3. 通用光标位置提取
+      let range = null;
+      let textNode = null;
+      let offset = 0;
+
+      if (document.caretRangeFromPoint) {
+        range = document.caretRangeFromPoint(e.clientX, e.clientY);
+        if (range) {
+          textNode = range.startContainer;
+          offset = range.startOffset;
+        }
+      } else if (document.caretPositionFromPoint) {
+        const pos = document.caretPositionFromPoint(e.clientX, e.clientY);
+        if (pos) {
+          textNode = pos.offsetNode;
+          offset = pos.offset;
+        }
+      }
+
+      if (textNode && textNode.nodeType === Node.TEXT_NODE) {
+        const text = textNode.textContent;
+        if (!text || offset < 0 || offset > text.length) return null;
+
+        // 向左查找单词起始边界
+        let start = offset;
+        while (start > 0 && /[a-zA-Z0-9'-]/.test(text[start - 1])) {
+          start--;
+        }
+
+        // 向右查找单词结束边界
+        let end = offset;
+        while (end < text.length && /[a-zA-Z0-9'-]/.test(text[end])) {
+          end++;
+        }
+
+        const rawWord = text.substring(start, end).replace(/^[^a-zA-Z0-9]+|[^a-zA-Z0-9]+$/g, '');
+        if (rawWord && rawWord.length >= 2 && /[a-zA-Z]/.test(rawWord)) {
+          return { word: rawWord, element: target };
+        }
+      }
+
+      return null;
+    }
+
+    // 全局点击监听
+    document.addEventListener('click', (e) => {
+      // 检查是否点击在导游词英文内容区或讲义英文内容区
+      const enBlock = e.target.closest('.speech-text-en, .cheat-en-block, .skill-en-text, .qa-question-title, .interp-ans-text-content');
+      if (enBlock) {
+        // 如果点击的是播放按钮则不触发查词
+        if (e.target.closest('button, .cheat-play-btn, .cheat-mini-play-btn, .btn-skill-play, .action-btn')) {
+          return;
+        }
+        const wordObj = getWordFromClick(e);
+        if (wordObj && wordObj.word) {
+          showWordPopover(wordObj.word, wordObj.element, e.clientX, e.clientY);
+          return;
+        }
+      }
+
+      // 否则点击在空白区域时，关闭浮层
+      removeCurrentPopover();
+    });
+
+    // ESC 键关闭浮层
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        removeCurrentPopover();
+      }
+    });
+
+    // 页面滚动时适度关闭浮层
+    window.addEventListener('scroll', () => {
+      if (currentPopoverEl) {
+        removeCurrentPopover();
+      }
+    }, { passive: true });
+  }
+
+  // 启动即点即查词典系统
+  initWordDictionarySystem();
 });
 
-  document.addEventListener("visibilitychange", () => {
-    if (document.hidden) stopAllAudio();
-  });
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden) stopAllAudio();
+});

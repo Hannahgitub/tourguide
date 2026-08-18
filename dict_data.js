@@ -1,0 +1,1692 @@
+window.BUILTIN_GUIDE_DICT = {
+  "abundant": {
+    "phonetic": "/əˈbʌndənt/",
+    "pos": "adj.",
+    "def": "丰富的；充沛的"
+  },
+  "abundance": {
+    "phonetic": "/əˈbʌndəns/",
+    "pos": "n.",
+    "def": "丰富；充裕"
+  },
+  "accident": {
+    "phonetic": "/ˈæksɪdənt/",
+    "pos": "n.",
+    "def": "事故；意外事件"
+  },
+  "accordance": {
+    "phonetic": "/əˈkɔːdns/",
+    "pos": "n.",
+    "def": "一致；符合；依照"
+  },
+  "activity": {
+    "phonetic": "/ækˈtɪvəti/",
+    "pos": "n.",
+    "def": "活动；行动"
+  },
+  "activities": {
+    "phonetic": "/ækˈtɪvətiz/",
+    "pos": "n.",
+    "def": "重大活动；节庆活动"
+  },
+  "admire": {
+    "phonetic": "/ədˈmaɪə(r)/",
+    "pos": "v.",
+    "def": "欣赏；赞赏；钦佩"
+  },
+  "aesthetic": {
+    "phonetic": "/iːsˈθetɪk/",
+    "pos": "adj./n.",
+    "def": "审美的；美学的；美感"
+  },
+  "agency": {
+    "phonetic": "/ˈeɪdʒənsi/",
+    "pos": "n.",
+    "def": "旅行社；代理机构"
+  },
+  "agile": {
+    "phonetic": "/ˈædʒaɪl/",
+    "pos": "adj.",
+    "def": "敏捷的；灵活的"
+  },
+  "altitude": {
+    "phonetic": "/ˈæltɪtjuːd/",
+    "pos": "n.",
+    "def": "海拔；高度"
+  },
+  "ambulance": {
+    "phonetic": "/ˈæmbjələns/",
+    "pos": "n.",
+    "def": "救护车"
+  },
+  "ancient": {
+    "phonetic": "/ˈeɪnʃənt/",
+    "pos": "adj.",
+    "def": "古老的；古代的"
+  },
+  "ancestor": {
+    "phonetic": "/ˈænsestə(r)/",
+    "pos": "n.",
+    "def": "先民；祖先；始祖"
+  },
+  "ancestors": {
+    "phonetic": "/ˈænsestəz/",
+    "pos": "n.",
+    "def": "先民祖先们"
+  },
+  "anniversary": {
+    "phonetic": "/ˌænɪˈvɜːsəri/",
+    "pos": "n.",
+    "def": "周年纪念日"
+  },
+  "announce": {
+    "phonetic": "/əˈnaʊns/",
+    "pos": "v.",
+    "def": "宣布；通告；播报"
+  },
+  "appreciate": {
+    "phonetic": "/əˈpriːʃieɪt/",
+    "pos": "v.",
+    "def": "领略；欣赏；感激"
+  },
+  "appreciation": {
+    "phonetic": "/əˌpriːʃiˈeɪʃn/",
+    "pos": "n.",
+    "def": "欣赏；鉴赏；感激"
+  },
+  "archaeology": {
+    "phonetic": "/ˌɑːkiˈɒlədʒi/",
+    "pos": "n.",
+    "def": "考古学"
+  },
+  "archaeologist": {
+    "phonetic": "/ˌɑːkiˈɒlədʒɪst/",
+    "pos": "n.",
+    "def": "考古学家"
+  },
+  "architecture": {
+    "phonetic": "/ˈɑːkɪtektʃə(r)/",
+    "pos": "n.",
+    "def": "建筑风格；建筑结构"
+  },
+  "architectural": {
+    "phonetic": "/ˌɑːkɪˈtektʃərəl/",
+    "pos": "adj.",
+    "def": "建筑学的；建筑结构上的"
+  },
+  "area": {
+    "phonetic": "/ˈeəriə/",
+    "pos": "n.",
+    "def": "地区；区域；景区"
+  },
+  "art": {
+    "phonetic": "/ɑːt/",
+    "pos": "n.",
+    "def": "艺术；美术；技艺"
+  },
+  "arrival": {
+    "phonetic": "/əˈraɪvl/",
+    "pos": "n.",
+    "def": "抵达；到来"
+  },
+  "arrive": {
+    "phonetic": "/əˈraɪv/",
+    "pos": "v.",
+    "def": "到达；抵达"
+  },
+  "asean": {
+    "phonetic": "/ˈæsiæn/",
+    "pos": "prop.n.",
+    "def": "东盟（东南亚国家联盟）"
+  },
+  "atmosphere": {
+    "phonetic": "/ˈætməsfɪə(r)/",
+    "pos": "n.",
+    "def": "氛围；气氛；大气层"
+  },
+  "attraction": {
+    "phonetic": "/əˈtrækʃn/",
+    "pos": "n.",
+    "def": "旅游景点；吸引力"
+  },
+  "attractions": {
+    "phonetic": "/əˈtrækʃnz/",
+    "pos": "n.",
+    "def": "旅游胜地；核心景点"
+  },
+  "auspicious": {
+    "phonetic": "/ɔːˈspɪʃəs/",
+    "pos": "adj.",
+    "def": "吉祥的；吉利的"
+  },
+  "authentic": {
+    "phonetic": "/ɔːˈθentɪk/",
+    "pos": "adj.",
+    "def": "原汁原味的；正宗的；真实的"
+  },
+  "autonomous": {
+    "phonetic": "/ɔːˈtɒnəməs/",
+    "pos": "adj.",
+    "def": "自治的；自主的"
+  },
+  "badge": {
+    "phonetic": "/bædʒ/",
+    "pos": "n.",
+    "def": "徽章；证章（如导游证）"
+  },
+  "bamboo": {
+    "phonetic": "/ˌbæmˈbuː/",
+    "pos": "n.",
+    "def": "竹子；竹筏（Bamboo Raft）"
+  },
+  "bama": {
+    "phonetic": "/bɑːˈmɑː/",
+    "pos": "prop.n.",
+    "def": "巴马（世界长寿之乡）"
+  },
+  "banquet": {
+    "phonetic": "/ˈbæŋkwɪt/",
+    "pos": "n.",
+    "def": "盛宴；国宴；百家宴"
+  },
+  "beibu": {
+    "phonetic": "/beɪˈbuː/",
+    "pos": "prop.n.",
+    "def": "北部湾（Beibu Gulf）"
+  },
+  "belt": {
+    "phonetic": "/belt/",
+    "pos": "n.",
+    "def": "一带一路（Belt and Road）；带"
+  },
+  "beverage": {
+    "phonetic": "/ˈbevərɪdʒ/",
+    "pos": "n.",
+    "def": "饮品；饮料"
+  },
+  "bilingual": {
+    "phonetic": "/ˌbaɪˈlɪŋɡwəl/",
+    "pos": "adj.",
+    "def": "双语的；能说两种语言的"
+  },
+  "biography": {
+    "phonetic": "/baɪˈɒɡrəfi/",
+    "pos": "n.",
+    "def": "传记；生平"
+  },
+  "blessing": {
+    "phonetic": "/ˈblesɪŋ/",
+    "pos": "n.",
+    "def": "祝福；祈福；保佑"
+  },
+  "border": {
+    "phonetic": "/ˈbɔːdə(r)/",
+    "pos": "v./n.",
+    "def": "接壤；毗邻；边界"
+  },
+  "bordering": {
+    "phonetic": "/ˈbɔːdərɪŋ/",
+    "pos": "adj.",
+    "def": "与…接壤的；毗邻的"
+  },
+  "botanical": {
+    "phonetic": "/bəˈtænɪkl/",
+    "pos": "adj.",
+    "def": "植物学的；植物的（Botanical Garden）"
+  },
+  "boundary": {
+    "phonetic": "/ˈbaʊndri/",
+    "pos": "n.",
+    "def": "分界线；边界"
+  },
+  "breathtaking": {
+    "phonetic": "/ˈbreθteɪkɪŋ/",
+    "pos": "adj.",
+    "def": "美得令人屏息的；惊险壮观的"
+  },
+  "bridge": {
+    "phonetic": "/brɪdʒ/",
+    "pos": "n.",
+    "def": "桥梁；风雨桥"
+  },
+  "brocade": {
+    "phonetic": "/brəˈkeɪd/",
+    "pos": "n.",
+    "def": "织锦；壮锦（Zhuang Brocade）"
+  },
+  "bronze": {
+    "phonetic": "/brɒnz/",
+    "pos": "n./adj.",
+    "def": "青铜；铜器；青铜色的"
+  },
+  "buffet": {
+    "phonetic": "/ˈbʊfeɪ/",
+    "pos": "n.",
+    "def": "自助餐"
+  },
+  "cable": {
+    "phonetic": "/ˈkeɪbl/",
+    "pos": "n.",
+    "def": "索道；缆车（Cable Car）"
+  },
+  "calm": {
+    "phonetic": "/kɑːm/",
+    "pos": "adj./v.",
+    "def": "冷静的；镇定；使平静"
+  },
+  "canyon": {
+    "phonetic": "/ˈkænjən/",
+    "pos": "n.",
+    "def": "峡谷；大峡谷"
+  },
+  "capital": {
+    "phonetic": "/ˈkæpɪtl/",
+    "pos": "n.",
+    "def": "省会；都城；资本；中国糖都"
+  },
+  "carrier": {
+    "phonetic": "/ˈkæriə(r)/",
+    "pos": "n.",
+    "def": "载体；媒介"
+  },
+  "carsick": {
+    "phonetic": "/ˈkɑːsɪk/",
+    "pos": "adj.",
+    "def": "晕车的"
+  },
+  "carve": {
+    "phonetic": "/kɑːv/",
+    "pos": "v.",
+    "def": "雕刻；刻画"
+  },
+  "carving": {
+    "phonetic": "/ˈkɑːvɪŋ/",
+    "pos": "n.",
+    "def": "雕刻品；角雕（Horn Carving）"
+  },
+  "casualty": {
+    "phonetic": "/ˈkæʒuəlti/",
+    "pos": "n.",
+    "def": "伤亡人员；事故"
+  },
+  "cathedral": {
+    "phonetic": "/kəˈθiːdrəl/",
+    "pos": "n.",
+    "def": "大教堂；天主堂"
+  },
+  "cavern": {
+    "phonetic": "/ˈkævən/",
+    "pos": "n.",
+    "def": "大型溶洞；巨穴"
+  },
+  "celebrate": {
+    "phonetic": "/ˈselɪbreɪt/",
+    "pos": "v.",
+    "def": "庆祝；歌颂"
+  },
+  "celebration": {
+    "phonetic": "/ˌselɪˈbreɪʃn/",
+    "pos": "n.",
+    "def": "庆典；节庆活动"
+  },
+  "century": {
+    "phonetic": "/ˈsentʃəri/",
+    "pos": "n.",
+    "def": "世纪；百年"
+  },
+  "centuries": {
+    "phonetic": "/ˈsentʃəriz/",
+    "pos": "n.",
+    "def": "数个世纪；千百年来"
+  },
+  "ceremony": {
+    "phonetic": "/ˈserəməni/",
+    "pos": "n.",
+    "def": "典礼；祭祀仪式"
+  },
+  "charm": {
+    "phonetic": "/tʃɑːm/",
+    "pos": "n.",
+    "def": "魅力；风韵；护身符"
+  },
+  "charming": {
+    "phonetic": "/ˈtʃɑːmɪŋ/",
+    "pos": "adj.",
+    "def": "迷人的；妩媚的"
+  },
+  "chorus": {
+    "phonetic": "/ˈkɔːrəs/",
+    "pos": "n.",
+    "def": "合唱；齐唱"
+  },
+  "civilization": {
+    "phonetic": "/ˌsɪvəlaɪˈzeɪʃn/",
+    "pos": "n.",
+    "def": "文明；人类文化"
+  },
+  "cliff": {
+    "phonetic": "/klɪf/",
+    "pos": "n.",
+    "def": "悬崖；峭壁；崖壁"
+  },
+  "cliffs": {
+    "phonetic": "/klɪfs/",
+    "pos": "n.",
+    "def": "陡峭悬崖群"
+  },
+  "climate": {
+    "phonetic": "/ˈklaɪmət/",
+    "pos": "n.",
+    "def": "气候；风土"
+  },
+  "coastal": {
+    "phonetic": "/ˈkəʊstl/",
+    "pos": "adj.",
+    "def": "沿海的；滨海的"
+  },
+  "code": {
+    "phonetic": "/kəʊd/",
+    "pos": "n.",
+    "def": "历史密码；准则；法规"
+  },
+  "coexistence": {
+    "phonetic": "/ˌkəʊɪɡˈzɪstəns/",
+    "pos": "n.",
+    "def": "共存；和睦相处"
+  },
+  "commemorate": {
+    "phonetic": "/kəˈmeməreɪt/",
+    "pos": "v.",
+    "def": "纪念；缅怀"
+  },
+  "communication": {
+    "phonetic": "/kəˌmjuːnɪˈkeɪʃn/",
+    "pos": "n.",
+    "def": "沟通；交际；传播"
+  },
+  "complaint": {
+    "phonetic": "/kəmˈpleɪnt/",
+    "pos": "n.",
+    "def": "投诉；意见；申诉"
+  },
+  "concentrate": {
+    "phonetic": "/ˈkɒnsntreɪt/",
+    "pos": "v.",
+    "def": "集中；聚集"
+  },
+  "concentrated": {
+    "phonetic": "/ˈkɒnsntreɪtɪd/",
+    "pos": "adj.",
+    "def": "密集的；集中的"
+  },
+  "consequence": {
+    "phonetic": "/ˈkɒnsɪkwəns/",
+    "pos": "n.",
+    "def": "后果；结果；重要性"
+  },
+  "conservation": {
+    "phonetic": "/ˌkɒnsəˈveɪʃn/",
+    "pos": "n.",
+    "def": "保护；保存；水土保持"
+  },
+  "convenient": {
+    "phonetic": "/kənˈviːniənt/",
+    "pos": "adj.",
+    "def": "便捷的；方便的"
+  },
+  "cooperation": {
+    "phonetic": "/kəʊˌɒpəˈreɪʃn/",
+    "pos": "n.",
+    "def": "合作；协作"
+  },
+  "courtesy": {
+    "phonetic": "/ˈkɜːtəsi/",
+    "pos": "n.",
+    "def": "礼貌；礼节；客气"
+  },
+  "craft": {
+    "phonetic": "/krɑːft/",
+    "pos": "n.",
+    "def": "手工艺；工艺品；技艺"
+  },
+  "cruise": {
+    "phonetic": "/kruːz/",
+    "pos": "n./v.",
+    "def": "游船游览；巡航"
+  },
+  "cuisine": {
+    "phonetic": "/kwɪˈziːn/",
+    "pos": "n.",
+    "def": "菜系；美食风味；烹饪"
+  },
+  "cultural": {
+    "phonetic": "/ˈkʌltʃərəl/",
+    "pos": "adj.",
+    "def": "文化的；人文的"
+  },
+  "culture": {
+    "phonetic": "/ˈkʌltʃə(r)/",
+    "pos": "n.",
+    "def": "文化；文明；民俗"
+  },
+  "custom": {
+    "phonetic": "/ˈkʌstəm/",
+    "pos": "n.",
+    "def": "风俗；习惯"
+  },
+  "customs": {
+    "phonetic": "/ˈkʌstəmz/",
+    "pos": "n.",
+    "def": "民风民俗；海关"
+  },
+  "cycad": {
+    "phonetic": "/ˈsaɪkæd/",
+    "pos": "n.",
+    "def": "苏铁（千年苏铁园）"
+  },
+  "danxia": {
+    "phonetic": "/dænˈʃɑː/",
+    "pos": "prop.n.",
+    "def": "丹霞地貌（Danxia landform）"
+  },
+  "decipher": {
+    "phonetic": "/dɪˈsaɪfə(r)/",
+    "pos": "v.",
+    "def": "解密；破解；辨认"
+  },
+  "decorate": {
+    "phonetic": "/ˈdekəreɪt/",
+    "pos": "v.",
+    "def": "装饰；修饰"
+  },
+  "delicacy": {
+    "phonetic": "/ˈdelɪkəsi/",
+    "pos": "n.",
+    "def": "风味佳肴；特色美食"
+  },
+  "delicious": {
+    "phonetic": "/dɪˈlɪʃəs/",
+    "pos": "adj.",
+    "def": "美味的；可口的"
+  },
+  "departure": {
+    "phonetic": "/dɪˈpɑːtʃə(r)/",
+    "pos": "n.",
+    "def": "出发；起程；离境"
+  },
+  "destination": {
+    "phonetic": "/ˌdestɪˈneɪʃn/",
+    "pos": "n.",
+    "def": "目的地；终点站"
+  },
+  "dialogue": {
+    "phonetic": "/ˈdaɪəlɒɡ/",
+    "pos": "n.",
+    "def": "对话；交流；协商"
+  },
+  "dimension": {
+    "phonetic": "/daɪˈmenʃn/",
+    "pos": "n.",
+    "def": "维度；尺寸；规模"
+  },
+  "discipline": {
+    "phonetic": "/ˈdɪsəplɪn/",
+    "pos": "n.",
+    "def": "纪律；行为准则"
+  },
+  "distinguished": {
+    "phonetic": "/dɪˈstɪŋɡwɪʃt/",
+    "pos": "adj.",
+    "def": "尊贵的；杰出的"
+  },
+  "distinctive": {
+    "phonetic": "/dɪˈstɪŋktɪv/",
+    "pos": "adj.",
+    "def": "独具特色的；与众不同的"
+  },
+  "diversity": {
+    "phonetic": "/daɪˈvɜːsəti/",
+    "pos": "n.",
+    "def": "多样性；多元化"
+  },
+  "dome": {
+    "phonetic": "/dəʊm/",
+    "pos": "n.",
+    "def": "圆顶；穹顶"
+  },
+  "domestic": {
+    "phonetic": "/dəˈmestɪk/",
+    "pos": "adj.",
+    "def": "国内的；家庭的"
+  },
+  "dong": {
+    "phonetic": "/dɒŋ/",
+    "pos": "n./adj.",
+    "def": "侗族；侗语"
+  },
+  "downstream": {
+    "phonetic": "/ˌdaʊnˈstriːm/",
+    "pos": "adv./adj.",
+    "def": "顺流而下；下游的"
+  },
+  "drum": {
+    "phonetic": "/drʌm/",
+    "pos": "n.",
+    "def": "铜鼓；鼓楼（Drum Tower）"
+  },
+  "dynasty": {
+    "phonetic": "/ˈdɪnəsti/",
+    "pos": "n.",
+    "def": "朝代；王朝"
+  },
+  "ecology": {
+    "phonetic": "/iˈkɒlədʒi/",
+    "pos": "n.",
+    "def": "生态；生态环境"
+  },
+  "ecological": {
+    "phonetic": "/ˌiːkəˈlɒdʒɪkl/",
+    "pos": "adj.",
+    "def": "生态的；环保的"
+  },
+  "elderly": {
+    "phonetic": "/ˈeldəli/",
+    "pos": "adj./n.",
+    "def": "年长的；长者游客"
+  },
+  "elephant": {
+    "phonetic": "/ˈelɪfənt/",
+    "pos": "n.",
+    "def": "象（象鼻山 Elephant Trunk Hill）"
+  },
+  "elevation": {
+    "phonetic": "/ˌelɪˈveɪʃn/",
+    "pos": "n.",
+    "def": "海拔；高度；升华"
+  },
+  "embroidery": {
+    "phonetic": "/ɪmˈbrɔɪdəri/",
+    "pos": "n.",
+    "def": "刺绣；绣球制作"
+  },
+  "embroidered": {
+    "phonetic": "/ɪmˈbrɔɪdəd/",
+    "pos": "adj.",
+    "def": "刺绣的；绣花的"
+  },
+  "emergency": {
+    "phonetic": "/iˈmɜːdʒənsi/",
+    "pos": "n.",
+    "def": "突发事件；紧急情况"
+  },
+  "enhance": {
+    "phonetic": "/ɪnˈhɑːns/",
+    "pos": "v.",
+    "def": "提升；增强；改善"
+  },
+  "entertain": {
+    "phonetic": "/ˌentəˈteɪn/",
+    "pos": "v.",
+    "def": "招待；娱乐；使快乐"
+  },
+  "enthusiasm": {
+    "phonetic": "/ɪnˈθjuːziæzəm/",
+    "pos": "n.",
+    "def": "热情；热忱"
+  },
+  "etiquette": {
+    "phonetic": "/ˈetɪket/",
+    "pos": "n.",
+    "def": "礼仪；礼节；规矩"
+  },
+  "ethnic": {
+    "phonetic": "/ˈeθnɪk/",
+    "pos": "adj.",
+    "def": "少数民族的；民族特色的"
+  },
+  "evolution": {
+    "phonetic": "/ˌiːvəˈluːʃn/",
+    "pos": "n.",
+    "def": "历史沿革；演化"
+  },
+  "exceed": {
+    "phonetic": "/ɪkˈsiːd/",
+    "pos": "v.",
+    "def": "超过；超出"
+  },
+  "excavation": {
+    "phonetic": "/ˌekskəˈveɪʃn/",
+    "pos": "n.",
+    "def": "考古发掘；出土"
+  },
+  "excursion": {
+    "phonetic": "/ɪkˈskɜːʃn/",
+    "pos": "n.",
+    "def": "远足；短途旅行"
+  },
+  "explanation": {
+    "phonetic": "/ˌekspləˈneɪʃn/",
+    "pos": "n.",
+    "def": "导游讲解；解释"
+  },
+  "explore": {
+    "phonetic": "/ɪkˈsplɔː(r)/",
+    "pos": "v.",
+    "def": "探索；探寻"
+  },
+  "expressway": {
+    "phonetic": "/ɪkˈspresweɪ/",
+    "pos": "n.",
+    "def": "高速公路"
+  },
+  "exquisite": {
+    "phonetic": "/ɪkˈskwɪzɪt/",
+    "pos": "adj.",
+    "def": "精美的；精致的"
+  },
+  "fabulous": {
+    "phonetic": "/ˈfæbjələs/",
+    "pos": "adj.",
+    "def": "极好的；精彩的"
+  },
+  "facility": {
+    "phonetic": "/fəˈsɪləti/",
+    "pos": "n.",
+    "def": "设施；旅游配套服务"
+  },
+  "fair": {
+    "phonetic": "/feə(r)/",
+    "pos": "n.",
+    "def": "歌圩（Song Fair）；庙会；公平的"
+  },
+  "farewell": {
+    "phonetic": "/ˌfeəˈwel/",
+    "pos": "n./v.",
+    "def": "欢送词；告别"
+  },
+  "feast": {
+    "phonetic": "/fiːst/",
+    "pos": "n.",
+    "def": "视觉盛宴；筵席"
+  },
+  "festival": {
+    "phonetic": "/ˈfestɪvl/",
+    "pos": "n.",
+    "def": "节日；民俗节庆"
+  },
+  "flavor": {
+    "phonetic": "/ˈfleɪvə(r)/",
+    "pos": "n.",
+    "def": "风味；滋味；特色"
+  },
+  "flora": {
+    "phonetic": "/ˈflɔːrə/",
+    "pos": "n.",
+    "def": "植物群（Flora and Fauna）"
+  },
+  "folk": {
+    "phonetic": "/fəʊk/",
+    "pos": "adj./n.",
+    "def": "民间的；民俗的；民歌（Folk Song）"
+  },
+  "folklore": {
+    "phonetic": "/ˈfəʊklɔː(r)/",
+    "pos": "n.",
+    "def": "民间传说；民俗学"
+  },
+  "formation": {
+    "phonetic": "/fɔːˈmeɪʃn/",
+    "pos": "n.",
+    "def": "岩石构造；形成"
+  },
+  "frontier": {
+    "phonetic": "/ˈfrʌntɪə(r)/",
+    "pos": "n.",
+    "def": "前沿；边界；门户"
+  },
+  "gateway": {
+    "phonetic": "/ˈɡeɪtweɪ/",
+    "pos": "n.",
+    "def": "门户港口；枢纽"
+  },
+  "geography": {
+    "phonetic": "/dʒiˈɒɡrəfi/",
+    "pos": "n.",
+    "def": "地理；地貌"
+  },
+  "geological": {
+    "phonetic": "/ˌdʒiːəˈlɒdʒɪkl/",
+    "pos": "adj.",
+    "def": "地质学的；地质构造的"
+  },
+  "glutinous": {
+    "phonetic": "/ˈɡluːtɪnəs/",
+    "pos": "adj.",
+    "def": "糯米的（五色糯米饭）"
+  },
+  "grand": {
+    "phonetic": "/ɡrænd/",
+    "pos": "adj.",
+    "def": "宏伟的；盛大的；侗族大歌"
+  },
+  "grotto": {
+    "phonetic": "/ˈɡrɒtəʊ/",
+    "pos": "n.",
+    "def": "岩洞；洞穴"
+  },
+  "guest": {
+    "phonetic": "/ɡest/",
+    "pos": "n.",
+    "def": "贵宾；客人；游客"
+  },
+  "guidance": {
+    "phonetic": "/ˈɡaɪdns/",
+    "pos": "n.",
+    "def": "指引；引导；动线"
+  },
+  "gulf": {
+    "phonetic": "/ɡʌlf/",
+    "pos": "n.",
+    "def": "海湾（北部湾 Beibu Gulf）"
+  },
+  "hairpin": {
+    "phonetic": "/ˈheəpɪn/",
+    "pos": "n.",
+    "def": "发簪；碧玉簪（Jade Hairpin）"
+  },
+  "han": {
+    "phonetic": "/hæn/",
+    "pos": "n./adj.",
+    "def": "汉族；汉文化的"
+  },
+  "harmony": {
+    "phonetic": "/ˈhɑːməni/",
+    "pos": "n.",
+    "def": "和谐；和睦"
+  },
+  "harmonious": {
+    "phonetic": "/hɑːˈməʊniəs/",
+    "pos": "adj.",
+    "def": "和谐相处的；宜人的"
+  },
+  "hectare": {
+    "phonetic": "/ˈhekteə(r)/",
+    "pos": "n.",
+    "def": "公顷"
+  },
+  "hematite": {
+    "phonetic": "/ˈhiːmətaɪt/",
+    "pos": "n.",
+    "def": "赤铁矿（千年岩画天然颜料）"
+  },
+  "heritage": {
+    "phonetic": "/ˈherɪtɪdʒ/",
+    "pos": "n.",
+    "def": "文化遗产；自然遗产"
+  },
+  "highway": {
+    "phonetic": "/ˈhaɪweɪ/",
+    "pos": "n.",
+    "def": "公路；干道"
+  },
+  "historical": {
+    "phonetic": "/hɪˈstɒrɪkl/",
+    "pos": "adj.",
+    "def": "历史悠久的；具有历史意义的"
+  },
+  "history": {
+    "phonetic": "/ˈhɪstri/",
+    "pos": "n.",
+    "def": "历史；沿革"
+  },
+  "hometown": {
+    "phonetic": "/ˈhəʊmtaʊn/",
+    "pos": "n.",
+    "def": "故乡；长寿之乡（Longevity Hometown）"
+  },
+  "honor": {
+    "phonetic": "/ˈɒnə(r)/",
+    "pos": "n./v.",
+    "def": "荣幸；荣誉；使感到光荣"
+  },
+  "hospitality": {
+    "phonetic": "/ˌhɒspɪˈtæləti/",
+    "pos": "n.",
+    "def": "好客之情；热情款待"
+  },
+  "hospitable": {
+    "phonetic": "/hɒˈspɪtəbl/",
+    "pos": "adj.",
+    "def": "热情好客的"
+  },
+  "huashan": {
+    "phonetic": "/hwɑːˈʃæn/",
+    "pos": "prop.n.",
+    "def": "花山岩画（Huashan Rock Art）"
+  },
+  "hydrangea": {
+    "phonetic": "/haɪˈdreɪndʒə/",
+    "pos": "n.",
+    "def": "壮族绣球（民俗吉祥物）"
+  },
+  "itinerary": {
+    "phonetic": "/aɪˈtɪnərəri/",
+    "pos": "n.",
+    "def": "行程单；游览动线"
+  },
+  "immerse": {
+    "phonetic": "/ɪˈmɜːs/",
+    "pos": "v.",
+    "def": "沉浸于；陶醉在"
+  },
+  "inscribe": {
+    "phonetic": "/ɪnˈskraɪb/",
+    "pos": "v.",
+    "def": "列入名录；铭记"
+  },
+  "inscribed": {
+    "phonetic": "/ɪnˈskraɪbd/",
+    "pos": "adj.",
+    "def": "列入世界遗产名录的"
+  },
+  "intangible": {
+    "phonetic": "/ɪnˈtændʒəbl/",
+    "pos": "adj.",
+    "def": "非物质的（非物质文化遗产）"
+  },
+  "indigenous": {
+    "phonetic": "/ɪnˈdɪdʒənəs/",
+    "pos": "adj.",
+    "def": "世居的；本土的；土生土长的"
+  },
+  "interpret": {
+    "phonetic": "/ɪnˈtɜːprɪt/",
+    "pos": "v.",
+    "def": "口译；深度阐释；解读"
+  },
+  "interpreter": {
+    "phonetic": "/ɪnˈtɜːprɪtə(r)/",
+    "pos": "n.",
+    "def": "口译员；翻译官"
+  },
+  "interpretation": {
+    "phonetic": "/ɪnˌtɜːprɪˈteɪʃn/",
+    "pos": "n.",
+    "def": "双向口译；讲解诠释"
+  },
+  "interpersonal": {
+    "phonetic": "/ˌɪntəˈpɜːsənl/",
+    "pos": "adj.",
+    "def": "人际沟通的"
+  },
+  "ion": {
+    "phonetic": "/ˈaɪən/",
+    "pos": "n.",
+    "def": "离子（Negative Oxygen Ions 负氧离子）"
+  },
+  "island": {
+    "phonetic": "/ˈaɪlənd/",
+    "pos": "n.",
+    "def": "岛屿（涠洲岛 Weizhou Island）"
+  },
+  "jade": {
+    "phonetic": "/dʒeɪd/",
+    "pos": "n./adj.",
+    "def": "碧玉；翡翠（碧玉簪）"
+  },
+  "journey": {
+    "phonetic": "/ˈdʒɜːni/",
+    "pos": "n.",
+    "def": "旅程；游览之旅"
+  },
+  "jurisdiction": {
+    "phonetic": "/ˌdʒʊərɪsˈdɪkʃn/",
+    "pos": "n.",
+    "def": "管辖范围；行政辖区"
+  },
+  "karst": {
+    "phonetic": "/kɑːst/",
+    "pos": "n./adj.",
+    "def": "喀斯特岩溶地貌"
+  },
+  "landscape": {
+    "phonetic": "/ˈlændskeɪp/",
+    "pos": "n.",
+    "def": "山水景观；风光地貌"
+  },
+  "legend": {
+    "phonetic": "/ˈledʒənd/",
+    "pos": "n.",
+    "def": "民间传说；传奇故事"
+  },
+  "legendary": {
+    "phonetic": "/ˈledʒəndri/",
+    "pos": "adj.",
+    "def": "传奇色彩的；传说的"
+  },
+  "leisure": {
+    "phonetic": "/ˈleʒə(r)/",
+    "pos": "n.",
+    "def": "休闲；度假；闲暇"
+  },
+  "lijiang": {
+    "phonetic": "/liːˈdʒjæŋ/",
+    "pos": "prop.n.",
+    "def": "漓江（桂林山水甲天下）"
+  },
+  "liquor": {
+    "phonetic": "/ˈlɪkə(r)/",
+    "pos": "n.",
+    "def": "三花酒（米香型白酒）；烈酒"
+  },
+  "longevity": {
+    "phonetic": "/lɒnˈdʒevəti/",
+    "pos": "n.",
+    "def": "长寿康养；延年益寿"
+  },
+  "luoyue": {
+    "phonetic": "/lwɔːˈjuːeɪ/",
+    "pos": "prop.n.",
+    "def": "骆越文明（壮族先民）"
+  },
+  "lush": {
+    "phonetic": "/lʌʃ/",
+    "pos": "adj.",
+    "def": "郁郁葱葱的；苍翠茂盛的"
+  },
+  "magnificent": {
+    "phonetic": "/mæɡˈnɪfɪsnt/",
+    "pos": "adj.",
+    "def": "雄伟的；壮丽的"
+  },
+  "maritime": {
+    "phonetic": "/ˈmærɪtaɪm/",
+    "pos": "adj.",
+    "def": "海上的（海上丝绸之路 Maritime Silk Road）"
+  },
+  "masterpiece": {
+    "phonetic": "/ˈmɑːstəpiːs/",
+    "pos": "n.",
+    "def": "传世杰作；代表作"
+  },
+  "memorial": {
+    "phonetic": "/məˈmɔːriəl/",
+    "pos": "n./adj.",
+    "def": "纪念馆；纪念性的"
+  },
+  "miao": {
+    "phonetic": "/mjaʊ/",
+    "pos": "n./adj.",
+    "def": "苗族；苗寨"
+  },
+  "mild": {
+    "phonetic": "/maɪld/",
+    "pos": "adj.",
+    "def": "温和宜人的（气候）"
+  },
+  "millennial": {
+    "phonetic": "/mɪˈleniəl/",
+    "pos": "adj.",
+    "def": "千年的；跨越千年的"
+  },
+  "mineral": {
+    "phonetic": "/ˈmɪnərəl/",
+    "pos": "n./adj.",
+    "def": "矿物质；弱碱性矿泉水"
+  },
+  "monument": {
+    "phonetic": "/ˈmɒnjumənt/",
+    "pos": "n.",
+    "def": "纪念碑；历史遗迹"
+  },
+  "monsoon": {
+    "phonetic": "/ˌmɒnˈsuːn/",
+    "pos": "n.",
+    "def": "亚热带季风"
+  },
+  "mortise": {
+    "phonetic": "/ˈmɔːtɪs/",
+    "pos": "n.",
+    "def": "榫卯中的榫眼；卯"
+  },
+  "multiply": {
+    "phonetic": "/ˈmʌltɪplaɪ/",
+    "pos": "v.",
+    "def": "世代繁衍生息；繁殖"
+  },
+  "mythology": {
+    "phonetic": "/mɪˈθɒlədʒi/",
+    "pos": "n.",
+    "def": "神话；神话体系"
+  },
+  "nail": {
+    "phonetic": "/neɪl/",
+    "pos": "n.",
+    "def": "铁钉（无钉榫卯结构 marvels without nails）"
+  },
+  "nanning": {
+    "phonetic": "/nænˈnɪŋ/",
+    "pos": "prop.n.",
+    "def": "南宁（中国绿城、广西首府）"
+  },
+  "nationwide": {
+    "phonetic": "/ˌneɪʃnˈwaɪd/",
+    "pos": "adj./adv.",
+    "def": "享誉全国的；全国范围"
+  },
+  "native": {
+    "phonetic": "/ˈneɪtɪv/",
+    "pos": "adj./n.",
+    "def": "本土的；世居民族"
+  },
+  "nature": {
+    "phonetic": "/ˈneɪtʃə(r)/",
+    "pos": "n.",
+    "def": "大自然；天性；自然风光"
+  },
+  "natural": {
+    "phonetic": "/ˈnætʃrəl/",
+    "pos": "adj.",
+    "def": "天然的；自然天成的"
+  },
+  "negative": {
+    "phonetic": "/ˈneɡətɪv/",
+    "pos": "adj.",
+    "def": "负氧离子（Negative Oxygen Ions）"
+  },
+  "noodle": {
+    "phonetic": "/ˈnuːdl/",
+    "pos": "n.",
+    "def": "米粉；老友粉；螺蛳粉"
+  },
+  "noodles": {
+    "phonetic": "/ˈnuːdlz/",
+    "pos": "n.",
+    "def": "广西米粉（Rice Noodles）"
+  },
+  "notch": {
+    "phonetic": "/nɒtʃ/",
+    "pos": "n.",
+    "def": "顶尖的；等级"
+  },
+  "oasis": {
+    "phonetic": "/əʊˈeɪsɪs/",
+    "pos": "n.",
+    "def": "绿洲；宜居乐土"
+  },
+  "ochre": {
+    "phonetic": "/ˈəʊkə(r)/",
+    "pos": "n./adj.",
+    "def": "赭石色；赭红色的（岩画）"
+  },
+  "opera": {
+    "phonetic": "/ˈɒprə/",
+    "pos": "n.",
+    "def": "桂剧；彩调剧；戏曲"
+  },
+  "origin": {
+    "phonetic": "/ˈɒrɪdʒɪn/",
+    "pos": "n.",
+    "def": "发源地；源头；起源"
+  },
+  "outlook": {
+    "phonetic": "/ˈaʊtlʊk/",
+    "pos": "n.",
+    "def": "人生观；视野；前景"
+  },
+  "oxygen": {
+    "phonetic": "/ˈɒksɪdʒən/",
+    "pos": "n.",
+    "def": "氧气；富氧环境"
+  },
+  "pagoda": {
+    "phonetic": "/pəˈɡəʊdə/",
+    "pos": "n.",
+    "def": "佛塔；宝塔（如龙象塔）"
+  },
+  "panic": {
+    "phonetic": "/ˈpænɪk/",
+    "pos": "n./v.",
+    "def": "恐慌；慌乱"
+  },
+  "paradise": {
+    "phonetic": "/ˈpærədaɪs/",
+    "pos": "n.",
+    "def": "人间仙境；天堂"
+  },
+  "pastoral": {
+    "phonetic": "/ˈpɑːstərəl/",
+    "pos": "adj.",
+    "def": "明仕田园风光；田园诗般的"
+  },
+  "pavilion": {
+    "phonetic": "/pəˈvɪliən/",
+    "pos": "n.",
+    "def": "亭台水榭；楼阁"
+  },
+  "peak": {
+    "phonetic": "/piːk/",
+    "pos": "n.",
+    "def": "山峰；奇峰秀水；峰林"
+  },
+  "permanent": {
+    "phonetic": "/ˈpɜːmənənt/",
+    "pos": "adj.",
+    "def": "常住的；永久的"
+  },
+  "picturesque": {
+    "phonetic": "/ˌpɪktʃəˈresk/",
+    "pos": "adj.",
+    "def": "如诗如画的；风景秀丽的"
+  },
+  "pigment": {
+    "phonetic": "/ˈpɪɡmənt/",
+    "pos": "n.",
+    "def": "天然颜料；矿物颜料"
+  },
+  "pilgrimage": {
+    "phonetic": "/ˈpɪlɡrɪmɪdʒ/",
+    "pos": "n.",
+    "def": "朝圣之旅；文化巡礼"
+  },
+  "plateau": {
+    "phonetic": "/ˈplætəʊ/",
+    "pos": "n.",
+    "def": "高原；台地"
+  },
+  "plaza": {
+    "phonetic": "/ˈplɑːzə/",
+    "pos": "n.",
+    "def": "广场（如壮锦广场 Brocade Square）"
+  },
+  "posture": {
+    "phonetic": "/ˈpɒstʃə(r)/",
+    "pos": "n.",
+    "def": "蛙形舞蹈姿态；身姿"
+  },
+  "pottery": {
+    "phonetic": "/ˈpɒtəri/",
+    "pos": "n.",
+    "def": "钦州坭兴陶（Nixing Pottery）"
+  },
+  "precaution": {
+    "phonetic": "/prɪˈkɔːʃn/",
+    "pos": "n.",
+    "def": "预防措施；安全提示"
+  },
+  "precious": {
+    "phonetic": "/ˈpreʃəs/",
+    "pos": "adj.",
+    "def": "珍贵的；国宝级的"
+  },
+  "predominantly": {
+    "phonetic": "/prɪˈdɒmɪnəntli/",
+    "pos": "adv.",
+    "def": "主要地；占绝大多数地"
+  },
+  "prefecture": {
+    "phonetic": "/ˈpriːfektʃə(r)/",
+    "pos": "n.",
+    "def": "地级市；郡专区"
+  },
+  "preserve": {
+    "phonetic": "/prɪˈzɜːv/",
+    "pos": "v.",
+    "def": "完整保存；保护非遗"
+  },
+  "professional": {
+    "phonetic": "/prəˈfeʃənl/",
+    "pos": "adj./n.",
+    "def": "专业的；导游专业素养"
+  },
+  "profound": {
+    "phonetic": "/prəˈfaʊnd/",
+    "pos": "adj.",
+    "def": "深厚的；渊源流长的"
+  },
+  "prominence": {
+    "phonetic": "/ˈprɒmɪnəns/",
+    "pos": "n.",
+    "def": "卓越；显著地位"
+  },
+  "prosperous": {
+    "phonetic": "/ˈprɒspərəs/",
+    "pos": "adj.",
+    "def": "繁荣昌盛的"
+  },
+  "quaint": {
+    "phonetic": "/kweɪnt/",
+    "pos": "adj.",
+    "def": "古色古香的；别致的"
+  },
+  "raft": {
+    "phonetic": "/rɑːft/",
+    "pos": "n.",
+    "def": "竹筏（Bamboo Raft）"
+  },
+  "railway": {
+    "phonetic": "/ˈreɪlweɪ/",
+    "pos": "n.",
+    "def": "高铁网络；铁路"
+  },
+  "rainfall": {
+    "phonetic": "/ˈreɪnfɔːl/",
+    "pos": "n.",
+    "def": "充沛降雨量"
+  },
+  "reassure": {
+    "phonetic": "/ˌriːəˈʃʊə(r)/",
+    "pos": "v.",
+    "def": "安抚游客情绪；使放心"
+  },
+  "reflection": {
+    "phonetic": "/rɪˈflekʃn/",
+    "pos": "n.",
+    "def": "黄布倒影（Huangbu Reflection）"
+  },
+  "relic": {
+    "phonetic": "/ˈrelɪk/",
+    "pos": "n.",
+    "def": "历史文物；遗存"
+  },
+  "relics": {
+    "phonetic": "/ˈrelɪks/",
+    "pos": "n.",
+    "def": "国家重点保护文物"
+  },
+  "renowned": {
+    "phonetic": "/rɪˈnaʊnd/",
+    "pos": "adj.",
+    "def": "享誉中外的；举世闻名的"
+  },
+  "representative": {
+    "phonetic": "/ˌreprɪˈzentətɪv/",
+    "pos": "adj./n.",
+    "def": "最具代表性的；代表"
+  },
+  "resemble": {
+    "phonetic": "/rɪˈzembl/",
+    "pos": "v.",
+    "def": "形似；酷似（如象鼻山）"
+  },
+  "resembles": {
+    "phonetic": "/rɪˈzemblz/",
+    "pos": "v.",
+    "def": "栩栩如生地形似"
+  },
+  "resort": {
+    "phonetic": "/rɪˈzɔːt/",
+    "pos": "n.",
+    "def": "度假胜地；避暑胜地"
+  },
+  "ribbon": {
+    "phonetic": "/ˈrɪbən/",
+    "pos": "n.",
+    "def": "青罗带（Green Silk Ribbon）"
+  },
+  "ritual": {
+    "phonetic": "/ˈrɪtʃuəl/",
+    "pos": "n.",
+    "def": "祭祀仪式；礼俗"
+  },
+  "ritualist": {
+    "phonetic": "/ˈrɪtʃuəlɪst/",
+    "pos": "n.",
+    "def": "祭祀司祭者；首领"
+  },
+  "route": {
+    "phonetic": "/ruːt/",
+    "pos": "n.",
+    "def": "游览动线；行程路线"
+  },
+  "sacred": {
+    "phonetic": "/ˈseɪkrɪd/",
+    "pos": "adj.",
+    "def": "神圣的；受尊崇的"
+  },
+  "sacrifice": {
+    "phonetic": "/ˈsækrɪfaɪs/",
+    "pos": "n./v.",
+    "def": "祭祀；献祭"
+  },
+  "sacrificial": {
+    "phonetic": "/ˌsækrɪˈfɪʃl/",
+    "pos": "adj.",
+    "def": "祭祀用的；祈雨仪式的"
+  },
+  "sanctuary": {
+    "phonetic": "/ˈsæŋktʃuəri/",
+    "pos": "n.",
+    "def": "文化圣殿；自然保护区"
+  },
+  "scenery": {
+    "phonetic": "/ˈsiːnəri/",
+    "pos": "n.",
+    "def": "自然风光；秀美景色"
+  },
+  "scenic": {
+    "phonetic": "/ˈsiːnɪk/",
+    "pos": "adj.",
+    "def": "风景名胜的；风景优美的"
+  },
+  "sculpture": {
+    "phonetic": "/ˈskʌlptʃə(r)/",
+    "pos": "n.",
+    "def": "雕塑；雕刻作品"
+  },
+  "seasonal": {
+    "phonetic": "/ˈsiːzənl/",
+    "pos": "adj.",
+    "def": "顺应时节的；当季的"
+  },
+  "serene": {
+    "phonetic": "/səˈriːn/",
+    "pos": "adj.",
+    "def": "宁静祥和的；清澈的"
+  },
+  "shady": {
+    "phonetic": "/ˈʃeɪdi/",
+    "pos": "adj.",
+    "def": "阴凉的；背阴处的"
+  },
+  "showcase": {
+    "phonetic": "/ˈʃəʊkeɪs/",
+    "pos": "v./n.",
+    "def": "生动展现；橱窗展示"
+  },
+  "significance": {
+    "phonetic": "/sɪɡˈnɪfɪkəns/",
+    "pos": "n.",
+    "def": "深远意义；重要性"
+  },
+  "silk": {
+    "phonetic": "/sɪlk/",
+    "pos": "n.",
+    "def": "丝绸之路；青罗带"
+  },
+  "site": {
+    "phonetic": "/saɪt/",
+    "pos": "n.",
+    "def": "遗址；景点所在地"
+  },
+  "skyline": {
+    "phonetic": "/ˈskaɪlaɪn/",
+    "pos": "n.",
+    "def": "城市天际线；轮廓"
+  },
+  "snail": {
+    "phonetic": "/sneɪl/",
+    "pos": "n.",
+    "def": "柳州螺蛳粉（River Snail Noodles）"
+  },
+  "souvenir": {
+    "phonetic": "/ˌsuːvəˈnɪə(r)/",
+    "pos": "n.",
+    "def": "旅游纪念品；伴手礼"
+  },
+  "specialty": {
+    "phonetic": "/ˈspeʃəlti/",
+    "pos": "n.",
+    "def": "地理标志特产；名产"
+  },
+  "spectacular": {
+    "phonetic": "/spekˈtækjələ(r)/",
+    "pos": "adj.",
+    "def": "壮丽的；蔚为壮观的"
+  },
+  "spiritual": {
+    "phonetic": "/ˈspɪrɪtʃuəl/",
+    "pos": "adj.",
+    "def": "精神世界的；心灵的"
+  },
+  "spot": {
+    "phonetic": "/spɒt/",
+    "pos": "n.",
+    "def": "景点（Scenic Spot）；最佳观景点"
+  },
+  "stalactite": {
+    "phonetic": "/ˈstæləktaɪt/",
+    "pos": "n.",
+    "def": "钟乳石（自洞顶向下悬挂）"
+  },
+  "stalagmite": {
+    "phonetic": "/ˈstæləɡmaɪt/",
+    "pos": "n.",
+    "def": "石笋（自洞底向上生长）"
+  },
+  "stilted": {
+    "phonetic": "/ˈstɪltɪd/",
+    "pos": "adj.",
+    "def": "干栏式的；吊脚楼建筑"
+  },
+  "structure": {
+    "phonetic": "/ˈstrʌktʃə(r)/",
+    "pos": "n.",
+    "def": "榫卯结构；社会构造"
+  },
+  "stunning": {
+    "phonetic": "/ˈstʌnɪŋ/",
+    "pos": "adj.",
+    "def": "极具震撼力的；绝美的"
+  },
+  "subtropical": {
+    "phonetic": "/ˌsʌbˈtrɒpɪkl/",
+    "pos": "adj.",
+    "def": "亚热带季风性气候的"
+  },
+  "sugar": {
+    "phonetic": "/ˈʃʊɡə(r)/",
+    "pos": "n.",
+    "def": "中国糖都（Sugar Capital）"
+  },
+  "superb": {
+    "phonetic": "/suːˈpɜːb/",
+    "pos": "adj.",
+    "def": "高超的；极佳的"
+  },
+  "sweet": {
+    "phonetic": "/swiːt/",
+    "pos": "adj.",
+    "def": "甜的；红薯 coarse grain sweet potato"
+  },
+  "symbol": {
+    "phonetic": "/ˈsɪmbl/",
+    "pos": "n.",
+    "def": "图腾标志；象征"
+  },
+  "symbolize": {
+    "phonetic": "/ˈsɪmbəlaɪz/",
+    "pos": "v.",
+    "def": "象征着；代表着"
+  },
+  "tea": {
+    "phonetic": "/tiː/",
+    "pos": "n.",
+    "def": "六堡茶（Liubao Tea）；打油茶 Oil Tea"
+  },
+  "temple": {
+    "phonetic": "/ˈtempl/",
+    "pos": "n.",
+    "def": "寺庙；观音禅寺"
+  },
+  "tenon": {
+    "phonetic": "/ˈtenən/",
+    "pos": "n.",
+    "def": "榫头（Mortise and Tenon 榫卯）"
+  },
+  "terrace": {
+    "phonetic": "/ˈterəs/",
+    "pos": "n.",
+    "def": "梯田（Longji Terraces）；台地"
+  },
+  "terraces": {
+    "phonetic": "/ˈterəsɪz/",
+    "pos": "n.",
+    "def": "龙脊梯田群"
+  },
+  "thousand": {
+    "phonetic": "/ˈθaʊznd/",
+    "pos": "num./adj.",
+    "def": "千；千年苏铁园"
+  },
+  "tour": {
+    "phonetic": "/tʊə(r)/",
+    "pos": "n./v.",
+    "def": "游览；行程"
+  },
+  "tourism": {
+    "phonetic": "/ˈtʊərɪzəm/",
+    "pos": "n.",
+    "def": "文旅产业；旅游业"
+  },
+  "tourist": {
+    "phonetic": "/ˈtʊərɪst/",
+    "pos": "n.",
+    "def": "游客；观光贵宾"
+  },
+  "tower": {
+    "phonetic": "/ˈtaʊə(r)/",
+    "pos": "n.",
+    "def": "鼓楼；日月双塔 Twin Towers"
+  },
+  "traditional": {
+    "phonetic": "/trəˈdɪʃənl/",
+    "pos": "adj.",
+    "def": "传统的；世代相承的"
+  },
+  "tranquil": {
+    "phonetic": "/ˈtræŋkwɪl/",
+    "pos": "adj.",
+    "def": "宁静的；恬适的"
+  },
+  "transnational": {
+    "phonetic": "/trænzˈnæʃnəl/",
+    "pos": "adj.",
+    "def": "跨国的（德天跨国瀑布）"
+  },
+  "transportation": {
+    "phonetic": "/ˌtrænspɔːˈteɪʃn/",
+    "pos": "n.",
+    "def": "立体交通网络；客运"
+  },
+  "tribal": {
+    "phonetic": "/ˈtraɪbl/",
+    "pos": "adj.",
+    "def": "部落的；氏族的"
+  },
+  "trunk": {
+    "phonetic": "/trʌŋk/",
+    "pos": "n.",
+    "def": "象鼻（Elephant Trunk Hill）"
+  },
+  "unaccompanied": {
+    "phonetic": "/ˌʌnəˈkʌmpənid/",
+    "pos": "adj.",
+    "def": "无伴奏的（侗族大歌天籁之音）"
+  },
+  "unesco": {
+    "phonetic": "/juːˈneskəʊ/",
+    "pos": "prop.n.",
+    "def": "联合国教科文组织"
+  },
+  "unique": {
+    "phonetic": "/juˈniːk/",
+    "pos": "adj.",
+    "def": "独一无二的；独特的"
+  },
+  "universal": {
+    "phonetic": "/ˌjuːnɪˈvɜːsl/",
+    "pos": "adj.",
+    "def": "万能通用的；通用的"
+  },
+  "utensil": {
+    "phonetic": "/juːˈtensl/",
+    "pos": "n.",
+    "def": "器具；青铜器皿"
+  },
+  "utensils": {
+    "phonetic": "/juːˈtenslz/",
+    "pos": "n.",
+    "def": "出土古代青铜器物群"
+  },
+  "ventilate": {
+    "phonetic": "/ˈventɪleɪt/",
+    "pos": "v.",
+    "def": "使通风；换气"
+  },
+  "ventilated": {
+    "phonetic": "/ˈventɪleɪtɪd/",
+    "pos": "adj.",
+    "def": "通风良好的"
+  },
+  "volcanic": {
+    "phonetic": "/vɒlˈkænɪk/",
+    "pos": "adj.",
+    "def": "火山的（涠洲岛火山地质公园）"
+  },
+  "warmth": {
+    "phonetic": "/wɔːmθ/",
+    "pos": "n.",
+    "def": "温暖；热情好客"
+  },
+  "waterfall": {
+    "phonetic": "/ˈwɔːtəfɔːl/",
+    "pos": "n.",
+    "def": "瀑布（德天跨国大瀑布）"
+  },
+  "weave": {
+    "phonetic": "/wiːv/",
+    "pos": "v.",
+    "def": "手工织造；编织"
+  },
+  "weaving": {
+    "phonetic": "/ˈwiːvɪŋ/",
+    "pos": "n.",
+    "def": "壮锦织造非遗技艺"
+  },
+  "welcome": {
+    "phonetic": "/ˈwelkəm/",
+    "pos": "v./n.",
+    "def": "热烈欢迎；欢迎词"
+  },
+  "wholesale": {
+    "phonetic": "/ˈhəʊlseɪl/",
+    "pos": "n./adj.",
+    "def": "批发业"
+  },
+  "wine": {
+    "phonetic": "/waɪn/",
+    "pos": "n.",
+    "def": "三花酒（米香型名酒）"
+  },
+  "witness": {
+    "phonetic": "/ˈwɪtnəs/",
+    "pos": "v./n.",
+    "def": "见证；目睹；见证者"
+  },
+  "wonder": {
+    "phonetic": "/ˈwʌndə(r)/",
+    "pos": "n.",
+    "def": "世界奇观；喀斯特奇观"
+  },
+  "wonderful": {
+    "phonetic": "/ˈwʌndəfl/",
+    "pos": "adj.",
+    "def": "美妙的；极精彩的"
+  },
+  "world-class": {
+    "phonetic": "/ˌwɜːld ˈklɑːs/",
+    "pos": "adj.",
+    "def": "世界级的；世界顶尖的"
+  },
+  "yao": {
+    "phonetic": "/jaʊ/",
+    "pos": "n./adj.",
+    "def": "瑶族；长鼓舞"
+  },
+  "zhuang": {
+    "phonetic": "/dʒwæŋ/",
+    "pos": "n./adj.",
+    "def": "壮族（全国人口最多的少数民族）"
+  }
+};

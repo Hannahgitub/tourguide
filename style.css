@@ -1399,5 +1399,158 @@ header.main-header {
   transform: scale(1.12);
 }
 
+/* ==========================================
+   WORD DICTIONARY POPOVER / 单词即点即查浮层
+   ========================================== */
+.speech-text-en {
+  cursor: pointer;
+}
 
+.word-dict-popover {
+  position: absolute;
+  z-index: 99999;
+  width: 280px;
+  max-width: calc(100vw - 32px);
+  background: #ffffff;
+  border: 1px solid rgba(45, 122, 76, 0.25);
+  border-radius: 12px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18), 0 2px 8px rgba(45, 122, 76, 0.12);
+  padding: 14px 16px;
+  color: var(--text-color, #333333);
+  animation: dictPopoverFadeIn 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  pointer-events: auto;
+  user-select: text;
+}
 
+@keyframes dictPopoverFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.word-dict-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed #e2e8f0;
+}
+
+.word-dict-title-group {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+  flex: 1;
+}
+
+.word-dict-word {
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--exam-green-dark, #1b4d2e);
+  letter-spacing: -0.01em;
+}
+
+.word-dict-phonetic {
+  font-size: 13px;
+  color: #64748b;
+  font-family: var(--font-mono, monospace);
+  background: #f1f5f9;
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+
+.word-dict-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.word-dict-speak-btn {
+  background: #ebf5ee;
+  border: 1px solid #c6e2ce;
+  color: #2d7a4c;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.word-dict-speak-btn:hover {
+  background: #2d7a4c;
+  color: #ffffff;
+  transform: scale(1.1);
+}
+
+.word-dict-close-btn {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  font-size: 16px;
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 4px;
+  line-height: 1;
+  transition: all 0.15s ease;
+}
+
+.word-dict-close-btn:hover {
+  background: #f1f5f9;
+  color: #334155;
+}
+
+.word-dict-body {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #1e293b;
+}
+
+.word-dict-pos {
+  display: inline-block;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #2d7a4c;
+  background: #eaf5ee;
+  padding: 1px 5px;
+  border-radius: 4px;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+.word-dict-def {
+  font-weight: 500;
+  color: #334155;
+}
+
+.word-dict-footer {
+  margin-top: 8px;
+  padding-top: 6px;
+  font-size: 11px;
+  color: #94a3b8;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dict-highlight-active {
+  background-color: rgba(45, 122, 76, 0.22) !important;
+  border-radius: 3px;
+  box-shadow: 0 0 0 2px rgba(45, 122, 76, 0.3);
+  transition: background-color 0.2s ease;
+}
