@@ -4139,14 +4139,22 @@ function getPhraseStatus(id) {
         const text = textNode.textContent;
         if (!text || offset < 0 || offset > text.length) return null;
 
+        let cur = offset;
+        // 如果当前光标落在词尾标点/空格上，但前一个字符是字母，向前退一位以命中单词
+        if (cur >= text.length || !/[a-zA-Z0-9'-]/.test(text[cur])) {
+          if (cur > 0 && /[a-zA-Z0-9'-]/.test(text[cur - 1])) {
+            cur = cur - 1;
+          }
+        }
+
         // 向左查找单词起始边界
-        let start = offset;
+        let start = cur;
         while (start > 0 && /[a-zA-Z0-9'-]/.test(text[start - 1])) {
           start--;
         }
 
         // 向右查找单词结束边界
-        let end = offset;
+        let end = cur;
         while (end < text.length && /[a-zA-Z0-9'-]/.test(text[end])) {
           end++;
         }
