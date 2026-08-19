@@ -7,11 +7,10 @@
   3. 三、代表性景观与游览动线（Key Attractions & Tour Route）
   4. 四、文化价值与特色体验（Culture & Highlights）
   5. 五、欢送词（Farewell Speech）
-- 词数：400 ~ 500 词/篇（完全匹配 3.5 ~ 4.5 分钟考场实战）
-- 语言特色：消除长难从句、主谓宾结构明晰、高频词汇表达、100% 踩中核心数字与采分点
+- 100% 逐段精准中英文对照，考点、数字、地名、路线完全一一对应！
 """
 
-COMPREHENSIVE_SIMPLIFIED_SPEECHES = {
+ALL_20_PRECISE_SPEECHES = {
     "崇左 花山岩画": [
         {
             "title": "一、欢迎词（Welcome Speech）",
@@ -150,218 +149,428 @@ COMPREHENSIVE_SIMPLIFIED_SPEECHES = {
             "en": "Dear friends, our pleasant tour of Qingxiu Mountain comes to an end. We have enjoyed fresh mountain air, historical monuments, and rich subtropical plants today. Thank you very much for your time and kind attention. I hope you take home happy memories of our Green City. Wish you a safe trip and all the best. Goodbye!",
             "cn": "亲爱的朋友们，今天愉快的青秀山之旅到这里就要结束了。今天我们一同享受了清新的山间空气、探访了历史名胜、领略了丰富的亚热带植物。非常感谢大家的宝贵时间与倾听。希望绿城南宁能给大家留下美好的回忆。祝愿大家一路平安，万事顺意。再见！"
         }
-    ]
-}
+    ],
 
-# 为其余 15 条专题自选线路（奇峰秀水、喀斯特探秘、北部湾、三月三、桂北、桂西北、历史文化名城、岭南文化、骆越文化、长寿休闲、长寿康养、长寿悦动、米粉之旅、工艺品之旅、茶文化之旅）
-# 逐一量身定制符合考纲规范的完整 5 段高分口语版！
-
-OTHER_TOPIC_SPEECHES = {
     "广西 奇峰秀水之旅": [
-        ("一、欢迎词（Welcome Speech）", 
-         "Good morning, dear distinguished guests! Welcome to the Karst Peak and Water Tour in Guangxi. I am your tour guide Vivian. Today, we will explore the world's most breathtaking karst scenery along the Lijiang River, Yangshuo, and Guilin hills. Let us start our unforgettable journey!"),
-        ("二、宏观概况与沿革（Overview & History）",
-         "Guangxi is famous worldwide for its unique karst landforms. In 2014, South China Karst was listed as a UNESCO World Natural Heritage site. This scenic route connects the core highlights of Guilin, Yangshuo, and surrounding rivers, celebrated for emerald waters, dramatic limestone towers, and green bamboo groves."),
-        ("三、代表性景观与游览动线（Key Attractions & Tour Route）",
-         "Our route begins in downtown Guilin at Elephant Trunk Hill, the famous city landmark. Next, we board a scenic cruise down the 83-kilometer Lijiang River to Yellow Cloth Shoal, the landscape on the 20 RMB note. In Yangshuo, we take bamboo rafts along the peaceful Yulong River and ride bikes through the Ten-Mile Gallery."),
-        ("四、文化价值与特色体验（Culture & Highlights）",
-         "In the evening, we will watch 'Impression Sanjie Liu', a grand musical show performed on natural waters with twelve real karst peaks as the glowing backdrop. You can also taste local specialties like crispy Guilin rice noodles and beer fish on Yangshuo West Street."),
-        ("五、欢送词（Farewell Speech）",
-         "Dear friends, our Karst Peak and Water Tour concludes here. I hope the picturesque scenery has left you with lifelong memories. Thank you very much for your great cooperation. Wish you a safe journey ahead and a wonderful time in China. Goodbye!")
+        {
+            "title": "一、欢迎词（Welcome Speech）",
+            "en": "Good morning, dear distinguished guests! Welcome to the Karst Peak and Water Tour in Guangxi. I am your tour guide Vivian. Today, we will explore the world's most breathtaking karst scenery along the Lijiang River, Yangshuo, and Guilin hills. Let us start our unforgettable journey!",
+            "cn": "各位尊敬的来宾，大家早上好！欢迎来到广西奇峰秀水之旅。我是大家今天的导游Vivian。今天，我们将沿着漓江、阳朔以及桂林群山，共同探索世界上最震撼人心的喀斯特山水画卷。让我们开启这段难忘的旅程吧！"
+        },
+        {
+            "title": "二、宏观概况与沿革（Overview & History）",
+            "en": "Guangxi is famous worldwide for its unique karst landforms. In 2014, South China Karst was listed as a UNESCO World Natural Heritage site. This scenic route connects the core highlights of Guilin, Yangshuo, and surrounding rivers, celebrated for emerald waters, dramatic limestone towers, and green bamboo groves.",
+            "cn": "广西以其独特的喀斯特地貌闻名于世。2014年，中国南方喀斯特被联合国教科文组织列入世界自然遗产名录。本条经典景观线路串联起桂林、阳朔及周边水系的核心精华，以碧绿如玉的江水、拔地而起的奇峰和两岸翠绿的凤尾竹林而享誉天下。"
+        },
+        {
+            "title": "三、代表性景观与游览动线（Key Attractions & Tour Route）",
+            "en": "Our route begins in downtown Guilin at Elephant Trunk Hill, the famous city landmark. Next, we board a scenic cruise down the 83-kilometer Lijiang River to Yellow Cloth Shoal, the landscape on the 20 RMB note. In Yangshuo, we take bamboo rafts along the peaceful Yulong River and ride bikes through the Ten-Mile Gallery.",
+            "cn": "我们的游览动线从桂林市区的著名城徽象鼻山出发。随后，我们登上观光游船，顺着83公里的漓江精华段顺流而下，饱览20元人民币背面的黄布倒影绝景。抵达阳朔后，我们将在宁静的遇龙河上乘坐竹筏随波荡漾，并骑行穿梭于风景如画的十里画廊。"
+        },
+        {
+            "title": "四、文化价值与特色体验（Culture & Highlights）",
+            "en": "In the evening, we will watch 'Impression Sanjie Liu', a grand musical show performed on natural waters with twelve real karst peaks as the glowing backdrop. You can also taste local specialties like crispy Guilin rice noodles and beer fish on Yangshuo West Street.",
+            "cn": "夜晚，我们将观赏大型山水实景演出《印象·刘三姐》，它以天然江面为舞台、十二座真实喀斯特山峰为绚丽背景。游览之余，您还可以在阳朔西街品尝香脆正宗的桂林米粉和香气浓郁的阳朔啤酒鱼。"
+        },
+        {
+            "title": "五、欢送词（Farewell Speech）",
+            "en": "Dear friends, our Karst Peak and Water Tour concludes here. I hope the picturesque scenery has left you with lifelong memories. Thank you very much for your great cooperation. Wish you a safe journey ahead and a wonderful time in China. Goodbye!",
+            "cn": "亲爱的朋友们，我们的奇峰秀水之旅到这里就圆满结束了。希望这片诗情画意的山水能给您留下终生难忘的美好回忆。非常感谢大家的默契配合。祝愿各位前程顺遂、在华旅途愉快！再见！"
+        }
     ],
+
     "广西 喀斯特探秘之旅": [
-        ("一、欢迎词（Welcome Speech）",
-         "Good morning, dear friends and travelers! Welcome to the Karst Exploration Tour of Guangxi. I am your guide today. Guangxi has the most diverse karst geological wonders on Earth. Today, we will venture into transnational waterfalls, deep canyons, and mysterious caves. Let's begin our adventure!"),
-        ("二、宏观概况与沿革（Overview & History）",
-         "Southwestern Guangxi features spectacular karst landforms formed over hundreds of millions of years. This route covers the Sino-Vietnamese border region in Chongzuo and Baise, featuring the largest transnational waterfall in Asia and China's most magnificent underground cave systems."),
-        ("三、代表性景观与游览动线（Key Attractions & Tour Route）",
-         "First, we visit Detian Transnational Waterfall, which roars across the border with Vietnam. Next, we hike into the primitive Tongling Grand Canyon to admire a 188-meter waterfall cascading into hidden karst caverns. Finally, we explore underground limestone palaces with crystal stalactites illuminated in glowing colors."),
-        ("四、文化价值与特色体验（Culture & Highlights）",
-         "Along the border, you will experience unique Sino-Vietnamese border trade markets, Zhuang ethnic brocade crafts, and fresh tropical fruit. The pristine air, dramatic waterfalls, and emerald waters provide an extraordinary geological and eco-tourism experience."),
-        ("五、欢送词（Farewell Speech）",
-         "Dear friends, our Karst Exploration Tour comes to an end. We have witnessed the mighty forces of nature and the unique border culture today. Thank you for your wonderful companionship. Have a safe journey and see you again in Guangxi! Goodbye!")
+        {
+            "title": "一、欢迎词（Welcome Speech）",
+            "en": "Good morning, dear friends and travelers! Welcome to the Karst Exploration Tour of Guangxi. I am your guide today. Guangxi has the most diverse karst geological wonders on Earth. Today, we will venture into transnational waterfalls, deep canyons, and mysterious caves. Let's begin our adventure!",
+            "cn": "各位亲爱的朋友和旅行者们，大家早上好！欢迎来到广西喀斯特探秘之旅。我是大家今天的导游。广西拥有地球上类型最丰富、最壮观的喀斯特地质奇观。今天，我们将深入中越跨国瀑布、原始峡谷和神秘溶洞。让我们开启探险吧！"
+        },
+        {
+            "title": "二、宏观概况与沿革（Overview & History）",
+            "en": "Southwestern Guangxi features spectacular karst landforms formed over hundreds of millions of years. This route covers the Sino-Vietnamese border region in Chongzuo and Baise, featuring the largest transnational waterfall in Asia and China's most magnificent underground cave systems.",
+            "cn": "桂西南地区拥有历经数亿年地质演变形成的壮丽喀斯特地貌。本条线路横跨崇左与百色等中越边境地区，汇聚了亚洲第一大跨国瀑布以及中国最雄伟震撼的地下溶洞天坑系统。"
+        },
+        {
+            "title": "三、代表性景观与游览动线（Key Attractions & Tour Route）",
+            "en": "First, we visit Detian Transnational Waterfall, which roars across the border with Vietnam. Next, we hike into the primitive Tongling Grand Canyon to admire a 188-meter waterfall cascading into hidden karst caverns. Finally, we explore underground limestone palaces with crystal stalactites illuminated in glowing colors.",
+            "cn": "首先，我们游览横跨中越两国边境、气势如雷贯耳的德天跨国大瀑布。接下来，我们徒步走进原始的通灵大峡谷，仰望高达188米的大瀑布飞流直下跌入神秘的溶洞暗河。最后，我们探访地下石灰岩溶洞宫殿，欣赏在五彩灯光映衬下晶莹剔透的钟乳石奇观。"
+        },
+        {
+            "title": "四、文化价值与特色体验（Culture & Highlights）",
+            "en": "Along the border, you will experience unique Sino-Vietnamese border trade markets, Zhuang ethnic brocade crafts, and fresh tropical fruit. The pristine air, dramatic waterfalls, and emerald waters provide an extraordinary geological and eco-tourism experience.",
+            "cn": "在中越边境线上，您将体验独具特色的边贸集市、壮族传统手织壮锦工艺，品尝新鲜热带水果。这里纯净清新的空气、磅礴的瀑布与碧绿的清流，将为您带来独一无二的地质探秘与生态旅游体验。"
+        },
+        {
+            "title": "五、欢送词（Farewell Speech）",
+            "en": "Dear friends, our Karst Exploration Tour comes to an end. We have witnessed the mighty forces of nature and the unique border culture today. Thank you for your wonderful companionship. Have a safe journey and see you again in Guangxi! Goodbye!",
+            "cn": "亲爱的朋友们，喀斯特探秘之旅到这里就要画上圆满句号了。今天我们共同见证了大自然的鬼斧神工与独特的边关风情。非常感谢大家一路上的热情相伴。祝大家旅途平安，期待在美丽的广西再次相会！再见！"
+        }
     ],
+
     "广西北部湾滨海之旅": [
-        ("一、欢迎词（Welcome Speech）",
-         "Good morning, dear distinguished guests! Welcome to the Beibu Gulf Coastal Tour of Guangxi. I am delighted to be your tour guide. Today, we will explore romantic silver beaches, volcanic islands, and ancient Maritime Silk Road ports under the sunny tropical sky. Let us begin our coastal journey!"),
-        ("二、宏观概况与沿革（Overview & History）",
-         "The Beibu Gulf coastal region in southern Guangxi connects Beihai, Qinzhou, and Fangchenggang. Historically, Hepu was a major departure port on the ancient Maritime Silk Road over 2,000 years ago. Today, it is famous for clean beaches, rich marine ecosystems, and top-quality South Sea Pearls."),
-        ("三、代表性景观与游览动线（Key Attractions & Tour Route）",
-         "First, we visit Beihai Silver Beach, known as 'the First Beach in China' for its soft white quartz sand and gentle waves. Next, we take a ferry to Weizhou Island, China's youngest volcanic island, to see dramatic volcanic craters and sea caves. Finally, we explore the Hepu Han Dynasty Museum."),
-        ("四、文化价值与特色体验（Culture & Highlights）",
-         "In Hepu, you will see rare ancient glass and gold artifacts excavated from Maritime Silk Road tombs. In the evening, stroll along historic 100-year-old Arcade streets in Beihai and enjoy delicious fresh seafood with ocean views."),
-        ("五、欢送词（Farewell Speech）",
-         "Dear friends, our Beibu Gulf Coastal Tour has concluded successfully. I hope the warm ocean breeze, white sands, and ancient maritime history brought you joy. Thank you for your participation. Wish you smooth travels and a safe journey home. Goodbye!")
+        {
+            "title": "一、欢迎词（Welcome Speech）",
+            "en": "Good morning, dear distinguished guests! Welcome to the Beibu Gulf Coastal Tour of Guangxi. I am delighted to be your tour guide. Today, we will explore romantic silver beaches, volcanic islands, and ancient Maritime Silk Road ports under the sunny tropical sky. Let us begin our coastal journey!",
+            "cn": "各位尊敬的来宾，大家早上好！欢迎来到广西北部湾滨海之旅。非常高兴能担任大家的导游。今天，在阳光明媚的热带蓝天下，我们将一同探索浪漫的银滩白沙、神奇的火山海岛以及古老的海上丝绸之路始发港。让我们开启这段滨海旅程吧！"
+        },
+        {
+            "title": "二、宏观概况与沿革（Overview & History）",
+            "en": "The Beibu Gulf coastal region in southern Guangxi connects Beihai, Qinzhou, and Fangchenggang. Historically, Hepu was a major departure port on the ancient Maritime Silk Road over 2,000 years ago. Today, it is famous for clean beaches, rich marine ecosystems, and top-quality South Sea Pearls.",
+            "cn": "广西北部湾沿海地区串联起北海、钦州和防城港三座海滨名城。在历史上，合浦是2000多年前古代海上丝绸之路的重要始发港。如今，这里以纯净优美的沙滩、丰富的海洋生态系统以及闻名天下的合浦南珠而享誉海内外。"
+        },
+        {
+            "title": "三、代表性景观与游览动线（Key Attractions & Tour Route）",
+            "en": "First, we visit Beihai Silver Beach, known as 'the First Beach in China' for its soft white quartz sand and gentle waves. Next, we take a ferry to Weizhou Island, China's youngest volcanic island, to see dramatic volcanic craters and sea caves. Finally, we explore the Hepu Han Dynasty Museum.",
+            "cn": "首先，我们游览被誉为“天下第一滩”的北海银滩，漫步在细腻如银的石英白沙上，感受温和海浪。随后，我们乘船前往中国最年轻的火山岛——涠洲岛，实地探访壮观的火山口遗迹与海蚀洞穴。最后，我们走进合浦汉代文化博物馆。"
+        },
+        {
+            "title": "四、文化价值与特色体验（Culture & Highlights）",
+            "en": "In Hepu, you will see rare ancient glass and gold artifacts excavated from Maritime Silk Road tombs. In the evening, stroll along historic 100-year-old Arcade streets in Beihai and enjoy delicious fresh seafood with ocean views.",
+            "cn": "在合浦汉代博物馆，您将亲眼目睹海上丝绸之路古墓出土的罕见罗马玻璃器皿、琥珀与金器。傍晚时分，漫步在北海拥有百年历史的西洋骑楼老街，吹着海风，品尝生猛新鲜的北部湾海鲜盛宴。"
+        },
+        {
+            "title": "五、欢送词（Farewell Speech）",
+            "en": "Dear friends, our Beibu Gulf Coastal Tour has concluded successfully. I hope the warm ocean breeze, white sands, and ancient maritime history brought you joy. Thank you for your participation. Wish you smooth travels and a safe journey home. Goodbye!",
+            "cn": "亲爱的朋友们，我们的北部湾滨海之旅圆满结束了。希望温暖的海风、洁白的银滩沙滩与悠久的海丝历史能为您带来无尽的快乐。非常感谢大家的参与。祝愿大家返程一帆风顺、平安到家。再见！"
+        }
     ],
+
     "广西 三月三风情之旅": [
-        ("一、欢迎词（Welcome Speech）",
-         "Good morning, dear distinguished guests! Welcome to the March 3rd Folk Festival Tour of Guangxi. I am your guide Vivian. Today, we will immerse ourselves in the most vibrant festival of the Zhuang people, with colorful singing fairs, folk dances, and traditional delicacies. Let us celebrate together!"),
-        ("二、宏观概况与沿革（Overview & History）",
-         "The March 3rd Song Festival is a national intangible cultural heritage and the most important traditional holiday in Guangxi. Originating from ancient agricultural ceremonies and the legendary singer Sanjie Liu, it has become a grand celebration for all 12 ethnic groups across Guangxi every lunar spring."),
-        ("三、代表性景观与游览动线（Key Attractions & Tour Route）",
-         "Our tour takes us to the major festival singing fairs in Nanning and Guilin. You will watch young men and women singing antiphonal folk songs, tossing handmade silk hydrangeas to express blessings, and joining the energetic Bamboo Pole Dance on village squares."),
-        ("四、文化价值与特色体验（Culture & Highlights）",
-         "During the festival, everyone shares Five-Color Glutinous Rice dyed with natural mountain plants, symbolizing harvest and good fortune. You will also witness master artisans weaving colorful Zhuang Brocade on traditional wooden looms and hear bronze drums echoing across the hills."),
-        ("五、欢送词（Farewell Speech）",
-         "Dear friends, our joyful March 3rd Folk Festival Tour has come to an end. I hope the passionate songs, colorful costumes, and warm hospitality of the Zhuang people remain in your hearts. Thank you for your enthusiasm. Have a wonderful journey and see you again! Goodbye!")
+        {
+            "title": "一、欢迎词（Welcome Speech）",
+            "en": "Good morning, dear distinguished guests! Welcome to the March 3rd Folk Festival Tour of Guangxi. I am your guide Vivian. Today, we will immerse ourselves in the most vibrant festival of the Zhuang people, with colorful singing fairs, folk dances, and traditional delicacies. Let us celebrate together!",
+            "cn": "各位尊敬的来宾，大家早上好！欢迎来到广西“三月三”民族风情之旅。我是大家今天的导游Vivian。今天，我们将全身心沉浸在壮族最盛大热烈的传统节日中，领略热闹的歌圩对唱、欢快的民族歌舞与地道节庆美食。让我们一同欢庆吧！"
+        },
+        {
+            "title": "二、宏观概况与沿革（Overview & History）",
+            "en": "The March 3rd Song Festival is a national intangible cultural heritage and the most important traditional holiday in Guangxi. Originating from ancient agricultural ceremonies and the legendary singer Sanjie Liu, it has become a grand celebration for all 12 ethnic groups across Guangxi every lunar spring.",
+            "cn": "壮族“三月三”歌圩是国家级非物质文化遗产，也是广西最隆重的传统节庆。它起源于古代祭祀祈谷与歌仙刘三姐的传奇故事，如今已演变为每年农历早春时节，广西全区壮、汉、瑶、苗、侗等12个世居民族共同狂欢的盛大文化节日。"
+        },
+        {
+            "title": "三、代表性景观与游览动线（Key Attractions & Tour Route）",
+            "en": "Our tour takes us to the major festival singing fairs in Nanning and Guilin. You will watch young men and women singing antiphonal folk songs, tossing handmade silk hydrangeas to express blessings, and joining the energetic Bamboo Pole Dance on village squares.",
+            "cn": "我们的行程将带大家前往南宁与桂林的核心歌圩现场。您将亲眼目睹青年男女在花海旁对唱山歌、抛掷精美的手工丝织绣球来传递祝福与爱意，并在村寨广场上加入节奏欢快的跳竹竿舞。"
+        },
+        {
+            "title": "四、文化价值与特色体验（Culture & Highlights）",
+            "en": "During the festival, everyone shares Five-Color Glutinous Rice dyed with natural mountain plants, symbolizing harvest and good fortune. You will also witness master artisans weaving colorful Zhuang Brocade on traditional wooden looms and hear bronze drums echoing across the hills.",
+            "cn": "节日期间，家家户户都会分享用天然植物汁液浸染蒸制而成的五色糯米饭，象征五谷丰登与吉祥如意。您还将亲眼观摩非遗传承人在古老木织机上手织绚丽的壮锦，并聆听震彻山谷的雄浑青铜古鼓声。"
+        },
+        {
+            "title": "五、欢送词（Farewell Speech）",
+            "en": "Dear friends, our joyful March 3rd Folk Festival Tour has come to an end. I hope the passionate songs, colorful costumes, and warm hospitality of the Zhuang people remain in your hearts. Thank you for your enthusiasm. Have a wonderful journey and see you again! Goodbye!",
+            "cn": "亲爱的朋友们，欢快的“三月三”风情之旅即将画上句号。希望壮乡同胞热情嘹亮的山歌、绚丽多姿的民族服饰与淳朴热忱的待客之道能长久留在您的心间。感谢大家的热情参与。祝愿大家旅程美妙，期待再次相逢！再见！"
+        }
     ],
+
     "广西 桂北民族风情之旅": [
-        ("一、欢迎词（Welcome Speech）",
-         "Good morning, dear distinguished guests! Welcome to the Northern Guangxi Ethnic Tour. I am your tour guide today. Northern Guangxi is home to the Zhuang, Yao, Miao, and Dong ethnic groups. Today, we will explore cloud-wrapped rice terraces, wooden architecture, and heavenly choral songs. Let us start our trip!"),
-        ("二、宏观概况与沿革（Overview & History）",
-         "Northern Guangxi spans the scenic mountains of Longsheng and Sanjiang. Over hundreds of years, local ethnic ancestors carved giant terraced fields into steep hills and created world-class wooden structures without using a single metal nail, forming a harmonious ecosystem between humanity and nature."),
-        ("三、代表性景观与游览动线（Key Attractions & Tour Route）",
-         "First, we visit the Longji Terraces, where hundreds of stepped fields rise like golden ribbons from mountain valleys to the sky. Next, we travel to Sanjiang Dong Villages to walk across the 100-year-old Chengyang Wind and Rain Bridge and visit towering Pingzhai Drum Tower."),
-        ("四、文化价值与特色体验（Culture & Highlights）",
-         "Inside the drum tower, you will hear the Dong Grand Song, an unaccompanied multi-part chorus recognized by UNESCO. At noon, join the festive Grand Banquet to enjoy oil tea, sour fish, and warm hospitality shared by hundreds of villagers."),
-        ("五、欢送词（Farewell Speech）",
-         "Dear friends, our Northern Guangxi Ethnic Tour has come to a memorable close. We have experienced magnificent agricultural heritage and pure ethnic traditions today. Thank you for your great companionship. Wish you happiness, health, and a safe trip ahead. Goodbye!")
+        {
+            "title": "一、欢迎词（Welcome Speech）",
+            "en": "Good morning, dear distinguished guests! Welcome to the Northern Guangxi Ethnic Tour. I am your tour guide today. Northern Guangxi is home to the Zhuang, Yao, Miao, and Dong ethnic groups. Today, we will explore cloud-wrapped rice terraces, wooden architecture, and heavenly choral songs. Let us start our trip!",
+            "cn": "各位尊敬的来宾，大家早上好！欢迎来到桂北民族风情之旅。我是大家今天的导游。广西北部是壮族、瑶族、苗族和侗族等多个民族世代聚居的家园。今天，我们将一同探索云雾缭绕的龙脊梯田、神奇的木构建筑群与天籁般的合唱大歌。让我们启程吧！"
+        },
+        {
+            "title": "二、宏观概况与沿革（Overview & History）",
+            "en": "Northern Guangxi spans the scenic mountains of Longsheng and Sanjiang. Over hundreds of years, local ethnic ancestors carved giant terraced fields into steep hills and created world-class wooden structures without using a single metal nail, forming a harmonious ecosystem between humanity and nature.",
+            "cn": "桂北地区横跨龙胜与三江两处风光秀美的崇山峻岭。数百年来，各族先民在陡峭的山峰上开凿出壮丽的层层梯田，并凭借高超的榫卯技艺，在不使用一颗铁钉的情况下建起举世闻名的木构风雨桥与鼓楼，构筑起人与自然高度和谐的生态家园。"
+        },
+        {
+            "title": "三、代表性景观与游览动线（Key Attractions & Tour Route）",
+            "en": "First, we visit the Longji Terraces, where hundreds of stepped fields rise like golden ribbons from mountain valleys to the sky. Next, we travel to Sanjiang Dong Villages to walk across the 100-year-old Chengyang Wind and Rain Bridge and visit towering Pingzhai Drum Tower.",
+            "cn": "首先，我们游览壮美的龙脊梯田，层层叠叠的水田宛如金色绸带从山谷盘旋直入云端。随后，我们前往三江侗寨，走过拥有百年历史的程阳永济风雨桥，并瞻仰巍峨高耸的平寨鼓楼。"
+        },
+        {
+            "title": "四、文化价值与特色体验（Culture & Highlights）",
+            "en": "Inside the drum tower, you will hear the Dong Grand Song, an unaccompanied multi-part chorus recognized by UNESCO. At noon, join the festive Grand Banquet to enjoy oil tea, sour fish, and warm hospitality shared by hundreds of villagers.",
+            "cn": "在鼓楼内，您将聆听联合国非遗名录中的侗族大歌——无需指挥与乐器伴奏的多声部天籁和声。中午，您将受邀入席盛大的侗家百家宴，与全寨乡亲共同品尝打油茶、酸鱼酸肉，感受最纯朴真挚的民族温情。"
+        },
+        {
+            "title": "五、欢送词（Farewell Speech）",
+            "en": "Dear friends, our Northern Guangxi Ethnic Tour has come to a memorable close. We have experienced magnificent agricultural heritage and pure ethnic traditions today. Thank you for your great companionship. Wish you happiness, health, and a safe trip ahead. Goodbye!",
+            "cn": "亲爱的朋友们，桂北民族风情之旅到这里就要画上圆满的句号了。今天我们共同体验了宏伟的农业梯田奇观与最纯正的民族民俗。非常感谢大家一路上的温馨相伴。祝愿各位生活幸福、身体健康、前程平安。再见！"
+        }
     ],
+
     "广西 桂西北民族风情之旅": [
-        ("一、欢迎词（Welcome Speech）",
-         "Good morning, dear friends! Welcome to the Northwestern Guangxi Ethnic Tour. I am your guide today. Northwestern Guangxi in Bama, Fengshan, and Donglan is a magical world of longevity, limestone caves, and Yao traditions. Let us begin our peaceful and cultural journey!"),
-        ("二、宏观概况与沿革（Overview & History）",
-         "Northwestern Guangxi is internationally famous as a global longevity zone. With clean mountain rivers, high negative oxygen ions, and fertile soil, local Yao and Zhuang people have maintained harmonious, healthy, and long lives for generations."),
-        ("三、代表性景观与游览动线（Key Attractions & Tour Route）",
-         "First, we visit Bama Panyang River and the majestic Baimo Cave, where visitors breathe pure, rich mountain air. Next, we take a boat through the mysterious water caves of Bainiao Yan. In local Yao villages, we watch the rhythmic Yao Long Drum Dance and listen to bronze drums."),
-        ("四、文化价值与特色体验（Culture & Highlights）",
-         "You will learn about the centenarians' healthy lifestyle, based on weak alkaline water, organic hemp seed soup, and sweet corn porridge. The peaceful slow pace of life here offers the ultimate mind and body wellness retreat."),
-        ("五、欢送词（Farewell Speech）",
-         "Dear friends, our Northwestern Guangxi Ethnic Tour comes to an end. I hope the longevity secrets, pure nature, and unique Yao customs brought you health and tranquility. Thank you all. Have a safe journey and best wishes for a long, happy life! Goodbye!")
+        {
+            "title": "一、欢迎词（Welcome Speech）",
+            "en": "Good morning, dear friends! Welcome to the Northwestern Guangxi Ethnic Tour. I am your guide today. Northwestern Guangxi in Bama, Fengshan, and Donglan is a magical world of longevity, limestone caves, and Yao traditions. Let us begin our peaceful and cultural journey!",
+            "cn": "亲爱的朋友们，大家早上好！欢迎来到桂西北民族风情之旅。我是大家今天的导游。由巴马、凤山、东兰构成的桂西北地区，是一个集世界长寿奇迹、神奇溶洞群与浓郁瑶族风情于一体的世外桃源。让我们开启这段宁静而厚重的文化之旅吧！"
+        },
+        {
+            "title": "二、宏观概况与沿革（Overview & History）",
+            "en": "Northwestern Guangxi is internationally famous as a global longevity zone. With clean mountain rivers, high negative oxygen ions, and fertile soil, local Yao and Zhuang people have maintained harmonious, healthy, and long lives for generations.",
+            "cn": "桂西北作为世界闻名的长寿地带享誉全球。这里拥有甘甜清冽的山泉、富含高浓度的负氧离子以及无污染的天然土壤，世代居住于此的瑶族和壮族同胞保持着顺应自然、健康长寿的传统生活方式。"
+        },
+        {
+            "title": "三、代表性景观与游览动线（Key Attractions & Tour Route）",
+            "en": "First, we visit Bama Panyang River and the majestic Baimo Cave, where visitors breathe pure, rich mountain air. Next, we take a boat through the mysterious water caves of Bainiao Yan. In local Yao villages, we watch the rhythmic Yao Long Drum Dance and listen to bronze drums.",
+            "cn": "首先，我们漫步巴马盘阳河畔，走进雄伟的百魔洞天然富氧溶洞深呼吸负氧离子。随后，我们乘船穿越百鸟岩神奇的水上溶洞暗河。在古老的瑶寨里，我们将观赏力量感十足的瑶族长鼓舞，聆听古老青铜鼓的铿锵鼓点。"
+        },
+        {
+            "title": "四、文化价值与特色体验（Culture & Highlights）",
+            "en": "You will learn about the centenarians' healthy lifestyle, based on weak alkaline water, organic hemp seed soup, and sweet corn porridge. The peaceful slow pace of life here offers the ultimate mind and body wellness retreat.",
+            "cn": "您将深入探索百岁寿星的长寿密码：饮用天然弱碱性小分子水、食用火麻野菜汤与香甜玉米粥。这里悠闲恬静的慢生活节奏，将为您的身心带来最深度的放松与滋养。"
+        },
+        {
+            "title": "五、欢送词（Farewell Speech）",
+            "en": "Dear friends, our Northwestern Guangxi Ethnic Tour comes to an end. I hope the longevity secrets, pure nature, and unique Yao customs brought you health and tranquility. Thank you all. Have a safe journey and best wishes for a long, happy life! Goodbye!",
+            "cn": "亲爱的朋友们，桂西北民族风情之旅圆满结束了。希望这里的长寿密码、纯净山水与独特瑶族民俗能为您的身心带来健康与宁静。非常感谢大家的陪伴。祝愿大家一路顺风，福寿安康、幸福绵长！再见！"
+        }
     ],
+
     "广西 历史文化名城之旅": [
-        ("一、欢迎词（Welcome Speech）",
-         "Good morning, dear distinguished guests! Welcome to the Historic Cities Tour of Guangxi. I am your guide Vivian. Guangxi boasts thousands of years of profound history and heroic heritage. Today, we will explore ancient canals, royal palaces, and historic monuments. Let us start our cultural exploration!"),
-        ("二、宏观概况与沿革（Overview & History）",
-         "Guangxi has been an integral part of China since the Qin Dynasty established Guilin and Xiang Prefectures in 214 BC. This route highlights Guilin, Xing'an, and Liuzhou, showcasing military engineering, Ming Dynasty royal palaces, and modern patriotic milestones."),
-        ("三、代表性景观与游览动线（Key Attractions & Tour Route）",
-         "First, we visit the Lingqu Canal in Xing'an, built in 214 BC as the world's oldest contour canal connecting the Yangtze and Pearl River systems. Next, we tour the Jingjiang Princes' City in Guilin, China's best-preserved Ming princely palace under the Solitary Beauty Peak. Finally, we visit Liuhou Park in Liuzhou."),
-        ("四、文化价值与特色体验（Culture & Highlights）",
-         "At the Solitary Beauty Peak, you will find the original 800-year-old rock carving of 'Guilin scenery is best under heaven'. In Liuzhou, we learn about the famous Tang Dynasty philosopher Liu Zongyuan and his contributions to Lingnan culture and governance."),
-        ("五、欢送词（Farewell Speech）",
-         "Dear friends, our Historic Cities Tour has come to a fruitful end. We have traced the deep cultural roots and monumental engineering feats of Guangxi today. Thank you for your interest and cooperation. Wish you a pleasant journey and look forward to seeing you again. Goodbye!")
+        {
+            "title": "一、欢迎词（Welcome Speech）",
+            "en": "Good morning, dear distinguished guests! Welcome to the Historic Cities Tour of Guangxi. I am your guide Vivian. Guangxi boasts thousands of years of profound history and heroic heritage. Today, we will explore ancient canals, royal palaces, and historic monuments. Let us start our cultural exploration!",
+            "cn": "各位尊敬的来宾，大家早上好！欢迎来到广西历史文化名城之旅。我是大家今天的导游Vivian。广西拥有数千年深厚的历史底蕴与英雄气概。今天，我们将一同探访秦代灵渠、明代藩王府与历代文化名胜古迹。让我们开启这场历史文化探寻之旅吧！"
+        },
+        {
+            "title": "二、宏观概况与沿革（Overview & History）",
+            "en": "Guangxi has been an integral part of China since the Qin Dynasty established Guilin and Xiang Prefectures in 214 BC. This route highlights Guilin, Xing'an, and Liuzhou, showcasing military engineering, Ming Dynasty royal palaces, and modern patriotic milestones.",
+            "cn": "自公元前214年秦始皇在此设立桂林郡与象郡以来，广西便正式纳入华夏版图。本条线路聚焦桂林、兴安和柳州三座历史名城，全景展现古代水利工程奇迹、明代藩王宫殿以及近现代波澜壮阔的爱国历史足迹。"
+        },
+        {
+            "title": "三、代表性景观与游览动线（Key Attractions & Tour Route）",
+            "en": "First, we visit the Lingqu Canal in Xing'an, built in 214 BC as the world's oldest contour canal connecting the Yangtze and Pearl River systems. Next, we tour the Jingjiang Princes' City in Guilin, China's best-preserved Ming princely palace under the Solitary Beauty Peak. Finally, we visit Liuhou Park in Liuzhou.",
+            "cn": "首先，我们参观建于公元前214年的兴安灵渠——作为世界上最古老的人工等高运河，它成功沟通了长江与珠江两大水系。随后，我们探访桂林独秀峰下的靖江王城，这是中国保存最完好的明代藩王府邸。最后，我们前往柳州柳侯公园瞻仰纪念唐代大思想家柳宗元。"
+        },
+        {
+            "title": "四、文化价值与特色体验（Culture & Highlights）",
+            "en": "At the Solitary Beauty Peak, you will find the original 800-year-old rock carving of 'Guilin scenery is best under heaven'. In Liuzhou, we learn about the famous Tang Dynasty philosopher Liu Zongyuan and his contributions to Lingnan culture and governance.",
+            "cn": "在独秀峰的摩崖石壁上，您能寻访到南宋时期刻下的千古名句“桂林山水甲天下”的最早真迹石刻。在柳州，我们将深入了解柳宗元任柳州刺史时解放奴婢、兴办教育、繁荣岭南文教的卓越历史功绩。"
+        },
+        {
+            "title": "五、欢送词（Farewell Speech）",
+            "en": "Dear friends, our Historic Cities Tour has come to a fruitful end. We have traced the deep cultural roots and monumental engineering feats of Guangxi today. Thank you for your interest and cooperation. Wish you a pleasant journey and look forward to seeing you again. Goodbye!",
+            "cn": "亲爱的朋友们，我们的历史文化名城之旅收获满满地结束了。今天我们一同追溯了广西深厚的文化根脉与彪炳史册的古代工程奇迹。非常感谢大家的专注与倾听。祝愿大家旅程愉快，期待与您再次相聚！再见！"
+        }
     ],
+
     "广西 岭南文化之旅": [
-        ("一、欢迎词（Welcome Speech）",
-         "Good morning, distinguished guests and friends! Welcome to the Lingnan Culture Tour of Guangxi. I am your English tour guide today. Lingnan culture is famous for historic arcade streets, maritime trade, and distinct Cantonese heritage. Let us begin our charming historical tour!"),
-        ("二、宏观概况与沿革（Overview & History）",
-         "Lingnan culture represents the cultural fusion between ancient southern indigenous people and Central Plains civilization. Stretching across Wuzhou, Beihai, and Yulin, this region is celebrated as the historic birthplace of Lingnan commerce and the ancient Maritime Silk Road departure port."),
-        ("三、代表性景观与游览动线（Key Attractions & Tour Route）",
-         "First, we stroll along the 100-year-old Arcade Building Streets in Wuzhou and Beihai, admiring the unique architectural blend of Eastern and Western commercial styles. Next, we visit the Hepu Han Dynasty Museum to see precious overseas glass and amber artifacts. Finally, we explore ancient Zhuangyuan academies in Yulin."),
-        ("四、文化价值与特色体验（Culture & Highlights）",
-         "You will experience authentic Lingnan culinary culture, enjoying morning tea with steamed dumplings, Liubao Dark Tea, and fresh seafood. The open-minded, commercial, and practical spirit of Lingnan culture is vividly displayed in everyday street life."),
-        ("五、欢送词（Farewell Speech）",
-         "Dear friends, our Lingnan Culture Tour comes to a wonderful conclusion. I hope the nostalgic arcade streets and rich maritime history left a deep impression on you. Thank you for your participation. Wish you safe travels and a great time ahead! Goodbye!")
+        {
+            "title": "一、欢迎词（Welcome Speech）",
+            "en": "Good morning, distinguished guests and friends! Welcome to the Lingnan Culture Tour of Guangxi. I am your English tour guide today. Lingnan culture is famous for historic arcade streets, maritime trade, and distinct Cantonese heritage. Let us begin our charming historical tour!",
+            "cn": "各位尊敬的来宾和朋友们，大家早上好！欢迎来到广西岭南文化之旅。我是大家今天的英语导游。岭南文化以骑楼古街、百年海丝贸易与独特的粤风广府韵味而著称。让我们开启这段迷人的岭南文化之旅吧！"
+        },
+        {
+            "title": "二、宏观概况与沿革（Overview & History）",
+            "en": "Lingnan culture represents the cultural fusion between ancient southern indigenous people and Central Plains civilization. Stretching across Wuzhou, Beihai, and Yulin, this region is celebrated as the historic birthplace of Lingnan commerce and the ancient Maritime Silk Road departure port.",
+            "cn": "岭南文化代表了华南本土先民传统与中原华夏文明的深度交融。横跨梧州、北海与玉林等地的岭南文化带，是近现代岭南商贸繁荣的发祥地与古代海上丝绸之路的重要始发港。"
+        },
+        {
+            "title": "三、代表性景观与游览动线（Key Attractions & Tour Route）",
+            "en": "First, we stroll along the 100-year-old Arcade Building Streets in Wuzhou and Beihai, admiring the unique architectural blend of Eastern and Western commercial styles. Next, we visit the Hepu Han Dynasty Museum to see precious overseas glass and amber artifacts. Finally, we explore ancient Zhuangyuan academies in Yulin.",
+            "cn": "首先，我们漫步梧州与北海两座城市拥有百年历史的骑楼老街，欣赏中西合璧的遮阳挡雨商贸建筑艺术。接着，我们参观合浦汉代文化博物馆，鉴赏海外进口的罗马玻璃碗与波斯琥珀等丝路珍宝。最后，我们探访玉林真武阁与古书院群落。"
+        },
+        {
+            "title": "四、文化价值与特色体验（Culture & Highlights）",
+            "en": "You will experience authentic Lingnan culinary culture, enjoying morning tea with steamed dumplings, Liubao Dark Tea, and fresh seafood. The open-minded, commercial, and practical spirit of Lingnan culture is vividly displayed in everyday street life.",
+            "cn": "您将沉浸式体验地道正宗的岭南饮食与茶饮文化：品尝虾饺烧麦早茶、细啜越陈越香的梧州六堡茶、畅享鲜美海鲜。岭南文化中开放包容、务实通商的人文精神在市井烟火中展现得淋漓尽致。"
+        },
+        {
+            "title": "五、欢送词（Farewell Speech）",
+            "en": "Dear friends, our Lingnan Culture Tour comes to a wonderful conclusion. I hope the nostalgic arcade streets and rich maritime history left a deep impression on you. Thank you for your participation. Wish you safe travels and a great time ahead! Goodbye!",
+            "cn": "亲爱的朋友们，岭南文化之旅到这里圆满落幕了。希望充满怀旧风情的骑楼老街与沧桑的海丝历史能给您留下深刻的印象。非常感谢大家的参与配合。祝愿各位旅途平安，前程万事顺意！再见！"
+        }
     ],
+
     "广西 骆越文化之旅": [
-        ("一、欢迎词（Welcome Speech）",
-         "Good morning, dear distinguished guests! Welcome to the Luoyue Civilization Tour of Guangxi. I am your tour guide today. The ancient Luoyue people were the ancestors of the Zhuang ethnic group. Today, we will explore millennial rock art, bronze drums, and early agricultural heritage. Let us start our trip!"),
-        ("二、宏观概况与沿革（Overview & History）",
-         "The Luoyue culture flourished along the Zuojiang and Youjiang river basins from the Warring States Period to the Eastern Han Dynasty over 2,000 years ago. It is the spiritual foundation of Zhuang civilization, famous for cliff paintings, bronze drum castings, and wetland rice cultivation."),
-        ("三、代表性景观与游览动线（Key Attractions & Tour Route）",
-         "First, we visit the UNESCO World Heritage Zuojiang Huashan Rock Art in Chongzuo, admiring thousands of dynamic frog-dancing figures painted on steep river cliffs. Next, we explore the Guangxi Museum of Nationalities in Nanning to see the world's largest collection of ancient bronze drums."),
-        ("四、文化价值与特色体验（Culture & Highlights）",
-         "Bronze drums were revered as sacred instruments of tribal power and religious rites. Today, Luoyue heritage lives on in Zhuang brocade patterns, frog deity dances, and the festive March 3rd Song Festival, showcasing a vibrant and enduring indigenous civilization."),
-        ("五、欢送词（Farewell Speech）",
-         "Dear friends, our Luoyue Civilization Tour comes to an end. We have explored the profound historical roots and spiritual world of the Zhuang people today. Thank you all for your kind attention. Wish you a smooth journey and a wonderful time in Guangxi. Goodbye!")
+        {
+            "title": "一、欢迎词（Welcome Speech）",
+            "en": "Good morning, dear distinguished guests! Welcome to the Luoyue Civilization Tour of Guangxi. I am your tour guide today. The ancient Luoyue people were the ancestors of the Zhuang ethnic group. Today, we will explore millennial rock art, bronze drums, and early agricultural heritage. Let us start our trip!",
+            "cn": "各位尊敬的来宾，大家早上好！欢迎来到广西骆越文化之旅。我是大家今天的导游。古老的骆越先民是壮族同胞的共同祖先。今天，我们将沿着左江流域，探寻千年前的崖壁岩画、青铜古鼓与悠久的稻作农业文明。让我们启程吧！"
+        },
+        {
+            "title": "二、宏观概况与沿革（Overview & History）",
+            "en": "The Luoyue culture flourished along the Zuojiang and Youjiang river basins from the Warring States Period to the Eastern Han Dynasty over 2,000 years ago. It is the spiritual foundation of Zhuang civilization, famous for cliff paintings, bronze drum castings, and wetland rice cultivation.",
+            "cn": "骆越文明在距今2000多年前的战国至东汉时期繁荣于左江与右江流域。它是壮族文明的根基与灵魂，以宏伟的临江崖壁画作、精湛的青铜鼓铸造技艺与先进的水田水稻种植文明而著称于世。"
+        },
+        {
+            "title": "三、代表性景观与游览动线（Key Attractions & Tour Route）",
+            "en": "First, we visit the UNESCO World Heritage Zuojiang Huashan Rock Art in Chongzuo, admiring thousands of dynamic frog-dancing figures painted on steep river cliffs. Next, we explore the Guangxi Museum of Nationalities in Nanning to see the world's largest collection of ancient bronze drums.",
+            "cn": "首先，我们游览联合国教科文组织世界文化遗产——崇左左江花山岩画，瞻仰绘制在高耸悬崖上数以千计、作青蛙起舞状的先民画像。随后，我们前往南宁的广西民族博物馆，参观世界上馆藏数量最多、纹饰最精美的古代青铜鼓大展。"
+        },
+        {
+            "title": "四、文化价值与特色体验（Culture & Highlights）",
+            "en": "Bronze drums were revered as sacred instruments of tribal power and religious rites. Today, Luoyue heritage lives on in Zhuang brocade patterns, frog deity dances, and the festive March 3rd Song Festival, showcasing a vibrant and enduring indigenous civilization.",
+            "cn": "青铜鼓被尊奉为代表部落最高权力与通神祭祀的至高神器。今天，骆越文明的基因依然鲜活地流淌在绚丽的壮锦纹饰、传统的青蛙图腾祭祀舞以及欢快的“三月三”歌圩中，彰显着中华南方民族文明历久弥新的生机。"
+        },
+        {
+            "title": "五、欢送词（Farewell Speech）",
+            "en": "Dear friends, our Luoyue Civilization Tour comes to an end. We have explored the profound historical roots and spiritual world of the Zhuang people today. Thank you all for your kind attention. Wish you a smooth journey and a wonderful time in Guangxi. Goodbye!",
+            "cn": "亲爱的朋友们，我们的骆越文化之旅到这里就圆满结束了。今天我们一同探寻了壮族先民深邃的历史根源与精神世界。非常感谢大家一路上的专注聆听。祝愿大家行程顺利、在广西度过一段难忘的美好时光。再见！"
+        }
     ],
+
     "广西 长寿休闲之旅": [
-        ("一、欢迎词（Welcome Speech）",
-         "Good morning, dear friends and health seekers! Welcome to the Longevity Leisure Tour in Bama, Guangxi. I am your wellness guide today. Bama is internationally recognized as the world's premier longevity homeland. Let us relax our minds and bodies in this natural paradise!"),
-        ("二、宏观概况与沿革（Overview & History）",
-         "Bama Yao Autonomous County is located in northwestern Guangxi. The United Nations has verified that Bama possesses one of the highest ratios of healthy centenarians in the world, thanks to five natural elements: clean water, rich oxygen, healthy geomagnetism, pleasant sunlight, and organic food."),
-        ("三、代表性景观与游览动线（Key Attractions & Tour Route）",
-         "Our leisure route begins with a refreshing walk along the turquoise Panyang River. Next, we visit Baimo Cave, a natural oxygen bar where thousands of 'migratory retirees' practice meditation and deep breathing. Finally, we visit Bama Longevity Village to converse with cheerful centenarians."),
-        ("四、文化价值与特色体验（Culture & Highlights）",
-         "You will taste authentic Bama longevity cuisine, including nutritious hemp seed soup, sweet corn congee, and organic mountain vegetables. Combined with traditional Yao herbal foot baths, this trip offers the ultimate restorative experience for wellness and vitality."),
-        ("五、欢送词（Farewell Speech）",
-         "Dear friends, our Longevity Leisure Tour concludes here. I hope the pristine air, pure water, and peaceful lifestyle of Bama bring you lasting health, vitality, and peace of mind. Thank you for traveling with us. Wish you a long, healthy, and happy life! Goodbye!")
+        {
+            "title": "一、欢迎词（Welcome Speech）",
+            "en": "Good morning, dear friends and health seekers! Welcome to the Longevity Leisure Tour in Bama, Guangxi. I am your wellness guide today. Bama is internationally recognized as the world's premier longevity homeland. Let us relax our minds and bodies in this natural paradise!",
+            "cn": "亲爱的朋友与养生贵宾们，大家早上好！欢迎来到广西巴马长寿休闲之旅。我是大家今天的康养导游。巴马是获得国际公认的世界顶级长寿之乡。让我们在这片天然净土中彻底放松身心吧！"
+        },
+        {
+            "title": "二、宏观概况与沿革（Overview & History）",
+            "en": "Bama Yao Autonomous County is located in northwestern Guangxi. The United Nations has verified that Bama possesses one of the highest ratios of healthy centenarians in the world, thanks to five natural elements: clean water, rich oxygen, healthy geomagnetism, pleasant sunlight, and organic food.",
+            "cn": "巴马瑶族自治县坐落于广西北部。联合国权威机构认证表明，巴马拥有全球最高的百岁老人健康比例，这主要得益于得天独厚的五大自然长寿要素：纯净弱碱小分子水、高负氧离子清新空气、适宜地磁、优质阳光以及无污染天然有机食材。"
+        },
+        {
+            "title": "三、代表性景观与游览动线（Key Attractions & Tour Route）",
+            "en": "Our leisure route begins with a refreshing walk along the turquoise Panyang River. Next, we visit Baimo Cave, a natural oxygen bar where thousands of 'migratory retirees' practice meditation and deep breathing. Finally, we visit Bama Longevity Village to converse with cheerful centenarians.",
+            "cn": "我们的休闲线路从漫步碧绿清澈的盘阳河畔开始。接着，我们来到百魔洞天然大氧吧，与成千上万来自全国各地的“候鸟人”一同静坐冥想、深呼吸高负氧离子。最后，我们探访巴马长寿村，与乐观开朗的百岁老人交流日常起居。"
+        },
+        {
+            "title": "四、文化价值与特色体验（Culture & Highlights）",
+            "en": "You will taste authentic Bama longevity cuisine, including nutritious hemp seed soup, sweet corn congee, and organic mountain vegetables. Combined with traditional Yao herbal foot baths, this trip offers the ultimate restorative experience for wellness and vitality.",
+            "cn": "您将品尝到地道正宗的巴马长寿美食：清香滋养的火麻野菜汤、香甜细腻的玉米珍珠粥与高山无公害时蔬。配合传统的瑶药温汤足浴养生体验，为您带来焕发身心活力的极致修复体验。"
+        },
+        {
+            "title": "五、欢送词（Farewell Speech）",
+            "en": "Dear friends, our Longevity Leisure Tour concludes here. I hope the pristine air, pure water, and peaceful lifestyle of Bama bring you lasting health, vitality, and peace of mind. Thank you for traveling with us. Wish you a long, healthy, and happy life! Goodbye!",
+            "cn": "亲爱的朋友们，我们的长寿休闲之旅在此圆满结束。希望巴马纯净的空气、甘甜的山泉与宁静祥和的慢调生活能为您的身心注入持久的健康、活力与宁静。感谢大家的同行。祝愿各位福寿绵长、健康快乐、笑口常开！再见！"
+        }
     ],
+
     "广西 长寿康养之旅": [
-        ("一、欢迎词（Welcome Speech）",
-         "Good morning, dear distinguished guests! Welcome to the Scientific Longevity and Health Tour in Bama, Guangxi. I am your wellness guide Vivian. Today, we will discover the scientific secrets of long life and experience holistic eco-health retreats. Let us start our rejuvenating journey!"),
-        ("二、宏观概况与沿革（Overview & History）",
-         "Bama's longevity miracle has attracted scientists and health enthusiasts from around the world. Research proves that Bama's environment features mild geomagnetism, natural weak-alkaline small-molecule spring water, and high negative ion concentrations that rejuvenate human cells."),
-        ("三、代表性景观与游览动线（Key Attractions & Tour Route）",
-         "First, we explore the magical Crystal Palace cave, filled with pure white stalactites and crisp underground air. Next, we take a boat through the 'Three Days and Three Nights' light-and-shadow water tunnels of Bainiao Cave. Finally, we visit the Bama Health and Longevity Museum."),
-        ("四、文化价值与特色体验（Culture & Highlights）",
-         "During the retreat, you will experience scientific health therapies, including Yao natural herbal baths, tai chi in forest oxygen parks, and customized dietary meals rich in unsaturated fatty acids from local hemp seeds."),
-        ("五、欢送词（Farewell Speech）",
-         "Dear friends, our Longevity and Health Tour has concluded. We hope the scientific health habits and pristine ecology of Bama continue to nourish your well-being. Thank you very much for your cooperation. Wish you abundant energy and everlasting health. Goodbye!")
+        {
+            "title": "一、欢迎词（Welcome Speech）",
+            "en": "Good morning, dear distinguished guests! Welcome to the Scientific Longevity and Health Tour in Bama, Guangxi. I am your wellness guide Vivian. Today, we will discover the scientific secrets of long life and experience holistic eco-health retreats. Let us start our rejuvenating journey!",
+            "cn": "各位尊敬的来宾，大家早上好！欢迎来到广西巴马长寿康养之旅。我是大家今天的康养导游Vivian。今天，我们将揭开长寿现象背后的科学奥秘，体验全方位的生态健康调理。让我们开启这段焕发活力的养生之旅吧！"
+        },
+        {
+            "title": "二、宏观概况与沿革（Overview & History）",
+            "en": "Bama's longevity miracle has attracted scientists and health enthusiasts from around the world. Research proves that Bama's environment features mild geomagnetism, natural weak-alkaline small-molecule spring water, and high negative ion concentrations that rejuvenate human cells.",
+            "cn": "巴马长寿奇迹长久以来吸引着全球科学家与健康爱好者的目光。现代医学科学研究证实，巴马独特的地理环境拥有适宜的地磁场强度、天然弱碱性小分子团泉水以及超高浓度的负氧离子，能有效活化人体细胞、延缓衰老。"
+        },
+        {
+            "title": "三、代表性景观与游览动线（Key Attractions & Tour Route）",
+            "en": "First, we explore the magical Crystal Palace cave, filled with pure white stalactites and crisp underground air. Next, we take a boat through the 'Three Days and Three Nights' light-and-shadow water tunnels of Bainiao Cave. Finally, we visit the Bama Health and Longevity Museum.",
+            "cn": "首先，我们探访梦幻般的水晶宫溶洞，欣赏洞内如冰雪般纯白晶莹的钟乳石与清新空气。随后，我们乘船穿越百鸟岩水上溶洞，亲身体验穿梭于明暗交替之间“三日三夜”的时空光影变幻。最后，我们参观巴马长寿科学博物馆。"
+        },
+        {
+            "title": "四、文化价值与特色体验（Culture & Highlights）",
+            "en": "During the retreat, you will experience scientific health therapies, including Yao natural herbal baths, tai chi in forest oxygen parks, and customized dietary meals rich in unsaturated fatty acids from local hemp seeds.",
+            "cn": "在康养行程中，您将体验系统的科学健康疗法：包括传统瑶药草本温浴、森林氧吧太极导引，以及富含亚麻酸等不饱和脂肪酸的特色火麻定制药膳餐，达到阴阳平衡、身心畅达。"
+        },
+        {
+            "title": "五、欢送词（Farewell Speech）",
+            "en": "Dear friends, our Longevity and Health Tour has concluded. We hope the scientific health habits and pristine ecology of Bama continue to nourish your well-being. Thank you very much for your cooperation. Wish you abundant energy and everlasting health. Goodbye!",
+            "cn": "亲爱的朋友们，我们的长寿康养之旅圆满结束了。希望巴马健康的养生起居习惯与纯净的生态大自然能持续守护您的健康与活力。非常感谢大家的配合支持。祝愿各位精力充沛、身心康泰、青春常驻！再见！"
+        }
     ],
+
     "广西 长寿悦动之旅": [
-        ("一、欢迎词（Welcome Speech）",
-         "Good morning, dear active travelers and friends! Welcome to the Active Longevity and Outdoor Tour of Guangxi. I am your sports guide today. Today, we will combine mountain hiking, greenway cycling, and outdoor adventures with longevity wellness. Let's get moving in nature!"),
-        ("二、宏观概况与沿革（Overview & History）",
-         "Northwestern Guangxi is blessed with scenic karst mountains, winding crystal rivers, and lush forests. This active tour promotes the modern concept of 'exercise as medicine' within a natural high-oxygen forest environment."),
-        ("三、代表性景观与游览动线（Key Attractions & Tour Route）",
-         "First, we hike up the scenic trail to overlook the Minghe River, which naturally forms the Chinese character 'Life' across green valleys. Next, we enjoy a cycling tour along the river greenways. In the afternoon, we take kayaks across the calm emerald lakes of Bama."),
-        ("四、文化价值与特色体验（Culture & Highlights）",
-         "Exercising in natural negative oxygen bars boosts vitality and strengthens the heart. After the workout, enjoy local organic dishes, refreshing mountain tea, and open-air riverside relaxation, experiencing dynamic vitality in stunning nature."),
-        ("五、欢送词（Farewell Speech）",
-         "Dear friends, our Active Longevity and Outdoor Tour comes to an energetic close. I hope you felt invigorated by the mountain breezes, clear rivers, and outdoor exercise. Thank you for your wonderful energy. Wish you active health, strength, and joy! Goodbye!")
+        {
+            "title": "一、欢迎词（Welcome Speech）",
+            "en": "Good morning, dear active travelers and friends! Welcome to the Active Longevity and Outdoor Tour of Guangxi. I am your sports guide today. Today, we will combine mountain hiking, greenway cycling, and outdoor adventures with longevity wellness. Let's get moving in nature!",
+            "cn": "各位充满活力的旅行者和朋友们，大家早上好！欢迎来到广西长寿悦动之旅。我是大家今天的运动导游。今天，我们将把山地徒步、生态绿道骑行与水上运动同长寿养生完美融合。让我们在壮丽大自然中快乐动起来吧！"
+        },
+        {
+            "title": "二、宏观概况与沿革（Overview & History）",
+            "en": "Northwestern Guangxi is blessed with scenic karst mountains, winding crystal rivers, and lush forests. This active tour promotes the modern concept of 'exercise as medicine' within a natural high-oxygen forest environment.",
+            "cn": "桂西北地区拥有奇秀的喀斯特群山、蜿蜒清澈的江河与郁郁葱葱的原生态森林。本条悦动线路践行“运动是良药”的现代健康理念，倡导在高浓度负氧离子的天然森林大氧吧中进行有氧运动。"
+        },
+        {
+            "title": "三、代表性景观与游览动线（Key Attractions & Tour Route）",
+            "en": "First, we hike up the scenic trail to overlook the Minghe River, which naturally forms the Chinese character 'Life' across green valleys. Next, we enjoy a cycling tour along the river greenways. In the afternoon, we take kayaks across the calm emerald lakes of Bama.",
+            "cn": "首先，我们沿着观景步道徒步登高，俯瞰盘阳河在群山间自然蜿蜒形成的草书“命”字河天然奇观。随后，我们沿江畔生态绿道骑行穿梭。下午，我们将在巴马平静如镜的翡翠绿水上划皮划艇，感受清波荡漾。"
+        },
+        {
+            "title": "四、文化价值与特色体验（Culture & Highlights）",
+            "en": "Exercising in natural negative oxygen bars boosts vitality and strengthens the heart. After the workout, enjoy local organic dishes, refreshing mountain tea, and open-air riverside relaxation, experiencing dynamic vitality in stunning nature.",
+            "cn": "在天然氧吧中挥洒汗水能显著增强心肺功能、焕发青春活力。运动过后，大家将品尝当地天然有机山珍、畅饮甘甜山泉野茶，并在江畔享受户外拉伸与放松，体验动静结合的生命之美。"
+        },
+        {
+            "title": "五、欢送词（Farewell Speech）",
+            "en": "Dear friends, our Active Longevity and Outdoor Tour comes to an energetic close. I hope you felt invigorated by the mountain breezes, clear rivers, and outdoor exercise. Thank you for your wonderful energy. Wish you active health, strength, and joy! Goodbye!",
+            "cn": "亲爱的朋友们，活力满满的长寿悦动之旅到这里就结束了。希望山间的清风、澄澈的江水与畅快的户外运动能为大家注入源源不断的能量。感谢大家饱满的活力与配合。祝愿各位身体强健、朝气蓬勃、活力无限！再见！"
+        }
     ],
+
     "广西 米粉之旅": [
-        ("一、欢迎词（Welcome Speech）",
-         "Good morning, dear food lovers and friends! Welcome to the Delicious Rice Noodle Tour of Guangxi. I am your culinary guide today. Guangxi is famous as the Rice Noodle Capital of China. Today, we will taste the top three legendary noodle styles and discover their unique cooking traditions. Let's start our delicious foodie trip!"),
-        ("二、宏观概况与沿革（Overview & History）",
-         "Rice noodles have a history of over 2,000 years in Guangxi, dating back to the construction of the Qin Dynasty Lingqu Canal. Today, rice noodles are a daily staple, with three distinct icons: Guilin Rice Noodles, Liuzhou Snail Noodles, and Nanning Old Friend Noodles."),
-        ("三、代表性景观与游览动线（Key Attractions & Tour Route）",
-         "First, in Guilin, we taste authentic Guilin Rice Noodles, featuring dry noodles tossed with rich braised gravy and crispy pork slices. Next, in Liuzhou, we savor famous Luosifen, cooked with river snail broth and sour bamboo shoots. Finally, in Nanning, we enjoy sizzling Old Friend Noodles with garlic and pickled peppers."),
-        ("四、文化价值与特色体验（Culture & Highlights）",
-         "You will visit a traditional noodle-making workshop to see how local rice is ground, steamed, and pressed into silky smooth noodles. Each bowl represents a unique balance of sour, spicy, fresh, and fragrant flavors cherished by local people."),
-        ("五、欢送词（Farewell Speech）",
-         "Dear friends, our Guangxi Rice Noodle Foodie Tour has come to a flavorful end. I hope the diverse tastes of Guangxi noodles delighted your palate and left you with delicious memories. Thank you for your enthusiasm. Have a safe journey and enjoy more great food in China! Goodbye!")
+        {
+            "title": "一、欢迎词（Welcome Speech）",
+            "en": "Good morning, dear food lovers and friends! Welcome to the Delicious Rice Noodle Tour of Guangxi. I am your culinary guide today. Guangxi is famous as the Rice Noodle Capital of China. Today, we will taste the top three legendary noodle styles and discover their unique cooking traditions. Let's start our delicious foodie trip!",
+            "cn": "各位美食爱好者和朋友们，大家早上好！欢迎来到广西舌尖上的米粉美食之旅。我是大家今天的美食导游。广西素有中国“米粉之都”的美誉。今天，我们将品尝三大传奇名粉，探索其传承千年的制作工艺与独特风味。让我们开启这场舌尖盛宴吧！"
+        },
+        {
+            "title": "二、宏观概况与沿革（Overview & History）",
+            "en": "Rice noodles have a history of over 2,000 years in Guangxi, dating back to the construction of the Qin Dynasty Lingqu Canal. Today, rice noodles are a daily staple, with three distinct icons: Guilin Rice Noodles, Liuzhou Snail Noodles, and Nanning Old Friend Noodles.",
+            "cn": "米粉在广西已有2000多年的悠久历史，最早可追溯至秦始皇开凿兴安灵渠时期中原士兵的军粮创新。如今，米粉已成为广西人一日三餐不可或缺的主食，并形成了三大享誉全国的标志性流派：桂林米粉、柳州螺蛳粉与南宁老友粉。"
+        },
+        {
+            "title": "三、代表性景观与游览动线（Key Attractions & Tour Route）",
+            "en": "First, in Guilin, we taste authentic Guilin Rice Noodles, featuring dry noodles tossed with rich braised gravy and crispy pork slices. Next, in Liuzhou, we savor famous Luosifen, cooked with river snail broth and sour bamboo shoots. Finally, in Nanning, we enjoy sizzling Old Friend Noodles with garlic and pickled peppers.",
+            "cn": "首先，在桂林，我们品尝最正宗的干拌桂林米粉——浓郁醇厚的卤水配以酥脆诱人的锅烧与卤牛肉片。接着，在柳州，我们大快朵颐闻名中外的柳州螺蛳粉——浓郁鲜辣的螺蛳大骨高汤配上酸脆爽口的酸笋腐竹。最后，在南宁，我们品尝现点现炒、镬气十足、蒜香酸辣的南宁老友粉。"
+        },
+        {
+            "title": "四、文化价值与特色体验（Culture & Highlights）",
+            "en": "You will visit a traditional noodle-making workshop to see how local rice is ground, steamed, and pressed into silky smooth noodles. Each bowl represents a unique balance of sour, spicy, fresh, and fragrant flavors cherished by local people.",
+            "cn": "我们还将走进传统米粉手工工坊，实地观摩优质晚籼米如何经过浸泡、石磨磨浆、蒸熟与压榨成爽滑劲道米粉的全过程。每一碗热气腾腾的米粉，都凝聚着广西人对“酸、辣、鲜、香、爽”极致风味的智慧与热爱。"
+        },
+        {
+            "title": "五、欢送词（Farewell Speech）",
+            "en": "Dear friends, our Guangxi Rice Noodle Foodie Tour has come to a flavorful end. I hope the diverse tastes of Guangxi noodles delighted your palate and left you with delicious memories. Thank you for your enthusiasm. Have a safe journey and enjoy more great food in China! Goodbye!",
+            "cn": "亲爱的朋友们，风味浓郁的广西米粉之旅到这里就结束了。希望广西丰富多元的米粉风味能惊艳您的味蕾，并为您留下美味的回忆。非常感谢大家的热情参与。祝愿大家旅途平安，在中国品尝到更多中华地道美食！再见！"
+        }
     ],
+
     "广西 工艺品之旅": [
-        ("一、欢迎词（Welcome Speech）",
-         "Good morning, dear distinguished guests! Welcome to the Traditional Handicrafts Tour of Guangxi. I am your guide Vivian. Guangxi boasts centuries of world-renowned folk craftsmanship and intangible cultural heritage. Today, we will admire exquisite pottery, woven brocade, and pearls. Let us start our artistic tour!"),
-        ("二、宏观概况与沿革（Overview & History）",
-         "Guangxi's handicraft traditions date back over 2,000 years. Four national treasures stand out: Qinzhou Nixing Pottery, Guangxi Zhuang Brocade, Beihai South Sea Pearls, and Hepu Horn Carving, representing the pinnacle of southern Chinese artisanal excellence."),
-        ("三、代表性景观与游览动线（Key Attractions & Tour Route）",
-         "First, in Qinzhou, we visit the Nixing Pottery kilns, where masters carve fine clay without glazing to produce miraculous kiln-change colors. Next, we watch master weavers create vibrant Zhuang Brocade on wooden looms. In Beihai, we admire luminous South Sea Pearls at the Pearl Museum."),
-        ("四、文化价值与特色体验（Culture & Highlights）",
-         "You will have the opportunity to try pottery making on a pottery wheel and learn basic silk weaving. These handmade works of art reflect the harmony between human craftsmanship and natural materials, making perfect cultural souvenirs."),
-        ("五、欢送词（Farewell Speech）",
-         "Dear friends, our Guangxi Handicrafts Tour comes to a successful close. We have experienced the ingenuity, patience, and beauty of master artisans today. Thank you for your appreciation and support. Wish you a smooth journey and a wonderful time in Guangxi. Goodbye!")
+        {
+            "title": "一、欢迎词（Welcome Speech）",
+            "en": "Good morning, dear distinguished guests! Welcome to the Traditional Handicrafts Tour of Guangxi. I am your guide Vivian. Guangxi boasts centuries of world-renowned folk craftsmanship and intangible cultural heritage. Today, we will admire exquisite pottery, woven brocade, and pearls. Let us start our artistic tour!",
+            "cn": "各位尊敬的来宾，大家早上好！欢迎来到广西传统工艺品非遗之旅。我是大家今天的导游Vivian。广西拥有数百年享誉世界的传统民间手工技艺与国家级非遗瑰宝。今天，我们将一同欣赏精美的名陶、手工壮锦与晶莹珍珠。让我们开启这场艺术之旅吧！"
+        },
+        {
+            "title": "二、宏观概况与沿革（Overview & History）",
+            "en": "Guangxi's handicraft traditions date back over 2,000 years. Four national treasures stand out: Qinzhou Nixing Pottery, Guangxi Zhuang Brocade, Beihai South Sea Pearls, and Hepu Horn Carving, representing the pinnacle of southern Chinese artisanal excellence.",
+            "cn": "广西民间手工艺传统源远流长，历史超过2000年。其中四大国家级工艺名品最负盛名：中国四大名陶之一的钦州坭兴陶、中国四大名锦之一的广西壮锦、温润高贵的北海南珠，以及巧夺天工的合浦角雕，代表了华南传统手工艺的最高水准。"
+        },
+        {
+            "title": "三、代表性景观与游览动线（Key Attractions & Tour Route）",
+            "en": "First, in Qinzhou, we visit the Nixing Pottery kilns, where masters carve fine clay without glazing to produce miraculous kiln-change colors. Next, we watch master weavers create vibrant Zhuang Brocade on wooden looms. In Beihai, we admire luminous South Sea Pearls at the Pearl Museum.",
+            "cn": "首先，在钦州，我们走进坭兴陶古窑坊，观摩大师在细腻的特种陶土上精雕细琢，无需上釉却能在高温烧结中产生绚丽万千的天然窑变色彩。接着，我们观看织娘在传统木机上飞梭走线织造色彩斑斓的壮锦。在北海，我们在南珠博物馆领略晶莹温润的南珠光华。"
+        },
+        {
+            "title": "四、文化价值与特色体验（Culture & Highlights）",
+            "en": "You will have the opportunity to try pottery making on a pottery wheel and learn basic silk weaving. These handmade works of art reflect the harmony between human craftsmanship and natural materials, making perfect cultural souvenirs.",
+            "cn": "大家还将有机会亲手在陶轮上体验拉坯制陶，学习基础的壮锦手工编织手法。这些凝聚匠人指尖温度的艺术瑰宝，完美诠释了人与自然材料的和谐共生，是带回家的绝佳文化纪念品。"
+        },
+        {
+            "title": "五、欢送词（Farewell Speech）",
+            "en": "Dear friends, our Guangxi Handicrafts Tour comes to a successful close. We have experienced the ingenuity, patience, and beauty of master artisans today. Thank you for your appreciation and support. Wish you a smooth journey and a wonderful time in Guangxi. Goodbye!",
+            "cn": "亲爱的朋友们，广西传统工艺品之旅圆满结束了。今天我们深切感受到了非遗工匠的独具匠心、恒久耐心与精湛技艺。非常感谢大家的赞赏与支持。祝愿各位旅程顺利，在广西度过一段美妙时光。再见！"
+        }
     ],
+
     "广西 茶文化之旅": [
-        ("一、欢迎词（Welcome Speech）",
-         "Good morning, dear tea lovers and distinguished guests! Welcome to the Guangxi Tea Culture Tour. I am your tea guide today. Guangxi has a rich tea heritage spanning over 1,500 years. Today, we will explore historic tea mountains, the famous Tea Boat Ancient Road, and traditional tea ceremonies. Let us begin our aromatic journey!"),
-        ("二、宏观概况与沿革（Overview & History）",
-         "Guangxi is a major tea producing region in China. Historically, Wuzhou Liubao Dark Tea was transported along the rivers of the 'Tea Boat Ancient Road' to Southeast Asia. Today, Guangxi is famous for Liubao Dark Tea, Yao Oil Tea, and high-mountain organic green tea."),
-        ("三、代表性景观与游览动线（Key Attractions & Tour Route）",
-         "First, we visit the terraced Liubao Tea Plantations in Wuzhou to pick fresh tea leaves. Next, we tour a historic wooden tea aging cellar to learn how dark tea develops its unique betel-nut aroma. In northern Guangxi, we experience traditional Gongcheng Yao Oil Tea."),
-        ("四、文化价值与特色体验（Culture & Highlights）",
-         "Liubao Tea is celebrated for four qualities: 'red color, rich body, aged aroma, and mellow taste'. In the afternoon, enjoy a peaceful gongfu tea ceremony and taste crispy rice snacks served with ginger-and-tea-infused Yao Oil Tea."),
-        ("五、欢送词（Farewell Speech）",
-         "Dear friends, our Guangxi Tea Culture Tour has come to a peaceful conclusion. I hope the mellow fragrance of Liubao Tea and the warmth of Yao Oil Tea bring peace and health to your life. Thank you all. Have a safe journey and keep the tea spirit in your hearts! Goodbye!")
+        {
+            "title": "一、欢迎词（Welcome Speech）",
+            "en": "Good morning, dear tea lovers and distinguished guests! Welcome to the Guangxi Tea Culture Tour. I am your tea guide today. Guangxi has a rich tea heritage spanning over 1,500 years. Today, we will explore historic tea mountains, the famous Tea Boat Ancient Road, and traditional tea ceremonies. Let us begin our aromatic journey!",
+            "cn": "各位茶友和尊敬的来宾们，大家早上好！欢迎来到广西茶文化之旅。我是大家今天的茶艺导游。广西拥有超过1500年的悠久种茶与饮茶历史。今天，我们将一同探访古老茶山、探寻著名的“茶船古道”历史足迹、品味传统茶道。让我们开启这段茶香四溢的旅程吧！"
+        },
+        {
+            "title": "二、宏观概况与沿革（Overview & History）",
+            "en": "Guangxi is a major tea producing region in China. Historically, Wuzhou Liubao Dark Tea was transported along the rivers of the 'Tea Boat Ancient Road' to Southeast Asia. Today, Guangxi is famous for Liubao Dark Tea, Yao Oil Tea, and high-mountain organic green tea.",
+            "cn": "广西是中国重要的优质茶叶产区。在历史上，梧州六堡黑茶通过西江水系的“茶船古道”顺流出海，远销东南亚各国，成为享誉海外的著名侨销茶。如今，广西以越陈越香的六堡黑茶、非遗瑶族打油茶以及高山生态绿茶而闻名天下。"
+        },
+        {
+            "title": "三、代表性景观与游览动线（Key Attractions & Tour Route）",
+            "en": "First, we visit the terraced Liubao Tea Plantations in Wuzhou to pick fresh tea leaves. Next, we tour a historic wooden tea aging cellar to learn how dark tea develops its unique betel-nut aroma. In northern Guangxi, we experience traditional Gongcheng Yao Oil Tea.",
+            "cn": "首先，我们走进梧州苍梧县万亩梯田生态茶园，亲手采摘嫩绿的春茶鲜叶。随后，我们走进历史悠久的古茶窖，深入了解六堡茶在岁月陈化中如何孕育出独特的红浓陈醇与槟榔香气。在桂北，我们将走进恭城体验传统的瑶族打油茶非遗制作。"
+        },
+        {
+            "title": "四、文化价值与特色体验（Culture & Highlights）",
+            "en": "Liubao Tea is celebrated for four qualities: 'red color, rich body, aged aroma, and mellow taste'. In the afternoon, enjoy a peaceful gongfu tea ceremony and taste crispy rice snacks served with ginger-and-tea-infused Yao Oil Tea.",
+            "cn": "六堡茶以“红、浓、陈、醇”四大品质特征著称，具有清热消食、养胃护脾的良好养生功效。下午，大家将入座清幽的茶席，品味功夫茶道，并品尝用生姜、茶叶捶打炒制、佐以香脆米花米果的特色瑶族打油茶。"
+        },
+        {
+            "title": "五、欢送词（Farewell Speech）",
+            "en": "Dear friends, our Guangxi Tea Culture Tour has come to a peaceful conclusion. I hope the mellow fragrance of Liubao Tea and the warmth of Yao Oil Tea bring peace and health to your life. Thank you all. Have a safe journey and keep the tea spirit in your hearts! Goodbye!",
+            "cn": "亲爱的朋友们，我们的广西茶文化之旅在悠悠茶香中圆满结束了。希望六堡茶醇厚的陈香与瑶族打油茶的温热暖意能为您的生活带来平静、安康与喜悦。非常感谢大家。祝大家旅途平安，茶香常伴心间！再见！"
+        }
     ]
 }
 
-# 组合 20 篇完整的结构化数据字典
 def get_all_20_speeches():
-    result = dict(COMPREHENSIVE_SIMPLIFIED_SPEECHES)
-    for name, sections_tuple in OTHER_TOPIC_SPEECHES.items():
-        secs = []
-        for title, en in sections_tuple:
-            # 自动生成对应的地道中文翻译
-            cn = ""
-            if "欢迎" in title:
-                cn = "各位尊敬的来宾和朋友们，大家早上好！欢迎开启本趟精彩之旅。我是大家今天的英语导游。非常荣幸能带领大家一同领略广西独特的自然山水与深厚人文。让我们开启今天的难忘旅程！"
-            elif "宏观概况" in title:
-                cn = "本条经典线路汇聚了广西最具代表性的地理景观与人文积淀。千百年来，多民族在此繁衍生息，创造了人与自然高度和谐的生态画卷与世界级文化旅游名片。"
-            elif "代表性景观" in title:
-                cn = "在今天的行程中，我们将依次游览核心标志性景点，实地感受壮丽景观与鲜活风貌，沿途风景如画、引人入胜。"
-            elif "文化价值" in title:
-                cn = "除了震撼的视觉美景，本条线路更蕴含着独特的非遗技艺、地道美食物产与民俗体验，充分展现了开放包容与人与自然和谐共生的精神内涵。"
-            elif "欢送词" in title:
-                cn = "亲爱的朋友们，我们今天的旅程圆满结束了。希望这一路的美好景致与文化体验能为您留下难忘的回忆。非常感谢大家一路上的支持与配合。祝愿大家旅途平安愉快，再见！"
-            
-            secs.append({
-                "title": title,
-                "en": en,
-                "cn": cn
-            })
-        result[name] = secs
-    return result
+    return ALL_20_PRECISE_SPEECHES
