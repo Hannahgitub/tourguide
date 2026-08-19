@@ -1486,6 +1486,12 @@ document.addEventListener('DOMContentLoaded', () => {
       speech = data.speeches[0];
     }
 
+    // 读取当前导游词版本模式 (standard: 官方标准版 | simplified: AI极简口语版)
+    let currentSpeechVersion = 'standard';
+    try {
+      currentSpeechVersion = localStorage.getItem('tour_speech_version') || 'standard';
+    } catch (_) {}
+
     // 1. 每篇导游词单独开一栏显示导游词总标题
     const isTopicSpeech = TOPIC_CATEGORIES.includes(speech.category);
     const isCurSelected = isTopicSpeech && isTopicSelected(speech.category, speech.id || speech.name);
