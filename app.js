@@ -550,10 +550,13 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // 获取导游词分段音频绝对/相对路径（优先匹配对应性别的高清 Neural 播音级音频）
-  function getSpeechAudioUrl(sp, secIdx, gender = null) {
+  function getSpeechAudioUrl(sp, secIdx, gender = null, version = 'standard') {
     const activeGender = gender || getAudioSettings().voiceGender || 'male';
     const rawName = (typeof sp === 'string' ? sp : (sp.name || sp.id || '')).replace(/[\\/:*?"<>|]/g, '_').trim();
     const cleanName = rawName.replace(/^广西\s*/, '').replace(/^广西/, '').trim();
+    if (version === 'simplified') {
+      return `audio/simplified/${activeGender}/${encodeURIComponent(cleanName)}/section_${secIdx}.mp3`;
+    }
     return `audio/${activeGender}/${encodeURIComponent(cleanName)}/section_${secIdx}.mp3`;
   }
 
@@ -1609,7 +1612,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (sec) {
               const cleanText = sec.en.replace(/<[^>]*>/g, '').replace(/^(English|Chinese)[:：/\s]*/gi, '').trim();
               const enContainer = currentPlayingCard.querySelector('.speech-text-en');
-              const audioUrl = currentSpeechVersion === 'standard' ? getSpeechAudioUrl(speech, idx, val) : '';
+              const audioUrl = getSpeechAudioUrl(speech, idx, val, currentSpeechVersion);
               const resetState = () => {
                 currentPlayingCard.dataset.playState = 'idle';
                 currentPlayingCard.classList.remove('reading-active');
@@ -1787,7 +1790,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 400);
       };
 
-      const audioUrl = currentSpeechVersion === 'standard' ? getSpeechAudioUrl(speech, secIdx) : '';
+      const audioUrl = getSpeechAudioUrl(speech, secIdx, null, currentSpeechVersion);
       playAudioOrTTS(audioUrl, cleanText, enContainer, onSectionEnd, true);
     }
 
@@ -1905,7 +1908,7 @@ document.addEventListener('DOMContentLoaded', () => {
               }
             };
 
-            const audioUrl = currentSpeechVersion === 'standard' ? getSpeechAudioUrl(speech, idx) : '';
+            const audioUrl = getSpeechAudioUrl(speech, idx, null, currentSpeechVersion);
             playAudioOrTTS(audioUrl, cleanText, enContainer, resetState, true);
           });
         }

@@ -24933,5 +24933,565 @@ window.BUILTIN_GUIDE_DICT = {
     "phonetic": "",
     "pos": "n.",
     "def": "中原：中国的一个地理区域，位于黄河流域，包括河南、山西、陕西、河北等省份。中原地区自古以来就是..."
+  },
+  "academies": {
+    "phonetic": "",
+    "pos": "n.",
+    "def": "院校（academy 的复数形式）；学院"
+  },
+  "admiring": {
+    "phonetic": "",
+    "pos": "adj.",
+    "def": "钦佩的，赞美的; v. 钦佩，仰慕；欣赏，观赏（admire 的现在分词）"
+  },
+  "adventures": {
+    "phonetic": "",
+    "pos": "",
+    "def": "冒险活动; 商业投机（adventure 的复数）"
+  },
+  "amber": {
+    "phonetic": "",
+    "pos": "n.",
+    "def": "琥珀色，黄褐色；琥珀；<英>（交通信号）黄灯; adj. 琥珀色的，黄褐色的；琥珀制的"
+  },
+  "artisanal": {
+    "phonetic": "",
+    "pos": "",
+    "def": "手工艺性的"
+  },
+  "attracted": {
+    "phonetic": "",
+    "pos": "v.",
+    "def": "吸引，引起……的兴趣；引起……的爱慕，诱惑；（物理）吸引（attract 的过去式和过去分词）..."
+  },
+  "backdrop": {
+    "phonetic": "",
+    "pos": "n.",
+    "def": "（舞台的）背景幕布；周围景物；（事件的）背景; v. 位于……后面，位于……远处"
+  },
+  "bama's": {
+    "phonetic": "",
+    "pos": "",
+    "def": "巴马香猪：巴马香猪是一种小型猪，体型较小，毛色多样，性格温顺，适合作为宠物饲养。"
+  },
+  "basins": {
+    "phonetic": "",
+    "pos": "n.",
+    "def": "盆；[地理]盆地（basin 的复数）；脸盆; v. 凹下成盆状（basin 的三单形式）"
+  },
+  "beer": {
+    "phonetic": "",
+    "pos": "n.",
+    "def": "啤酒；一杯（或一瓶，一罐）啤酒；根汁啤酒; 【名】 （Beer）（法、德、俄、罗、捷、瑞典）贝..."
+  },
+  "begin": {
+    "phonetic": "",
+    "pos": "v.",
+    "def": "开始，着手；开始说；开始发生，开始进行；以……为起点，起始于；首字母为"
+  },
+  "begins": {
+    "phonetic": "",
+    "pos": "",
+    "def": "开始"
+  },
+  "bent": {
+    "phonetic": "",
+    "pos": "adj.",
+    "def": "弯曲的，变形的；驼背的；(有权者）不诚实的，不正派的；下定决心的；同性恋的; n. 天赋，..."
+  },
+  "betel-nut": {
+    "phonetic": "",
+    "pos": "",
+    "def": "槟榔果：槟榔棕榈的涩味种子，常用于咀嚼或作为刺激剂。"
+  },
+  "bikes": {
+    "phonetic": "",
+    "pos": "n.",
+    "def": "自行车；摩托车（bike 的复数）; v. 骑自行车（bike 的第三人称单数）"
+  },
+  "blossom": {
+    "phonetic": "",
+    "pos": "n.",
+    "def": "（树木的）花，花簇；开花，花期; v. 开花；成长，繁盛，兴旺; 【名】 （Blossom）布..."
+  },
+  "boosts": {
+    "phonetic": "",
+    "pos": "v.",
+    "def": "使增长，推动；<美，非正式>偷窃；宣扬，推广（boost 的第三人称单数）; n. 推动，促进..."
+  },
+  "botany": {
+    "phonetic": "",
+    "pos": "n.",
+    "def": "植物学；（特定地区的）植物（生态）"
+  },
+  "brought": {
+    "phonetic": "",
+    "pos": "v.",
+    "def": "带来（bring 的过去分词）"
+  },
+  "cascading": {
+    "phonetic": "",
+    "pos": "v.",
+    "def": "（水）倾泻；大量落下；连续传递（信息、技艺等）；（使）（装置、物品）串联（cascade 的现..."
+  },
+  "castings": {
+    "phonetic": "",
+    "pos": "n.",
+    "def": "[机]铸件；铸造物（casting 的复数）"
+  },
+  "cellar": {
+    "phonetic": "",
+    "pos": "n.",
+    "def": "地下室，地窖；窖藏酒; v. 将（酒）存于地窖; 【名】 （Cellar）（捷）采拉尔（人名）"
+  },
+  "cells": {
+    "phonetic": "",
+    "pos": "n.",
+    "def": "[细胞]细胞；单元格（cell 的复数）；牢房；小屋; v. 住在牢房中（cell 的三单形式..."
+  },
+  "cheerful": {
+    "phonetic": "",
+    "pos": "adj.",
+    "def": "欢快的，高兴的；令人高兴的，令人愉快的；乐观的，开朗的"
+  },
+  "chi": {
+    "phonetic": "",
+    "pos": "n.",
+    "def": "希腊文第二十二个字母; n. （Chi）人名；（德）希；（柬）齐；（日）智（名）"
+  },
+  "commerce": {
+    "phonetic": "",
+    "pos": "n.",
+    "def": "贸易，商业；<旧>社交，交往；<旧>性交"
+  },
+  "companionship": {
+    "phonetic": "",
+    "pos": "n.",
+    "def": "情谊，友谊"
+  },
+  "concentrations": {
+    "phonetic": "",
+    "pos": "n.",
+    "def": "关注点；[土壤]浓聚物（concentration 的复数）"
+  },
+  "concluded": {
+    "phonetic": "",
+    "pos": "v.",
+    "def": "结束；推断；作结论（conclude 的过去分词）; adj. 推论的"
+  },
+  "concludes": {
+    "phonetic": "",
+    "pos": "",
+    "def": "结论"
+  },
+  "conclusion": {
+    "phonetic": "",
+    "pos": "n.",
+    "def": "结论，推论；结局，结尾；缔结，商定；（根据所给前提得出的）命题"
+  },
+  "congee": {
+    "phonetic": "",
+    "pos": "n.",
+    "def": "（中国烹饪中的）粥；凹圆形线脚；辞行；解雇; v. 告别；行鞠躬礼"
+  },
+  "contour": {
+    "phonetic": "",
+    "pos": "n.",
+    "def": "轮廓，外形，周线；等高线，恒值线（contour line）；（音调或声调的）升降曲线，变化方..."
+  },
+  "converse": {
+    "phonetic": "",
+    "pos": "v.",
+    "def": "谈话，交谈; n. 相反的事物，反面说法；<旧>谈话，交谈；逆命题; adj. 相反的，颠倒的..."
+  },
+  "cooking": {
+    "phonetic": "",
+    "pos": "n.",
+    "def": "烹饪，烹调；饭菜; adj. 适合烹饪的，烹饪用的; v. 煮，烧；烹饪，烹调；<非正式>发生..."
+  },
+  "crisp": {
+    "phonetic": "",
+    "pos": "adj.",
+    "def": "爽口的，脆生的；脆的，易碎的；洁净的，挺括的；（图片或声音）清晰的，清脆悦耳的；清新的，凉..."
+  },
+  "crystal-clear": {
+    "phonetic": "",
+    "pos": "adj.",
+    "def": "透明如水晶的；易懂的；非常清楚的"
+  },
+  "culinary": {
+    "phonetic": "",
+    "pos": "adj.",
+    "def": "<正式>烹饪的，食物的"
+  },
+  "customized": {
+    "phonetic": "",
+    "pos": "adj.",
+    "def": "定制的；用户化的; v. 订制，订做，改制（customize 的过去式和过去分词）"
+  },
+  "cycling": {
+    "phonetic": "",
+    "pos": "n.",
+    "def": "骑自行车"
+  },
+  "deity": {
+    "phonetic": "",
+    "pos": "n.",
+    "def": "神；神性"
+  },
+  "delighted": {
+    "phonetic": "",
+    "pos": "adj.",
+    "def": "高兴的; v. 使高兴；以……为乐（delight 的过去式及过去分词）"
+  },
+  "discover": {
+    "phonetic": "",
+    "pos": "v.",
+    "def": "发现，找到；了解到，发觉，查明；发掘（人才）；初次接触"
+  },
+  "distinct": {
+    "phonetic": "",
+    "pos": "adj.",
+    "def": "不同的，有区别的；清楚的，明显的；确切的"
+  },
+  "downtown": {
+    "phonetic": "",
+    "pos": "adj.",
+    "def": "市中心的，商业区的; adv. 向（在）市中心，向（在）城镇商业中心区; n. 城镇的中心..."
+  },
+  "eco-tourism": {
+    "phonetic": "",
+    "pos": "n.",
+    "def": "生态旅游; 生态旅游者"
+  },
+  "ecosystems": {
+    "phonetic": "",
+    "pos": "n.",
+    "def": "生态系统（ecosystem 的复数）"
+  },
+  "emerald": {
+    "phonetic": "",
+    "pos": "n.",
+    "def": "翡翠，绿宝石；翠绿色；尺娥；蜻蛉，豆娘；一种小型蜂鸟（羽亮绿色，翼尾色深，主要产于加勒比地区和..."
+  },
+  "enchanting": {
+    "phonetic": "",
+    "pos": "adj.",
+    "def": "迷人的；妩媚的; v. 使迷惑（enchant 的 ing 形式）"
+  },
+  "enduring": {
+    "phonetic": "",
+    "pos": "adj.",
+    "def": "持久的，持续的; v. 持续存在，持久；忍受，忍耐（endure 的现在分词）"
+  },
+  "engineering": {
+    "phonetic": "",
+    "pos": "n.",
+    "def": "工程，工程学；控制，引导，管理；筹划，出谋划策; v. 设计，建造；策划，精心安排（engin..."
+  },
+  "english": {
+    "phonetic": "",
+    "pos": "adj.",
+    "def": "英格兰人的；英格兰的；英文的; n. 英语；英格兰人；（台球中的）侧旋; v. 把……译成..."
+  },
+  "enthusiasts": {
+    "phonetic": "",
+    "pos": "",
+    "def": "热心人; 热衷者; 狂热者（enthusiast 的复数）"
+  },
+  "everlasting": {
+    "phonetic": "",
+    "pos": "adj.",
+    "def": "永恒的；接连不断的"
+  },
+  "everyday": {
+    "phonetic": "",
+    "pos": "adj.",
+    "def": "日常的，每天的"
+  },
+  "excavated": {
+    "phonetic": "",
+    "pos": "v.",
+    "def": "发掘；挖掘（excavate 的过去式和过去分词）"
+  },
+  "excellence": {
+    "phonetic": "",
+    "pos": "n.",
+    "def": "杰出，卓越；<古>优点，美德"
+  },
+  "exhibitions": {
+    "phonetic": "",
+    "pos": "n.",
+    "def": "与展览，展示会；展示会（exhibition 复数）"
+  },
+  "extraordinary": {
+    "phonetic": "",
+    "pos": "adj.",
+    "def": "异乎寻常的，令人惊奇的；非凡的，卓越的；特别的，临时的；特大（或多）的；特派的，特命的; ..."
+  },
+  "fatty": {
+    "phonetic": "",
+    "pos": "adj.",
+    "def": "脂肪的；肥胖的；多脂肪的；脂肪过多的; n. 胖子"
+  },
+  "feats": {
+    "phonetic": "",
+    "pos": "n.",
+    "def": "功勋（feat 的复数）；特技"
+  },
+  "festive": {
+    "phonetic": "",
+    "pos": "adj.",
+    "def": "节日的；喜庆的；欢乐的"
+  },
+  "finest": {
+    "phonetic": "",
+    "pos": "n.",
+    "def": "最杰出的代表；（城市的）警察（部门）; adj. 最优质的；最健康的；最可接受的；最满意的；最..."
+  },
+  "flavorful": {
+    "phonetic": "",
+    "pos": "adj.",
+    "def": "可口的（等于 flavourful）；充满……味道的；有香味的"
+  },
+  "flexibility": {
+    "phonetic": "",
+    "pos": "n.",
+    "def": "灵活性；弹性，柔性"
+  },
+  "flourished": {
+    "phonetic": "",
+    "pos": "",
+    "def": "v．; 1. 繁荣，兴旺：在某一时期或环境中取得成功、发展良好。; 2. 茂盛，繁茂：植物生长良好，..."
+  },
+  "fortune": {
+    "phonetic": "",
+    "pos": "n.",
+    "def": "时运，命运；好运，机遇；财富，巨款；未来，前途; v. 给予财富；偶然发生; 【名】 （For..."
+  },
+  "frog-like": {
+    "phonetic": "",
+    "pos": "",
+    "def": "蛙状的"
+  },
+  "fruitful": {
+    "phonetic": "",
+    "pos": "adj.",
+    "def": "成果丰硕的，富有成效的；富饶的，多产的；（人）多子多孙的"
+  },
+  "fusion": {
+    "phonetic": "",
+    "pos": "n.",
+    "def": "融合，结合；核聚变；混合音乐；融合菜肴；熔化；融合物"
+  },
+  "garlic": {
+    "phonetic": "",
+    "pos": "n.",
+    "def": "大蒜；大蒜头；用于有相似气味的植物名中"
+  },
+  "glazing": {
+    "phonetic": "",
+    "pos": "n.",
+    "def": "上釉；玻璃装配业; v. 上釉（glaze 的 ing 形式）"
+  },
+  "gongcheng": {
+    "phonetic": "",
+    "pos": "",
+    "def": "恭城瑶族自治县（恭城瑶族自治县（恭城县）位于广西壮族自治区东北部，是桂林市一个下辖县，邻接湖南省）"
+  },
+  "gongfu": {
+    "phonetic": "",
+    "pos": "",
+    "def": "功夫"
+  },
+  "greenway": {
+    "phonetic": "",
+    "pos": "n.",
+    "def": "园林路；林荫道路; n. （Greenway）人名；（英）格林韦"
+  },
+  "groves": {
+    "phonetic": "",
+    "pos": "n.",
+    "def": "格罗夫斯（男子名）（女子名）或（姓氏）"
+  },
+  "happiness": {
+    "phonetic": "",
+    "pos": "n.",
+    "def": "快乐，幸福"
+  },
+  "high-mountain": {
+    "phonetic": "",
+    "pos": "",
+    "def": "高山：指海拔较高的山峰或山脉。"
+  },
+  "high-oxygen": {
+    "phonetic": "",
+    "pos": "",
+    "def": "高氧：指氧气浓度较高的环境或状态。"
+  },
+  "hilltop": {
+    "phonetic": "",
+    "pos": "n.",
+    "def": "小山顶"
+  },
+  "holistic": {
+    "phonetic": "",
+    "pos": "adj.",
+    "def": "整体的，全面的；功能整体性的"
+  },
+  "honors": {
+    "phonetic": "",
+    "pos": "n.",
+    "def": "优异"
+  },
+  "hundred-mile": {
+    "phonetic": "",
+    "pos": "",
+    "def": "百英里：指距离为100英里的长度单位。"
+  },
+  "hunting": {
+    "phonetic": "",
+    "pos": "n.",
+    "def": "打猎，狩猎；搜寻，寻找；摆动，不规则振荡; adj. 打猎的; v. 打猎，猎取；搜寻，搜索；..."
+  },
+  "icons": {
+    "phonetic": "",
+    "pos": "abbr.",
+    "def": "核标准情报中心（Information Center on Nuclear Standa..."
+  },
+  "illuminated": {
+    "phonetic": "",
+    "pos": "adj.",
+    "def": "照亮的，发光的；被照明的；装饰华丽的; v. 照亮；阐明；用灯装饰；启发（illumina..."
+  },
+  "ingenuity": {
+    "phonetic": "",
+    "pos": "n.",
+    "def": "心灵手巧，聪明才智，独创力；精巧的装置；灵活的方法"
+  },
+  "integral": {
+    "phonetic": "",
+    "pos": "adj.",
+    "def": "必需的，必要的；作为组成部分的；完整的；整的，积分的; n. 积分；完整"
+  },
+  "invigorated": {
+    "phonetic": "",
+    "pos": "adj.",
+    "def": "精力充沛的；生气勃勃的; v. 鼓舞；增添活力（invigorate 的过去式）"
+  },
+  "islands": {
+    "phonetic": "",
+    "pos": "n.",
+    "def": "群岛（island 的复数）；岛屿"
+  },
+  "joyful": {
+    "phonetic": "",
+    "pos": "adj.",
+    "def": "高兴的，令人愉快的"
+  },
+  "kayaks": {
+    "phonetic": "",
+    "pos": "n.",
+    "def": "独木舟，单人划子，橡皮船（kayak 的复数）; v. 坐轻便独木舟旅行，使用轻便独木舟（ka..."
+  },
+  "kilns": {
+    "phonetic": "",
+    "pos": "n.",
+    "def": "窑炉（kiln 的复数）; v. 把……放在窑内烧或烘干（kiln 的三单形式）"
+  },
+  "kindness": {
+    "phonetic": "",
+    "pos": "n.",
+    "def": "友好，仁慈，善良；善行，善举; 【名】 （Kindness）（英）坎德尼斯（人名）"
+  },
+  "knees": {
+    "phonetic": "",
+    "pos": "",
+    "def": "[解剖]膝; n. （Knees）人名；（德）克内斯"
+  },
+  "lakeside": {
+    "phonetic": "",
+    "pos": "n.",
+    "def": "湖边; adj. 湖边的"
+  },
+  "letting": {
+    "phonetic": "",
+    "pos": "n.",
+    "def": "（房屋等的）出租期限；（房地产的）出租；已租出或待租房产; v. 让；准许；允许（去某处）；（..."
+  },
+  "lifelong": {
+    "phonetic": "",
+    "pos": "adj.",
+    "def": "终身的"
+  },
+  "lives": {
+    "phonetic": "",
+    "pos": "",
+    "def": "生活，[生物] 生命（life的复数）; 生活；居住（live的三单形式）"
+  },
+  "looms": {
+    "phonetic": "",
+    "pos": "n.",
+    "def": "织布机（loom 的复数）; v. 隐现（loom 的三单形式）；用织机织"
+  },
+  "lovers": {
+    "phonetic": "",
+    "pos": "n.",
+    "def": "（非婚的）情人；爱好者（lover 的复数）"
+  },
+  "loyal": {
+    "phonetic": "",
+    "pos": "adj.",
+    "def": "忠诚的，忠贞的; 【名】 （Loyal）（英、德、西、匈、法）洛亚尔（人名）"
+  },
+  "luminous": {
+    "phonetic": "",
+    "pos": "adj.",
+    "def": "夜光的，发亮的；鲜亮的，鲜艳的；照亮的，明亮的；睿智的，美丽的；光亮的"
+  },
+  "magical": {
+    "phonetic": "",
+    "pos": "adj.",
+    "def": "魔法的，魔术的；神奇的，迷人的"
+  },
+  "markets": {
+    "phonetic": "",
+    "pos": "n.",
+    "def": "[贸易]市场，市场组合（market复数）; v. 出售；推销（market 的第三人称单数）"
+  },
+  "meetings": {
+    "phonetic": "",
+    "pos": "n.",
+    "def": "会议，集会；偶遇，会面（meeting 的复数）"
+  },
+  "metal": {
+    "phonetic": "",
+    "pos": "n.",
+    "def": "重金属音乐；金属色；筑路碎石；玻璃液；（铁路的）钢轨；金属，合金; v. 用金属做，用金属包；..."
+  },
+  "meter": {
+    "phonetic": "",
+    "pos": "n.",
+    "def": "计量器，仪，表；停车收费器；<美>米；<美>（诗歌的）韵律，格律; v. 用仪表计量（测量），..."
+  },
+  "mighty": {
+    "phonetic": "",
+    "pos": "adj.",
+    "def": "强大的，巨大的；（动作）用力的，需用力的; adv. 很，非常，十分"
+  },
+  "migratory": {
+    "phonetic": "",
+    "pos": "adj.",
+    "def": "迁移的；流浪的"
+  },
+  "milestones": {
+    "phonetic": "",
+    "pos": "n.",
+    "def": "里程碑；时间表"
+  },
+  "military": {
+    "phonetic": "",
+    "pos": "adj.",
+    "def": "军事的，军队的；陆军的；军人般的，军人作风的; n. 军人，军方"
   }
 };
