@@ -1510,12 +1510,28 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
           <h2 style="font-size: 20px; font-weight: 800; color: #1a1a1a; margin-top: 4px;">${formatSpeechDisplayName(speech)}</h2>
         </div>
-        <span style="font-size: 13px; color: #23613c; font-weight: 600; background: #e2ebe3; padding: 4px 12px; border-radius: 20px;">
+        <span style="font-size: 13px; color: #23613c; font-weight: 600; background: #e2ebe3; padding: 4px 12px; border-radius: 20px;" id="speech-header-count-badge">
           📖 共 ${speech.sections.length} 个讲解段落
         </span>
       </div>
+
+      <!-- 版本切换选择器（标题下方：官方标准版 VS AI极简口语版） -->
+      <div class="speech-version-bar">
+        <div class="speech-version-selector" id="speech-version-tabs">
+          <button class="version-tab-btn ${currentSpeechVersion === 'standard' ? 'active' : ''}" data-version="standard" title="考纲标准官方全文，详实专业">
+            <span>🌟</span> 官方标准版
+          </button>
+          <button class="version-tab-btn ${currentSpeechVersion === 'simplified' ? 'active' : ''}" data-version="simplified" title="长句化短句、用词通俗易背、口语亲和自然">
+            <span>⚡</span> AI 极简口语版
+          </button>
+        </div>
+        <span class="version-badge-tip" id="version-current-tip">
+          ${currentSpeechVersion === 'simplified' ? '⚡ AI精简口语版：短句为主，易背易脱口而出' : '🌟 官方标准版：官方大纲原文，详尽全面'}
+        </span>
+      </div>
+
       ${speech.image ? `
-        <div style="margin-top: 14px; width: 100%; overflow: hidden; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+        <div style="margin-top: 6px; width: 100%; overflow: hidden; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
           <img src="${speech.image}" alt="${speech.name}" style="width: 100%; max-height: 360px; object-fit: cover; display: block; border-radius: 8px;" onerror="this.style.display='none'" />
         </div>
       ` : ''}
@@ -1582,11 +1598,12 @@ document.addEventListener('DOMContentLoaded', () => {
           const btn = currentPlayingCard.querySelector('.btn-read-sec');
           if (btn && currentPlayingCard.dataset.playState === 'playing') {
             const idx = parseInt(currentPlayingCard.dataset.idx || '0', 10);
-            const sec = speech.sections[idx];
+            const curSections = getActiveSections();
+            const sec = curSections[idx];
             if (sec) {
               const cleanText = sec.en.replace(/<[^>]*>/g, '').replace(/^(English|Chinese)[:：/\s]*/gi, '').trim();
               const enContainer = currentPlayingCard.querySelector('.speech-text-en');
-              const audioUrl = getSpeechAudioUrl(speech, idx, val);
+              const audioUrl = currentSpeechVersion === 'standard' ? getSpeechAudioUrl(speech, idx, val) : '';
               const resetState = () => {
                 currentPlayingCard.dataset.playState = 'idle';
                 currentPlayingCard.classList.remove('reading-active');
@@ -1618,9 +1635,10 @@ document.addEventListener('DOMContentLoaded', () => {
     container.appendChild(controlCard);
 
     // 3. 速记大纲与动线流程图卡片 (Mindflow & Keywords)
+    let outlineCard = null;
     if (speech.outline) {
       const outline = speech.outline;
-      const outlineCard = document.createElement('div');
+      outlineCard = document.createElement('div');
       outlineCard.className = 'speech-outline-card';
       
       let routeHtml = '';
@@ -1693,7 +1711,7 @@ document.addEventListener('DOMContentLoaded', () => {
       container.appendChild(outlineCard);
     }
 
-    // 绑定"全篇讲解"（简洁模式：全篇讲解 <-> 停止讲解，从头开始）
+    // 4. 段落卡片容器与连续播放控制
     let tourState = 'idle'; // 'idle' | 'playing'
     let continuousTourIndex = 0;
     const playAllBtn = controlCard.querySelector('#btn-play-all');
@@ -1724,9 +1742,17 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     };
 
+    function getActiveSections() {
+      if (currentSpeechVersion === 'simplified' && speech.simplifiedSections && speech.simplifiedSections.length > 0) {
+        return speech.simplifiedSections;
+      }
+      return speech.sections || [];
+    }
+
     function playContinuousSection(secIdx, sessionId) {
       if (tourState !== 'playing' || sessionId !== globalTourSessionId) return;
-      if (!speech || !speech.sections || secIdx >= speech.sections.length) {
+      const curSections = getActiveSections();
+      if (!curSections || secIdx >= curSections.length) {
         stopAllAudio();
         return;
       }
@@ -1742,7 +1768,7 @@ document.addEventListener('DOMContentLoaded', () => {
         targetCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
 
-      const sec = speech.sections[secIdx];
+      const sec = curSections[secIdx];
       const cleanText = sec.en.replace(/<[^>]*>/g, '').replace(/^(English|Chinese)[:：/\s]*/gi, '').trim();
       const enContainer = targetCard ? targetCard.querySelector('.speech-text-en') : null;
 
@@ -1755,7 +1781,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 400);
       };
 
-      const audioUrl = getSpeechAudioUrl(speech, secIdx);
+      const audioUrl = currentSpeechVersion === 'standard' ? getSpeechAudioUrl(speech, secIdx) : '';
       playAudioOrTTS(audioUrl, cleanText, enContainer, onSectionEnd, true);
     }
 
@@ -1795,20 +1821,19 @@ document.addEventListener('DOMContentLoaded', () => {
         const lower = clean.toLowerCase();
         if (stopwords.has(lower)) return;
 
-        // 1. Numbers with units (e.g. 6621.6, 200, 4050)
+        // 1. Numbers with units
         if (/^\d/.test(clean)) { keywords.add(word); return; }
 
-        // 2. Proper nouns: capitalized but NOT at sentence start
+        // 2. Proper nouns
         if (/^[A-Z]/.test(clean)) {
-          // Find which position in its sentence
           const inSentence = sentences.some(s => {
             const wds = s.trim().split(/\s+/);
-            return wds.indexOf(word) > 0; // not first word
+            return wds.indexOf(word) > 0;
           });
           if (inSentence || clean.length >= 5) { keywords.add(word); return; }
         }
 
-        // 3. Long content words (adjectives/verbs/nouns, length >= 7)
+        // 3. Long content words
         if (clean.length >= 7 && /[a-z]/.test(clean)) {
           keywords.add(word);
         }
@@ -1817,87 +1842,129 @@ document.addEventListener('DOMContentLoaded', () => {
       return [...keywords];
     }
 
-    speech.sections.forEach((sec, idx) => {
-      const card = document.createElement('div');
-      card.className = 'card';
-      card.dataset.idx = idx;
-      card.dataset.masked = 'false';
-      card.dataset.playState = 'idle'; // idle | playing
+    // 建立段落容器
+    const sectionsContainer = document.createElement('div');
+    sectionsContainer.className = 'speech-sections-container';
+    container.appendChild(sectionsContainer);
 
-      function bindReadBtn() {
-        const btn = card.querySelector('.btn-read-sec');
-        if (!btn) return;
-        btn.addEventListener('click', () => {
-          const state = card.dataset.playState;
-          if (state === 'playing') {
-            stopAllAudio();
-            return;
-          }
+    function renderSectionCards() {
+      sectionsContainer.innerHTML = '';
+      const curSections = getActiveSections();
 
-          stopAllAudio();
-          currentPlayingCard = card;
-          card.dataset.playState = 'playing';
-          card.classList.add('reading-active');
-          btn.textContent = '⏹ 停止朗读';
-
-          const cleanText = sec.en.replace(/<[^>]*>/g, '').replace(/^(English|Chinese)[:：/\s]*/gi, '').trim();
-          const enContainer = card.querySelector('.speech-text-en');
-
-          const resetState = () => {
-            card.dataset.playState = 'idle';
-            card.classList.remove('reading-active');
-            if (btn) btn.textContent = '示范朗读';
-            clearSpeechHighlights(enContainer);
-            if (currentPlayingCard === card) {
-              currentPlayingCard = null;
-            }
-          };
-
-          const audioUrl = getSpeechAudioUrl(speech, idx);
-          playAudioOrTTS(audioUrl, cleanText, enContainer, resetState, true);
-        });
+      // 更新顶部徽章与提示
+      const badge = headerCard.querySelector('#speech-header-count-badge');
+      if (badge) {
+        badge.textContent = `📖 共 ${curSections.length} 个${currentSpeechVersion === 'simplified' ? '精简口语' : '讲解'}段落`;
+      }
+      const tip = headerCard.querySelector('#version-current-tip');
+      if (tip) {
+        tip.textContent = currentSpeechVersion === 'simplified' 
+          ? '⚡ AI精简口语版：短句为主，易背易脱口而出' 
+          : '🌟 官方标准版：官方大纲原文，详尽全面';
       }
 
-      function renderCardContent(masked) {
-        let enText = sec.en;
-        if (masked) {
-          const kws = extractKeywords(sec.en);
-          kws.forEach(kw => {
-            const escaped = kw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-            const reg = new RegExp(`\\b${escaped}\\b`, 'g');
-            enText = enText.replace(reg,
-              `<span class="kw-masked" onclick="this.classList.toggle('revealed')">${kw}</span>`);
+      curSections.forEach((sec, idx) => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.dataset.idx = idx;
+        card.dataset.masked = 'false';
+        card.dataset.playState = 'idle';
+
+        function bindReadBtn() {
+          const btn = card.querySelector('.btn-read-sec');
+          if (!btn) return;
+          btn.addEventListener('click', () => {
+            const state = card.dataset.playState;
+            if (state === 'playing') {
+              stopAllAudio();
+              return;
+            }
+
+            stopAllAudio();
+            currentPlayingCard = card;
+            card.dataset.playState = 'playing';
+            card.classList.add('reading-active');
+            btn.textContent = '⏹ 停止朗读';
+
+            const cleanText = sec.en.replace(/<[^>]*>/g, '').replace(/^(English|Chinese)[:：/\s]*/gi, '').trim();
+            const enContainer = card.querySelector('.speech-text-en');
+
+            const resetState = () => {
+              card.dataset.playState = 'idle';
+              card.classList.remove('reading-active');
+              if (btn) btn.textContent = '示范朗读';
+              clearSpeechHighlights(enContainer);
+              if (currentPlayingCard === card) {
+                currentPlayingCard = null;
+              }
+            };
+
+            const audioUrl = currentSpeechVersion === 'standard' ? getSpeechAudioUrl(speech, idx) : '';
+            playAudioOrTTS(audioUrl, cleanText, enContainer, resetState, true);
           });
         }
 
-        // 按钮文字根据当前播放状态恢复
-        const btnLabel = card.dataset.playState === 'playing' ? '⏹ 停止朗读' : '示范朗读';
+        function renderCardContent(masked) {
+          let enText = sec.en;
+          if (masked) {
+            const kws = extractKeywords(sec.en);
+            kws.forEach(kw => {
+              const escaped = kw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+              const reg = new RegExp(`\\b${escaped}\\b`, 'g');
+              enText = enText.replace(reg,
+                `<span class="kw-masked" onclick="this.classList.toggle('revealed')">${kw}</span>`);
+            });
+          }
 
-        card.innerHTML = `
-          ${sec.title ? `<div class="section-title"><span>${sec.title}</span></div>` : ''}
-          <div class="speech-text-en">${enText}</div>
-          ${sec.cn ? `<div class="speech-text-cn">${sec.cn}</div>` : ''}
-          <div class="card-actions">
-            <button class="action-btn btn-read-sec" data-idx="${idx}">${btnLabel}</button>
-            <button class="action-btn btn-toggle-mask" data-idx="${idx}" style="${masked ? 'background:var(--primary-red);color:#fff;' : ''}">
-              ${masked ? '显示原文' : '遮挡关键词'}
-            </button>
-          </div>
-        `;
+          const btnLabel = card.dataset.playState === 'playing' ? '⏹ 停止朗读' : '示范朗读';
 
-        // 每次重建 DOM 后立即重绑两个按钮的监听器
-        bindReadBtn();
-        card.querySelector('.btn-toggle-mask').addEventListener('click', () => {
-          const nowMasked = card.dataset.masked === 'true';
-          card.dataset.masked = (!nowMasked).toString();
-          renderCardContent(!nowMasked);
-        });
-      }
+          card.innerHTML = `
+            ${sec.title ? `<div class="section-title"><span>${sec.title}</span></div>` : ''}
+            <div class="speech-text-en">${enText}</div>
+            ${sec.cn ? `<div class="speech-text-cn">${sec.cn}</div>` : ''}
+            <div class="card-actions">
+              <button class="action-btn btn-read-sec" data-idx="${idx}">${btnLabel}</button>
+              <button class="action-btn btn-toggle-mask" data-idx="${idx}" style="${masked ? 'background:var(--primary-red);color:#fff;' : ''}">
+                ${masked ? '显示原文' : '遮挡关键词'}
+              </button>
+            </div>
+          `;
 
-      renderCardContent(false);
-      container.appendChild(card);
+          bindReadBtn();
+          card.querySelector('.btn-toggle-mask').addEventListener('click', () => {
+            const nowMasked = card.dataset.masked === 'true';
+            card.dataset.masked = (!nowMasked).toString();
+            renderCardContent(!nowMasked);
+          });
+        }
+
+        renderCardContent(false);
+        sectionsContainer.appendChild(card);
+      });
+    }
+
+    // 绑定版本切换按钮交互
+    const versionTabs = headerCard.querySelectorAll('.version-tab-btn');
+    versionTabs.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetVersion = btn.dataset.version;
+        if (targetVersion === currentSpeechVersion) return;
+
+        stopAllAudio();
+        currentSpeechVersion = targetVersion;
+        try {
+          localStorage.setItem('tour_speech_version', currentSpeechVersion);
+        } catch (_) {}
+
+        versionTabs.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        renderSectionCards();
+      });
     });
 
+    // 首次渲染段落列表
+    renderSectionCards();
   }
 
 
