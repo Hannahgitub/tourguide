@@ -1008,12 +1008,12 @@ document.addEventListener('DOMContentLoaded', () => {
     
     let ansHTML = `
       <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 10px;">
-        <div style="white-space: pre-line; font-size: 15px; font-weight: 700; color: #1e3a8a; line-height: 1.6; flex: 1;">${qItem.answer}</div>
+        <div class="practice-en-ans-content" style="white-space: pre-line; font-size: 15px; font-weight: 700; color: #1e3a8a; line-height: 1.6; flex: 1;">${qItem.answer}</div>
         <button class="action-btn" id="btn-practice-listen-ans" title="听英文答案" style="padding: 4px 10px; font-size: 15px; background: #ebf5ee; border: 1px solid #c6e2ce; color: #2d7a4c; border-radius: 50%; width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0;">🔊</button>
       </div>
     `;
     if (qItem.cnAnswer) {
-      ansHTML += `<div style="white-space: pre-line; font-size: 14px; color: #475569; margin-top: 10px; border-top: 1px dashed #cbd5e1; padding-top: 10px; line-height: 1.6; font-weight: 500;">${qItem.cnAnswer}</div>`;
+      ansHTML += `<div class="practice-cn-ans-content" style="white-space: pre-line; font-size: 14px; color: #475569; margin-top: 10px; border-top: 1px dashed #cbd5e1; padding-top: 10px; line-height: 1.6; font-weight: 500;">${qItem.cnAnswer}</div>`;
     }
     const refTextEl = document.getElementById('practice-ref-text');
     const refBoxEl = document.getElementById('practice-ref-box');
@@ -1031,7 +1031,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btnListenAns) {
       btnListenAns.addEventListener('click', () => {
         const cleanAnsText = qItem.answer.replace(/<[^>]*>/g, '');
-        const audioUrl = qItem.id ? `audio/questions/answer_${qItem.id}.mp3` : ''; playAudioOrTTS(audioUrl, cleanAnsText, refTextEl);
+        const audioUrl = qItem.id ? `audio/questions/answer_${qItem.id}.mp3` : '';
+        const targetEnEl = refTextEl ? refTextEl.querySelector('.practice-en-ans-content') : null;
+        playAudioOrTTS(audioUrl, cleanAnsText, targetEnEl);
       });
     }
   }
@@ -1088,12 +1090,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let ansContentHTML = `
           <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 10px;">
-            <div style="white-space: pre-line; font-size: 15px; font-weight: 700; color: #1e3a8a; line-height: 1.6; flex: 1;">${qa.answer}</div>
+            <div class="qa-en-ans-content" style="white-space: pre-line; font-size: 15px; font-weight: 700; color: #1e3a8a; line-height: 1.6; flex: 1;">${qa.answer}</div>
             <button class="action-btn btn-qa-read-ans" data-idx="${idx}" title="听英文答案" style="padding: 4px 10px; font-size: 15px; background: #ebf5ee; border: 1px solid #c6e2ce; color: #2d7a4c; border-radius: 50%; width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0;">🔊</button>
           </div>
         `;
         if (qa.cnAnswer) {
-          ansContentHTML += `<div style="white-space: pre-line; font-size: 14px; color: #475569; margin-top: 10px; border-top: 1px dashed #cbd5e1; padding-top: 10px; line-height: 1.6; font-weight: 500;">${qa.cnAnswer}</div>`;
+          ansContentHTML += `<div class="qa-cn-ans-content" style="white-space: pre-line; font-size: 14px; color: #475569; margin-top: 10px; border-top: 1px dashed #cbd5e1; padding-top: 10px; line-height: 1.6; font-weight: 500;">${qa.cnAnswer}</div>`;
         }
 
         card.innerHTML = `
@@ -1136,7 +1138,7 @@ document.addEventListener('DOMContentLoaded', () => {
           const cleanAnsText = (list[i].enAnswer || list[i].answer || '').replace(/<[^>]*>/g, '');
           const audioUrl = list[i].id ? `audio/questions/answer_${list[i].id}.mp3` : '';
           const cardEl = btn.closest('.card');
-          const ansEl = cardEl ? cardEl.querySelector('.ref-answer-text') : null;
+          const ansEl = cardEl ? cardEl.querySelector('.qa-en-ans-content') : null;
           playAudioOrTTS(audioUrl, cleanAnsText, ansEl);
         });
       });
